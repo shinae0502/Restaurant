@@ -13,6 +13,9 @@
 ## 개발문서
 https://drive.google.com/open?id=1EfbzRXmUDIfy4iQovcftCxq3qwHzh-hbaKqDqP-PsGo
 
+## 플레이스토어 링크
+https://play.google.com/store/apps/details?id=com.study.restaurant
+
 ## 1. 프로젝트 생성
 ![Alt Text](sample/0.png)
 
