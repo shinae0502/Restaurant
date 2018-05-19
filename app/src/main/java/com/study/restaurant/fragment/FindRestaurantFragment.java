@@ -1,4 +1,4 @@
-package com.study.restaurant;
+package com.study.restaurant.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,14 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class NewsFragment extends Fragment {
+import com.study.restaurant.R;
 
-    public NewsFragment() {
+public class FindRestaurantFragment extends Fragment {
+
+    public FindRestaurantFragment() {
         // Required empty public constructor
     }
 
-    public static NewsFragment newInstance() {
-        NewsFragment fragment = new NewsFragment();
+    public static FindRestaurantFragment newInstance() {
+        FindRestaurantFragment fragment = new FindRestaurantFragment();
         return fragment;
     }
 
@@ -26,6 +28,6 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false);
+        return inflater.inflate(R.layout.fragment_find_restaurant, container, false);
     }
 }

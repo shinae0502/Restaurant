@@ -10,7 +10,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.study.restaurant.fragment.FindRestaurantFragment;
+import com.study.restaurant.fragment.MangoPickFragment;
+import com.study.restaurant.fragment.MyInformationFragment;
+import com.study.restaurant.fragment.NewsFragment;
+import com.study.restaurant.fragment.RegisterFragment;
 
 public class MainActivity extends AppCompatActivity {
 
