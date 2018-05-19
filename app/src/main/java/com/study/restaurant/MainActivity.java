@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.study.restaurant.fragment.FindRestaurantFragment;
 import com.study.restaurant.fragment.MangoPickFragment;
@@ -17,7 +18,8 @@ import com.study.restaurant.fragment.MyInformationFragment;
 import com.study.restaurant.fragment.NewsFragment;
 import com.study.restaurant.fragment.RegisterFragment;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements FunctionImpl.Main {
 
     ViewPager pager;
     BottomNavigationView navigation;
@@ -26,31 +28,6 @@ public class MainActivity extends AppCompatActivity {
     NewsFragment newsFragment;
     RegisterFragment registerFragment;
     MangoPickFragment mangoPickFragment;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    pager.setCurrentItem(0);
-                    return true;
-                case R.id.navigation_dashboard:
-                    pager.setCurrentItem(1);
-                    return true;
-                case R.id.navigation_notifications:
-                    return true;
-                case R.id.navigation_register:
-                    pager.setCurrentItem(2);
-                    return true;
-                case R.id.navigation_information:
-                    pager.setCurrentItem(3);
-                    return true;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +74,31 @@ public class MainActivity extends AppCompatActivity {
         appCompatActivity.startActivity(intent);
     }
 
+    @Override
+    public void goFindRestaurant() {
+        pager.setCurrentItem(0);
+    }
+
+    @Override
+    public void goMangoPick() {
+
+    }
+
+    @Override
+    public void goRegister() {
+
+    }
+
+    @Override
+    public void goNews() {
+
+    }
+
+    @Override
+    public void goMyInformation() {
+
+    }
+
     public class MainPageAdapter extends FragmentStatePagerAdapter {
 
         public MainPageAdapter(FragmentManager fm) {
@@ -136,4 +138,29 @@ public class MainActivity extends AppCompatActivity {
             return 4;
         }
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    goFindRestaurant();
+                    return true;
+                case R.id.navigation_dashboard:
+                    pager.setCurrentItem(1);
+                    return true;
+                case R.id.navigation_notifications:
+                    return true;
+                case R.id.navigation_register:
+                    pager.setCurrentItem(2);
+                    return true;
+                case R.id.navigation_information:
+                    pager.setCurrentItem(3);
+                    return true;
+            }
+            return false;
+        }
+    };
 }

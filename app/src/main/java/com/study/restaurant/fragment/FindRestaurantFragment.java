@@ -6,9 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.study.restaurant.FunctionImpl;
 import com.study.restaurant.R;
 
-public class FindRestaurantFragment extends Fragment {
+public class FindRestaurantFragment extends Fragment implements FunctionImpl.FindRestaurant {
 
     public FindRestaurantFragment() {
         // Required empty public constructor
@@ -29,5 +30,100 @@ public class FindRestaurantFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_find_restaurant, container, false);
+    }
+
+    @Override
+    public void clickSelectLocation() {
+        //TODO::
+    }
+
+    @Override
+    public void showSelectLocationPopup() {
+        //TODO::
+    }
+
+    @Override
+    public void clickSearch() {
+        //TODO::
+    }
+
+    @Override
+    public void goSearch() {
+        //TODO::
+    }
+
+    @Override
+    public void clickMap() {
+        //TODO::
+    }
+
+    @Override
+    public void goMap() {
+        //TODO::
+    }
+
+    @Override
+    public void clickBanner() {
+        //TODO::
+    }
+
+    @Override
+    public void goBanner() {
+        //TODO::
+    }
+
+    @Override
+    public void clickSort() {
+        //TODO::
+    }
+
+    @Override
+    public void showSelectSortItemPopup() {
+        //TODO::
+    }
+
+    @Override
+    public void clickBoundary() {
+        //TODO::
+    }
+
+    @Override
+    public void showSelectBoundaryPopup() {
+        //TODO::
+    }
+
+    @Override
+    public void clickFilter() {
+        //TODO::
+    }
+
+    @Override
+    public void showSelectFilterPopup() {
+        //TODO::
+    }
+
+    @Override
+    public void clickEventBanner() {
+        //TODO::
+    }
+
+    @Override
+    public void goEvent() {
+        //TODO::
+    }
+
+    @Override
+    public void clickListItem() {
+        //TODO::
+    }
+
+    @Override
+    public void goRestaurant() {
+        //TODO::
+    }
+
+    @Override
+    public void setShowTopButton(boolean show) {
+        //TODO::
     }
 }
