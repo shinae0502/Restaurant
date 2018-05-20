@@ -41,7 +41,6 @@ public class FindRestaurantFragment extends Fragment implements FunctionImpl.Fin
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        getActivity().getMenuInflater().inflate(R.menu.main_find_restaurant, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
