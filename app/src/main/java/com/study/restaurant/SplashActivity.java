@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 progress.setImageResource(currentAnim);
                 progress.startAnimation(anim);
-                sendEmptyMessageDelayed(0, 710);
+                sendEmptyMessageDelayed(0, 600);
             }
         }.sendEmptyMessage(0);
     }

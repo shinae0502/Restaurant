@@ -6,30 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
-    <ImageButton
+    <ImageView
+        android:id="@+id/bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/login_bg" />
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:src="@drawable/img_intro_bg_3" />
+
+    <ImageView
+        android:id="@+id/bg1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:src="@drawable/img_intro_bg_2" />
+
+    <ImageView
+        android:id="@+id/bg2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:src="@drawable/img_intro_bg_1" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#55000000"></View>
 
-    <TextView
+    <RelativeLayout
         android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="B A N A N A\nP L A T E"
-        android:textColor="#FFFFFF"
-        android:textSize="40sp"
-        android:textStyle="bold"
+        android:layout_width="188dp"
+        android:layout_height="115dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.17">
+
+        <include layout="@layout/layout_title" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="220dp"
@@ -40,11 +61,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.55">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="카카오톡으로 시작하기"/>
+            android:text="카카오톡으로 시작하기" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -56,27 +78,28 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.65">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textColor="#FFFFFF"
-            android:text="페이스북으로 시작하기"/>
+            android:text="페이스북으로 시작하기"
+            android:textColor="#FFFFFF" />
     </RelativeLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@null"
+        android:onClick="skip"
         android:text="건너뛰기"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:background="@null"
-        android:onClick="skip"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95"
-        app:layout_constraintHorizontal_bias="0.95"/>
+        app:layout_constraintVertical_bias="0.95" />
 
 </android.support.constraint.ConstraintLayout>
