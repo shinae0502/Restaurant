@@ -7,14 +7,6 @@
     android:background="@color/colorPrimary"
     tools:context=".SplashActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img1"
-        android:visibility="gone" />
-
     <RelativeLayout
         android:id="@+id/title"
         android:layout_width="188dp"
@@ -55,7 +47,7 @@
         android:src="@drawable/icon_cuisine_japanese"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.481" />
 
