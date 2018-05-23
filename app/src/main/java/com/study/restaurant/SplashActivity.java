@@ -23,34 +23,36 @@ public class SplashActivity extends AppCompatActivity {
         Log.d("sarang", "onCreate");
         progress = findViewById(R.id.progress);
         anim = AnimationUtils.loadAnimation(this, R.anim.rotation);
+        new SplashImageHandler().sendEmptyMessage(0);
 
-        new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
+    }
 
-                switch (currentAnim) {
-                    case R.drawable.icon_cuisine_japanese:
-                        currentAnim = R.drawable.icon_cuisine_korean;
-                        break;
+    class SplashImageHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
 
-                    case R.drawable.icon_cuisine_korean:
-                        currentAnim = R.drawable.icon_cuisine_western;
-                        break;
+            switch (currentAnim) {
+                case R.drawable.icon_cuisine_japanese:
+                    currentAnim = R.drawable.icon_cuisine_korean;
+                    break;
 
-                    case R.drawable.icon_cuisine_western:
-                        currentAnim = R.drawable.icon_cuisine_world;
-                        break;
+                case R.drawable.icon_cuisine_korean:
+                    currentAnim = R.drawable.icon_cuisine_western;
+                    break;
 
-                    case R.drawable.icon_cuisine_world:
-                        currentAnim = R.drawable.icon_cuisine_japanese;
-                        break;
-                }
-                progress.setImageResource(currentAnim);
-                progress.startAnimation(anim);
-                sendEmptyMessageDelayed(0, 600);
+                case R.drawable.icon_cuisine_western:
+                    currentAnim = R.drawable.icon_cuisine_world;
+                    break;
+
+                case R.drawable.icon_cuisine_world:
+                    currentAnim = R.drawable.icon_cuisine_japanese;
+                    break;
             }
-        }.sendEmptyMessage(0);
+            progress.setImageResource(currentAnim);
+            progress.startAnimation(anim);
+            sendEmptyMessageDelayed(0, 600);
+        }
     }
 
     public void next(View v) {

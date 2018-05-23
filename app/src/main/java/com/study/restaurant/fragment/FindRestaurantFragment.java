@@ -62,6 +62,11 @@ public class FindRestaurantFragment extends Fragment implements FunctionImpl.Fin
         TextView textView = v.findViewById(R.id.location);
         textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
+        TextView filter = v.findViewById(R.id.filter);
+        filter.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+
+
         return v;
     }
 
