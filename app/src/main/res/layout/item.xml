@@ -25,10 +25,10 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/img"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/img_intro_bg_1" />
+                    android:scaleType="centerCrop" />
 
                 <ImageView
                     android:layout_width="30dp"
@@ -51,20 +51,18 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1. 뉴질랜드 스토리"
                         android:textColor="#000000" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="송파/가락 - 2.68km" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="123,455 116" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <TextView
@@ -74,7 +72,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:textColor="@color/colorPrimary"
-                    android:text="2.5"
                     android:textSize="20sp" />
 
             </RelativeLayout>
@@ -100,8 +97,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/img_intro_bg_1" />
+                android:scaleType="centerCrop" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -117,18 +113,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1. 뉴질랜드 스토리"
                         android:textColor="#000000" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="송파/가락 - 2.68km" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="123,455 116" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <TextView
@@ -138,7 +131,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:textColor="@color/colorPrimary"
-                    android:text="2.5"
                     android:textSize="20sp" />
 
             </RelativeLayout>

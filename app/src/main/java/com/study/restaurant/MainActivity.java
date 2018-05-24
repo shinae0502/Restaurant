@@ -9,14 +9,23 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.fragment.FindRestaurantFragment;
 import com.study.restaurant.fragment.MangoPickFragment;
 import com.study.restaurant.fragment.MyInformationFragment;
 import com.study.restaurant.fragment.NewsFragment;
 import com.study.restaurant.fragment.RegisterFragment;
+import com.study.restaurant.model.Store;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements FunctionImpl.Main {
@@ -64,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements FunctionImpl.Main
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
     }
@@ -81,22 +89,18 @@ public class MainActivity extends AppCompatActivity implements FunctionImpl.Main
 
     @Override
     public void goMangoPick() {
-
     }
 
     @Override
     public void goRegister() {
-
     }
 
     @Override
     public void goNews() {
-
     }
 
     @Override
     public void goMyInformation() {
-
     }
 
     public class MainPageAdapter extends FragmentStatePagerAdapter {

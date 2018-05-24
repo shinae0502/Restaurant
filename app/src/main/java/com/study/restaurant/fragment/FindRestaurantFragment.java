@@ -10,17 +10,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.FunctionImpl;
+import com.study.restaurant.MyGlide;
 import com.study.restaurant.R;
+import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.model.Store;
 import com.viewpagerindicator.CirclePageIndicator;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FindRestaurantFragment extends Fragment implements FunctionImpl.FindRestaurant {
 
@@ -65,12 +76,36 @@ public class FindRestaurantFragment extends Fragment implements FunctionImpl.Fin
         TextView filter = v.findViewById(R.id.filter);
         filter.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
+        ApiManager.getInstance().getStoreSummary(new Store(), new ApiManager.CallbackListener() {
+            @Override
+            public void callback(String result) {
+                Log.d("exceptionTag", "" + result);
+                Type listType = new TypeToken<ArrayList<Store>>() {
+                }.getType();
+                List<Store> storeList = new Gson().fromJson(result, listType);
+                ((RvAdt) findRestaurantRv.getAdapter()).setStoreList(storeList);
+            }
 
+            @Override
+            public void failed(String msg) {
+            }
+        });
 
         return v;
     }
 
     public class RvAdt extends RecyclerView.Adapter<RvHolder> {
+
+        List<Store> storeList = new ArrayList<>();
+
+        public List<Store> getStoreList() {
+            return storeList;
+        }
+
+        public void setStoreList(List<Store> storeList) {
+            this.storeList = storeList;
+            notifyDataSetChanged();
+        }
 
         @Override
         public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -81,19 +116,27 @@ public class FindRestaurantFragment extends Fragment implements FunctionImpl.Fin
 
         @Override
         public void onBindViewHolder(RvHolder holder, int position) {
-
+            holder.title.setText(storeList.get(position).getName());
+            MyGlide.with(holder.itemView.getContext())
+                    .load(storeList.get(position).getImg())
+                    .into(holder.img);
         }
 
         @Override
         public int getItemCount() {
-            return 100;
+            return storeList.size();
         }
     }
 
     public class RvHolder extends RecyclerView.ViewHolder {
 
+        TextView title;
+        ImageView img;
+
         public RvHolder(View itemView) {
             super(itemView);
+            title = itemView.findViewById(R.id.title);
+            img = itemView.findViewById(R.id.img);
         }
     }
 
