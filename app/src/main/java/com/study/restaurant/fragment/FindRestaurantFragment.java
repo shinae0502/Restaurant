@@ -22,8 +22,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.study.restaurant.FunctionImpl;
-import com.study.restaurant.MyGlide;
+import com.study.restaurant.common.FunctionImpl;
+import com.study.restaurant.util.MyGlide;
 import com.study.restaurant.R;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.model.Store;

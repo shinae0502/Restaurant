@@ -1,4 +1,4 @@
-package com.study.restaurant;
+package com.study.restaurant.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import com.study.restaurant.R;
+import com.study.restaurant.activity.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
