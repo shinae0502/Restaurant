@@ -37,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="맛집찾기"
+                android:textColor="@color/selector_main_menu"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -58,6 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="망고픽"
+                android:textColor="@color/selector_main_menu"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -94,6 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="소식"
+                android:textColor="@color/selector_main_menu"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -115,6 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="내정보"
+                android:textColor="@color/selector_main_menu"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>

@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -60,7 +61,7 @@ public class FindRestaurantFragment extends Fragment implements FunctionImpl.Fin
         ((AppCompatActivity) getActivity()).setSupportActionBar((Toolbar) v.findViewById(R.id.toolbar));
 
         findRestaurantRv = v.findViewById(R.id.findRestaurantRv);
-        findRestaurantRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        findRestaurantRv.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
         findRestaurantRv.setAdapter(new RvAdt());
         findRestaurantRv.setNestedScrollingEnabled(false);
 
@@ -116,10 +117,16 @@ public class FindRestaurantFragment extends Fragment implements FunctionImpl.Fin
 
         @Override
         public void onBindViewHolder(RvHolder holder, int position) {
-            holder.title.setText(storeList.get(position).getName());
+            holder.title.setText((position + 1) + ". " + storeList.get(position).getName());
             MyGlide.with(holder.itemView.getContext())
                     .load(storeList.get(position).getImg())
                     .into(holder.img);
+
+            holder.region.setText(storeList.get(position).getLocation());
+            holder.distances.setText("2.68km");
+            holder.view.setText(storeList.get(position).getHit());
+            holder.review.setText(storeList.get(position).getReview_count());
+            holder.score.setText(storeList.get(position).getScore());
         }
 
         @Override
@@ -132,11 +139,21 @@ public class FindRestaurantFragment extends Fragment implements FunctionImpl.Fin
 
         TextView title;
         ImageView img;
+        TextView region;
+        TextView distances;
+        TextView view;
+        TextView review;
+        TextView score;
 
         public RvHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
             img = itemView.findViewById(R.id.img);
+            region = itemView.findViewById(R.id.region);
+            distances = itemView.findViewById(R.id.distances);
+            view = itemView.findViewById(R.id.view);
+            review = itemView.findViewById(R.id.review);
+            score = itemView.findViewById(R.id.score);
         }
     }
 

@@ -39,6 +39,11 @@ public class MainActivity extends AppCompatActivity implements FunctionImpl.Main
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         r1 = findViewById(R.id.r1);
+        r2 = findViewById(R.id.r2);
+        r3 = findViewById(R.id.r3);
+        r4 = findViewById(R.id.r4);
+        r5 = findViewById(R.id.r5);
+
         r1.setSelected(true);
         pager = findViewById(R.id.pager);
         pager.setAdapter(new MainPageAdapter(getSupportFragmentManager()));
@@ -51,14 +56,24 @@ public class MainActivity extends AppCompatActivity implements FunctionImpl.Main
 
             @Override
             public void onPageSelected(int position) {
+                r1.setSelected(false);
+                r2.setSelected(false);
+                r3.setSelected(false);
+                r4.setSelected(false);
+                r5.setSelected(false);
+
                 switch (position) {
                     case 0:
+                        r1.setSelected(true);
                         break;
                     case 1:
+                        r2.setSelected(true);
                         break;
                     case 2:
+                        r4.setSelected(true);
                         break;
                     case 3:
+                        r5.setSelected(true);
                         break;
                 }
             }
@@ -77,11 +92,21 @@ public class MainActivity extends AppCompatActivity implements FunctionImpl.Main
     @Override
     public void goFindRestaurant(View v) {
         pager.setCurrentItem(0);
+        r1.setSelected(true);
+        r2.setSelected(false);
+        r3.setSelected(false);
+        r4.setSelected(false);
+        r5.setSelected(false);
     }
 
     @Override
     public void goMangoPick(View v) {
         pager.setCurrentItem(1);
+        r1.setSelected(false);
+        r2.setSelected(true);
+        r3.setSelected(false);
+        r4.setSelected(false);
+        r5.setSelected(false);
     }
 
     @Override
@@ -91,11 +116,21 @@ public class MainActivity extends AppCompatActivity implements FunctionImpl.Main
     @Override
     public void goNews(View v) {
         pager.setCurrentItem(2);
+        r1.setSelected(false);
+        r2.setSelected(false);
+        r3.setSelected(false);
+        r4.setSelected(true);
+        r5.setSelected(false);
     }
 
     @Override
     public void goMyInformation(View v) {
         pager.setCurrentItem(3);
+        r1.setSelected(false);
+        r2.setSelected(false);
+        r3.setSelected(false);
+        r4.setSelected(false);
+        r5.setSelected(true);
     }
 
     public class MainPageAdapter extends FragmentStatePagerAdapter {

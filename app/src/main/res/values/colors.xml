@@ -6,4 +6,9 @@
 
     <color name="facebook">#3b5998</color>
     <color name="kakao">#FFFF00</color>
+
+    <color name="orange">#ff7f00</color>
+    <color name="gray">#AEAEAE</color>
+    <color name="light_gray">#EEEEEE</color>
+
 </resources>
