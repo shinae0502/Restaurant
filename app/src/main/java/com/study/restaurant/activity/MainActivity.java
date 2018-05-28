@@ -2,15 +2,13 @@ package com.study.restaurant.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.study.restaurant.R;
 import com.study.restaurant.common.FunctionImpl;
@@ -30,10 +28,18 @@ public class MainActivity extends AppCompatActivity implements FunctionImpl.Main
     RegisterFragment registerFragment;
     MangoPickFragment mangoPickFragment;
 
+    LinearLayout r1;
+    LinearLayout r2;
+    LinearLayout r3;
+    LinearLayout r4;
+    LinearLayout r5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        r1 = findViewById(R.id.r1);
+        r1.setSelected(true);
         pager = findViewById(R.id.pager);
         pager.setAdapter(new MainPageAdapter(getSupportFragmentManager()));
         pager.setOffscreenPageLimit(4);
