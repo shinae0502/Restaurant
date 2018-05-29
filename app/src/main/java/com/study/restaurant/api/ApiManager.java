@@ -84,6 +84,54 @@ public class ApiManager {
         });
     }
 
+    public void getStory(final CallbackListener callbackListener) {
+
+        getService().getStory().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
+                String body = "";
+                try {
+                    body = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (callbackListener != null)
+                    callbackListener.callback(body);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void getTopList(final CallbackListener callbackListener) {
+
+        getService().getTopList().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
+                String body = "";
+                try {
+                    body = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (callbackListener != null)
+                    callbackListener.callback(body);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
     public interface CallbackListener {
         void callback(String result);
 

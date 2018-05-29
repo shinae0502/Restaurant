@@ -10,4 +10,10 @@ public interface RestaurantService {
 
     @GET("getStoreSummary.php")
     Call<ResponseBody> getStoreSummary();
+
+    @GET("getTopList.php")
+    Call<ResponseBody> getTopList();
+
+    @GET("getStory.php")
+    Call<ResponseBody> getStory();
 }
