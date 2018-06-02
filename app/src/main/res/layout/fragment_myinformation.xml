@@ -158,7 +158,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/ic_right_arrow" />
-
         </RelativeLayout>
 
         <LinearLayout
@@ -197,7 +196,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:src="@drawable/ic_right_arrow" />
-
             </RelativeLayout>
 
             <LinearLayout
@@ -313,7 +311,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/ic_right_arrow" />
-
         </RelativeLayout>
 
         <TextView
@@ -349,7 +346,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/ic_right_arrow" />
-
         </RelativeLayout>
 
 
@@ -386,7 +382,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/ic_right_arrow" />
-
         </RelativeLayout>
 
         <TextView
@@ -422,9 +417,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/ic_right_arrow" />
-
         </RelativeLayout>
-
 
     </LinearLayout>
 

@@ -1,44 +1,26 @@
 package com.study.restaurant.fragment;
 
-import android.graphics.Paint;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.study.restaurant.common.FunctionImpl;
-import com.study.restaurant.util.MyGlide;
 import com.study.restaurant.R;
-import com.study.restaurant.api.ApiManager;
-import com.study.restaurant.model.Store;
-import com.viewpagerindicator.CirclePageIndicator;
+import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
+import com.study.restaurant.manager.MyLocationManager;
+import com.study.restaurant.presenter.FindRestaurantPresenter;
+import com.study.restaurant.view.FindRestaurantView;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+public class FindRestaurantFragment extends Fragment {
 
-public class FindRestaurantFragment extends Fragment implements FunctionImpl.FindRestaurant {
-
-    private RecyclerView findRestaurantRv;
-    private ViewPager bannerPager;
+    private FindRestaurantPresenter findRestaurantPresenter;
+    private FragmentFindRestaurantBinding fragmentFindRestaurantBinding;
+    private FindRestaurantView findRestaurantView;
 
     public FindRestaurantFragment() {
         // Required empty public constructor
@@ -52,111 +34,38 @@ public class FindRestaurantFragment extends Fragment implements FunctionImpl.Fin
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        findRestaurantPresenter = new FindRestaurantPresenter(getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        View v = inflater.inflate(R.layout.fragment_find_restaurant, container, false);
-        ((AppCompatActivity) getActivity()).setSupportActionBar((Toolbar) v.findViewById(R.id.toolbar));
 
-        findRestaurantRv = v.findViewById(R.id.findRestaurantRv);
-        findRestaurantRv.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-        findRestaurantRv.setAdapter(new RvAdt());
-        findRestaurantRv.setNestedScrollingEnabled(false);
+        //바인딩 초기화
+        fragmentFindRestaurantBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_restaurant, container, false);
 
-        bannerPager = v.findViewById(R.id.bannerPager);
-        bannerPager.setAdapter(new ViewPagerAdapter(getChildFragmentManager()));
+        //프리젠터 등록
+        fragmentFindRestaurantBinding.setPresenter(findRestaurantPresenter);
 
-        CirclePageIndicator circlePageIndicator = v.findViewById(R.id.indicator);
-        circlePageIndicator.setViewPager(bannerPager);
+        //뷰 등록
+        findRestaurantView = new FindRestaurantView(getActivity(), fragmentFindRestaurantBinding);
 
-        TextView textView = v.findViewById(R.id.location);
-        textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        //뷰 초기화
+        findRestaurantView.init();
 
-        TextView filter = v.findViewById(R.id.filter);
-        filter.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        //프리젠터에 뷰 등록
+        findRestaurantPresenter.registerView(findRestaurantView);
 
-        ApiManager.getInstance().getStoreSummary(new Store(), new ApiManager.CallbackListener() {
-            @Override
-            public void callback(String result) {
-                Log.d("exceptionTag", "" + result);
-                Type listType = new TypeToken<ArrayList<Store>>() {
-                }.getType();
-                List<Store> storeList = new Gson().fromJson(result, listType);
-                ((RvAdt) findRestaurantRv.getAdapter()).setStoreList(storeList);
-            }
+        //스토어 정보 요청
+        findRestaurantPresenter.requestStoreSummery();
 
-            @Override
-            public void failed(String msg) {
-            }
-        });
+        //위치 요청
+        MyLocationManager.getInstance(getActivity()).getLastLocation();
 
-        return v;
+        return fragmentFindRestaurantBinding.getRoot();
     }
 
-    public class RvAdt extends RecyclerView.Adapter<RvHolder> {
-
-        List<Store> storeList = new ArrayList<>();
-
-        public List<Store> getStoreList() {
-            return storeList;
-        }
-
-        public void setStoreList(List<Store> storeList) {
-            this.storeList = storeList;
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
-            RvHolder rvHolder = new RvHolder(v);
-            return rvHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(RvHolder holder, int position) {
-            holder.title.setText((position + 1) + ". " + storeList.get(position).getName());
-            MyGlide.with(holder.itemView.getContext())
-                    .load(storeList.get(position).getImg())
-                    .into(holder.img);
-
-            holder.region.setText(storeList.get(position).getLocation());
-            holder.distances.setText("2.68km");
-            holder.view.setText(storeList.get(position).getHit());
-            holder.review.setText(storeList.get(position).getReview_count());
-            holder.score.setText(storeList.get(position).getScore());
-        }
-
-        @Override
-        public int getItemCount() {
-            return storeList.size();
-        }
-    }
-
-    public class RvHolder extends RecyclerView.ViewHolder {
-
-        TextView title;
-        ImageView img;
-        TextView region;
-        TextView distances;
-        TextView view;
-        TextView review;
-        TextView score;
-
-        public RvHolder(View itemView) {
-            super(itemView);
-            title = itemView.findViewById(R.id.title);
-            img = itemView.findViewById(R.id.img);
-            region = itemView.findViewById(R.id.region);
-            distances = itemView.findViewById(R.id.distances);
-            view = itemView.findViewById(R.id.view);
-            review = itemView.findViewById(R.id.review);
-            score = itemView.findViewById(R.id.score);
-        }
-    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -168,136 +77,4 @@ public class FindRestaurantFragment extends Fragment implements FunctionImpl.Fin
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void clickSelectLocation() {
-        //TODO::
-    }
-
-    @Override
-    public void showSelectLocationPopup() {
-        //TODO::
-    }
-
-    @Override
-    public void clickSearch() {
-        //TODO::
-    }
-
-    @Override
-    public void goSearch() {
-        //TODO::
-    }
-
-    @Override
-    public void clickMap() {
-        //TODO::
-    }
-
-    @Override
-    public void goMap() {
-        //TODO::
-    }
-
-    @Override
-    public void clickBanner() {
-        //TODO::
-    }
-
-    @Override
-    public void goBanner() {
-        //TODO::
-    }
-
-    @Override
-    public void clickSort() {
-        //TODO::
-    }
-
-    @Override
-    public void showSelectSortItemPopup() {
-        //TODO::
-    }
-
-    @Override
-    public void clickBoundary() {
-        //TODO::
-    }
-
-    @Override
-    public void showSelectBoundaryPopup() {
-        //TODO::
-    }
-
-    @Override
-    public void clickFilter() {
-        //TODO::
-    }
-
-    @Override
-    public void showSelectFilterPopup() {
-        //TODO::
-    }
-
-    @Override
-    public void clickEventBanner() {
-        //TODO::
-    }
-
-    @Override
-    public void goEvent() {
-        //TODO::
-    }
-
-    @Override
-    public void clickListItem() {
-        //TODO::
-    }
-
-    @Override
-    public void goRestaurant() {
-        //TODO::
-    }
-
-    @Override
-    public void setShowTopButton(boolean show) {
-        //TODO::
-    }
-
-    private class ViewPagerAdapter extends FragmentStatePagerAdapter {
-
-        public ViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return BlankFragment.newInstance();
-        }
-
-        @Override
-        public int getCount() {
-            return 10;
-        }
-    }
-
-    public static class BlankFragment extends Fragment {
-        public BlankFragment() {
-        }
-
-        public static BlankFragment newInstance() {
-            BlankFragment fragment = new BlankFragment();
-            return fragment;
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_blank, container, false);
-        }
-    }
 }
