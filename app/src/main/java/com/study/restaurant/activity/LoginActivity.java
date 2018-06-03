@@ -35,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccessLogin(User user) {
                 //로그인 성공시
+                MainActivity.go(LoginActivity.this);
+                finish();
             }
         });
 
@@ -86,5 +88,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         bananaLoginManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bananaLoginManager.onDestroy();
     }
 }

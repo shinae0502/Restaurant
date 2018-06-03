@@ -11,7 +11,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.study.restaurant.R;
-import com.study.restaurant.activity.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -60,6 +59,7 @@ public class SplashActivity extends AppCompatActivity {
 
     public void next(View v) {
         LoginActivity.go(this);
+        finish();
     }
 }
 

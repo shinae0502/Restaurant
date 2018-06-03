@@ -29,4 +29,12 @@ public class BananaLoginManager {
     public void onCreate() {
         FacebookLoginProvider.getInstance(appCompatActivity).onCreate();
     }
+
+    public boolean isLogin() {
+        return true;
+    }
+
+    public void onDestroy() {
+        FacebookLoginProvider.getInstance(appCompatActivity).onDestroy();
+    }
 }
