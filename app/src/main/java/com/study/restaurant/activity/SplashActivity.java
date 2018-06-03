@@ -1,5 +1,6 @@
 package com.study.restaurant.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -61,6 +62,12 @@ public class SplashActivity extends AppCompatActivity {
         LoginActivity.go(this);
         finish();
     }
+
+    public static void go(final AppCompatActivity appCompatActivity) {
+        Intent intent = new Intent(appCompatActivity, SplashActivity.class);
+        appCompatActivity.startActivity(intent);
+    }
+
 }
 
 
