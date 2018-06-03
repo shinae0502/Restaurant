@@ -1,16 +1,18 @@
 package com.study.restaurant.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.study.restaurant.R;
+import com.study.restaurant.login.LoginProvider;
+import com.study.restaurant.manager.BananaLoginManager;
+import com.study.restaurant.model.User;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -19,11 +21,23 @@ public class LoginActivity extends AppCompatActivity {
     ImageView bg1;
     ImageView bg2;
     ImageView bg3;
+    BananaLoginManager bananaLoginManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        bananaLoginManager = new BananaLoginManager(this);
+        bananaLoginManager.onCreate();
+
+        bananaLoginManager.setCallbackListener(new LoginProvider.CallBack() {
+            @Override
+            public void onSuccessLogin(User user) {
+                //로그인 성공시
+            }
+        });
+
         bg1 = findViewById(R.id.bg);
         bg2 = findViewById(R.id.bg1);
         bg3 = findViewById(R.id.bg2);
@@ -62,5 +76,15 @@ public class LoginActivity extends AppCompatActivity {
 
     public void skip(View view) {
         MainActivity.go(this);
+    }
+
+    public void requestFacebookLogin(View view) {
+        bananaLoginManager.requestFacebookLogin();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        bananaLoginManager.onActivityResult(requestCode, resultCode, data);
     }
 }
