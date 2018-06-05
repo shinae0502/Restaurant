@@ -10,6 +10,7 @@ import com.kakao.auth.IApplicationConfig;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.ISessionConfig;
 import com.kakao.auth.KakaoAdapter;
+import com.kakao.auth.KakaoSDK;
 import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
@@ -103,7 +104,7 @@ public class KakaoLoginProvider {
 
     public void onCreate() {
         Log.d("sarang","KakaoSDK manager.init");
-//        KakaoSDK.init(new KakaoSDKAdapter());
+        KakaoSDK.init(new KakaoSDKAdapter());
     }
 
 }
