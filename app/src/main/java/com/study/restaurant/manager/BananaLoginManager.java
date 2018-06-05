@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import com.study.restaurant.login.FacebookLoginProvider;
+import com.study.restaurant.login.KakaoLoginProvider;
 import com.study.restaurant.login.LoginProvider;
 
 public class BananaLoginManager {
@@ -28,6 +29,7 @@ public class BananaLoginManager {
 
     public void onCreate() {
         FacebookLoginProvider.getInstance(appCompatActivity).onCreate();
+        KakaoLoginProvider.getInstance(appCompatActivity).onCreate();
     }
 
     public boolean isLogin() {

@@ -77,9 +77,9 @@
         android:layout_width="225dp"
         android:layout_height="40dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/layer_facebook_login"
         android:clickable="true"
         android:onClick="requestFacebookLogin"
-        android:background="@drawable/layer_facebook_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -116,6 +116,8 @@
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/layer_kakao_login"
+        android:clickable="true"
+        android:onClick="onClickSignup"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
@@ -159,5 +161,11 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.92" />
+
+    <com.kakao.usermgmt.LoginButton
+        android:id="@+id/com_kakao_login"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
 
 </android.support.constraint.ConstraintLayout>

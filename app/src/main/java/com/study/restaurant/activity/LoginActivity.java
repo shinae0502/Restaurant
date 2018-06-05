@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.kakao.auth.Session;
 import com.study.restaurant.R;
+import com.study.restaurant.login.KakaoLoginProvider;
 import com.study.restaurant.login.LoginProvider;
 import com.study.restaurant.manager.BananaLoginManager;
 import com.study.restaurant.model.User;
@@ -30,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         bananaLoginManager = new BananaLoginManager(this);
         bananaLoginManager.onCreate();
+
 
         bananaLoginManager.setCallbackListener(new LoginProvider.CallBack() {
             @Override
@@ -69,6 +73,12 @@ public class LoginActivity extends AppCompatActivity {
                 sendEmptyMessageDelayed(0, 4000);
             }
         }.sendEmptyMessage(0);
+
+        Log.d("sarang", "KakaoLoginProvider onCreate()");
+
+        KakaoLoginProvider.SessionCallback callback = new KakaoLoginProvider.SessionCallback();
+        Session.getCurrentSession().addCallback(callback);
+        Session.getCurrentSession().checkAndImplicitOpen();
     }
 
     public static void go(final AppCompatActivity appCompatActivity) {
@@ -88,6 +98,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         bananaLoginManager.onActivityResult(requestCode, resultCode, data);
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
     }
 
     @Override
@@ -95,4 +108,23 @@ public class LoginActivity extends AppCompatActivity {
         super.onDestroy();
         bananaLoginManager.onDestroy();
     }
+
+    public void onClickSignup(View v) {
+
+        findViewById(R.id.com_kakao_login).callOnClick();
+
+        /*UserManagement.getInstance().me(new MeV2ResponseCallback() {
+            @Override
+            public void onSessionClosed(ErrorResult errorResult) {
+                Toast.makeText(LoginActivity.this, "onSessionClosed" + errorResult.toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(MeV2Response result) {
+                Toast.makeText(LoginActivity.this, "onSuccess" + result.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });*/
+    }
+
+
 }
