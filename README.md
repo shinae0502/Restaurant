@@ -16,14 +16,16 @@ https://drive.google.com/open?id=1EfbzRXmUDIfy4iQovcftCxq3qwHzh-hbaKqDqP-PsGo
 ## 플레이스토어 링크
 https://play.google.com/store/apps/details?id=com.study.restaurant
 
-## 1. 프로젝트 생성
-![Alt Text](sample/0.png)
-
-![Alt Text](sample/1.png)
-
-
 ## 기본 컴포넌트 샘플
 https://github.com/sarang628/BasicComponent
 
 ## 레트로핏 샘플
 https://github.com/sarang628/RetrofitSample
+
+## 안드로이드 위치 기능 사용 샘플
+https://github.com/sarang628/MyLocationManager
+
+## 1. 프로젝트 생성
+![Alt Text](sample/0.png)
+
+![Alt Text](sample/1.png)
