@@ -127,4 +127,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    public void naverLogin(View view) {
+        startActivity(new Intent(this, OAuthSampleActivity.class));
+    }
 }
