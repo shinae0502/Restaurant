@@ -1,2 +1,2 @@
-include ':app', ':viewpager_indicator1'
+include ':app', ':viewpager_indicator1', ':naveridlogin_android_sdk_4.2.0'
 project(':viewpager_indicator1').projectDir = new File('viewpager_indicator')

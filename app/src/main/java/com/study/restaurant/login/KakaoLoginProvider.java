@@ -103,8 +103,8 @@ public class KakaoLoginProvider {
     }
 
     public void onCreate() {
-        Log.d("sarang","KakaoSDK manager.init");
-        KakaoSDK.init(new KakaoSDKAdapter());
+        if (KakaoSDK.getAdapter() == null)
+            KakaoSDK.init(new KakaoSDKAdapter());
     }
 
 }
