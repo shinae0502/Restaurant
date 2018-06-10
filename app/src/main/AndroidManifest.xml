@@ -55,7 +55,7 @@
 
         <activity
             android:name=".activity.SettingActivity"
-            android:theme="@style/ActionBar"></activity>
+            android:theme="@style/ActionBar" />
 
         <!-- 3 -->
         <meta-data
@@ -68,11 +68,12 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activity.OAuthSampleActivity" />
+        <activity android:name=".activity.SearchActivity"></activity>
     </application>
 
 </manifest>
