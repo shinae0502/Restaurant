@@ -24,7 +24,9 @@
         android:scaleX="1.5"
         android:scaleY="1.5"
         android:src="@drawable/img_intro_bg_2"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <ImageView
         android:id="@+id/bg2"
@@ -47,7 +49,6 @@
         android:id="@+id/title"
         android:layout_width="200dp"
         android:layout_height="115dp"
-        android:background="@color/bg_login_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
