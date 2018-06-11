@@ -9,6 +9,24 @@
 
 준비물 : 노트북
 
+## 개발문서
+https://drive.google.com/open?id=1EfbzRXmUDIfy4iQovcftCxq3qwHzh-hbaKqDqP-PsGo
+
+## 플레이스토어 링크
+https://play.google.com/store/apps/details?id=com.study.restaurant
+
+## 기본 컴포넌트 샘플
+https://github.com/sarang628/BasicComponent
+
+## 레트로핏 샘플
+https://github.com/sarang628/RetrofitSample
+
+## 안드로이드 위치 기능 사용 샘플
+https://github.com/sarang628/MyLocationManager
+
+## 지오코딩(좌표 -> 주소 변환)
+https://github.com/sarang628/Geocoding
+
 ## Git 사용방법
 ### 1. Github 사이트에서 주소 복사하기
 ![Alt Text](sample/git/0.png)
@@ -44,27 +62,3 @@ Commit Message 부분에 자신이 수정한 내용을 적고
 
 ### 10. Push 성공 메시지 확인하기
 ![Alt Text](sample/git/9.png)
-
-
-## 개발문서
-https://drive.google.com/open?id=1EfbzRXmUDIfy4iQovcftCxq3qwHzh-hbaKqDqP-PsGo
-
-## 플레이스토어 링크
-https://play.google.com/store/apps/details?id=com.study.restaurant
-
-## 기본 컴포넌트 샘플
-https://github.com/sarang628/BasicComponent
-
-## 레트로핏 샘플
-https://github.com/sarang628/RetrofitSample
-
-## 안드로이드 위치 기능 사용 샘플
-https://github.com/sarang628/MyLocationManager
-
-## 지오코딩(좌표 -> 주소 변환)
-https://github.com/sarang628/Geocoding
-
-## 1. 프로젝트 생성
-![Alt Text](sample/0.png)
-
-![Alt Text](sample/1.png)
