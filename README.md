@@ -9,6 +9,9 @@
 
 준비물 : 노트북
 
+## Git 사용방법
+![Alt Text](sample/git/0.png){: width="100" height="100"}
+
 
 ## 개발문서
 https://drive.google.com/open?id=1EfbzRXmUDIfy4iQovcftCxq3qwHzh-hbaKqDqP-PsGo
