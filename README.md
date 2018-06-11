@@ -10,7 +10,32 @@
 준비물 : 노트북
 
 ## Git 사용방법
-![Alt Text](sample/git/0.png){: width="100" height="100"}
+### 1. Github 사이트에서 주소 복사하기
+![Alt Text](sample/git/0.png)
+
+### 2. 안드로이드 스튜디오에서 Git 선택하기
+![Alt Text](sample/git/1.png)
+
+### 3.
+![Alt Text](sample/git/2.png)
+
+### 4.
+![Alt Text](sample/git/3.png)
+
+### 5.
+![Alt Text](sample/git/4.png)
+
+### 6.
+![Alt Text](sample/git/5.png)
+
+### 7.
+![Alt Text](sample/git/6.png)
+
+### 8.
+![Alt Text](sample/git/7.png)
+
+### 9.
+![Alt Text](sample/git/8.png)
 
 
 ## 개발문서
