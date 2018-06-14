@@ -3,6 +3,7 @@ package com.study.restaurant.api;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface RestaurantService {
     @GET("getBanner.php")
@@ -16,4 +17,7 @@ public interface RestaurantService {
 
     @GET("getStory.php")
     Call<ResponseBody> getStory();
+
+    @GET("kakao_login.php/?accessToken={accessToken}")
+    Call<ResponseBody> requestKakaoLogin(@Path("accessToken")String accessToken);
 }

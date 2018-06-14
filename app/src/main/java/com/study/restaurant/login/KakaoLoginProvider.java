@@ -2,8 +2,8 @@ package com.study.restaurant.login;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
-
 import com.kakao.auth.ApprovalType;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.IApplicationConfig;
@@ -14,18 +14,38 @@ import com.kakao.auth.KakaoSDK;
 import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
+import com.study.restaurant.model.User;
 
-public class KakaoLoginProvider {
+public class KakaoLoginProvider extends LoginProvider{
 
     private static KakaoLoginProvider kakaoLoginProvider;
     Activity activity;
-    private SessionCallback callback;
+    public SessionCallback sessionCallback;
 
     public KakaoLoginProvider(Activity activity) {
         this.activity = activity;
+        sessionCallback = new SessionCallback(){
+            @Override
+            public void onSessionOpened() {
+                super.onSessionOpened();
+                if(callBack != null)
+                callBack.onSuccessLogin(new User());
+            }
+
+            @Override
+            public void onSessionOpenFailed(KakaoException exception) {
+                super.onSessionOpenFailed(exception);
+            }
+        };
     }
 
-    public static class SessionCallback implements ISessionCallback {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
+    }
+
+    public class SessionCallback implements ISessionCallback {
 
         @Override
         public void onSessionOpened() {
@@ -35,10 +55,6 @@ public class KakaoLoginProvider {
         @Override
         public void onSessionOpenFailed(KakaoException exception) {
             Log.d("sarang", "onSessionOpenFailed");
-            if (exception != null) {
-                Logger.e(exception);
-                Log.d("sarang", exception.toString());
-            }
         }
     }
 
@@ -49,7 +65,7 @@ public class KakaoLoginProvider {
     }
 
     public void onDestroy() {
-        Session.getCurrentSession().removeCallback(callback);
+        Session.getCurrentSession().removeCallback(sessionCallback);
     }
 
     public static KakaoLoginProvider getInstance(Activity activity) {

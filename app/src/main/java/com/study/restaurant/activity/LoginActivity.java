@@ -9,9 +9,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kakao.auth.Session;
 import com.study.restaurant.R;
+import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.login.KakaoLoginProvider;
 import com.study.restaurant.login.LoginProvider;
 import com.study.restaurant.manager.BananaLoginManager;
@@ -35,14 +38,14 @@ public class LoginActivity extends AppCompatActivity {
         bananaLoginManager.onCreate();
 
 
-        bananaLoginManager.setCallbackListener(new LoginProvider.CallBack() {
+        /*bananaLoginManager.setCallbackListener(new LoginProvider.CallBack() {
             @Override
             public void onSuccessLogin(User user) {
                 //로그인 성공시
                 MainActivity.go(LoginActivity.this);
                 finish();
             }
-        });
+        });*/
 
         bg1 = findViewById(R.id.bg);
         bg2 = findViewById(R.id.bg1);
@@ -76,8 +79,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Log.d("sarang", "KakaoLoginProvider onCreate()");
 
-        KakaoLoginProvider.SessionCallback callback = new KakaoLoginProvider.SessionCallback();
-        Session.getCurrentSession().addCallback(callback);
+        Session.getCurrentSession().addCallback(KakaoLoginProvider.getInstance(this).sessionCallback);
         Session.getCurrentSession().checkAndImplicitOpen();
     }
 
@@ -98,9 +100,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         bananaLoginManager.onActivityResult(requestCode, resultCode, data);
-        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
-            return;
-        }
     }
 
     @Override
@@ -110,20 +109,27 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClickSignup(View v) {
-
         findViewById(R.id.com_kakao_login).callOnClick();
-
-        /*UserManagement.getInstance().me(new MeV2ResponseCallback() {
+        bananaLoginManager.setCallbackListener(new LoginProvider.CallBack() {
             @Override
-            public void onSessionClosed(ErrorResult errorResult) {
-                Toast.makeText(LoginActivity.this, "onSessionClosed" + errorResult.toString(), Toast.LENGTH_SHORT).show();
-            }
+            public void onSuccessLogin(User user) {
+                String accessToken = Session.getCurrentSession().getTokenInfo().getAccessToken();
+                Log.d("sarang",""+accessToken);
+                //카카오 로그인 성공
+                //서버 로그인 api 호출
+                ApiManager.getInstance().requestKakaoLogin(accessToken, new ApiManager.CallbackListener() {
+                    @Override
+                    public void callback(String result) {
+                        Log.d("sarang",result);
+                    }
 
-            @Override
-            public void onSuccess(MeV2Response result) {
-                Toast.makeText(LoginActivity.this, "onSuccess" + result.toString(), Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void failed(String msg) {
+
+                    }
+                });
             }
-        });*/
+        });
     }
 
 

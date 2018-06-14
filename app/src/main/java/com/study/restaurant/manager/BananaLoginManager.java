@@ -11,12 +11,15 @@ public class BananaLoginManager {
 
     AppCompatActivity appCompatActivity;
 
+
+
     public BananaLoginManager(AppCompatActivity appCompatActivity) {
         this.appCompatActivity = appCompatActivity;
     }
 
     public void setCallbackListener(LoginProvider.CallBack callbackListener) {
         FacebookLoginProvider.getInstance(appCompatActivity).setCallBack(callbackListener);
+        KakaoLoginProvider.getInstance(appCompatActivity).setCallBack(callbackListener);
     }
 
     public void requestFacebookLogin() {
@@ -25,6 +28,7 @@ public class BananaLoginManager {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         FacebookLoginProvider.getInstance(appCompatActivity).onActivityResult(requestCode, resultCode, data);
+        KakaoLoginProvider.getInstance(appCompatActivity).onActivityResult(requestCode, resultCode, data);
     }
 
     public void onCreate() {
