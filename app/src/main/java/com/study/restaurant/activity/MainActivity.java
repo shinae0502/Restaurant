@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.study.restaurant.R;
+import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.common.FunctionImpl;
 import com.study.restaurant.fragment.FindRestaurantFragment;
 import com.study.restaurant.fragment.MangoPickFragment;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements FunctionImpl.Main
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        BananaPreference.getInstance(this).loadUser();
         r1 = findViewById(R.id.r1);
         r2 = findViewById(R.id.r2);
         r3 = findViewById(R.id.r3);

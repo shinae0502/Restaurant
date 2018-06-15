@@ -121,6 +121,9 @@ public class KakaoLoginProvider extends LoginProvider{
     public void onCreate() {
         if (KakaoSDK.getAdapter() == null)
             KakaoSDK.init(new KakaoSDKAdapter());
+
+        Session.getCurrentSession().addCallback(sessionCallback);
+        Session.getCurrentSession().checkAndImplicitOpen();
     }
 
 }

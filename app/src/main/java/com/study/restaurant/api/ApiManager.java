@@ -1,5 +1,7 @@
 package com.study.restaurant.api;
 
+import android.util.Log;
+
 import com.study.restaurant.model.Banner;
 import com.study.restaurant.model.Store;
 
@@ -147,8 +149,8 @@ public class ApiManager {
                 String body = "";
                 try {
                     body = response.body().string();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    Log.d("sarang",e.toString());
                 }
 
                 if (callbackListener != null)

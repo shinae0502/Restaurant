@@ -19,6 +19,7 @@ import com.study.restaurant.login.KakaoLoginProvider;
 import com.study.restaurant.login.LoginProvider;
 import com.study.restaurant.manager.BananaLoginManager;
 import com.study.restaurant.model.User;
+import com.study.restaurant.presenter.LoginPresenter;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -29,63 +30,56 @@ public class LoginActivity extends AppCompatActivity {
     ImageView bg3;
     BananaLoginManager bananaLoginManager;
 
+    LoginPresenter loginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        loginPresenter = new LoginPresenter(this);
+
         bananaLoginManager = new BananaLoginManager(this);
         bananaLoginManager.onCreate();
-
-
-        /*bananaLoginManager.setCallbackListener(new LoginProvider.CallBack() {
-            @Override
-            public void onSuccessLogin(User user) {
-                //로그인 성공시
-                MainActivity.go(LoginActivity.this);
-                finish();
-            }
-        });*/
 
         bg1 = findViewById(R.id.bg);
         bg2 = findViewById(R.id.bg1);
         bg3 = findViewById(R.id.bg2);
-        new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
 
-                currentAnim = currentAnim == R.anim.left_to_right ? R.anim.right_to_left : R.anim.left_to_right;
+        new LoginBackgroundChanger().sendEmptyMessage(0);
 
-                switch (currentBg) {
-                    case R.drawable.img_intro_bg_1:
-                        currentBg = R.drawable.img_intro_bg_2;
-                        bg1.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, currentAnim));
-                        break;
+    }
 
-                    case R.drawable.img_intro_bg_2:
-                        currentBg = R.drawable.img_intro_bg_3;
-                        bg2.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, currentAnim));
-                        break;
+    private class LoginBackgroundChanger extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            currentAnim = currentAnim == R.anim.left_to_right ? R.anim.right_to_left : R.anim.left_to_right;
 
-                    case R.drawable.img_intro_bg_3:
-                        currentBg = R.drawable.img_intro_bg_1;
-                        bg3.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, currentAnim));
-                        break;
-                }
-                sendEmptyMessageDelayed(0, 4000);
+            switch (currentBg) {
+                case R.drawable.img_intro_bg_1:
+                    currentBg = R.drawable.img_intro_bg_2;
+                    bg1.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, currentAnim));
+                    break;
+
+                case R.drawable.img_intro_bg_2:
+                    currentBg = R.drawable.img_intro_bg_3;
+                    bg2.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, currentAnim));
+                    break;
+
+                case R.drawable.img_intro_bg_3:
+                    currentBg = R.drawable.img_intro_bg_1;
+                    bg3.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, currentAnim));
+                    break;
             }
-        }.sendEmptyMessage(0);
-
-        Log.d("sarang", "KakaoLoginProvider onCreate()");
-
-        Session.getCurrentSession().addCallback(KakaoLoginProvider.getInstance(this).sessionCallback);
-        Session.getCurrentSession().checkAndImplicitOpen();
+            sendEmptyMessageDelayed(0, 4000);
+        }
     }
 
     public static void go(final AppCompatActivity appCompatActivity) {
         Intent intent = new Intent(appCompatActivity, LoginActivity.class);
         appCompatActivity.startActivity(intent);
+        appCompatActivity.finish();
     }
 
     public void skip(View view) {
@@ -114,13 +108,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccessLogin(User user) {
                 String accessToken = Session.getCurrentSession().getTokenInfo().getAccessToken();
-                Log.d("sarang",""+accessToken);
+                Log.d("sarang", "" + accessToken);
                 //카카오 로그인 성공
                 //서버 로그인 api 호출
                 ApiManager.getInstance().requestKakaoLogin(accessToken, new ApiManager.CallbackListener() {
                     @Override
                     public void callback(String result) {
-                        Log.d("sarang",result);
+                        if (loginPresenter.processLogin(result)) {
+                            MainActivity.go(LoginActivity.this);
+                        }
                     }
 
                     @Override
