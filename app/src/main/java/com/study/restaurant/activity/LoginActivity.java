@@ -15,11 +15,13 @@ import com.google.gson.Gson;
 import com.kakao.auth.Session;
 import com.study.restaurant.R;
 import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.common.ProgressDialog;
 import com.study.restaurant.login.KakaoLoginProvider;
 import com.study.restaurant.login.LoginProvider;
 import com.study.restaurant.manager.BananaLoginManager;
 import com.study.restaurant.model.User;
 import com.study.restaurant.presenter.LoginPresenter;
+import com.study.restaurant.util.LOG;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -93,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        LOG.d("");
         bananaLoginManager.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -103,12 +106,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClickSignup(View v) {
+        new ProgressDialog(this).show();
         findViewById(R.id.com_kakao_login).callOnClick();
         bananaLoginManager.setCallbackListener(new LoginProvider.CallBack() {
             @Override
             public void onSuccessLogin(User user) {
                 String accessToken = Session.getCurrentSession().getTokenInfo().getAccessToken();
-                Log.d("sarang", "" + accessToken);
                 //카카오 로그인 성공
                 //서버 로그인 api 호출
                 ApiManager.getInstance().requestKakaoLogin(accessToken, new ApiManager.CallbackListener() {
@@ -116,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void callback(String result) {
                         if (loginPresenter.processLogin(result)) {
                             MainActivity.go(LoginActivity.this);
+                            finish();
                         }
                     }
 
