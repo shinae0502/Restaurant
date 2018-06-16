@@ -64,7 +64,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void next(View v) {
-        if (!TextUtils.isEmpty(BananaPreference.getInstance(this).loadUser().login_platform)) {
+        if (BananaPreference.getInstance(this).loadUser().isLogin()) {
             MainActivity.go(this);
         } else {
             LoginActivity.go(this);

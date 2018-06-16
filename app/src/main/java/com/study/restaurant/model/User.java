@@ -1,5 +1,9 @@
 package com.study.restaurant.model;
 
+import android.text.TextUtils;
+
+import com.study.restaurant.common.BananaPreference;
+
 public class User {
     public String email;
     public String login_platform;
@@ -19,5 +23,18 @@ public class User {
         stringBuffer.append("name = " + name);
 
         return stringBuffer.toString();
+    }
+
+    public boolean isLogin() {
+        if (TextUtils.isEmpty(login_platform)) {
+            return false;
+        }
+        if (TextUtils.isEmpty(email)) {
+            return false;
+        }
+        if (TextUtils.isEmpty(name)) {
+            return false;
+        }
+        return true;
     }
 }

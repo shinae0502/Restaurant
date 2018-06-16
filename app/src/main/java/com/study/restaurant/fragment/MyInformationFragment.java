@@ -40,7 +40,8 @@ public class MyInformationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 BananaLoginManager.getInstance((AppCompatActivity) getActivity()).logout();
-                SplashActivity.go((AppCompatActivity)getActivity());
+                SplashActivity.go((AppCompatActivity) getActivity());
+                getActivity().finish();
             }
         });
         return v;
