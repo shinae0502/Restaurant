@@ -23,15 +23,20 @@ import java.util.Arrays;
 
 public class FacebookLoginProvider extends LoginProvider {
 
-    private static FacebookLoginProvider facebookLoginManager;
+    private static FacebookLoginProvider facebookLoginProvider;
     private CallbackManager callbackManager; //로그인 상태를
     private Activity activity;
     //콜백 리스너
 
     public static FacebookLoginProvider getInstance(Activity activity) {
-        if (facebookLoginManager == null)
-            facebookLoginManager = new FacebookLoginProvider(activity);
-        return facebookLoginManager;
+        if (facebookLoginProvider == null)
+            synchronized (FacebookLoginProvider.class) {
+                if (facebookLoginProvider == null)
+                    facebookLoginProvider = new FacebookLoginProvider(activity);
+            }
+        if (activity != null && !facebookLoginProvider.activity.equals(activity))
+            facebookLoginProvider.activity = activity;
+        return facebookLoginProvider;
     }
 
     public FacebookLoginProvider(Activity activity) {
@@ -111,11 +116,6 @@ public class FacebookLoginProvider extends LoginProvider {
                 }
             }
         }
-    }
-
-    public void onDestroy() {
-        facebookLoginManager = null;
-        callbackManager = null;
     }
 
     public void logout() {

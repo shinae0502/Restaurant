@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     ImageView bg1;
     ImageView bg2;
     ImageView bg3;
-    BananaLoginManager bananaLoginManager;
 
     LoginPresenter loginPresenter;
 
@@ -41,8 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginPresenter = new LoginPresenter(this);
 
-        bananaLoginManager = new BananaLoginManager(this);
-        bananaLoginManager.onCreate();
+        BananaLoginManager.getInstance(this).onCreate();
 
         bg1 = findViewById(R.id.bg);
         bg2 = findViewById(R.id.bg1);
@@ -89,8 +87,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void requestFacebookLogin(View view) {
-        bananaLoginManager.requestFacebookLogin();
-        bananaLoginManager.setCallbackListener(new LoginProvider.CallBack() {
+        BananaLoginManager.getInstance(this).requestFacebookLogin();
+        BananaLoginManager.getInstance(this).setCallbackListener(new LoginProvider.CallBack() {
             @Override
             public void onSuccessLogin(User user) {
                 //페이스북 로그인 하기
@@ -116,20 +114,20 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         LOG.d("");
-        bananaLoginManager.onActivityResult(requestCode, resultCode, data);
+        BananaLoginManager.getInstance(this).onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bananaLoginManager.onDestroy();
-        bananaLoginManager.setCallbackListener(null);
+        BananaLoginManager.getInstance(this).onDestroy();
+        BananaLoginManager.getInstance(this).setCallbackListener(null);
     }
 
     public void onClickSignup(View v) {
         new ProgressDialog(this).show();
         findViewById(R.id.com_kakao_login).callOnClick();
-        bananaLoginManager.setCallbackListener(new LoginProvider.CallBack() {
+        BananaLoginManager.getInstance(this).setCallbackListener(new LoginProvider.CallBack() {
             @Override
             public void onSuccessLogin(User user) {
                 String accessToken = Session.getCurrentSession().getTokenInfo().getAccessToken();

@@ -39,7 +39,7 @@ public class MyInformationFragment extends Fragment {
         v.findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new BananaLoginManager((AppCompatActivity)getActivity()).logout();
+                BananaLoginManager.getInstance((AppCompatActivity) getActivity()).logout();
                 SplashActivity.go((AppCompatActivity)getActivity());
             }
         });

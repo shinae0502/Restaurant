@@ -5,13 +5,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.facebook.login.LoginManager;
 import com.study.restaurant.R;
+import com.study.restaurant.common.BananaPreference;
+import com.study.restaurant.manager.BananaLoginManager;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -24,6 +28,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         Log.d("sarang", "onCreate");
+        BananaLoginManager.getInstance(this).onCreate();
         progress = findViewById(R.id.progress);
         anim = AnimationUtils.loadAnimation(this, R.anim.rotation);
         new SplashImageHandler().sendEmptyMessage(0);
@@ -59,7 +64,11 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void next(View v) {
-        LoginActivity.go(this);
+        if (!TextUtils.isEmpty(BananaPreference.getInstance(this).loadUser().login_platform)) {
+            MainActivity.go(this);
+        } else {
+            LoginActivity.go(this);
+        }
         finish();
     }
 
