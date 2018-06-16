@@ -115,5 +115,10 @@ public class FacebookLoginProvider extends LoginProvider {
 
     public void onDestroy() {
         facebookLoginManager = null;
+        callbackManager = null;
+    }
+
+    public void logout() {
+        LoginManager.getInstance().logOut();
     }
 }

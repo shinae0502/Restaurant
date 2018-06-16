@@ -65,6 +65,7 @@ public class SplashActivity extends AppCompatActivity {
 
     public static void go(final AppCompatActivity appCompatActivity) {
         Intent intent = new Intent(appCompatActivity, SplashActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         appCompatActivity.startActivity(intent);
     }
 

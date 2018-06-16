@@ -3,14 +3,15 @@ package com.study.restaurant.manager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
+import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.login.FacebookLoginProvider;
 import com.study.restaurant.login.KakaoLoginProvider;
 import com.study.restaurant.login.LoginProvider;
+import com.study.restaurant.model.User;
 
 public class BananaLoginManager {
 
     AppCompatActivity appCompatActivity;
-
 
 
     public BananaLoginManager(AppCompatActivity appCompatActivity) {
@@ -42,5 +43,11 @@ public class BananaLoginManager {
 
     public void onDestroy() {
         FacebookLoginProvider.getInstance(appCompatActivity).onDestroy();
+    }
+
+    public void logout() {
+        FacebookLoginProvider.getInstance(appCompatActivity).logout();
+        KakaoLoginProvider.getInstance(appCompatActivity).logout();
+        BananaPreference.getInstance(appCompatActivity).saveUser(new User());
     }
 }
