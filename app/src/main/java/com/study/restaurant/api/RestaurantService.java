@@ -24,4 +24,7 @@ public interface RestaurantService {
     @GET("kakao_login.php")
     Call<ResponseBody> requestKakaoLogin(@Query("accessToken") String accessToken);
 
+    @GET("facebook_login.php")
+    Call<ResponseBody> requestFacebookLogin(@Query("accessToken") String accessToken);
+
 }

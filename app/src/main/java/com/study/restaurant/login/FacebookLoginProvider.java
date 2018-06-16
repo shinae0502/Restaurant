@@ -44,9 +44,11 @@ public class FacebookLoginProvider extends LoginProvider {
 
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(activity, "success\n" + loginResult.toString(), Toast.LENGTH_SHORT).show();
-                if (callBack != null)
-                    requestProfile(loginResult.getAccessToken());
+                if (callBack != null) {
+                    User user = new User();
+                    user.accessToken = loginResult.getAccessToken().getToken();
+                    callBack.onSuccessLogin(user);
+                }
             }
 
             @Override
@@ -57,6 +59,7 @@ public class FacebookLoginProvider extends LoginProvider {
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(activity, "onError" + error.toString(), Toast.LENGTH_SHORT).show();
+                LoginManager.getInstance().logOut();
             }
         });
     }

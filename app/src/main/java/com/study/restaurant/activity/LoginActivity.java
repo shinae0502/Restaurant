@@ -90,6 +90,26 @@ public class LoginActivity extends AppCompatActivity {
 
     public void requestFacebookLogin(View view) {
         bananaLoginManager.requestFacebookLogin();
+        bananaLoginManager.setCallbackListener(new LoginProvider.CallBack() {
+            @Override
+            public void onSuccessLogin(User user) {
+                //페이스북 로그인 하기
+                ApiManager.getInstance().requestFacebookLogin(user.accessToken, new ApiManager.CallbackListener() {
+                    @Override
+                    public void callback(String result) {
+                        if (loginPresenter.processLogin(result)) {
+                            MainActivity.go(LoginActivity.this);
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void failed(String msg) {
+
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -103,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         bananaLoginManager.onDestroy();
+        bananaLoginManager.setCallbackListener(null);
     }
 
     public void onClickSignup(View v) {

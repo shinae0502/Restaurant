@@ -5,6 +5,7 @@ public class User {
     public String login_platform;
     public String picture;
     public String name;
+    public String accessToken;
 
     @Override
     public String toString() {
