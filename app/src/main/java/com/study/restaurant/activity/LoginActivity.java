@@ -5,18 +5,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
+import com.kakao.auth.AuthType;
 import com.kakao.auth.Session;
 import com.study.restaurant.R;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.common.ProgressDialog;
-import com.study.restaurant.login.KakaoLoginProvider;
 import com.study.restaurant.login.LoginProvider;
 import com.study.restaurant.manager.BananaLoginManager;
 import com.study.restaurant.model.User;
@@ -32,11 +29,14 @@ public class LoginActivity extends AppCompatActivity {
     ImageView bg3;
 
     LoginPresenter loginPresenter;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        progressDialog =  new ProgressDialog(this);
 
         loginPresenter = new LoginPresenter(this);
 
@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void requestFacebookLogin(View view) {
+        progressDialog.show();
         BananaLoginManager.getInstance(this).requestFacebookLogin();
         BananaLoginManager.getInstance(this).setCallbackListener(new LoginProvider.CallBack() {
             @Override
@@ -115,6 +116,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         LOG.d("");
         BananaLoginManager.getInstance(this).onActivityResult(requestCode, resultCode, data);
+        progressDialog.dismiss();
     }
 
     @Override
@@ -125,8 +127,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClickSignup(View v) {
-        new ProgressDialog(this).show();
-        findViewById(R.id.com_kakao_login).callOnClick();
+        progressDialog.show();
+        Session.getCurrentSession().open(AuthType.KAKAO_TALK, this);
         BananaLoginManager.getInstance(this).setCallbackListener(new LoginProvider.CallBack() {
             @Override
             public void onSuccessLogin(User user) {

@@ -23,6 +23,7 @@ public class ProgressDialog extends Dialog {
         setContentView(R.layout.dialog_progress);
         progress = findViewById(R.id.progress);
         anim = AnimationUtils.loadAnimation(context, R.anim.rotation);
+        setCancelable(false);
         new SplashImageHandler().sendEmptyMessage(0);
     }
 

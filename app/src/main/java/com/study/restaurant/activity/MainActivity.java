@@ -2,6 +2,7 @@ package com.study.restaurant.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -173,6 +174,16 @@ public class MainActivity extends AppCompatActivity implements FunctionImpl.Main
         @Override
         public int getCount() {
             return 4;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (pager.getCurrentItem() == 0) {
+            if (findRestaurantFragment != null)
+                findRestaurantFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
