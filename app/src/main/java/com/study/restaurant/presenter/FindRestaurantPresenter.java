@@ -81,7 +81,8 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
                 Type listType = new TypeToken<ArrayList<Region>>() {
                 }.getType();
                 List<Region> regionList = new Gson().fromJson(result, listType);
-                findRestaurantView.setRegion(regionList.get(0));
+                if (regionList != null && regionList.size() > 0)
+                    findRestaurantView.setRegion(regionList.get(0));
             }
 
             @Override
@@ -107,7 +108,7 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
      */
     @Override
     public void clickSelectLocation(View v) {
-
+        showSelectLocationPopup();
     }
 
     /**
