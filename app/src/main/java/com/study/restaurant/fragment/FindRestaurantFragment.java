@@ -1,6 +1,5 @@
 package com.study.restaurant.fragment;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
 import android.os.Bundle;
@@ -14,13 +13,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.study.restaurant.R;
-import com.study.restaurant.common.FunctionImpl;
 import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
-import com.study.restaurant.manager.MyLocationManager;
+import com.study.restaurant.model.Region;
 import com.study.restaurant.presenter.FindRestaurantPresenter;
 import com.study.restaurant.util.LOG;
+import com.study.restaurant.view.FindRestaurantView;
 
-public class FindRestaurantFragment extends Fragment {
+public class FindRestaurantFragment extends Fragment implements FindRestaurantView{
 
     FindRestaurantPresenter findRestaurantPresenter;
     FragmentFindRestaurantBinding fragmentFindRestaurantBinding;
@@ -30,7 +29,7 @@ public class FindRestaurantFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        findRestaurantPresenter = new FindRestaurantPresenter();
+        findRestaurantPresenter = new FindRestaurantPresenter(this);
         findRestaurantPresenter.initLocationManager(getActivity());
         //위치 요청하기
         findRestaurantPresenter.requestLocation(new OnSuccessListener<Location>() {
@@ -70,5 +69,10 @@ public class FindRestaurantFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         findRestaurantPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void setRegion(Region region) {
+        fragmentFindRestaurantBinding.setRegion(region);
     }
 }

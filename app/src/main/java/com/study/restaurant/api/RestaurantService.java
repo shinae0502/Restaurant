@@ -27,4 +27,7 @@ public interface RestaurantService {
     @GET("facebook_login.php")
     Call<ResponseBody> requestFacebookLogin(@Query("accessToken") String accessToken);
 
+    @GET("getRegion.php")
+    Call<ResponseBody> getRegion(@Query("zipCode") String zipCode);
+
 }
