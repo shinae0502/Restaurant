@@ -212,4 +212,28 @@ public class ApiManager {
         });
     }
 
+    public void getCity(final CallbackListener callbackListener) {
+
+        getService().getCity().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
+                String body = "";
+                try {
+                    body = response.body().string();
+                } catch (Exception e) {
+                    Log.d("sarang", e.toString());
+                }
+
+                if (callbackListener != null)
+                    callbackListener.callback(body);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

@@ -37,11 +37,6 @@ public abstract class FunctionImpl {
         void clickSelectLocation(View v);
 
         /**
-         *
-         */
-        void showSelectLocationPopup();
-
-        /**
          * 2. 검색클릭 -> 검색화면 이동
          *
          * @param v

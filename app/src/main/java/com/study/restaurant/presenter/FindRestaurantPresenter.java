@@ -1,24 +1,17 @@
 package com.study.restaurant.presenter;
 
 import android.app.Activity;
-import android.app.Instrumentation;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Geocoder;
 import android.location.Location;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.gms.common.api.Api;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.api.ApiManager;
-import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.common.FunctionImpl;
 import com.study.restaurant.manager.MyLocationManager;
 import com.study.restaurant.model.Region;
-import com.study.restaurant.model.User;
 import com.study.restaurant.util.LOG;
 import com.study.restaurant.view.FindRestaurantView;
 
@@ -108,16 +101,9 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
      */
     @Override
     public void clickSelectLocation(View v) {
-        showSelectLocationPopup();
+        findRestaurantView.showSelectRegionPopup();
     }
 
-    /**
-     *
-     */
-    @Override
-    public void showSelectLocationPopup() {
-
-    }
 
     /**
      * 2. 검색클릭 -> 검색화면 이동

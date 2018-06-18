@@ -2,8 +2,18 @@ package com.study.restaurant.model;
 
 public class Region {
     String region_id;
-    String title;
+    String region_name;
     String city_id;
+
+
+    public String getRegion_name() {
+        return region_name;
+    }
+
+    public void setRegion_name(String region_name) {
+        this.region_name = region_name;
+    }
+
 
     public String getRegion_id() {
         return region_id;
@@ -13,13 +23,6 @@ public class Region {
         this.region_id = region_id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getCity_id() {
         return city_id;

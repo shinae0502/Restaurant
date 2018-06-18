@@ -30,4 +30,7 @@ public interface RestaurantService {
     @GET("getRegion.php")
     Call<ResponseBody> getRegion(@Query("zipCode") String zipCode);
 
+    @GET("getCity.php")
+    Call<ResponseBody> getCity();
+
 }

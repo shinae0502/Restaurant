@@ -15,11 +15,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.study.restaurant.R;
 import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
 import com.study.restaurant.model.Region;
+import com.study.restaurant.popup.SelectRegionPopup;
 import com.study.restaurant.presenter.FindRestaurantPresenter;
 import com.study.restaurant.util.LOG;
 import com.study.restaurant.view.FindRestaurantView;
 
-public class FindRestaurantFragment extends Fragment implements FindRestaurantView{
+public class FindRestaurantFragment extends Fragment implements FindRestaurantView {
 
     FindRestaurantPresenter findRestaurantPresenter;
     FragmentFindRestaurantBinding fragmentFindRestaurantBinding;
@@ -30,6 +31,24 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
         super.onCreate(savedInstanceState);
 
         findRestaurantPresenter = new FindRestaurantPresenter(this);
+    }
+
+    public FindRestaurantFragment() {
+        // Required empty public constructor
+    }
+
+    public static FindRestaurantFragment newInstance() {
+        FindRestaurantFragment fragment = new FindRestaurantFragment();
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        fragmentFindRestaurantBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_restaurant, container, false);
+
+        fragmentFindRestaurantBinding.setPresenter(findRestaurantPresenter);
+
         findRestaurantPresenter.initLocationManager(getActivity());
         //위치 요청하기
         findRestaurantPresenter.requestLocation(new OnSuccessListener<Location>() {
@@ -46,21 +65,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
                 }
             }
         });
-    }
 
-    public FindRestaurantFragment() {
-        // Required empty public constructor
-    }
-
-    public static FindRestaurantFragment newInstance() {
-        FindRestaurantFragment fragment = new FindRestaurantFragment();
-        return fragment;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        fragmentFindRestaurantBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_restaurant, container, false);
         return fragmentFindRestaurantBinding.getRoot();
     }
 
@@ -74,5 +79,10 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
     @Override
     public void setRegion(Region region) {
         fragmentFindRestaurantBinding.setRegion(region);
+    }
+
+    @Override
+    public void showSelectRegionPopup() {
+        new SelectRegionPopup(getActivity()).show();
     }
 }
