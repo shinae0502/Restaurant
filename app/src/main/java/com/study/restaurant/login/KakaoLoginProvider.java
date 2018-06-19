@@ -17,6 +17,7 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 import com.study.restaurant.model.User;
+import com.study.restaurant.util.LOG;
 
 public class KakaoLoginProvider extends LoginProvider{
 
@@ -51,12 +52,14 @@ public class KakaoLoginProvider extends LoginProvider{
 
         @Override
         public void onSessionOpened() {
-            Log.d("sarang", "onSessionOpened");
+            LOG.d("onSessionOpened");
+            if(callBack != null)
+                callBack.onSuccessLogin(new User());
         }
 
         @Override
         public void onSessionOpenFailed(KakaoException exception) {
-            Log.d("sarang", "onSessionOpenFailed");
+            LOG.d( "onSessionOpenFailed");
         }
     }
 

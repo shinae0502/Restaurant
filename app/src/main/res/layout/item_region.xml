@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:background="@drawable/shape_region_box">
+    android:layout_height="45dp"
+    android:clickable="true"
+    android:background="@drawable/selector_region_box">
 
     <TextView
+        android:id="@+id/name"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
+        android:clickable="true"
         android:layout_centerInParent="true"
         android:gravity="center"
+        android:textColor="@color/selector_region_box_text"
         android:text="강남역" />
 
 </RelativeLayout>

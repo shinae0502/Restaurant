@@ -15,7 +15,7 @@
         android:background="@drawable/shape_popup_bg"
         android:clickable="true" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -25,21 +25,46 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:minHeight="?attr/actionBarSize"
             android:scaleY="-1"
             app:tabIndicatorColor="@color/orange"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/orange"
-            app:tabTextColor="@color/light_gray">
+            app:tabTextColor="@color/gray">
 
         </android.support.design.widget.TabLayout>
 
         <android.support.v4.view.ViewPager
+            android:layout_above="@+id/adaptLayout"
             android:id="@+id/regionViewPager"
             android:layout_width="match_parent"
+            android:layout_below="@+id/tabLayout"
             android:layout_height="match_parent" />
 
-    </LinearLayout>
+        <TextView
+            android:layout_above="@+id/adaptLayout"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gray"/>
+
+        <RelativeLayout
+            android:id="@+id/adaptLayout"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="50dp">
+            <TextView
+                android:clickable="true"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:enabled="false"
+                android:background="@drawable/selector_common_button"
+                android:textColor="#FFFFFF"
+                android:text="적용"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -127,11 +127,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClickSignup(View v) {
-        progressDialog.show();
-        Session.getCurrentSession().open(AuthType.KAKAO_TALK, this);
+
+        //리스너를 먼저 등록해야한다.
         BananaLoginManager.getInstance(this).setCallbackListener(new LoginProvider.CallBack() {
             @Override
             public void onSuccessLogin(User user) {
+                LOG.d("onSuccessLogin");
                 String accessToken = Session.getCurrentSession().getTokenInfo().getAccessToken();
                 //카카오 로그인 성공
                 //서버 로그인 api 호출
@@ -146,11 +147,14 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void failed(String msg) {
-
+                        LOG.d("failed");
                     }
                 });
             }
         });
+
+        progressDialog.show();
+        Session.getCurrentSession().open(AuthType.KAKAO_TALK, this);
     }
 
 

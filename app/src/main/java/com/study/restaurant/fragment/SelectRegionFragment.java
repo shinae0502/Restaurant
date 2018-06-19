@@ -11,14 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.study.restaurant.R;
+import com.study.restaurant.model.Region;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SelectRegionFragment extends Fragment {
 
+
+    private ArrayList<Region> regionList;
 
     public SelectRegionFragment() {
         // Required empty public constructor
@@ -33,8 +39,12 @@ public class SelectRegionFragment extends Fragment {
         RecyclerView recyclerView = v.findViewById(R.id.regionRecyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setAdapter(new SelectRegionRvAdapter());
-        recyclerView.addItemDecoration(new SpacesItemDecoration(15));
+        recyclerView.addItemDecoration(new SpacesItemDecoration(25));
         return v;
+    }
+
+    public void setRegionList(ArrayList<Region> regionList) {
+        this.regionList = regionList;
     }
 
     private class SelectRegionRvAdapter extends RecyclerView.Adapter<SelectRegionViewHolder> {
@@ -50,19 +60,25 @@ public class SelectRegionFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull SelectRegionViewHolder holder, int position) {
-
+            holder.name.setText(regionList.get(position).getRegion_name());
         }
 
         @Override
         public int getItemCount() {
-            return 10;
+            int count = 0;
+            if(regionList != null)
+                count = regionList.size();
+            return count;
         }
     }
 
     private class SelectRegionViewHolder extends RecyclerView.ViewHolder {
 
+        TextView name;
+
         public SelectRegionViewHolder(View itemView) {
             super(itemView);
+            name = itemView.findViewById(R.id.name);
         }
     }
 
@@ -80,12 +96,12 @@ public class SelectRegionFragment extends Fragment {
             outRect.right = space;
             outRect.bottom = space;
 
-            // Add top margin only for the first item to avoid double space between items
+            /*// Add top margin only for the first item to avoid double space between items
             if (parent.getChildLayoutPosition(view) == 0) {
                 outRect.top = space;
             } else {
                 outRect.top = 0;
-            }
+            }*/
         }
     }
 }
