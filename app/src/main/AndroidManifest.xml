@@ -73,7 +73,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.OAuthSampleActivity" />
-        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.SearchActivity" />
+        <activity
+            android:name=".popup.SelectRetionPopupActivity"
+            android:theme="@style/Theme.AppCompat.Translucent"></activity>
     </application>
 
 </manifest>

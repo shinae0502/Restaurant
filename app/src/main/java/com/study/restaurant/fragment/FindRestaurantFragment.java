@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.study.restaurant.R;
 import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
 import com.study.restaurant.model.Region;
-import com.study.restaurant.popup.SelectRegionPopup;
+import com.study.restaurant.popup.SelectRetionPopupActivity;
 import com.study.restaurant.presenter.FindRestaurantPresenter;
 import com.study.restaurant.util.LOG;
 import com.study.restaurant.view.FindRestaurantView;
@@ -83,6 +84,6 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
 
     @Override
     public void showSelectRegionPopup() {
-        new SelectRegionPopup(getActivity()).show();
+        SelectRetionPopupActivity.show((AppCompatActivity) getActivity());
     }
 }
