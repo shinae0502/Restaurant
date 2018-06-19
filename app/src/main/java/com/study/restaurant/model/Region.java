@@ -5,6 +5,8 @@ public class Region {
     String region_name;
     String city_id;
 
+    public boolean isSelected = false;
+
 
     public String getRegion_name() {
         return region_name;

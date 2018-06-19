@@ -10,11 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.study.restaurant.R;
+import com.study.restaurant.model.City;
 import com.study.restaurant.model.Region;
+import com.study.restaurant.presenter.SelectRegionPopupPresenter;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,10 @@ public class SelectRegionFragment extends Fragment {
 
 
     private ArrayList<Region> regionList;
+    private SelectRegionPopupPresenter presenter;
+    private City city;
+    private int mPosition;
+    private String cityName;
 
     public SelectRegionFragment() {
         // Required empty public constructor
@@ -38,13 +44,25 @@ public class SelectRegionFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_select_region, container, false);
         RecyclerView recyclerView = v.findViewById(R.id.regionRecyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recyclerView.setAdapter(new SelectRegionRvAdapter());
+        SelectRegionRvAdapter selectRegionRvAdapter = new SelectRegionRvAdapter();
+
+        recyclerView.setAdapter(selectRegionRvAdapter);
         recyclerView.addItemDecoration(new SpacesItemDecoration(25));
         return v;
     }
 
-    public void setRegionList(ArrayList<Region> regionList) {
-        this.regionList = regionList;
+
+    public void setPresenter(SelectRegionPopupPresenter presenter) {
+        this.presenter = presenter;
+    }
+
+
+    public void setPosition(int position) {
+        mPosition = position;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     private class SelectRegionRvAdapter extends RecyclerView.Adapter<SelectRegionViewHolder> {
@@ -60,14 +78,13 @@ public class SelectRegionFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull SelectRegionViewHolder holder, int position) {
-            holder.name.setText(regionList.get(position).getRegion_name());
+            holder.name.setText(presenter.getCities().getCity(cityName).getRegions().get(position).getRegion_name());
+            holder.region = presenter.getCities().getCity(cityName).getRegions().get(position);
         }
 
         @Override
         public int getItemCount() {
-            int count = 0;
-            if(regionList != null)
-                count = regionList.size();
+            int count = presenter.getCities().getCity(cityName).getRegions().size();
             return count;
         }
     }
@@ -75,10 +92,29 @@ public class SelectRegionFragment extends Fragment {
     private class SelectRegionViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
+        RelativeLayout regionLayout;
+        Region region;
+
+        public void setRegion(Region region) {
+            this.region = region;
+        }
 
         public SelectRegionViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
+            regionLayout =itemView.findViewById(R.id.regionLayout);
+            regionLayout.setOnClickListener(view ->
+                    {
+                        region.isSelected = !region.isSelected;
+                        regionLayout.setSelected(region.isSelected);
+                        presenter.validateButton();
+                    });
+            name.setOnClickListener(view ->
+                {
+                    region.isSelected = !region.isSelected;
+                    regionLayout.setSelected(region.isSelected);
+                    presenter.validateButton();
+                });
         }
     }
 

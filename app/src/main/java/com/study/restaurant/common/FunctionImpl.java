@@ -2,6 +2,11 @@ package com.study.restaurant.common;
 
 import android.view.View;
 
+import com.study.restaurant.model.City;
+import com.study.restaurant.model.Region;
+
+import java.util.ArrayList;
+
 public abstract class FunctionImpl {
 
     public interface Main {
@@ -139,6 +144,31 @@ public abstract class FunctionImpl {
          * @param show
          */
         void setShowTopButton(boolean show);
+
+    }
+
+    public interface RegionPopup {
+
+        /**
+         * 도시 목록 요청하기
+         */
+        void requestCity(OnReceiveCityListener onReceiveCityListener);
+
+        /**
+         * 지역 목록 요청하기
+         */
+        void requestRegion(OnReceiveRegionListener onReceiveRegionListener);
+
+
+        interface OnReceiveCityListener
+        {
+            void onReceiveCity(ArrayList<City> cityArrayList);
+        }
+
+        interface OnReceiveRegionListener
+        {
+            void onReceiveRegion(ArrayList<Region> regionArrayList);
+        }
 
     }
 

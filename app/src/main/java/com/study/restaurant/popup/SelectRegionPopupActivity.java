@@ -1,6 +1,7 @@
 package com.study.restaurant.popup;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,10 +16,15 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.R;
 import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.common.FunctionImpl;
+import com.study.restaurant.databinding.ActivitySelectRetionPopupBinding;
 import com.study.restaurant.fragment.SelectRegionFragment;
+import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.City;
 import com.study.restaurant.model.Region;
+import com.study.restaurant.presenter.SelectRegionPopupPresenter;
 import com.study.restaurant.util.LOG;
+import com.study.restaurant.view.SelectRegionPopupView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -26,18 +32,22 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import static android.support.design.widget.TabLayout.*;
 
-public class SelectRegionPopupActivity extends AppCompatActivity {
+public class SelectRegionPopupActivity extends AppCompatActivity implements SelectRegionPopupView {
 
     TabLayout tabLayout;
     ViewPager regionViewPager;
     RegionPagerAdapter regionPagerAdapter;
+    SelectRegionPopupPresenter selectRegionPopupPresenter;
 
-    HashMap<String, City> cityHashMap = new HashMap<>();
-    HashMap<City, ArrayList<Region>> cityRegionMap = new HashMap<>();
-    private ArrayList<City> cityArrayList;
+    @Override
+    public void validateButton(boolean isValiate) {
+        LOG.d(isValiate);
+        activitySelectRetionPopupBinding.adapt.setEnabled(isValiate);
+    }
 
 
     class RegionPagerAdapter extends FragmentStatePagerAdapter {
@@ -48,9 +58,9 @@ public class SelectRegionPopupActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            City city = (City) tabLayout.getTabAt(position).getTag();
             SelectRegionFragment  selectRegionFragment = new SelectRegionFragment();
-            selectRegionFragment.setRegionList(cityRegionMap.get(city));
+            selectRegionFragment.setCityName(tabLayout.getTabAt(position).getText().toString());
+            selectRegionFragment.setPresenter(selectRegionPopupPresenter);
             return selectRegionFragment;
         }
 
@@ -63,69 +73,44 @@ public class SelectRegionPopupActivity extends AppCompatActivity {
         }
     }
 
+    ActivitySelectRetionPopupBinding activitySelectRetionPopupBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_retion_popup);
-        regionViewPager = findViewById(R.id.regionViewPager);
-        tabLayout = findViewById(R.id.tabLayout);
+        activitySelectRetionPopupBinding = DataBindingUtil.setContentView(this, R.layout.activity_select_retion_popup);
 
-        findViewById(R.id.dim).setOnClickListener(view -> finishWithAnimation());
+        //presenter 초기화
+        selectRegionPopupPresenter = new SelectRegionPopupPresenter(this);
+
+        regionViewPager = findViewById(R.id.regionViewPager);
+
+        tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+        //팝업 딤처리 부분 클릭 시 종료
+        findViewById(R.id.dim).setOnClickListener(view -> finishWithAnimation());
 
-        //지역 불러오기
-        ApiManager.getInstance().getCity(new ApiManager.CallbackListener() {
-            @Override
-            public void callback(String result) {
-                LOG.d(result);
-                Type listType = new TypeToken<ArrayList<City>>() {
-                }.getType();
-                cityArrayList = new Gson().fromJson(result, listType);
-                for (City city : cityArrayList) {
-                    cityRegionMap.put(city, new ArrayList<Region>());
-                    cityHashMap.put(city.getCity_id(), city);
-                }
 
-                //지역 불러오기
-                ApiManager.getInstance().getRegion(null, new ApiManager.CallbackListener() {
-                    @Override
-                    public void callback(String result) {
-                        LOG.d(result);
-                        Type type = new TypeToken<ArrayList<Region>>(){}.getType();
-                        ArrayList<Region> regionArrayList = new Gson().fromJson(result, type);
+        //도시 불러오기
+        selectRegionPopupPresenter.requestCity(cityArrayList -> {
+            selectRegionPopupPresenter.setCities(cityArrayList);
 
-                        for(Region region : regionArrayList)
-                        {
-                            cityRegionMap.get(cityHashMap.get(region.getCity_id())).add(region);
-                        }
-
-                        initRegionTabAndPager();
-
-                    }
-
-                    @Override
-                    public void failed(String msg) {
-
-                    }
-                });
-
-            }
-
-            @Override
-            public void failed(String msg) {
-
-            }
+            //지역 불러오기
+            selectRegionPopupPresenter.requestRegion(regionArrayList -> {
+                selectRegionPopupPresenter.getCities().setRegions(regionArrayList);
+                initRegionTabAndPager(selectRegionPopupPresenter.getCities());
+            });
         });
     }
 
-    private void initRegionTabAndPager() {
+    private void initRegionTabAndPager(Cities cities) {
 
         //최근지역
         tabLayout.addTab(tabLayout.newTab().setText("최근지역"));
         //내주변
         tabLayout.addTab(tabLayout.newTab().setText("내주변"));
-        for(City city : cityArrayList)
+        for(City city : cities.getCities())
         {
             Tab tab = tabLayout.newTab().setText(city.getCity_name());
             tabLayout.addTab(tab);
