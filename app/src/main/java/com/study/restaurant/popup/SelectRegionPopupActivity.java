@@ -9,9 +9,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.internal.CustomTab;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.R;
@@ -23,6 +27,7 @@ import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.City;
 import com.study.restaurant.model.Region;
 import com.study.restaurant.presenter.SelectRegionPopupPresenter;
+import com.study.restaurant.util.CustomTabLayout;
 import com.study.restaurant.util.LOG;
 import com.study.restaurant.view.SelectRegionPopupView;
 
@@ -38,7 +43,7 @@ import static android.support.design.widget.TabLayout.*;
 
 public class SelectRegionPopupActivity extends AppCompatActivity implements SelectRegionPopupView {
 
-    TabLayout tabLayout;
+    CustomTabLayout tabLayout;
     ViewPager regionViewPager;
     RegionPagerAdapter regionPagerAdapter;
     SelectRegionPopupPresenter selectRegionPopupPresenter;
@@ -47,6 +52,13 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
     public void validateButton(boolean isValiate) {
         LOG.d(isValiate);
         activitySelectRetionPopupBinding.adapt.setEnabled(isValiate);
+    }
+
+    @Override
+    public void validateTabLayout(Cities cities) {
+        for(int i=0; i<tabLayout.getTabCount(); i++) {
+            tabLayout.setTabCount(i, cities.getCity(tabLayout.getText(i).toString()).getSelectedRegionCount());
+        }
     }
 
 
@@ -59,7 +71,7 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
         @Override
         public Fragment getItem(int position) {
             SelectRegionFragment  selectRegionFragment = new SelectRegionFragment();
-            selectRegionFragment.setCityName(tabLayout.getTabAt(position).getText().toString());
+            selectRegionFragment.setCityName(tabLayout.getText(position));
             selectRegionFragment.setPresenter(selectRegionPopupPresenter);
             return selectRegionFragment;
         }
@@ -85,7 +97,7 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
 
         regionViewPager = findViewById(R.id.regionViewPager);
 
-        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout = activitySelectRetionPopupBinding.tabLayout;
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //팝업 딤처리 부분 클릭 시 종료
@@ -110,11 +122,14 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
         tabLayout.addTab(tabLayout.newTab().setText("최근지역"));
         //내주변
         tabLayout.addTab(tabLayout.newTab().setText("내주변"));
-        for(City city : cities.getCities())
+
+        for(int i=0; i<cities.getCities().size(); i++)
         {
-            Tab tab = tabLayout.newTab().setText(city.getCity_name());
+            City city = cities.getCities().get(i);
+            Tab tab = tabLayout.newTab();
             tabLayout.addTab(tab);
-            tab.setTag(city);
+            tab.setTag(cities.getCities().get(i));
+            tabLayout.setText(i, city.getCity_name());
         }
 
         //텍스트 뒤집기

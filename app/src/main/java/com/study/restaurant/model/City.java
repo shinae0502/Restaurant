@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class City {
 
+    String city_id;
+    String city_name;
+
     //도시는 지역을 갖고 있다.
     ArrayList<Region> regions = new ArrayList<>();
 
@@ -31,10 +34,6 @@ public class City {
 
         return count;
     }
-
-
-    String city_id;
-    String city_name;
 
     public String getCity_id() {
         return city_id;

@@ -8,6 +8,7 @@ import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.City;
 import com.study.restaurant.model.Region;
 import com.study.restaurant.popup.SelectRegionPopupActivity;
+import com.study.restaurant.util.LOG;
 import com.study.restaurant.view.SelectRegionPopupView;
 
 import java.lang.reflect.Type;
@@ -80,5 +81,6 @@ public class SelectRegionPopupPresenter implements FunctionImpl.RegionPopup {
 
     public void validateButton() {
         selectRegionPopupView.validateButton(getCities().isDirty());
+        selectRegionPopupView.validateTabLayout(mCities);
     }
 }
