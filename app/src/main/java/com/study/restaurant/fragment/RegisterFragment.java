@@ -11,7 +11,6 @@ import com.study.restaurant.R;
 public class RegisterFragment extends Fragment {
 
     public RegisterFragment() {
-        // Required empty public constructor
     }
 
     public static RegisterFragment newInstance() {
