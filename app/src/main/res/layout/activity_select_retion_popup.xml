@@ -30,6 +30,7 @@
             android:layout_height="65dp"
             android:minHeight="?attr/actionBarSize"
             android:scaleY="-1"
+            app:tabBackground = "@android:color/transparent"
             app:tabIndicatorColor="@color/orange"
             app:tabMode="scrollable">
 

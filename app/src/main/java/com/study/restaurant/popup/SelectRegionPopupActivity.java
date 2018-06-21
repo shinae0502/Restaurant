@@ -157,6 +157,8 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
 
             }
         });
+
+        regionViewPager.setOffscreenPageLimit(tabLayout.getTabCount());
     }
 
     public static void show(AppCompatActivity appCompatActivity) {
