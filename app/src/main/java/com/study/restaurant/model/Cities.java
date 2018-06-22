@@ -1,7 +1,5 @@
 package com.study.restaurant.model;
 
-import com.study.restaurant.util.LOG;
-
 import java.util.ArrayList;
 
 public class Cities {
@@ -33,6 +31,7 @@ public class Cities {
             {
                 if(city.city_id.equals(region.city_id))
                 {
+                    region.setParent(city);
                     city.regions.add(region);
                 }
             }

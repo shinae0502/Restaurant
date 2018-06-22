@@ -1,11 +1,32 @@
 package com.study.restaurant.model;
 
-public class Region {
+import android.databinding.BaseObservable;
+
+public class Region extends BaseObservable {
     String region_id;
     String region_name;
     String city_id;
 
-    public boolean isSelected = false;
+    City parent;
+
+    public City getParent() {
+        return parent;
+    }
+
+    public void setParent(City parent) {
+        this.parent = parent;
+    }
+
+    boolean isSelected = false;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+        parent.refreshCount();
+    }
 
 
     public String getRegion_name() {

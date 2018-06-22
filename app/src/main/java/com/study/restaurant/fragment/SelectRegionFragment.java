@@ -105,14 +105,14 @@ public class SelectRegionFragment extends Fragment {
             regionLayout =itemView.findViewById(R.id.regionLayout);
             regionLayout.setOnClickListener(view ->
                     {
-                        region.isSelected = !region.isSelected;
-                        regionLayout.setSelected(region.isSelected);
+                        region.setSelected(!region.isSelected());
+                        regionLayout.setSelected(region.isSelected());
                         presenter.validateButton();
                     });
             name.setOnClickListener(view ->
                 {
-                    region.isSelected = !region.isSelected;
-                    regionLayout.setSelected(region.isSelected);
+                    region.setSelected(!region.isSelected());
+                    regionLayout.setSelected(region.isSelected());
                     presenter.validateButton();
                 });
         }

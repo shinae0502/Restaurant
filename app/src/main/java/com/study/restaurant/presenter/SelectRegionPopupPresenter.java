@@ -81,6 +81,24 @@ public class SelectRegionPopupPresenter implements FunctionImpl.RegionPopup {
 
     public void validateButton() {
         selectRegionPopupView.validateButton(getCities().isDirty());
-        selectRegionPopupView.validateTabLayout(mCities);
+    }
+
+    public void initRegionAncCity(OnRegionAncCityListener onRegionAncCityListener) {
+        //도시 불러오기
+        requestCity(cityArrayList -> {
+            mCities.setCities(cityArrayList);
+
+            //지역 불러오기
+            requestRegion(regionArrayList -> {
+                mCities.setRegions(regionArrayList);
+                if(onRegionAncCityListener != null)
+                    onRegionAncCityListener.onReceiveRegionAndCity(mCities);
+            });
+        });
+    }
+
+    public interface OnRegionAncCityListener
+    {
+        void onReceiveRegionAndCity(Cities cities);
     }
 }
