@@ -63,11 +63,11 @@
             android:layout_alignParentBottom="true"
             android:layout_height="50dp">
             <TextView
-                android:id="@+id/adapt"
                 android:clickable="true"
                 android:layout_width="100dp"
                 android:layout_height="35dp"
                 android:gravity="center"
+                android:onClick="adapt"
                 android:layout_centerInParent="true"
                 android:enabled="@{cities.isSelectedRegion}"
                 android:background="@drawable/selector_common_button"

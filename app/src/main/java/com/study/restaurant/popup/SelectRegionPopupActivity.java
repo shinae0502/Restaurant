@@ -1,5 +1,6 @@
 package com.study.restaurant.popup;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -9,7 +10,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+
 import com.study.restaurant.R;
+import com.study.restaurant.activity.GlobalApplication;
 import com.study.restaurant.databinding.ActivitySelectRetionPopupBinding;
 import com.study.restaurant.databinding.LayoutCustomTabBinding;
 import com.study.restaurant.fragment.SelectRegionFragment;
@@ -50,8 +54,25 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
         //팝업 딤처리 부분 클릭 시 종료
         findViewById(R.id.dim).setOnClickListener(view -> finishWithAnimation());
 
-        //도시 지역 불러오기
-        selectRegionPopupPresenter.initRegionAncCity(cities -> initRegionTabAndPager(cities));
+        //기존 불러온 도시 정보가 있다면 적용하기
+        Cities tempCities = ((GlobalApplication) getApplication()).getCities();
+        if (tempCities != null) {
+            selectRegionPopupPresenter.setCities(tempCities);
+            initRegionTabAndPager(tempCities);
+        }
+        //서버 도시 지역 요청하기
+        else {
+            selectRegionPopupPresenter.initRegionAncCity(cities ->
+            {
+                cities.addCity(0, City.build()
+                        .city_id("-1")
+                        .city_name("최근지역"));
+                cities.addCity(1, City.build()
+                        .city_id("0")
+                        .city_name("내주변"));
+                initRegionTabAndPager(cities);
+            });
+        }
 
     }
 
@@ -59,6 +80,12 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
     public void validateButton(boolean isValiate) {
         LOG.d(isValiate);
         //activitySelectRetionPopupBinding.adapt.setEnabled(isValiate);
+    }
+
+    public void adapt(View view) {
+        ((GlobalApplication) getApplication()).setCities(selectRegionPopupPresenter.getCities());
+        setResult(Activity.RESULT_OK);
+        finishWithAnimation();
     }
 
     class RegionPagerAdapter extends FragmentStatePagerAdapter {
@@ -69,7 +96,7 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
 
         @Override
         public Fragment getItem(int position) {
-            SelectRegionFragment  selectRegionFragment = new SelectRegionFragment();
+            SelectRegionFragment selectRegionFragment = new SelectRegionFragment();
             selectRegionFragment.setCityName(selectRegionPopupPresenter.getCities().getCities().get(position).getCity_name());
             selectRegionFragment.setPresenter(selectRegionPopupPresenter);
             return selectRegionFragment;
@@ -87,17 +114,8 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
     ActivitySelectRetionPopupBinding activitySelectRetionPopupBinding;
 
 
-
     private void initRegionTabAndPager(Cities cities) {
-        cities.addCity(0,City.build()
-                                        .city_id("-1")
-                                        .city_name("최근지역"));
-        cities.addCity(1,City.build()
-                                        .city_id("0")
-                                        .city_name("내주변"));
-
-        for(int i=0; i<cities.getCities().size(); i++)
-        {
+        for (int i = 0; i < cities.getCities().size(); i++) {
             City city = cities.getCities().get(i);
             LayoutCustomTabBinding layoutCustomTabBinding = LayoutCustomTabBinding.inflate(getLayoutInflater());
             Tab tab = tabLayout.newTab().setCustomView(layoutCustomTabBinding.getRoot());
@@ -131,7 +149,7 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
     }
 
     public static void show(AppCompatActivity appCompatActivity) {
-        appCompatActivity.startActivity(new Intent(appCompatActivity, SelectRegionPopupActivity.class));
+        appCompatActivity.startActivityForResult(new Intent(appCompatActivity, SelectRegionPopupActivity.class), 0x01);
         appCompatActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_in);
     }
 

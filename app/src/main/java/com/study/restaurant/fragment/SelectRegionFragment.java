@@ -1,12 +1,16 @@
 package com.study.restaurant.fragment;
 
 
+import android.databinding.Observable;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.study.restaurant.BR;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +22,7 @@ import com.study.restaurant.databinding.ItemRegionBinding;
 import com.study.restaurant.model.City;
 import com.study.restaurant.model.Region;
 import com.study.restaurant.presenter.SelectRegionPopupPresenter;
+import com.study.restaurant.util.LOG;
 
 import java.util.ArrayList;
 
@@ -95,25 +100,31 @@ public class SelectRegionFragment extends Fragment {
 
         public void setRegion(Region region) {
             this.region = region;
-            if(itemRegionBinding != null)
+            if (itemRegionBinding != null) {
                 itemRegionBinding.setRegion(region);
+                //기존 정보가 있을때 필요함. select를 바인딩 하는 방법 모르겠음.
+                itemRegionBinding.regionLayout.setSelected(region.getChecked());
+
+                region.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+                    @Override
+                    public void onPropertyChanged(Observable sender, int propertyId) {
+                        LOG.d(propertyId);
+                        if (propertyId == BR.checked) {
+                            itemRegionBinding.regionLayout.setSelected(region.getChecked());
+                        }
+                    }
+                });
+            }
         }
 
         public SelectRegionViewHolder(ItemRegionBinding itemRegionBinding) {
             super(itemRegionBinding.getRoot());
             this.itemRegionBinding = itemRegionBinding;
             name = itemView.findViewById(R.id.name);
-            regionLayout =itemView.findViewById(R.id.regionLayout);
-            regionLayout.setOnClickListener(view ->
-                    {
-                        region.setChecked(!region.getChecked());
-                        regionLayout.setSelected(region.getChecked());
-                    });
-            name.setOnClickListener(view ->
-                {
-                    region.setChecked(!region.getChecked());
-                    regionLayout.setSelected(region.getChecked());
-                });
+
+            regionLayout = itemView.findViewById(R.id.regionLayout);
+            regionLayout.setOnClickListener(view -> region.setChecked(!region.getChecked()));
+            name.setOnClickListener(view -> region.setChecked(!region.getChecked()));
         }
 
         public static SelectRegionViewHolder create(ViewGroup parent, int viewType) {

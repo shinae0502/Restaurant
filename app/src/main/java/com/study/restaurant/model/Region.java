@@ -31,6 +31,11 @@ public class Region extends BaseObservable {
 
     public void setChecked(boolean checked) {
         isChecked = checked;
+        //마지막 선택한 지역 등록
+        if(checked)
+        {
+            parent.parent.setLastSelectRegion(this);
+        }
         parent.refreshCount();
         parent.parent.validate();
         notifyPropertyChanged(BR.checked);

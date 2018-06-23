@@ -1,5 +1,7 @@
 package com.study.restaurant.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
 import android.os.Bundle;
@@ -14,7 +16,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.study.restaurant.R;
+import com.study.restaurant.activity.GlobalApplication;
 import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
+import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.Region;
 import com.study.restaurant.popup.SelectRegionPopupActivity;
 import com.study.restaurant.presenter.FindRestaurantPresenter;
@@ -25,6 +29,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
 
     FindRestaurantPresenter findRestaurantPresenter;
     FragmentFindRestaurantBinding fragmentFindRestaurantBinding;
+    Cities mCities = new Cities();
 
 
     @Override
@@ -52,18 +57,15 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
 
         findRestaurantPresenter.initLocationManager(getActivity());
         //위치 요청하기
-        findRestaurantPresenter.requestLocation(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    LOG.d(location.toString());
-                    //내 위치가 있다면 현재 위치의 주소 확인하기
-                    if (!findRestaurantPresenter.requestAddress(location.getLatitude(), location.getLongitude())) {
-                        Toast.makeText(getActivity(), "현재 주소를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    LOG.d("location is null");
+        findRestaurantPresenter.requestLocation(location -> {
+            if (location != null) {
+                LOG.d(location.toString());
+                //내 위치가 있다면 현재 위치의 주소 확인하기
+                if (!findRestaurantPresenter.requestAddress(location.getLatitude(), location.getLongitude())) {
+                    Toast.makeText(getActivity(), "현재 주소를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                LOG.d("location is null");
             }
         });
 
@@ -80,10 +82,22 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
     @Override
     public void setRegion(Region region) {
         fragmentFindRestaurantBinding.setRegion(region);
+        fragmentFindRestaurantBinding.location.setText(region.getRegion_name());
     }
 
     @Override
     public void showSelectRegionPopup() {
         SelectRegionPopupActivity.show((AppCompatActivity) getActivity());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK)
+            if (requestCode == 0x01) {
+                mCities = ((GlobalApplication) getActivity().getApplication()).getCities();
+                fragmentFindRestaurantBinding.setCities(mCities);
+            }
+
     }
 }

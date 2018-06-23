@@ -29,6 +29,10 @@ public class SelectRegionPopupPresenter implements FunctionImpl.RegionPopup {
         return mCities;
     }
 
+    public void setCities(Cities mCities) {
+        this.mCities = mCities;
+    }
+
     /**
      * 도시 목록 요청하기
      *

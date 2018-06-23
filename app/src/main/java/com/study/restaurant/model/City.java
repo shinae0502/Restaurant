@@ -41,19 +41,16 @@ public class City extends BaseObservable {
         this.city_name = city_name;
     }
 
-    public static City build()
-    {
+    public static City build() {
         return new City();
     }
 
-    public City city_id(String city_id)
-    {
+    public City city_id(String city_id) {
         this.city_id = city_id;
         return this;
     }
 
-    public City city_name(String city_name)
-    {
+    public City city_name(String city_name) {
         this.city_name = city_name;
         return this;
     }
@@ -66,35 +63,32 @@ public class City extends BaseObservable {
         this.regions = regions;
     }
 
-    public void refreshCount()
-    {
+    public void refreshCount() {
+        //숫자표시
         notifyPropertyChanged(BR.selectedRegionCount);
+        //0일경우 사라지게함
         notifyPropertyChanged(BR.visibleCount);
     }
 
 
     //지역은 선택 될 수 있고 선택된 카운트를 가져 올 수 있어야한다.
     @Bindable
-    public String getSelectedRegionCount()
-    {
+    public String getSelectedRegionCount() {
         int count = 0;
 
-        if(regions != null)
-        {
-            for(Region region : regions)
-            {
-                if(region.isChecked)
+        if (regions != null) {
+            for (Region region : regions) {
+                if (region.isChecked)
                     count++;
             }
         }
 
-        return ""+count;
+        return "" + count;
     }
 
     @Bindable
-    public boolean getVisibleCount()
-    {
-        if(Integer.valueOf(getSelectedRegionCount()) > 0 )
+    public boolean getVisibleCount() {
+        if (Integer.valueOf(getSelectedRegionCount()) > 0)
             return true;
         else
             return false;

@@ -1,5 +1,6 @@
 package com.study.restaurant.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -185,5 +186,12 @@ public class MainActivity extends AppCompatActivity implements FunctionImpl.Main
             if (findRestaurantFragment != null)
                 findRestaurantFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(findRestaurantFragment != null)
+            findRestaurantFragment.onActivityResult(requestCode, resultCode, data);
     }
 }
