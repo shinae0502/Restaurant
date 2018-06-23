@@ -1,13 +1,15 @@
 package com.study.restaurant.model;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import com.study.restaurant.BR;
 
 public class Region extends BaseObservable {
     String region_id;
     String region_name;
     String city_id;
-
     City parent;
+    boolean isChecked = false;
 
     public City getParent() {
         return parent;
@@ -17,15 +19,21 @@ public class Region extends BaseObservable {
         this.parent = parent;
     }
 
-    boolean isSelected = false;
-
-    public boolean isSelected() {
-        return isSelected;
+    public boolean isChecked() {
+        return isChecked;
     }
 
-    public void setSelected(boolean selected) {
-        isSelected = selected;
+    @Bindable
+    public boolean getChecked()
+    {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
         parent.refreshCount();
+        parent.parent.validate();
+        notifyPropertyChanged(BR.checked);
     }
 
 

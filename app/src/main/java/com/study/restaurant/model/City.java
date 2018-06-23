@@ -7,10 +7,21 @@ import com.study.restaurant.BR;
 
 import java.util.ArrayList;
 
-public class City extends BaseObservable{
+public class City extends BaseObservable {
 
+    Cities parent;
     String city_id;
     String city_name;
+    //도시는 지역을 갖고 있다.
+    ArrayList<Region> regions = new ArrayList<>();
+
+    public Cities getParent() {
+        return parent;
+    }
+
+    public void setParent(Cities parent) {
+        this.parent = parent;
+    }
 
     @Bindable
     public String getCity_id() {
@@ -47,9 +58,6 @@ public class City extends BaseObservable{
         return this;
     }
 
-    //도시는 지역을 갖고 있다.
-    ArrayList<Region> regions = new ArrayList<>();
-
     public ArrayList<Region> getRegions() {
         return regions;
     }
@@ -75,7 +83,7 @@ public class City extends BaseObservable{
         {
             for(Region region : regions)
             {
-                if(region.isSelected)
+                if(region.isChecked)
                     count++;
             }
         }

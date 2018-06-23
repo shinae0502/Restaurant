@@ -29,10 +29,6 @@ public class SelectRegionPopupPresenter implements FunctionImpl.RegionPopup {
         return mCities;
     }
 
-    public void setCities(ArrayList<City> cities) {
-        mCities.setCities(cities);
-    }
-
     /**
      * 도시 목록 요청하기
      *
@@ -80,7 +76,7 @@ public class SelectRegionPopupPresenter implements FunctionImpl.RegionPopup {
     }
 
     public void validateButton() {
-        selectRegionPopupView.validateButton(getCities().isDirty());
+        //selectRegionPopupView.validateButton(getCities().isDirty());
     }
 
     public void initRegionAncCity(OnRegionAncCityListener onRegionAncCityListener) {

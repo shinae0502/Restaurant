@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.study.restaurant.R;
+import com.study.restaurant.databinding.ItemRegionBinding;
 import com.study.restaurant.model.City;
 import com.study.restaurant.model.Region;
 import com.study.restaurant.presenter.SelectRegionPopupPresenter;
@@ -70,16 +71,12 @@ public class SelectRegionFragment extends Fragment {
         @NonNull
         @Override
         public SelectRegionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            SelectRegionViewHolder selectRegionViewHolder = new SelectRegionViewHolder(
-                    View.inflate(parent.getContext(), R.layout.item_region, null)
-            );
-            return selectRegionViewHolder;
+            return SelectRegionViewHolder.create(parent, viewType);
         }
 
         @Override
         public void onBindViewHolder(@NonNull SelectRegionViewHolder holder, int position) {
-            holder.name.setText(presenter.getCities().getCity(cityName).getRegions().get(position).getRegion_name());
-            holder.region = presenter.getCities().getCity(cityName).getRegions().get(position);
+            holder.setRegion(presenter.getCities().getCity(cityName).getRegions().get(position));
         }
 
         @Override
@@ -89,32 +86,39 @@ public class SelectRegionFragment extends Fragment {
         }
     }
 
-    private class SelectRegionViewHolder extends RecyclerView.ViewHolder {
+    private static class SelectRegionViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
         RelativeLayout regionLayout;
-        Region region;
+        private Region region;
+        ItemRegionBinding itemRegionBinding;
 
         public void setRegion(Region region) {
             this.region = region;
+            if(itemRegionBinding != null)
+                itemRegionBinding.setRegion(region);
         }
 
-        public SelectRegionViewHolder(View itemView) {
-            super(itemView);
+        public SelectRegionViewHolder(ItemRegionBinding itemRegionBinding) {
+            super(itemRegionBinding.getRoot());
+            this.itemRegionBinding = itemRegionBinding;
             name = itemView.findViewById(R.id.name);
             regionLayout =itemView.findViewById(R.id.regionLayout);
             regionLayout.setOnClickListener(view ->
                     {
-                        region.setSelected(!region.isSelected());
-                        regionLayout.setSelected(region.isSelected());
-                        presenter.validateButton();
+                        region.setChecked(!region.getChecked());
+                        regionLayout.setSelected(region.getChecked());
                     });
             name.setOnClickListener(view ->
                 {
-                    region.setSelected(!region.isSelected());
-                    regionLayout.setSelected(region.isSelected());
-                    presenter.validateButton();
+                    region.setChecked(!region.getChecked());
+                    regionLayout.setSelected(region.getChecked());
                 });
+        }
+
+        public static SelectRegionViewHolder create(ViewGroup parent, int viewType) {
+            ItemRegionBinding itemRegionBinding = ItemRegionBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+            return new SelectRegionViewHolder(itemRegionBinding);
         }
     }
 

@@ -58,7 +58,7 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
     @Override
     public void validateButton(boolean isValiate) {
         LOG.d(isValiate);
-        activitySelectRetionPopupBinding.adapt.setEnabled(isValiate);
+        //activitySelectRetionPopupBinding.adapt.setEnabled(isValiate);
     }
 
     class RegionPagerAdapter extends FragmentStatePagerAdapter {
@@ -89,10 +89,10 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
 
 
     private void initRegionTabAndPager(Cities cities) {
-        cities.getCities().add(0,City.build()
+        cities.addCity(0,City.build()
                                         .city_id("-1")
                                         .city_name("최근지역"));
-        cities.getCities().add(0,City.build()
+        cities.addCity(1,City.build()
                                         .city_id("0")
                                         .city_name("내주변"));
 
@@ -127,6 +127,7 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
         });
 
         regionViewPager.setOffscreenPageLimit(tabLayout.getTabCount());
+        activitySelectRetionPopupBinding.setCities(cities);
     }
 
     public static void show(AppCompatActivity appCompatActivity) {
