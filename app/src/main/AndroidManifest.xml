@@ -76,6 +76,9 @@
         <activity android:name=".activity.SearchActivity" />
         <activity
             android:name=".popup.SelectRegionPopupActivity"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity
+            android:name=".popup.SelectSortPopupActivity"
             android:theme="@style/Theme.AppCompat.Translucent"></activity>
     </application>
 

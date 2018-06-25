@@ -6,4 +6,6 @@ public interface FindRestaurantView {
     void setRegion(Region region);
 
     void showSelectRegionPopup();
+
+    void showSortPopup();
 }

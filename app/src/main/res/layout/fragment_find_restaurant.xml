@@ -7,7 +7,7 @@
 
         <variable
             name="cities"
-            type="com.study.restaurant.model.Cities"/>
+            type="com.study.restaurant.model.Cities" />
 
         <variable
             name="region"
@@ -155,16 +155,17 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:clickable="true"
-                        android:onClick="@{presenter::clickFilter}">
+                        android:onClick="@{presenter::clickSort}">
 
                         <TextView
                             android:id="@+id/filter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:text="평점순"
                             android:textColor="#7A7A7A" />
 

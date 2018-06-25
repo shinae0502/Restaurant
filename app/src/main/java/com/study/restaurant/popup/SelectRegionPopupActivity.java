@@ -26,7 +26,7 @@ import com.study.restaurant.view.SelectRegionPopupView;
 
 import static android.support.design.widget.TabLayout.*;
 
-public class SelectRegionPopupActivity extends AppCompatActivity implements SelectRegionPopupView {
+public class SelectRegionPopupActivity extends BasePopupActivity implements SelectRegionPopupView {
 
     CustomTabLayout tabLayout;
     ViewPager regionViewPager;
@@ -51,8 +51,7 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
         tabLayout = activitySelectRetionPopupBinding.tabLayout;
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        //팝업 딤처리 부분 클릭 시 종료
-        findViewById(R.id.dim).setOnClickListener(view -> finishWithAnimation());
+        setDimClickListener();
 
         //기존 불러온 도시 정보가 있다면 적용하기
         Cities tempCities = null;
@@ -157,8 +156,7 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
     }
 
     public static void show(AppCompatActivity appCompatActivity) {
-        appCompatActivity.startActivityForResult(new Intent(appCompatActivity, SelectRegionPopupActivity.class), 0x01);
-        appCompatActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_in);
+        BasePopupActivity.show(appCompatActivity, new Intent(appCompatActivity, SelectRegionPopupActivity.class), 0x01);
     }
 
     @Override

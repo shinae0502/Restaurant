@@ -166,7 +166,7 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
      */
     @Override
     public void clickSort(View v) {
-
+        findRestaurantView.showSortPopup();
     }
 
     /**

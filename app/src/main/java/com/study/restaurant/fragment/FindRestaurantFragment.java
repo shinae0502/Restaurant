@@ -21,6 +21,7 @@ import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
 import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.Region;
 import com.study.restaurant.popup.SelectRegionPopupActivity;
+import com.study.restaurant.popup.SelectSortPopupActivity;
 import com.study.restaurant.presenter.FindRestaurantPresenter;
 import com.study.restaurant.util.LOG;
 import com.study.restaurant.view.FindRestaurantView;
@@ -88,6 +89,11 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
     @Override
     public void showSelectRegionPopup() {
         SelectRegionPopupActivity.show((AppCompatActivity) getActivity());
+    }
+
+    @Override
+    public void showSortPopup() {
+        SelectSortPopupActivity.show((AppCompatActivity) getActivity());
     }
 
     @Override
