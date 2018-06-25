@@ -20,6 +20,10 @@
         <variable
             name="sort"
             type="com.study.restaurant.model.Sort" />
+
+        <variable
+            name="boundary"
+            type="com.study.restaurant.model.Boundary" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -200,7 +204,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3km"
+                            android:text="@{boundary.boundary}"
                             android:textColor="@color/orange" />
                     </LinearLayout>
 

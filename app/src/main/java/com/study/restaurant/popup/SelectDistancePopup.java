@@ -31,6 +31,7 @@ public class SelectDistancePopup extends BasePopupActivity {
             }
         });
         setDimClickListener();
+        activitySelectDistancePopupBinding.setBoundary(boundary);
     }
 
     public static void show(AppCompatActivity appCompatActivity) {

@@ -55,6 +55,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
                              Bundle savedInstanceState) {
         fragmentFindRestaurantBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_restaurant, container, false);
         fragmentFindRestaurantBinding.setSort(((GlobalApplication) getActivity().getApplication()).getSort());
+        fragmentFindRestaurantBinding.setBoundary(((GlobalApplication) getActivity().getApplication()).getBoundary());
 
         fragmentFindRestaurantBinding.setPresenter(findRestaurantPresenter);
 

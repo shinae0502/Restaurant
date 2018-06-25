@@ -20,6 +20,7 @@ public class Boundary extends BaseObservable {
     public void setLevel1(boolean level1) {
         this.level1 = level1;
         notifyPropertyChanged(BR.level1);
+        notifyPropertyChanged(BR.boundary);
 
     }
 
@@ -31,6 +32,7 @@ public class Boundary extends BaseObservable {
     public void setLevel2(boolean level2) {
         this.level2 = level2;
         notifyPropertyChanged(BR.level2);
+        notifyPropertyChanged(BR.boundary);
     }
 
     @Bindable
@@ -41,6 +43,7 @@ public class Boundary extends BaseObservable {
     public void setLevel3(boolean level3) {
         this.level3 = level3;
         notifyPropertyChanged(BR.level3);
+        notifyPropertyChanged(BR.boundary);
     }
 
     @Bindable
@@ -51,6 +54,7 @@ public class Boundary extends BaseObservable {
     public void setLevel4(boolean level4) {
         this.level4 = level4;
         notifyPropertyChanged(BR.level4);
+        notifyPropertyChanged(BR.boundary);
     }
 
     @Bindable
@@ -61,5 +65,15 @@ public class Boundary extends BaseObservable {
     public void setLevel5(boolean level5) {
         this.level5 = level5;
         notifyPropertyChanged(BR.level5);
+        notifyPropertyChanged(BR.boundary);
+    }
+
+    @Bindable
+    public String getBoundary() {
+        return level1 ? "100m"
+                : level2 ? "300m"
+                : level3 ? "500m"
+                : level4 ? "1km"
+                : level5 ? "3km" : "없음";
     }
 }

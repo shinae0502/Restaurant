@@ -37,6 +37,7 @@ public class SelectSortPopupActivity extends BasePopupActivity {
                 finishWithAnimation();
             }
         });
+
     }
 
     void refreshUI() {
