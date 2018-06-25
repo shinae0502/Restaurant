@@ -8,4 +8,6 @@ public interface FindRestaurantView {
     void showSelectRegionPopup();
 
     void showSortPopup();
+
+    void showBoundaryPopup();
 }

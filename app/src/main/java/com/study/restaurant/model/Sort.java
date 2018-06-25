@@ -20,6 +20,7 @@ public class Sort extends BaseObservable {
     public void setReputatuon(boolean reputatuon) {
         isReputatuon = reputatuon;
         notifyPropertyChanged(BR.reputatuon);
+        notifyPropertyChanged(BR.sortTitle);
     }
 
     @Bindable
@@ -30,6 +31,7 @@ public class Sort extends BaseObservable {
     public void setRecommand(boolean recommand) {
         isRecommand = recommand;
         notifyPropertyChanged(BR.recommand);
+        notifyPropertyChanged(BR.sortTitle);
     }
 
     @Bindable
@@ -40,6 +42,7 @@ public class Sort extends BaseObservable {
     public void setReview(boolean review) {
         isReview = review;
         notifyPropertyChanged(BR.review);
+        notifyPropertyChanged(BR.sortTitle);
     }
 
     @Bindable
@@ -50,6 +53,15 @@ public class Sort extends BaseObservable {
     public void setDistance(boolean distance) {
         isDistance = distance;
         notifyPropertyChanged(BR.distance);
+        notifyPropertyChanged(BR.sortTitle);
+    }
+
+    @Bindable
+    public String getSortTitle() {
+        return isReputatuon ? "평점순"
+                : isRecommand ? "추천순"
+                : isDistance ? "거리순"
+                : isReview ? "리뷰순" : "없음";
     }
 
 }

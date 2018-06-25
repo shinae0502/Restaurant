@@ -20,6 +20,7 @@ import com.study.restaurant.activity.GlobalApplication;
 import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
 import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.Region;
+import com.study.restaurant.popup.SelectDistancePopup;
 import com.study.restaurant.popup.SelectRegionPopupActivity;
 import com.study.restaurant.popup.SelectSortPopupActivity;
 import com.study.restaurant.presenter.FindRestaurantPresenter;
@@ -53,6 +54,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentFindRestaurantBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_restaurant, container, false);
+        fragmentFindRestaurantBinding.setSort(((GlobalApplication) getActivity().getApplication()).getSort());
 
         fragmentFindRestaurantBinding.setPresenter(findRestaurantPresenter);
 
@@ -94,6 +96,11 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
     @Override
     public void showSortPopup() {
         SelectSortPopupActivity.show((AppCompatActivity) getActivity());
+    }
+
+    @Override
+    public void showBoundaryPopup() {
+        SelectDistancePopup.show((AppCompatActivity) getActivity());
     }
 
     @Override

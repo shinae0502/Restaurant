@@ -20,4 +20,9 @@ public class BasePopupActivity extends AppCompatActivity {
         //팝업 딤처리 부분 클릭 시 종료
         findViewById(R.id.dim).setOnClickListener(view -> finishWithAnimation());
     }
+
+    @Override
+    public void onBackPressed() {
+        finishWithAnimation();
+    }
 }

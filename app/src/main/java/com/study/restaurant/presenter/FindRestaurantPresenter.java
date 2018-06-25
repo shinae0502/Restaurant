@@ -184,7 +184,7 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
      */
     @Override
     public void clickBoundary(View v) {
-
+        findRestaurantView.showBoundaryPopup();
     }
 
     /**

@@ -2,7 +2,6 @@ package com.study.restaurant.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.net.Uri;
 
 import com.study.restaurant.BR;
 
