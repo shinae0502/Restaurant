@@ -55,8 +55,14 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
         findViewById(R.id.dim).setOnClickListener(view -> finishWithAnimation());
 
         //기존 불러온 도시 정보가 있다면 적용하기
-        Cities tempCities = ((GlobalApplication) getApplication()).getCities();
+        Cities tempCities = null;
+        tempCities = ((GlobalApplication) getApplication()).getCities();
         if (tempCities != null) {
+            try {
+                tempCities = tempCities.clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
             selectRegionPopupPresenter.setCities(tempCities);
             initRegionTabAndPager(tempCities);
         }
@@ -64,12 +70,14 @@ public class SelectRegionPopupActivity extends AppCompatActivity implements Sele
         else {
             selectRegionPopupPresenter.initRegionAncCity(cities ->
             {
-                cities.addCity(0, City.build()
-                        .city_id("-1")
-                        .city_name("최근지역"));
-                cities.addCity(1, City.build()
-                        .city_id("0")
-                        .city_name("내주변"));
+                cities.addCity(0, new City.Builder()
+                        .setCity_id("-1")
+                        .setCity_name("최근지역")
+                        .create());
+                cities.addCity(1, new City.Builder()
+                        .setCity_id("0")
+                        .setCity_name("내주변")
+                        .create());
                 initRegionTabAndPager(cities);
             });
         }

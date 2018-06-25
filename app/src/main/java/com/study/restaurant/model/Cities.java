@@ -9,10 +9,20 @@ import com.study.restaurant.BR;
 
 import java.util.ArrayList;
 
-public class Cities extends BaseObservable {
+public class Cities extends BaseObservable implements Cloneable {
 
-    ArrayList<City> cities;
+    ArrayList<City> cities = new ArrayList<>();
     Region lastSelectRegion = new Region();
+
+    public Cities clone() throws CloneNotSupportedException {
+        Cities cities = new Cities();
+        cities.setCities(new ArrayList<>(this.cities.size()));
+        for (City city : this.cities) {
+            cities.addCity(city.clone());
+        }
+
+        return cities;
+    }
 
     public Region getLastSelectRegion() {
         return lastSelectRegion;
@@ -55,8 +65,7 @@ public class Cities extends BaseObservable {
         for (City city : cities) {
             for (Region region : regions) {
                 if (city.city_id.equals(region.city_id)) {
-                    region.setParent(city);
-                    city.regions.add(region);
+                    city.addRegion(region);
                 }
             }
         }
@@ -92,9 +101,18 @@ public class Cities extends BaseObservable {
         for (City city : cities) {
             count += Integer.valueOf(city.getSelectedRegionCount());
         }
-        if (count > 0)
-            return lastSelectRegion.region_name + " 외 " + (count-1) + "곳";
+        if (count > 1)
+            return lastSelectRegion.region_name + " 외 " + (count - 1) + "곳";
         else
             return lastSelectRegion.region_name;
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        for (City city : cities) {
+            str += city.toString() + "\n";
+        }
+        return str;
     }
 }
