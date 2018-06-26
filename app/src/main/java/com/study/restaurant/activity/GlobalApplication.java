@@ -5,6 +5,7 @@ import android.app.Application;
 import com.study.restaurant.model.Boundary;
 import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.City;
+import com.study.restaurant.model.Filter;
 import com.study.restaurant.model.Sort;
 
 public class GlobalApplication extends Application {
@@ -12,6 +13,17 @@ public class GlobalApplication extends Application {
     Cities cities;
     Sort sort;
     Boundary boundary;
+    Filter filter;
+
+    public Filter getFilter() {
+        if (filter == null)
+            filter = new Filter();
+        return filter;
+    }
+
+    public void setFilter(Filter filter) {
+        this.filter = filter;
+    }
 
     public Boundary getBoundary() {
         if (boundary == null)

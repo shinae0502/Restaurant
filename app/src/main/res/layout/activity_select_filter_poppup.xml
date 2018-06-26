@@ -33,7 +33,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
+                android:clickable="true"
                 android:gravity="center"
+                android:onClick="cancel"
                 android:text="취소" />
 
             <TextView
@@ -42,7 +44,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:clickable="true"
                 android:gravity="center"
+                android:onClick="adapt"
                 android:text="필터 적용"
                 android:textColor="@color/orange" />
 
@@ -75,6 +79,7 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
+                        android:id="@+id/all"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
@@ -82,7 +87,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/selector_sort_box"
                         android:clickable="true"
-                        >
+                        android:onClick="clickAll">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -93,6 +98,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/wannaGo"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
@@ -100,7 +106,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/selector_sort_box"
                         android:clickable="true"
-                        >
+                        android:onClick="clickWannaGo">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -111,13 +117,15 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/haveBeen"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_weight="1"
                         android:background="@drawable/selector_sort_box"
-                        android:clickable="true">
+                        android:clickable="true"
+                        android:onClick="clickHaveBeen">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -165,12 +173,15 @@
                     android:weightSum="4">
 
                     <LinearLayout
+                        android:id="@+id/koeranFood"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="clickKoreanFood"
                         android:orientation="vertical">
 
                         <ImageView
@@ -187,12 +198,15 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/japaneseFood"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="clickJapaneseFood"
                         android:orientation="vertical">
 
                         <ImageView
@@ -209,12 +223,15 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/chineseFood"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="clickChineseFood"
                         android:orientation="vertical">
 
                         <ImageView
@@ -231,12 +248,15 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/westernFood"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="clickWesternFood"
                         android:orientation="vertical">
 
                         <ImageView
@@ -263,12 +283,15 @@
                     android:weightSum="4">
 
                     <LinearLayout
+                        android:id="@+id/worldWideFood"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="clickWorldWideFood"
                         android:orientation="vertical">
 
                         <ImageView
@@ -285,12 +308,15 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/buffet"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="clickBuffet"
                         android:orientation="vertical">
 
                         <ImageView
@@ -307,12 +333,15 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/cafe"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="clickCafe"
                         android:orientation="vertical">
 
                         <ImageView
@@ -329,12 +358,15 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/bar"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="clickBar"
                         android:orientation="vertical">
 
                         <ImageView
@@ -387,12 +419,15 @@
                     android:weightSum="4">
 
                     <RelativeLayout
+                        android:id="@+id/cost1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="clickCost1"
                         android:orientation="vertical">
 
                         <ImageView
@@ -410,12 +445,15 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/cost2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="clickCost2"
                         android:orientation="vertical">
 
                         <ImageView
@@ -433,12 +471,15 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/cost3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="clickCost3"
                         android:orientation="vertical">
 
                         <ImageView
@@ -456,12 +497,15 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/cost4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:clickable="true"
                         android:gravity="center"
+                        android:onClick="clickCost4"
                         android:orientation="vertical">
 
                         <ImageView
@@ -502,6 +546,7 @@
                     android:weightSum="100">
 
                     <RelativeLayout
+                        android:id="@+id/dontCare"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
@@ -509,7 +554,7 @@
                         android:layout_weight="25"
                         android:background="@drawable/selector_sort_box"
                         android:clickable="true"
-                        android:onClick="reputation">
+                        android:onClick="clickDonCare">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -520,6 +565,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/available"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
@@ -527,7 +573,7 @@
                         android:layout_weight="25"
                         android:background="@drawable/selector_sort_box"
                         android:clickable="true"
-                        android:onClick="recommand">
+                        android:onClick="clickAvailavle">
 
                         <TextView
                             android:layout_width="wrap_content"

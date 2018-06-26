@@ -111,11 +111,16 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK)
+        if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 0x01) {
                 mCities = ((GlobalApplication) getActivity().getApplication()).getCities();
                 fragmentFindRestaurantBinding.setCities(mCities);
             }
+
+            if (requestCode == 0x04) {
+
+            }
+        }
 
     }
 }
