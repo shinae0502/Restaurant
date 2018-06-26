@@ -10,4 +10,6 @@ public interface FindRestaurantView {
     void showSortPopup();
 
     void showBoundaryPopup();
+
+    void showFilterPopup();
 }

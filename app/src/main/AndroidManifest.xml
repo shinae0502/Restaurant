@@ -82,6 +82,9 @@
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
             android:name=".popup.SelectDistancePopup"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity
+            android:name=".popup.SelectFilterPoppupActivity"
             android:theme="@style/Theme.AppCompat.Translucent"></activity>
     </application>
 

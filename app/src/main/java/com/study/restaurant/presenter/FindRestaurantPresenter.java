@@ -201,8 +201,7 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
      * @param v
      */
     @Override
-    public void clickFilter(View v) {
-
+    public void clickFilter(View v) {findRestaurantView.showFilterPopup();
     }
 
     /**
