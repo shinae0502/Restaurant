@@ -11,7 +11,12 @@ import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.common.FunctionImpl;
 import com.study.restaurant.manager.MyLocationManager;
+import com.study.restaurant.model.Boundary;
+import com.study.restaurant.model.Cities;
+import com.study.restaurant.model.Filter;
 import com.study.restaurant.model.Region;
+import com.study.restaurant.model.Sort;
+import com.study.restaurant.model.Store;
 import com.study.restaurant.util.LOG;
 import com.study.restaurant.view.FindRestaurantView;
 
@@ -62,7 +67,33 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
         }
     }
 
-    public boolean requestAddress(double latitude, double longitude) {
+    public interface OnReceiveStoreListener
+    {
+        void onReceiveStore(ArrayList<Store> storeArrayList);
+    }
+    public void requestStoreSummery(Cities cities, Boundary boundary, Filter filter, Sort sort, OnReceiveStoreListener onReceiveStoreListener) {
+        ApiManager.getInstance().getStoreSummary(null, new ApiManager.CallbackListener() {
+            @Override
+            public void callback(String result) {
+                Type listType = new TypeToken<ArrayList<Store>>() {
+                }.getType();
+                List<Store> storeList = new Gson().fromJson(result, listType);
+                onReceiveStoreListener.onReceiveStore((ArrayList<Store>) storeList);
+            }
+
+            @Override
+            public void failed(String msg) {
+
+            }
+        });
+    }
+
+    public interface OnReceiveRegionListener
+    {
+        void onReceiveRegion(Region region);
+    }
+
+    public boolean requestAddress(double latitude, double longitude, OnReceiveRegionListener onReceiveRegionListener) {
         String zipCode = myLocationManager.getZipcode(latitude, longitude);
         if (zipCode.equals("")) {
             return false;
@@ -74,8 +105,10 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
                 Type listType = new TypeToken<ArrayList<Region>>() {
                 }.getType();
                 List<Region> regionList = new Gson().fromJson(result, listType);
-                if (regionList != null && regionList.size() > 0)
-                    findRestaurantView.setRegion(regionList.get(0));
+                if (regionList != null && regionList.size() > 0) {
+                    onReceiveRegionListener.onReceiveRegion(regionList.get(0));
+                    //findRestaurantView.setRegion(regionList.get(0));
+                }
             }
 
             @Override
