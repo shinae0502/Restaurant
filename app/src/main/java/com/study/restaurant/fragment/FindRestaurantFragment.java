@@ -94,14 +94,8 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
                 if (!findRestaurantPresenter.requestAddress(location.getLatitude(), location.getLongitude(), region -> {
                     setRegion(region);
 
+                    requestStoreSummary();
                     //서버 맛집 요청하기
-                    findRestaurantPresenter.requestStoreSummery(getGlobalApplication().getCities(),
-                            getGlobalApplication().getBoundary(),
-                            getGlobalApplication().getFilter(),
-                            getGlobalApplication().getSort(),
-                            storeArrayList -> {
-                                ((RvAdt)findRestaurantRv.getAdapter()).setStoreList(storeArrayList);
-                            });
                 })) {
                     Toast.makeText(getActivity(), "현재 주소를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
@@ -111,6 +105,15 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
         });
 
         return fragmentFindRestaurantBinding.getRoot();
+    }
+
+    private void requestStoreSummary() {
+        if (getGlobalApplication().getCities() != null)
+            findRestaurantPresenter.requestStoreSummery(getGlobalApplication().getCities(),
+                    getGlobalApplication().getBoundary(),
+                    getGlobalApplication().getFilter(),
+                    getGlobalApplication().getSort(),
+                    ((RvAdt) findRestaurantRv.getAdapter())::setStoreList);
     }
 
 
@@ -146,8 +149,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
         SelectFilterPoppupActivity.show((AppCompatActivity) getActivity());
     }
 
-    private GlobalApplication getGlobalApplication()
-    {
+    private GlobalApplication getGlobalApplication() {
         return (GlobalApplication) getActivity().getApplication();
     }
 
@@ -158,6 +160,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
             if (requestCode == 0x01) {
                 mCities = ((GlobalApplication) getActivity().getApplication()).getCities();
                 fragmentFindRestaurantBinding.setCities(mCities);
+                requestStoreSummary();
             }
 
             if (requestCode == 0x04) {

@@ -22,6 +22,7 @@ import com.study.restaurant.view.FindRestaurantView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
@@ -67,14 +68,22 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
         }
     }
 
-    public interface OnReceiveStoreListener
-    {
+    public interface OnReceiveStoreListener {
         void onReceiveStore(ArrayList<Store> storeArrayList);
     }
+
     public void requestStoreSummery(Cities cities, Boundary boundary, Filter filter, Sort sort, OnReceiveStoreListener onReceiveStoreListener) {
-        ApiManager.getInstance().getStoreSummary(null, new ApiManager.CallbackListener() {
+
+        HashMap<String, String> param = new HashMap<>();
+        param.put("region_id", cities.getSelectedRegionIds());
+        param.put("boundary", "");
+        param.put("filter", "");
+        param.put("sort", "");
+
+        ApiManager.getInstance().getStoreSummary(param, new ApiManager.CallbackListener() {
             @Override
             public void callback(String result) {
+                LOG.d(result);
                 Type listType = new TypeToken<ArrayList<Store>>() {
                 }.getType();
                 List<Store> storeList = new Gson().fromJson(result, listType);
@@ -88,8 +97,7 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
         });
     }
 
-    public interface OnReceiveRegionListener
-    {
+    public interface OnReceiveRegionListener {
         void onReceiveRegion(Region region);
     }
 
@@ -234,7 +242,8 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
      * @param v
      */
     @Override
-    public void clickFilter(View v) {findRestaurantView.showFilterPopup();
+    public void clickFilter(View v) {
+        findRestaurantView.showFilterPopup();
     }
 
     /**

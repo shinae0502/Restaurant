@@ -35,7 +35,6 @@ public class SelectRegionFragment extends Fragment {
     private ArrayList<Region> regionList;
     private SelectRegionPopupPresenter presenter;
     private City city;
-    private int mPosition;
     private String cityName;
 
     public SelectRegionFragment() {
@@ -60,11 +59,6 @@ public class SelectRegionFragment extends Fragment {
 
     public void setPresenter(SelectRegionPopupPresenter presenter) {
         this.presenter = presenter;
-    }
-
-
-    public void setPosition(int position) {
-        mPosition = position;
     }
 
     public void setCityName(String cityName) {

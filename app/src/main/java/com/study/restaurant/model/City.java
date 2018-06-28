@@ -14,6 +14,7 @@ public class City extends BaseObservable implements Cloneable {
     String city_name;
     //도시는 지역을 갖고 있다.
     ArrayList<Region> regions = new ArrayList<>();
+    private int selectedRegionIds;
 
     @Override
     public String toString() {
@@ -104,6 +105,17 @@ public class City extends BaseObservable implements Cloneable {
     public void addRegion(Region region) {
         region.setParent(this);
         regions.add(region);
+    }
+
+    public String getSelectedRegionIds() {
+        String regionIds = "";
+        for (int i = 0; i < regions.size(); i++) {
+            if (regions.get(i).isChecked()) {
+                regionIds += regions.get(i).getRegion_id();
+                regionIds += ",";
+            }
+        }
+        return regionIds;
     }
 
     public static class Builder {

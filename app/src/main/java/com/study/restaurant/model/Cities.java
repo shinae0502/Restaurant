@@ -5,7 +5,9 @@ import android.databinding.Bindable;
 import android.view.View;
 
 
+import com.google.android.gms.common.util.Strings;
 import com.study.restaurant.BR;
+import com.study.restaurant.util.LOG;
 
 import java.util.ArrayList;
 
@@ -114,5 +116,18 @@ public class Cities extends BaseObservable implements Cloneable {
             str += city.toString() + "\n";
         }
         return str;
+    }
+
+    public String getSelectedRegionIds() {
+        String regionIds = "";
+
+        for (City city : cities) {
+            if (Integer.valueOf(city.getSelectedRegionCount()) > 0) {
+                regionIds += city.getSelectedRegionIds();
+            }
+        }
+        regionIds = regionIds.substring(0, regionIds.length() - 1);
+        LOG.d(regionIds);
+        return regionIds;
     }
 }

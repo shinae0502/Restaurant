@@ -4,8 +4,10 @@ import android.util.Log;
 
 import com.study.restaurant.model.Banner;
 import com.study.restaurant.model.Store;
+import com.study.restaurant.util.LOG;
 
 import java.io.IOException;
+import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -62,9 +64,8 @@ public class ApiManager {
         });
     }
 
-    public void getStoreSummary(Store store, final CallbackListener callbackListener) {
-
-        getService().getStoreSummary().enqueue(new Callback<ResponseBody>() {
+    public void getStoreSummary(Map<String, String> param, final CallbackListener callbackListener) {
+        getService().getStoreSummary(param).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
@@ -76,7 +77,11 @@ public class ApiManager {
                 }
 
                 if (callbackListener != null)
-                    callbackListener.callback(body);
+                    try {
+                        callbackListener.callback(body);
+                    } catch (Exception e) {
+                        LOG.d(e.toString());
+                    }
             }
 
             @Override

@@ -4,7 +4,10 @@ import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -12,8 +15,9 @@ public interface RestaurantService {
     @GET("getBanner.php")
     Call<ResponseBody> getBanner();
 
-    @GET("getStoreSummary.php")
-    Call<ResponseBody> getStoreSummary();
+    @FormUrlEncoded
+    @POST("getStoreSummary.php")
+    Call<ResponseBody> getStoreSummary(@FieldMap Map<String, String> params);
 
     @GET("getTopList.php")
     Call<ResponseBody> getTopList();
