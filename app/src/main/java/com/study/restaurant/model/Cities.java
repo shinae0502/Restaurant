@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Cities extends BaseObservable implements Cloneable {
 
     ArrayList<City> cities = new ArrayList<>();
-    Region lastSelectRegion = new Region();
+    ArrayList<Region> lastSelectRegion = new ArrayList<>();
     FindRestaurant parent;
 
     public Cities clone() throws CloneNotSupportedException {
@@ -24,15 +24,19 @@ public class Cities extends BaseObservable implements Cloneable {
             cities.addCity(city.clone());
         }
 
+        for (Region region : this.lastSelectRegion) {
+            cities.setLastSelectRegion(region);
+        }
+
         return cities;
     }
 
     public Region getLastSelectRegion() {
-        return lastSelectRegion;
+        return lastSelectRegion.get(lastSelectRegion.size() - 1);
     }
 
     public void setLastSelectRegion(Region lastSelectRegion) {
-        this.lastSelectRegion = lastSelectRegion;
+        this.lastSelectRegion.add(lastSelectRegion);
     }
 
     public ArrayList<City> getCities() {
@@ -109,9 +113,9 @@ public class Cities extends BaseObservable implements Cloneable {
             count += Integer.valueOf(city.getSelectedRegionCount());
         }
         if (count > 1)
-            return lastSelectRegion.region_name + " 외 " + (count - 1) + "곳";
+            return getLastSelectRegion().region_name + " 외 " + (count - 1) + "곳";
         else
-            return lastSelectRegion.region_name;
+            return getLastSelectRegion().region_name;
     }
 
     @Override
@@ -135,5 +139,16 @@ public class Cities extends BaseObservable implements Cloneable {
             regionIds = regionIds.substring(0, regionIds.length() - 1);
         LOG.d(regionIds);
         return regionIds;
+    }
+
+    public void removeLastSelectRegion(Region region) {
+        if (lastSelectRegion != null)
+            for (int i = 0; i < lastSelectRegion.size(); i++) {
+                lastSelectRegion.get(i).getRegion_id().equals(region.getRegion_id());
+                {
+                    lastSelectRegion.remove(i);
+                    return;
+                }
+            }
     }
 }

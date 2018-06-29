@@ -13,8 +13,15 @@ public class City extends BaseObservable implements Cloneable {
     String city_id;
     String city_name;
     //도시는 지역을 갖고 있다.
+    Region region = new Region("-1", "전체");
     ArrayList<Region> regions = new ArrayList<>();
     private int selectedRegionIds;
+
+    public City() {
+        region.parent = this;
+        region.setCity_id(city_id);
+        regions.add(region);
+    }
 
     @Override
     public String toString() {
@@ -103,6 +110,12 @@ public class City extends BaseObservable implements Cloneable {
     }
 
     public void addRegion(Region region) {
+        //전체 아이템 추가때문에 중복 체크
+        for (Region region1 : regions) {
+            if (region1.getRegion_id().equals(region.getRegion_id())) {
+                return;
+            }
+        }
         region.setParent(this);
         regions.add(region);
     }
@@ -116,6 +129,13 @@ public class City extends BaseObservable implements Cloneable {
             }
         }
         return regionIds;
+    }
+
+    public void setAllRegionSelect(boolean isChecked) {
+        for (Region region : regions) {
+            if (!region.getRegion_id().equals("-1"))
+                region.setChecked(isChecked);
+        }
     }
 
     public static class Builder {

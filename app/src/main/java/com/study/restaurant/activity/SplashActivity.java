@@ -19,53 +19,18 @@ import com.study.restaurant.manager.BananaLoginManager;
 
 public class SplashActivity extends AppCompatActivity {
 
-    int currentAnim = R.drawable.icon_cuisine_japanese;
-    ImageView progress;
-    Animation anim;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         Log.d("sarang", "onCreate");
         BananaLoginManager.getInstance(this).onCreate();
-        progress = findViewById(R.id.progress);
-        anim = AnimationUtils.loadAnimation(this, R.anim.rotation);
-        new SplashImageHandler().sendEmptyMessage(0);
-
     }
 
-    class SplashImageHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-            switch (currentAnim) {
-                case R.drawable.icon_cuisine_japanese:
-                    currentAnim = R.drawable.icon_cuisine_korean;
-                    break;
-
-                case R.drawable.icon_cuisine_korean:
-                    currentAnim = R.drawable.icon_cuisine_western;
-                    break;
-
-                case R.drawable.icon_cuisine_western:
-                    currentAnim = R.drawable.icon_cuisine_world;
-                    break;
-
-                case R.drawable.icon_cuisine_world:
-                    currentAnim = R.drawable.icon_cuisine_japanese;
-                    break;
-            }
-            progress.setImageResource(currentAnim);
-            progress.startAnimation(anim);
-            sendEmptyMessageDelayed(0, 600);
-        }
-    }
 
     public void next(View v) {
         if (BananaPreference.getInstance(this).loadUser() != null
-         && BananaPreference.getInstance(this).loadUser().isLogin()) {
+                && BananaPreference.getInstance(this).loadUser().isLogin()) {
             MainActivity.go(this);
         } else {
             LoginActivity.go(this);

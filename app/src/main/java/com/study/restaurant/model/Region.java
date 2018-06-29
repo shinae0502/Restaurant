@@ -12,6 +12,15 @@ public class Region extends BaseObservable implements Cloneable {
     City parent;
     boolean isChecked = false;
 
+    public Region() {
+
+    }
+
+    public Region(String region_id, String region_name) {
+        this.region_id = region_id;
+        this.region_name = region_name;
+    }
+
     @Override
     public String toString() {
         String str = "";
@@ -47,13 +56,21 @@ public class Region extends BaseObservable implements Cloneable {
 
     public void setChecked(boolean checked) {
         isChecked = checked;
-        //마지막 선택한 지역 등록
-        if (checked) {
-            parent.parent.setLastSelectRegion(this);
-        }
-        if (parent != null) {
-            parent.refreshCount();
-            parent.parent.validate();
+
+        //전체를 선택했을 경우
+        if (region_id.equals("-1")) {
+            parent.setAllRegionSelect(isChecked);
+        } else {
+            //마지막 선택한 지역 등록
+            if (checked) {
+                parent.parent.setLastSelectRegion(this);
+            } else {
+                parent.parent.removeLastSelectRegion(this);
+            }
+            if (parent != null) {
+                parent.refreshCount();
+                parent.parent.validate();
+            }
         }
         notifyPropertyChanged(BR.checked);
     }
