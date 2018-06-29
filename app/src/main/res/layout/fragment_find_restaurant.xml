@@ -232,9 +232,15 @@
                             android:text="필터"
                             android:textColor="#000000" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray" />
                 </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="3dp"
@@ -242,12 +248,20 @@
                     android:descendantFocusability="blocksDescendants"
                     android:orientation="vertical">
 
+                    <com.study.restaurant.util.ProgressImageView
+                        android:id="@+id/progress"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp" />
+
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/findRestaurantRv"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:visibility="gone"
                         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 

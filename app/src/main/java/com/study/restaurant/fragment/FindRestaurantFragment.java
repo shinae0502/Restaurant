@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.study.restaurant.R;
 import com.study.restaurant.activity.GlobalApplication;
 import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
@@ -98,7 +99,11 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
                     getGlobalApplication().getFindRestaurant().getBoundary(),
                     getGlobalApplication().getFindRestaurant().getFilter(),
                     getGlobalApplication().getFindRestaurant().getSort(),
-                    ((RvAdt) findRestaurantRv.getAdapter())::setStoreList);
+                    storeArrayList -> {
+                        ((RvAdt) findRestaurantRv.getAdapter()).setStoreList(storeArrayList);
+                        fragmentFindRestaurantBinding.progress.setVisibility(View.GONE);
+                        fragmentFindRestaurantBinding.findRestaurantRv.setVisibility(View.VISIBLE);
+                    });
     }
 
     @Override
@@ -166,6 +171,8 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
             if (requestCode == 0x01) {
                 mCities = ((GlobalApplication) getActivity().getApplication()).getFindRestaurant().getCities();
                 fragmentFindRestaurantBinding.setCities(mCities);
+                fragmentFindRestaurantBinding.findRestaurantRv.setVisibility(View.GONE);
+                fragmentFindRestaurantBinding.progress.setVisibility(View.VISIBLE);
                 requestStoreSummary();
             }
 
@@ -201,6 +208,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
             holder.title.setText((position + 1) + ". " + storeList.get(position).getName());
             MyGlide.with(holder.itemView.getContext())
                     .load(storeList.get(position).getImg())
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .into(holder.img);
 
             holder.region.setText(storeList.get(position).getLocation());

@@ -12,6 +12,7 @@ import com.study.restaurant.R;
 public class ProgressImageView extends ImageView {
 
     int count = 0;
+    boolean isStop = false;
 
     int progressList[] = {
             R.drawable.ic_ptr_orange_1,
@@ -31,6 +32,11 @@ public class ProgressImageView extends ImageView {
     }
 
     private void startAnimation() {
+
+        if (isStop) {
+            return;
+        }
+
         count++;
         count %= progressList.length;
         setImageResource(progressList[count]);
@@ -52,5 +58,16 @@ public class ProgressImageView extends ImageView {
             }
         });
         startAnimation(animation);
+    }
+
+    @Override
+    public void setVisibility(int visibility) {
+        super.setVisibility(visibility);
+        if (visibility == VISIBLE) {
+            isStop = false;
+            startAnimation();
+        } else if (visibility == GONE) {
+            isStop = true;
+        }
     }
 }
