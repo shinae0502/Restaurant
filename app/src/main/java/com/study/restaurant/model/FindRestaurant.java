@@ -1,24 +1,7 @@
-package com.study.restaurant.activity;
+package com.study.restaurant.model;
 
-import android.app.Application;
-
-import com.study.restaurant.model.FindRestaurant;
-
-public class GlobalApplication extends Application {
-
-    FindRestaurant findRestaurant;
-
-    public FindRestaurant getFindRestaurant() {
-        if(findRestaurant == null)
-            findRestaurant = new FindRestaurant();
-        return findRestaurant;
-    }
-
-    public void setFindRestaurant(FindRestaurant findRestaurant) {
-        this.findRestaurant = findRestaurant;
-    }
-
-    /*Cities cities;
+public class FindRestaurant {
+    Cities cities;
     Sort sort;
     Boundary boundary;
     Filter filter;
@@ -34,12 +17,15 @@ public class GlobalApplication extends Application {
     }
 
     public Boundary getBoundary() {
-        if (boundary == null)
+        if (boundary == null) {
             boundary = new Boundary();
+            boundary.parent = this;
+        }
         return boundary;
     }
 
     public void setBoundary(Boundary boundary) {
+        boundary.parent = this;
         this.boundary = boundary;
     }
 
@@ -58,6 +44,12 @@ public class GlobalApplication extends Application {
     }
 
     public void setCities(Cities cities) {
+        cities.parent = this;
+
+        //지역이 하나라도 선택되어있다면
+        if (cities.getIsSelectedRegion())
+            boundary.releaseAll();
+
         this.cities = cities;
-    }*/
+    }
 }

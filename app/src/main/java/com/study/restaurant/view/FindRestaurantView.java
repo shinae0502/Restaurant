@@ -12,4 +12,8 @@ public interface FindRestaurantView {
     void showBoundaryPopup();
 
     void showFilterPopup();
+
+    void requestStoreSummary();
+
+    void requestAroundStore();
 }

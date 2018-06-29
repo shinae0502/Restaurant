@@ -3,11 +3,13 @@ package com.study.restaurant.presenter;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.study.restaurant.activity.GlobalApplication;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.common.FunctionImpl;
 import com.study.restaurant.manager.MyLocationManager;
@@ -29,8 +31,10 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
     MyLocationManager myLocationManager;
     OnSuccessListener<? super Location> tempListener;
     FindRestaurantView findRestaurantView;
+    AppCompatActivity appCompatActivity;
 
-    public FindRestaurantPresenter(FindRestaurantView findRestaurantView) {
+    public FindRestaurantPresenter(AppCompatActivity appCompatActivity, FindRestaurantView findRestaurantView) {
+        this.appCompatActivity = appCompatActivity;
         this.findRestaurantView = findRestaurantView;
     }
 
@@ -225,7 +229,16 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
      */
     @Override
     public void clickBoundary(View v) {
-        findRestaurantView.showBoundaryPopup();
+        //내 주변을 클릭 시 기존 선택된 도시가 모두 해제된다.
+        Boundary boundary = ((GlobalApplication) appCompatActivity.getApplication()).getFindRestaurant().getBoundary();
+        Cities cities = ((GlobalApplication) appCompatActivity.getApplication()).getFindRestaurant().getCities();
+        if (boundary.getBoundary().equals("내 주변")) {
+            cities.releaseAllSelected();
+            boundary.setLevel3(true);
+            findRestaurantView.requestAroundStore();
+        } else {
+            findRestaurantView.showBoundaryPopup();
+        }
     }
 
     /**

@@ -52,7 +52,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        findRestaurantPresenter = new FindRestaurantPresenter(this);
+        findRestaurantPresenter = new FindRestaurantPresenter((AppCompatActivity) getActivity(), this);
     }
 
     public FindRestaurantFragment() {
@@ -68,8 +68,8 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentFindRestaurantBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_restaurant, container, false);
-        fragmentFindRestaurantBinding.setSort(((GlobalApplication) getActivity().getApplication()).getSort());
-        fragmentFindRestaurantBinding.setBoundary(((GlobalApplication) getActivity().getApplication()).getBoundary());
+        fragmentFindRestaurantBinding.setSort(((GlobalApplication) getActivity().getApplication()).getFindRestaurant().getSort());
+        fragmentFindRestaurantBinding.setBoundary(((GlobalApplication) getActivity().getApplication()).getFindRestaurant().getBoundary());
 
         fragmentFindRestaurantBinding.setPresenter(findRestaurantPresenter);
 
@@ -86,6 +86,23 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
 
 
         findRestaurantPresenter.initLocationManager(getActivity());
+        requestAroundStore();
+
+        return fragmentFindRestaurantBinding.getRoot();
+    }
+
+    @Override
+    public void requestStoreSummary() {
+        if (getGlobalApplication().getFindRestaurant().getCities() != null)
+            findRestaurantPresenter.requestStoreSummery(getGlobalApplication().getFindRestaurant().getCities(),
+                    getGlobalApplication().getFindRestaurant().getBoundary(),
+                    getGlobalApplication().getFindRestaurant().getFilter(),
+                    getGlobalApplication().getFindRestaurant().getSort(),
+                    ((RvAdt) findRestaurantRv.getAdapter())::setStoreList);
+    }
+
+    @Override
+    public void requestAroundStore() {
         //위치 요청하기
         findRestaurantPresenter.requestLocation(location -> {
             if (location != null) {
@@ -103,17 +120,6 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
                 LOG.d("location is null");
             }
         });
-
-        return fragmentFindRestaurantBinding.getRoot();
-    }
-
-    private void requestStoreSummary() {
-        if (getGlobalApplication().getCities() != null)
-            findRestaurantPresenter.requestStoreSummery(getGlobalApplication().getCities(),
-                    getGlobalApplication().getBoundary(),
-                    getGlobalApplication().getFilter(),
-                    getGlobalApplication().getSort(),
-                    ((RvAdt) findRestaurantRv.getAdapter())::setStoreList);
     }
 
 
@@ -158,7 +164,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 0x01) {
-                mCities = ((GlobalApplication) getActivity().getApplication()).getCities();
+                mCities = ((GlobalApplication) getActivity().getApplication()).getFindRestaurant().getCities();
                 fragmentFindRestaurantBinding.setCities(mCities);
                 requestStoreSummary();
             }

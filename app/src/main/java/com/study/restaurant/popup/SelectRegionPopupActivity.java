@@ -55,7 +55,7 @@ public class SelectRegionPopupActivity extends BasePopupActivity implements Sele
 
         //기존 불러온 도시 정보가 있다면 적용하기
         Cities tempCities = null;
-        tempCities = ((GlobalApplication) getApplication()).getCities();
+        tempCities = ((GlobalApplication) getApplication()).getFindRestaurant().getCities();
         if (tempCities != null) {
             try {
                 tempCities = tempCities.clone();
@@ -90,7 +90,7 @@ public class SelectRegionPopupActivity extends BasePopupActivity implements Sele
     }
 
     public void adapt(View view) {
-        ((GlobalApplication) getApplication()).setCities(selectRegionPopupPresenter.getCities());
+        ((GlobalApplication) getApplication()).getFindRestaurant().setCities(selectRegionPopupPresenter.getCities());
         setResult(Activity.RESULT_OK);
         finishWithAnimation();
     }

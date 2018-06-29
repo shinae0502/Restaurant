@@ -28,7 +28,7 @@ public class SelectFilterPoppupActivity extends BasePopupActivity {
         setDimClickListener();
 
         try {
-            filter = ((GlobalApplication) getApplication()).getFilter().clone();
+            filter = ((GlobalApplication) getApplication()).getFindRestaurant().getFilter().clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
@@ -177,7 +177,7 @@ public class SelectFilterPoppupActivity extends BasePopupActivity {
     }
 
     public void adapt(View view) {
-        ((GlobalApplication)getApplication()).setFilter(filter);
+        ((GlobalApplication)getApplication()).getFindRestaurant().setFilter(filter);
         setResult(Activity.RESULT_OK);
         finishWithAnimation();
     }

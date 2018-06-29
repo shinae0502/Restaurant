@@ -15,6 +15,7 @@ public class Cities extends BaseObservable implements Cloneable {
 
     ArrayList<City> cities = new ArrayList<>();
     Region lastSelectRegion = new Region();
+    FindRestaurant parent;
 
     public Cities clone() throws CloneNotSupportedException {
         Cities cities = new Cities();
@@ -89,6 +90,10 @@ public class Cities extends BaseObservable implements Cloneable {
     }
 
     public void releaseAllSelected(View v) {
+        releaseAllSelected();
+    }
+
+    public void releaseAllSelected() {
         for (City city : cities) {
             for (Region region : city.regions) {
                 region.setChecked(false);
@@ -126,7 +131,8 @@ public class Cities extends BaseObservable implements Cloneable {
                 regionIds += city.getSelectedRegionIds();
             }
         }
-        regionIds = regionIds.substring(0, regionIds.length() - 1);
+        if (regionIds.length() > 0)
+            regionIds = regionIds.substring(0, regionIds.length() - 1);
         LOG.d(regionIds);
         return regionIds;
     }

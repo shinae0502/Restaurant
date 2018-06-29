@@ -21,7 +21,7 @@ public class SelectDistancePopup extends BasePopupActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activitySelectDistancePopupBinding = DataBindingUtil.setContentView(this, R.layout.activity_select_distance_popup);
-        boundary = ((GlobalApplication) getApplication()).getBoundary();
+        boundary = ((GlobalApplication) getApplication()).getFindRestaurant().getBoundary();
         refreshUI();
         boundary.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override

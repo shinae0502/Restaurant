@@ -27,7 +27,7 @@ public class SelectSortPopupActivity extends BasePopupActivity {
         activitySelectSortPopupBinding
                 = DataBindingUtil.setContentView(this, R.layout.activity_select_sort_popup);
         setDimClickListener();
-        sort = ((GlobalApplication) getApplication()).getSort();
+        sort = ((GlobalApplication) getApplication()).getFindRestaurant().getSort();
         refreshUI();
         sort.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override

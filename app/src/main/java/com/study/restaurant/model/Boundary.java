@@ -12,6 +12,19 @@ public class Boundary extends BaseObservable {
     boolean level4;
     boolean level5;
 
+    FindRestaurant parent;
+
+    public void releaseAll() {
+        if (level1 || level2 || level3 || level4 || level5) {
+            level1 = false;
+            level2 = false;
+            level3 = false;
+            level4 = false;
+            level5 = false;
+            notifyPropertyChanged(BR.boundary);
+        }
+    }
+
     @Bindable
     public boolean isLevel1() {
         return level1;
@@ -74,6 +87,6 @@ public class Boundary extends BaseObservable {
                 : level2 ? "300m"
                 : level3 ? "500m"
                 : level4 ? "1km"
-                : level5 ? "3km" : "없음";
+                : level5 ? "3km" : "내 주변";
     }
 }
