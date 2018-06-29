@@ -191,7 +191,13 @@ public class MainActivity extends AppCompatActivity implements FunctionImpl.Main
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(findRestaurantFragment != null)
+        if (findRestaurantFragment != null)
             findRestaurantFragment.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ((GlobalApplication) getApplication()).findRestaurant = null;
     }
 }

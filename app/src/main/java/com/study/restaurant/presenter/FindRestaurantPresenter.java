@@ -101,6 +101,31 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
         });
     }
 
+    public void requestStoreSummery(Region region, Boundary boundary, Filter filter, Sort sort, OnReceiveStoreListener onReceiveStoreListener) {
+
+        HashMap<String, String> param = new HashMap<>();
+        param.put("region_id", region.getRegion_id());
+        param.put("boundary", "");
+        param.put("filter", "");
+        param.put("sort", "");
+
+        ApiManager.getInstance().getStoreSummary(param, new ApiManager.CallbackListener() {
+            @Override
+            public void callback(String result) {
+                LOG.d(result);
+                Type listType = new TypeToken<ArrayList<Store>>() {
+                }.getType();
+                List<Store> storeList = new Gson().fromJson(result, listType);
+                onReceiveStoreListener.onReceiveStore((ArrayList<Store>) storeList);
+            }
+
+            @Override
+            public void failed(String msg) {
+
+            }
+        });
+    }
+
     public interface OnReceiveRegionListener {
         void onReceiveRegion(Region region);
     }

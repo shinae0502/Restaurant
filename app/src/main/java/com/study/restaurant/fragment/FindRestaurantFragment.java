@@ -106,17 +106,30 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
                     });
     }
 
+    public void requestStoreSummary(Region region) {
+        findRestaurantPresenter.requestStoreSummery(region,
+                getGlobalApplication().getFindRestaurant().getBoundary(),
+                getGlobalApplication().getFindRestaurant().getFilter(),
+                getGlobalApplication().getFindRestaurant().getSort(),
+                storeArrayList -> {
+                    ((RvAdt) findRestaurantRv.getAdapter()).setStoreList(storeArrayList);
+                    fragmentFindRestaurantBinding.progress.setVisibility(View.GONE);
+                    fragmentFindRestaurantBinding.findRestaurantRv.setVisibility(View.VISIBLE);
+                });
+    }
+
     @Override
     public void requestAroundStore() {
         //위치 요청하기
+        fragmentFindRestaurantBinding.progress.setVisibility(View.VISIBLE);
+        fragmentFindRestaurantBinding.findRestaurantRv.setVisibility(View.GONE);
         findRestaurantPresenter.requestLocation(location -> {
             if (location != null) {
                 LOG.d(location.toString());
                 //내 위치가 있다면 현재 위치의 주소 확인하기
                 if (!findRestaurantPresenter.requestAddress(location.getLatitude(), location.getLongitude(), region -> {
                     setRegion(region);
-
-                    requestStoreSummary();
+                    requestStoreSummary(region);
                     //서버 맛집 요청하기
                 })) {
                     Toast.makeText(getActivity(), "현재 주소를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
