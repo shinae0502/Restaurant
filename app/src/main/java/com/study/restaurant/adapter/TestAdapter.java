@@ -1,7 +1,8 @@
 package com.study.restaurant.adapter;
 
 public class TestAdapter {
-    public TestAdapter(){
-
+    private String abc;
+    public TestAdapter(String abc){
+        this.abc = abc;
     }
 }
