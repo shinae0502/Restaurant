@@ -107,7 +107,7 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
         param.put("region_id", region.getRegion_id());
         param.put("boundary", "");
         param.put("filter", "");
-        param.put("sort", "");
+        param.put("sort", sort.getAttribute());
 
         ApiManager.getInstance().getStoreSummary(param, new ApiManager.CallbackListener() {
             @Override

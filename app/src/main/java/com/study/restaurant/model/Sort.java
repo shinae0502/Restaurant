@@ -64,4 +64,10 @@ public class Sort extends BaseObservable {
                 : isReview ? "리뷰순" : "없음";
     }
 
+    public String getAttribute() {
+        return isReputatuon ? "score"
+                : isRecommand ? "score"
+                : isDistance ? "review_count"
+                : isReview ? "review_count" : "score";
+    }
 }
