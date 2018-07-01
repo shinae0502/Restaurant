@@ -1,9 +1,11 @@
 package com.study.restaurant.model;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Store implements Parcelable {
+public class Store extends BaseObservable implements Parcelable {
     String store_id;
     String name;
     String score;
@@ -13,6 +15,7 @@ public class Store implements Parcelable {
     String hit;
     String review_count;
     String img;
+    private int position;
 
     public String getImg() {
         return img;
@@ -30,14 +33,21 @@ public class Store implements Parcelable {
         this.store_id = store_id;
     }
 
+    @Bindable
     public String getName() {
         return name;
+    }
+
+    @Bindable
+    public String getPositionAndName() {
+        return (position + 1) + ". " + getName();
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    @Bindable
     public String getScore() {
         return score;
     }
@@ -70,6 +80,7 @@ public class Store implements Parcelable {
         this.location = location;
     }
 
+    @Bindable
     public String getHit() {
         return hit;
     }
@@ -78,6 +89,7 @@ public class Store implements Parcelable {
         this.hit = hit;
     }
 
+    @Bindable
     public String getReview_count() {
         return review_count;
     }
@@ -99,8 +111,7 @@ public class Store implements Parcelable {
 
     }
 
-    public Store()
-    {
+    public Store() {
 
     }
 
@@ -133,4 +144,8 @@ public class Store implements Parcelable {
             return new Store[size];
         }
     };
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 }

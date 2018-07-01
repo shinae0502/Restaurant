@@ -23,7 +23,9 @@ import android.widget.Toast;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.study.restaurant.R;
 import com.study.restaurant.activity.GlobalApplication;
+import com.study.restaurant.activity.RestaurantDetailActivity;
 import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
+import com.study.restaurant.databinding.ItemBinding;
 import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.Region;
 import com.study.restaurant.model.Store;
@@ -211,24 +213,18 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
 
         @Override
         public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
-            RvHolder rvHolder = new RvHolder(v);
-            return rvHolder;
+            return RvHolder.create(parent, viewType);
         }
 
         @Override
         public void onBindViewHolder(RvHolder holder, int position) {
-            holder.title.setText((position + 1) + ". " + storeList.get(position).getName());
+            storeList.get(position).setPosition(position);
+            holder.setStore(storeList.get(position));
             MyGlide.with(holder.itemView.getContext())
                     .load(storeList.get(position).getImg())
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(holder.img);
-
-            holder.region.setText(storeList.get(position).getLocation());
-            holder.distances.setText("2.68km");
-            holder.view.setText(storeList.get(position).getHit());
-            holder.review.setText(storeList.get(position).getReview_count());
-            holder.score.setText(storeList.get(position).getScore());
+            holder.itemBinding.parent.setOnClickListener(view -> RestaurantDetailActivity.go((AppCompatActivity) getActivity(), storeList.get(position)));
         }
 
         @Override
@@ -237,25 +233,28 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
         }
     }
 
-    public class RvHolder extends RecyclerView.ViewHolder {
+    public static class RvHolder extends RecyclerView.ViewHolder {
+        ItemBinding itemBinding;
 
-        TextView title;
+        public static RvHolder create(ViewGroup parent, int viewType) {
+            ItemBinding itemBinding = ItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+            return new RvHolder(itemBinding);
+        }
+
         ImageView img;
-        TextView region;
-        TextView distances;
-        TextView view;
-        TextView review;
-        TextView score;
 
-        public RvHolder(View itemView) {
-            super(itemView);
-            title = itemView.findViewById(R.id.title);
+        public RvHolder(ItemBinding itemBinding) {
+            super(itemBinding.getRoot());
+            this.itemBinding = itemBinding;
             img = itemView.findViewById(R.id.img);
-            region = itemView.findViewById(R.id.region);
-            distances = itemView.findViewById(R.id.distances);
-            view = itemView.findViewById(R.id.view);
-            review = itemView.findViewById(R.id.review);
-            score = itemView.findViewById(R.id.score);
+        }
+
+        public ItemBinding getItemBinding() {
+            return itemBinding;
+        }
+
+        public void setStore(Store store) {
+            itemBinding.setStore(store);
         }
     }
 

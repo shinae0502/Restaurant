@@ -85,7 +85,8 @@
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
             android:name=".popup.SelectFilterPoppupActivity"
-            android:theme="@style/Theme.AppCompat.Translucent"></activity>
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity android:name=".activity.RestaurantDetailActivity"></activity>
     </application>
 
 </manifest>
