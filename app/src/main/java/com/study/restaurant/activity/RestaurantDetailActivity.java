@@ -9,6 +9,8 @@ import com.study.restaurant.model.Store;
 
 public class RestaurantDetailActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
