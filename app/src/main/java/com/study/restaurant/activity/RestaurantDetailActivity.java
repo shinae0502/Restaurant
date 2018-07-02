@@ -6,18 +6,28 @@ import android.graphics.Color;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.gson.Gson;
 import com.study.restaurant.R;
 import com.study.restaurant.databinding.ActivityRestaurantDetailBinding;
+import com.study.restaurant.databinding.ItemReviewBinding;
+import com.study.restaurant.fragment.FindRestaurantFragment;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.model.StoreSpec;
 import com.study.restaurant.util.LOG;
 import com.study.restaurant.util.MyGlide;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RestaurantDetailActivity extends AppCompatActivity {
 
@@ -92,6 +102,12 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         activityRestaurantDetailBinding.restaurantDetailContent.setStoreSpec(storeSpec);
         activityRestaurantDetailBinding.restaurantDetailContent.layoutRestaurantInformation.setStoreSpec(storeSpec);
 
+
+        //맛깔나는 리뷰
+        activityRestaurantDetailBinding.restaurantDetailContent.layoutReviewList.reviewRv.setAdapter(new RvAdt());
+        activityRestaurantDetailBinding.restaurantDetailContent.layoutReviewList.reviewRv.setLayoutManager(new LinearLayoutManager(this));
+        activityRestaurantDetailBinding.restaurantDetailContent.layoutReviewList.reviewRv.setNestedScrollingEnabled(false);
+        //activityRestaurantDetailBinding.restaurantDetailContent.nestedScrollView
     }
 
     public static void go(AppCompatActivity appCompatActivity, Store store) {
@@ -139,5 +155,45 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         }
 
         public abstract void onStateChanged(AppBarLayout appBarLayout, State state);
+    }
+
+    public class RvAdt extends RecyclerView.Adapter<RvHolder> {
+
+        @Override
+        public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return RvHolder.create(parent, viewType);
+        }
+
+        @Override
+        public void onBindViewHolder(RvHolder holder, int position) {
+            /*MyGlide.with(holder.itemView.getContext())
+                    .load(storeList.get(position).getImg())
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(holder.img);*/
+        }
+
+        @Override
+        public int getItemCount() {
+            return 3;
+        }
+    }
+
+    public static class RvHolder extends RecyclerView.ViewHolder {
+        ItemReviewBinding itemReviewBinding;
+
+        public static RvHolder create(ViewGroup parent, int viewType) {
+            ItemReviewBinding itemReviewBinding = ItemReviewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+            return new RvHolder(itemReviewBinding);
+        }
+
+        public RvHolder(ItemReviewBinding itemReviewBinding) {
+            super(itemReviewBinding.getRoot());
+            this.itemReviewBinding = itemReviewBinding;
+        }
+
+        public ItemReviewBinding getItemReviewBinding() {
+            return itemReviewBinding;
+        }
+
     }
 }
