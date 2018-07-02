@@ -88,7 +88,7 @@
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
             android:name=".activity.RestaurantDetailActivity"
-            android:theme="@style/Theme.AppCompat.Translucent" />
+            android:theme="@style/NoActionBar" />
     </application>
 
 </manifest>
