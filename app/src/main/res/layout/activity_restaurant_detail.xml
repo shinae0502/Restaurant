@@ -1,344 +1,369 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/actionBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+    <data>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <variable
+            name="store"
+            type="com.study.restaurant.model.Store" />
 
-            <ImageView
-                android:id="@+id/close"
-                android:layout_width="25dp"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:src="@drawable/selector_btn_close" />
+        <variable
+            name="storeSpec"
+            type="com.study.restaurant.model.StoreSpec" />
+    </data>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
-                android:layout_toLeftOf="@+id/option"
-                android:layout_toRightOf="@+id/close"
-                android:text="가나다라마바사"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
-
-            <LinearLayout
-                android:id="@+id/option"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true">
-
-                <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/selector_btn_mylist" />
-
-                <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/btn_share_kakao" />
-
-                <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/selector_btn_share" />
-            </LinearLayout>
-
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
-
-    <android.support.design.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ScrollingActivity">
+        android:background="#FFFFFF"
+        android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/app_bar"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/actionBar"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:background="#FFFFFF"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="?attr/actionBarSize">
 
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/toolbar_layout"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-                app:toolbarId="@+id/toolbar">
+                android:layout_height="match_parent">
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:onClick="clickClose"
+                    android:src="@drawable/selector_btn_close" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toLeftOf="@+id/option"
+                    android:layout_toRightOf="@+id/close"
+                    android:text="@{store.getName}"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/option"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_alignParentRight="true">
 
-                    <HorizontalScrollView
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/selector_btn_mylist" />
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/btn_share_kakao" />
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/selector_btn_share" />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ScrollingActivity">
+
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:background="#FFFFFF"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/toolbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+                    app:toolbarId="@+id/toolbar">
+
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbar"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="?attr/actionBarSize"
+                        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-                        <LinearLayout
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <HorizontalScrollView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:layout_height="wrap_content">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
 
-                                <ImageView
-                                    android:layout_width="150dp"
-                                    android:layout_height="150dp"
-                                    android:padding="5dp"
-                                    android:src="@drawable/icon" />
-
-                                <ImageView
-                                    android:layout_width="150dp"
-                                    android:layout_height="150dp"
-                                    android:padding="5dp"
-                                    android:src="@drawable/icon" />
-
-                                <ImageView
-                                    android:layout_width="150dp"
-                                    android:layout_height="150dp"
-                                    android:padding="5dp"
-                                    android:src="@drawable/icon" />
-
-                                <ImageView
-                                    android:layout_width="150dp"
-                                    android:layout_height="150dp"
-                                    android:padding="5dp"
-                                    android:src="@drawable/icon" />
-
-                                <RelativeLayout
-                                    android:layout_width="150dp"
-                                    android:layout_height="150dp"
-                                    android:padding="5dp">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
 
                                     <ImageView
+                                        android:id="@+id/img1"
                                         android:layout_width="150dp"
                                         android:layout_height="150dp"
-                                        android:src="@drawable/icon" />
+                                        android:padding="5dp"
+                                        android:scaleType="fitXY" />
 
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:background="#55000000"
-                                        android:gravity="center"
-                                        android:text="전체 사진 보기"
-                                        android:textColor="#FFFFFF" />
-                                </RelativeLayout>
+                                    <ImageView
+                                        android:id="@+id/img2"
+                                        android:layout_width="150dp"
+                                        android:layout_height="150dp"
+                                        android:padding="5dp"
+                                        android:scaleType="fitXY" />
+
+                                    <ImageView
+                                        android:id="@+id/img3"
+                                        android:layout_width="150dp"
+                                        android:layout_height="150dp"
+                                        android:padding="5dp"
+                                        android:scaleType="fitXY" />
+
+                                    <ImageView
+                                        android:id="@+id/img4"
+                                        android:layout_width="150dp"
+                                        android:layout_height="150dp"
+                                        android:padding="5dp"
+                                        android:scaleType="fitXY" />
+
+                                    <RelativeLayout
+                                        android:layout_width="150dp"
+                                        android:layout_height="150dp"
+                                        android:padding="5dp">
+
+                                        <ImageView
+                                            android:id="@+id/img5"
+                                            android:layout_width="150dp"
+                                            android:layout_height="150dp"
+                                            android:scaleType="fitXY" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="#55000000"
+                                            android:gravity="center"
+                                            android:text="전체 사진 보기"
+                                            android:textColor="#FFFFFF" />
+                                    </RelativeLayout>
+                                </LinearLayout>
                             </LinearLayout>
-                        </LinearLayout>
-                    </HorizontalScrollView>
+                        </HorizontalScrollView>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp">
-
-                        <TextView
-                            android:id="@+id/title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="10dp"
-                            android:text="농민백암왕순대"
-                            android:textColor="#000000"
-                            android:textSize="20sp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/title"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="5dp">
-
-
-                            <ImageView
-                                android:layout_width="13dp"
-                                android:layout_height="13dp"
-                                android:src="@drawable/ic_common_restaurant_view" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp">
 
                             <TextView
-                                android:id="@+id/view"
+                                android:id="@+id/title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:textSize="11sp" />
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@{store.getName}"
+                                android:textColor="#000000"
+                                android:textSize="20sp" />
 
-                            <ImageView
-                                android:layout_width="11dp"
-                                android:layout_height="11dp"
-                                android:layout_marginLeft="3dp"
-                                android:src="@drawable/ic_common_restaurant_review" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/title"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="5dp">
+
+
+                                <ImageView
+                                    android:layout_width="13dp"
+                                    android:layout_height="13dp"
+                                    android:src="@drawable/ic_common_restaurant_view" />
+
+                                <TextView
+                                    android:id="@+id/view"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:text="@{store.getHit}"
+                                    android:textColor="#000000"
+                                    android:textSize="11sp" />
+
+                                <ImageView
+                                    android:layout_width="11dp"
+                                    android:layout_height="11dp"
+                                    android:layout_marginLeft="3dp"
+                                    android:src="@drawable/ic_common_restaurant_review" />
+
+                                <TextView
+                                    android:id="@+id/review"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:text="@{store.getReview_count}"
+                                    android:textColor="#000000"
+                                    android:textSize="11sp" />
+
+                                <ImageView
+                                    android:layout_width="11dp"
+                                    android:layout_height="11dp"
+                                    android:layout_marginLeft="3dp"
+                                    android:src="@drawable/ic_common_restaurant_wannago_gray" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:textColor="#000000"
+                                    android:textSize="11sp" />
+
+                            </LinearLayout>
 
                             <TextView
-                                android:id="@+id/review"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:textSize="11sp" />
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@{store.getScore}"
+                                android:textColor="@color/orange"
+                                android:textSize="35sp" />
 
-                            <ImageView
-                                android:layout_width="11dp"
-                                android:layout_height="11dp"
-                                android:layout_marginLeft="3dp"
-                                android:src="@drawable/ic_common_restaurant_wannago_gray" />
+                        </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:textSize="11sp" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginTop="10dp"
-                            android:text="3.5"
-                            android:textColor="@color/orange"
-                            android:textSize="35sp" />
-
-                    </RelativeLayout>
-
-                </LinearLayout>
+                    </LinearLayout>
 
 
-            </android.support.design.widget.CollapsingToolbarLayout>
+                </android.support.design.widget.CollapsingToolbarLayout>
 
 
-        </android.support.design.widget.AppBarLayout>
+            </android.support.design.widget.AppBarLayout>
 
-        <include layout="@layout/restaurant_detail_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="67dp"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#EEEEEE" />
+            <include layout="@layout/restaurant_detail_content"
+                android:id="@+id/restaurant_detail_content"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="65dp">
+                android:layout_height="67dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#EEEEEE" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp">
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/btn_rdp_tab_wannago_normal" />
-
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="가고싶다"
-                        android:textColor="@color/orange" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/btn_rdp_tab_wannago_normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="가고싶다"
+                            android:textColor="@color/orange" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/btn_rdp_tab_checkin_normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="체크인"
+                            android:textColor="@color/orange" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/btn_rdp_tab_review_normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="리뷰쓰기"
+                            android:textColor="@color/orange" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/btn_rdp_tab_photo_normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="사진올리기"
+                            android:textColor="@color/orange" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/btn_rdp_tab_checkin_normal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="체크인"
-                        android:textColor="@color/orange" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/btn_rdp_tab_review_normal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="리뷰쓰기"
-                        android:textColor="@color/orange" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/btn_rdp_tab_photo_normal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="사진올리기"
-                        android:textColor="@color/orange" />
-
-                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#EEEEEE" />
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#EEEEEE" />
-
-        </LinearLayout>
-
-    </android.support.design.widget.CoordinatorLayout>
-</LinearLayout>
+        </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
+</layout>

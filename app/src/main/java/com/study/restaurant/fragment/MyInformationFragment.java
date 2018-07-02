@@ -35,15 +35,12 @@ public class MyInformationFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_myinformation, container, false);
 
-        ((TextView) v.findViewById(R.id.profile)).setText(BananaPreference.getInstance(getContext()).loadUser().toString());
-        v.findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BananaLoginManager.getInstance((AppCompatActivity) getActivity()).logout();
-                SplashActivity.go((AppCompatActivity) getActivity());
-                getActivity().finish();
-            }
-        });
+        //((TextView) v.findViewById(R.id.profile)).setText(BananaPreference.getInstance(getContext()).loadUser().toString());
+//        v.findViewById(R.id.logout).setOnClickListener(view -> {
+//            BananaLoginManager.getInstance((AppCompatActivity) getActivity()).logout();
+//            SplashActivity.go((AppCompatActivity) getActivity());
+//            getActivity().finish();
+//        });
         return v;
     }
 }
