@@ -3,6 +3,8 @@ package com.study.restaurant.model;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import java.util.ArrayList;
+
 public class StoreSpec extends BaseObservable {
     String img1;
     String img2;
@@ -25,6 +27,42 @@ public class StoreSpec extends BaseObservable {
     String menu2_price;
     String menu3_price;
 
+    ArrayList<Review> reviews;
+    ArrayList<TopList> topLists;
+    ArrayList<Story> stories;
+    ArrayList<Store> aroundRestaurant;
+
+    public ArrayList<Story> getStories() {
+        return stories;
+    }
+
+    public void setStories(ArrayList<Story> stories) {
+        this.stories = stories;
+    }
+
+    public ArrayList<Store> getAroundRestaurant() {
+        return aroundRestaurant;
+    }
+
+    public void setAroundRestaurant(ArrayList<Store> aroundRestaurant) {
+        this.aroundRestaurant = aroundRestaurant;
+    }
+
+    public ArrayList<TopList> getTopLists() {
+        return topLists;
+    }
+
+    public void setTopLists(ArrayList<TopList> topLists) {
+        this.topLists = topLists;
+    }
+
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(ArrayList<Review> reviews) {
+        this.reviews = reviews;
+    }
 
     public String getMenu1_price() {
         return menu1_price;

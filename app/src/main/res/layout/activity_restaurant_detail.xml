@@ -20,59 +20,11 @@
         android:background="#FFFFFF"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/actionBar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+        <!-- 액션바 -->
+        <include
+            android:id="@+id/layout_detail_restaurant_title_bar"
+            layout="@layout/layout_detail_restaurant_title_bar" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/close"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:onClick="clickClose"
-                    android:src="@drawable/selector_btn_close" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_toLeftOf="@+id/option"
-                    android:layout_toRightOf="@+id/close"
-                    android:text="@{store.getName}"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
-                <LinearLayout
-                    android:id="@+id/option"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true">
-
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/selector_btn_mylist" />
-
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/btn_share_kakao" />
-
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
-                        android:src="@drawable/selector_btn_share" />
-                </LinearLayout>
-
-            </RelativeLayout>
-        </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -100,269 +52,223 @@
                         android:layout_height="?attr/actionBarSize"
                         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <HorizontalScrollView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                    <ImageView
-                                        android:id="@+id/img1"
-                                        android:layout_width="150dp"
-                                        android:layout_height="150dp"
-                                        android:padding="5dp"
-                                        android:scaleType="fitXY" />
-
-                                    <ImageView
-                                        android:id="@+id/img2"
-                                        android:layout_width="150dp"
-                                        android:layout_height="150dp"
-                                        android:padding="5dp"
-                                        android:scaleType="fitXY" />
-
-                                    <ImageView
-                                        android:id="@+id/img3"
-                                        android:layout_width="150dp"
-                                        android:layout_height="150dp"
-                                        android:padding="5dp"
-                                        android:scaleType="fitXY" />
-
-                                    <ImageView
-                                        android:id="@+id/img4"
-                                        android:layout_width="150dp"
-                                        android:layout_height="150dp"
-                                        android:padding="5dp"
-                                        android:scaleType="fitXY" />
-
-                                    <RelativeLayout
-                                        android:layout_width="150dp"
-                                        android:layout_height="150dp"
-                                        android:padding="5dp">
-
-                                        <ImageView
-                                            android:id="@+id/img5"
-                                            android:layout_width="150dp"
-                                            android:layout_height="150dp"
-                                            android:scaleType="fitXY" />
-
-                                        <TextView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:background="#55000000"
-                                            android:gravity="center"
-                                            android:text="전체 사진 보기"
-                                            android:textColor="#FFFFFF" />
-                                    </RelativeLayout>
-                                </LinearLayout>
-                            </LinearLayout>
-                        </HorizontalScrollView>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp">
-
-                            <TextView
-                                android:id="@+id/title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="10dp"
-                                android:text="@{store.getName}"
-                                android:textColor="#000000"
-                                android:textSize="20sp" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/title"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="5dp">
-
-
-                                <ImageView
-                                    android:layout_width="13dp"
-                                    android:layout_height="13dp"
-                                    android:src="@drawable/ic_common_restaurant_view" />
-
-                                <TextView
-                                    android:id="@+id/view"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="3dp"
-                                    android:text="@{store.getHit}"
-                                    android:textColor="#000000"
-                                    android:textSize="11sp" />
-
-                                <ImageView
-                                    android:layout_width="11dp"
-                                    android:layout_height="11dp"
-                                    android:layout_marginLeft="3dp"
-                                    android:src="@drawable/ic_common_restaurant_review" />
-
-                                <TextView
-                                    android:id="@+id/review"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="3dp"
-                                    android:text="@{store.getReview_count}"
-                                    android:textColor="#000000"
-                                    android:textSize="11sp" />
-
-                                <ImageView
-                                    android:layout_width="11dp"
-                                    android:layout_height="11dp"
-                                    android:layout_marginLeft="3dp"
-                                    android:src="@drawable/ic_common_restaurant_wannago_gray" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="3dp"
-                                    android:textColor="#000000"
-                                    android:textSize="11sp" />
-
-                            </LinearLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginTop="10dp"
-                                android:text="@{store.getScore}"
-                                android:textColor="@color/orange"
-                                android:textSize="35sp" />
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
+                    <!-- 메인 사진 -->
+                    <include
+                        android:id="@+id/layout_detail_restaurant_main"
+                        layout="@layout/layout_detail_restaurant_main" />
 
                 </android.support.design.widget.CollapsingToolbarLayout>
 
 
             </android.support.design.widget.AppBarLayout>
 
-            <include layout="@layout/restaurant_detail_content"
-                android:id="@+id/restaurant_detail_content"/>
-
-            <LinearLayout
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/nestedScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="67dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="70dp"
                 android:background="#FFFFFF"
-                android:orientation="vertical"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EEEEEE" />
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:showIn="@layout/activity_restaurant_detail">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="65dp">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                    <!-- 평가 버튼 -->
+                    <include layout="@layout/layout_restaurant_evaluate" />
+
+                    <!-- 지도 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#eeeeee"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:text="지도 영역" />
 
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/btn_rdp_tab_wannago_normal" />
+                    <!-- 주소 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@{storeSpec.getAddress}"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="15dp"
+                        android:background="#EEEEEE" />
+
+                    <!-- 위치찾기 -->
+                    <include layout="@layout/layout_restaurant_navigation" />
+
+                    <!-- 전화하기 -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#EEEEEE">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:layout_centerInParent="true"
+                            android:background="#FFFFFF">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/shape_gray_line_box"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/bth_rp_call_orange" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="전화하기" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <!-- 식당 영업 정보 -->
+
+                    <include
+                        android:id="@+id/layout_restaurant_information"
+                        layout="@layout/layout_restaurant_information" />
+
+                    <!-- 폐점정보 -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#EEEEEE">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:layout_centerInParent="true"
+                            android:background="#FFFFFF">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="10dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/ic_info_gray" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="잘못 되었거나 폐점된 정보를 알려주세요." />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/btn_see_more_right_arrow_gray" />
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <!-- 식당 키워드 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:orientation="vertical"
+                        android:padding="15dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="가고싶다"
-                            android:textColor="@color/orange" />
+                            android:text="이 식당의 인기 키워드"
+                            android:textColor="#000000"
+                            android:textSize="15sp" />
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/btn_rdp_tab_checkin_normal" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="체크인"
-                            android:textColor="@color/orange" />
+                            android:layout_marginTop="15dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/shape_black_line_box"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="5dp"
+                                android:text="# 막걸리" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/shape_black_line_box"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="5dp"
+                                android:text="# 육전" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/shape_black_line_box"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="5dp"
+                                android:text="# 육회" />
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <!-- 맛깔나는 리뷰 -->
+                    <include
+                        android:id="@+id/layout_review_list"
+                        layout="@layout/layout_review_list" />
 
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/btn_rdp_tab_review_normal" />
+                    <!-- 관련 top 리스트 -->
+                    <include
+                        android:id="@+id/layout_related_toplist"
+                        layout="@layout/layout_related_toplist" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="리뷰쓰기"
-                            android:textColor="@color/orange" />
+                    <!-- 관련 스토리 -->
+                    <include layout="@layout/layout_related_story" />
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/btn_rdp_tab_photo_normal" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="사진올리기"
-                            android:textColor="@color/orange" />
-
-                    </LinearLayout>
+                    <!-- 주변 인기 식당 -->
+                    <include layout="@layout/layout_around_restaurant" />
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EEEEEE" />
+            </android.support.v4.widget.NestedScrollView>
 
-            </LinearLayout>
+            <include layout="@layout/layout_detail_restaurant_menu" />
 
         </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>
