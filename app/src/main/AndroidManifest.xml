@@ -73,7 +73,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.OAuthSampleActivity" />
-        <activity android:name=".activity.SearchActivity" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".popup.SelectRegionPopupActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />

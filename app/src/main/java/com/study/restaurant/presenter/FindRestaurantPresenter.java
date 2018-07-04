@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.activity.GlobalApplication;
+import com.study.restaurant.activity.SearchActivity;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.common.FunctionImpl;
 import com.study.restaurant.manager.MyLocationManager;
@@ -182,7 +183,7 @@ public class FindRestaurantPresenter implements FunctionImpl.FindRestaurant {
      */
     @Override
     public void clickSearch(View v) {
-
+        SearchActivity.go(appCompatActivity);
     }
 
     /**
