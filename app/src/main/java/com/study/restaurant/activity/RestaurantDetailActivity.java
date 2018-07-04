@@ -6,26 +6,34 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.gson.Gson;
 import com.study.restaurant.R;
 import com.study.restaurant.databinding.ActivityRestaurantDetailBinding;
+import com.study.restaurant.databinding.ItemBinding;
 import com.study.restaurant.databinding.ItemReviewBinding;
 import com.study.restaurant.databinding.ItemToplistBinding;
+import com.study.restaurant.databinding.ItemStoryBinding;
+import com.study.restaurant.fragment.FindRestaurantFragment;
 import com.study.restaurant.model.Review;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.model.StoreSpec;
+import com.study.restaurant.model.Story;
 import com.study.restaurant.model.TopList;
+import com.study.restaurant.util.AppBarStateChangeListener;
 import com.study.restaurant.util.MyGlide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RestaurantDetailActivity extends AppCompatActivity {
 
@@ -136,15 +144,9 @@ public class RestaurantDetailActivity extends AppCompatActivity {
             "      \"image\": \"http://\",\n" +
             "      \"title\": \"망고플레이트 에디터 C양 추천 맛집 베스트\",\n" +
             "      \"subtitle\": \"망고플레이트 에디터R양이 아끼는..\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"story_id\": \"1\",\n" +
-            "      \"image\": \"http://\",\n" +
-            "      \"title\": \"망고플레이트 에디터 C양 추천 맛집 베스트\",\n" +
-            "      \"subtitle\": \"망고플레이트 에디터R양이 아끼는..\"\n" +
             "    }\n" +
             "  ],\n" +
-            "  \"aroundRestaurnat\": [\n" +
+            "  \"aroundRestaurant\": [\n" +
             "    {\n" +
             "      \"store_id\": \"2\",\n" +
             "      \"name\": \"고에몬 강남점\",\n" +
@@ -210,6 +212,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 
         // data binding
         activityRestaurantDetailBinding.layoutDetailRestaurantTitleBar.setStoreSpec(storeSpec);
+        activityRestaurantDetailBinding.layoutDetailRestaurantTitleBar.setStore(getStore());
         activityRestaurantDetailBinding.layoutDetailRestaurantMain.setStore(getStore());
         activityRestaurantDetailBinding.setStore(getStore());
 
@@ -273,6 +276,21 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         activityRestaurantDetailBinding.layoutRelatedToplist.topListRv.setAdapter(toplistRvAdt);
         activityRestaurantDetailBinding.layoutRelatedToplist.topListRv.setLayoutManager(new LinearLayoutManager(this));
         activityRestaurantDetailBinding.layoutRelatedToplist.topListRv.setNestedScrollingEnabled(false);
+
+        //관련 스토리
+        StoryRvAdt storyRvAdt = new StoryRvAdt();
+        storyRvAdt.setStoryList(storeSpec.getStories());
+        activityRestaurantDetailBinding.layoutRelatedStory.storyRv.setAdapter(storyRvAdt);
+        activityRestaurantDetailBinding.layoutRelatedStory.storyRv.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
+        activityRestaurantDetailBinding.layoutRelatedStory.storyRv.setNestedScrollingEnabled(false);
+
+        //주변 인기 식당
+        RvAdt rvAdt = new RvAdt();
+        rvAdt.setStoreList(storeSpec.getAroundRestaurant());
+        activityRestaurantDetailBinding.layoutAroundRestaurant.restaurantRv.setAdapter(rvAdt);
+        activityRestaurantDetailBinding.layoutAroundRestaurant.restaurantRv.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
+        activityRestaurantDetailBinding.layoutAroundRestaurant.restaurantRv.setNestedScrollingEnabled(false);
+
     }
 
     public static void go(AppCompatActivity appCompatActivity, Store store) {
@@ -289,37 +307,125 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         onBackPressed();
     }
 
-    public abstract static class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {
+    public class StoryRvAdt extends RecyclerView.Adapter<StoryHolder> {
 
-        public enum State {
-            EXPANDED,
-            COLLAPSED,
-            IDLE
+        List<Story> storyList = new ArrayList<>();
+
+        public void setStoryList(List<Story> storyList) {
+            this.storyList = storyList;
+            notifyDataSetChanged();
         }
-
-        private State mCurrentState = State.IDLE;
 
         @Override
-        public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-            if (i == 0) {
-                if (mCurrentState != State.EXPANDED) {
-                    onStateChanged(appBarLayout, State.EXPANDED);
-                }
-                mCurrentState = State.EXPANDED;
-            } else if (Math.abs(i) >= appBarLayout.getTotalScrollRange()) {
-                if (mCurrentState != State.COLLAPSED) {
-                    onStateChanged(appBarLayout, State.COLLAPSED);
-                }
-                mCurrentState = State.COLLAPSED;
-            } else {
-                if (mCurrentState != State.IDLE) {
-                    onStateChanged(appBarLayout, State.IDLE);
-                }
-                mCurrentState = State.IDLE;
-            }
+        public StoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return StoryHolder.create(parent, viewType);
         }
 
-        public abstract void onStateChanged(AppBarLayout appBarLayout, State state);
+        @Override
+        public void onBindViewHolder(StoryHolder holder, int position) {
+            holder.setStory(storyList.get(position));
+            MyGlide.with(holder.itemView.getContext())
+                    .load(storyList.get(position).getImage())
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(holder.img);
+
+        }
+
+        @Override
+        public int getItemCount() {
+            int count = 0;
+            if (storyList != null)
+                count = storyList.size();
+
+            return count;
+        }
+    }
+
+    public static class StoryHolder extends RecyclerView.ViewHolder {
+        ItemStoryBinding itemStoryBinding;
+
+        public static StoryHolder create(ViewGroup parent, int viewType) {
+            ItemStoryBinding itemStoryBinding = ItemStoryBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+            return new StoryHolder(itemStoryBinding);
+        }
+
+        ImageView img;
+
+        public StoryHolder(ItemStoryBinding itemStoryBinding) {
+            super(itemStoryBinding.getRoot());
+            this.itemStoryBinding = itemStoryBinding;
+            img = itemStoryBinding.img;
+        }
+
+
+        public void setStory(Story story) {
+            itemStoryBinding.setStory(story);
+        }
+    }
+
+
+    public class RvAdt extends RecyclerView.Adapter<RvHolder> {
+
+        List<Store> storeList = new ArrayList<>();
+
+        public List<Store> getStoreList() {
+            return storeList;
+        }
+
+        public void setStoreList(List<Store> storeList) {
+            this.storeList = storeList;
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return RvHolder.create(parent, viewType);
+        }
+
+        @Override
+        public void onBindViewHolder(RvHolder holder, int position) {
+            storeList.get(position).setPosition(position);
+            holder.setStore(storeList.get(position));
+            MyGlide.with(holder.itemView.getContext())
+                    .load(storeList.get(position).getImg())
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(holder.img);
+            holder.itemBinding.parent.setOnClickListener(view -> RestaurantDetailActivity.go(RestaurantDetailActivity.this, storeList.get(position)));
+        }
+
+        @Override
+        public int getItemCount() {
+            int count = 0;
+            if (storeList != null)
+                count = storeList.size();
+
+            return count;
+        }
+    }
+
+    public static class RvHolder extends RecyclerView.ViewHolder {
+        ItemBinding itemBinding;
+
+        public static RvHolder create(ViewGroup parent, int viewType) {
+            ItemBinding itemBinding = ItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+            return new RvHolder(itemBinding);
+        }
+
+        ImageView img;
+
+        public RvHolder(ItemBinding itemBinding) {
+            super(itemBinding.getRoot());
+            this.itemBinding = itemBinding;
+            img = itemView.findViewById(R.id.img);
+        }
+
+        public ItemBinding getItemBinding() {
+            return itemBinding;
+        }
+
+        public void setStore(Store store) {
+            itemBinding.setStore(store);
+        }
     }
 
     public class ReviewRvAdt extends RecyclerView.Adapter<ReviewHolder> {

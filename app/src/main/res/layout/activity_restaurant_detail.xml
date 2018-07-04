@@ -259,10 +259,12 @@
                         layout="@layout/layout_related_toplist" />
 
                     <!-- 관련 스토리 -->
-                    <include layout="@layout/layout_related_story" />
+                    <include layout="@layout/layout_related_story"
+                        android:id="@+id/layout_related_story"/>
 
                     <!-- 주변 인기 식당 -->
-                    <include layout="@layout/layout_around_restaurant" />
+                    <include layout="@layout/layout_around_restaurant"
+                        android:id="@+id/layout_around_restaurant"/>
 
                 </LinearLayout>
 

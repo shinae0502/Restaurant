@@ -160,16 +160,19 @@ public abstract class FunctionImpl {
         void requestRegion(OnReceiveRegionListener onReceiveRegionListener);
 
 
-        interface OnReceiveCityListener
-        {
+        interface OnReceiveCityListener {
             void onReceiveCity(ArrayList<City> cityArrayList);
         }
 
-        interface OnReceiveRegionListener
-        {
+        interface OnReceiveRegionListener {
             void onReceiveRegion(ArrayList<Region> regionArrayList);
         }
 
     }
+
+    public interface DetailRestaurant {
+
+    }
+
 
 }
