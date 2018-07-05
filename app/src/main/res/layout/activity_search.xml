@@ -35,6 +35,7 @@
                 android:layout_marginLeft="15dp"
                 android:addTextChangedListener="@{searchView.textWatcher}"
                 android:background="@null"
+                android:text="@{searchView.keyword}"
                 android:hint="키워드로 검색해보세요"
                 android:singleLine="true" />
         </LinearLayout>

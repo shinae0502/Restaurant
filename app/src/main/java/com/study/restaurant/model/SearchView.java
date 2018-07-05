@@ -17,6 +17,7 @@ public class SearchView extends BaseObservable {
     ArrayList<Search> recentKeyword = new ArrayList<>();
 
     String keyword;
+    private int currentPosition;
 
     @Bindable
     public String getKeyword() {
@@ -25,13 +26,14 @@ public class SearchView extends BaseObservable {
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+        notifyPropertyChanged(BR.keyword);
         notifyPropertyChanged(BR.emptyKeyword);
     }
 
     @Bindable
     public boolean isEmptyKeyword() {
 
-        return TextUtils.isEmpty(keyword);
+        return TextUtils.isEmpty(keyword) || currentPosition == 2;
     }
 
     public ArrayList<Search> getRecentKeyword() {
@@ -46,6 +48,7 @@ public class SearchView extends BaseObservable {
         String[] strings = {"아메리칸버거위크", "망플할인", "쿠폰있는식당", "줄서는맛집", "족발"};
         for (int i = 0; i < strings.length; i++) {
             Search search = new Search();
+            search.setParent(this);
             search.keyword = strings[i];
             recommandKeyword.add(search);
         }
@@ -53,6 +56,7 @@ public class SearchView extends BaseObservable {
         String[] strings1 = {"가가", "나나", "다다", "라라", "마마"};
         for (int i = 0; i < strings1.length; i++) {
             Search search = new Search();
+            search.setParent(this);
             search.keyword = strings1[i];
             recentKeyword.add(search);
         }
@@ -133,4 +137,7 @@ public class SearchView extends BaseObservable {
         notifyPropertyChanged(BR.searchList);
     }
 
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
+    }
 }
