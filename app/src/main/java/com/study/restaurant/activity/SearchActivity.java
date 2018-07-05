@@ -14,11 +14,13 @@ import com.study.restaurant.R;
 import com.study.restaurant.databinding.ActivitySearchBinding;
 import com.study.restaurant.fragment.FindFriendFragment;
 import com.study.restaurant.fragment.SearchFragment;
+import com.study.restaurant.model.SearchView;
 
 public class SearchActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager searchPager;
+    SearchView searchView;
 
     ActivitySearchBinding activitySearchBinding;
 
@@ -30,7 +32,9 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        searchView = new SearchView();
         activitySearchBinding = DataBindingUtil.setContentView(this, R.layout.activity_search);
+        activitySearchBinding.setSearchView(searchView);
         tabLayout = activitySearchBinding.tabLayout;
         searchPager = activitySearchBinding.searchPager;
         searchPager.setAdapter(new SearchPagerAdapter(getSupportFragmentManager()));
@@ -77,12 +81,19 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-                if (recommandSearchFragment == null)
+                if (recommandSearchFragment == null) {
                     recommandSearchFragment = new SearchFragment();
+                    recommandSearchFragment.setType(SearchFragment.Type.RECOMMAND);
+                    recommandSearchFragment.setSearchView(searchView);
+
+                }
                 return recommandSearchFragment;
             } else if (position == 1) {
-                if (recentSearchFragment == null)
+                if (recentSearchFragment == null) {
                     recentSearchFragment = new SearchFragment();
+                    recentSearchFragment.setType(SearchFragment.Type.RECENT);
+                    recentSearchFragment.setSearchView(searchView);
+                }
                 return recentSearchFragment;
             } else if (position == 2) {
                 if (findFriendFragment == null)
