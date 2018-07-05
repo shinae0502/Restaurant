@@ -215,7 +215,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
-                        android:background="@drawable/shape_stroke_gray_box"
+                        android:background="@drawable/selector_common_line_box"
                         android:clickable="true"
                         android:onClick="@{presenter::clickFilter}"
                         android:padding="7dp">
@@ -224,13 +224,13 @@
                             android:layout_width="14dp"
                             android:layout_height="match_parent"
                             android:layout_marginRight="5dp"
-                            android:src="@drawable/btn_common_filter_default" />
+                            android:src="@drawable/selector_btn_common_filter" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="필터"
-                            android:textColor="#000000" />
+                            android:textColor="@color/selector_filter_text" />
                     </LinearLayout>
 
                     <TextView

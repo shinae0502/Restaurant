@@ -23,6 +23,12 @@ public class Filter extends BaseObservable implements Cloneable {
     //park
     boolean dontCare, available;
 
+    @Bindable
+    public boolean isDirty() {
+        return koreanFood || japaneseFood || chineseFood || westernFood || worldWideFood || buffet || cafe || bar
+                || isWannaGo || isHaveBeen || cost1 || cost2 || cost3 || cost4 || dontCare || available;
+    }
+
 
     @Bindable
     public boolean isAll() {
@@ -32,6 +38,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setAll(boolean all) {
         isAll = all;
         notifyPropertyChanged(BR.all);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -42,6 +49,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setWannaGo(boolean wannaGo) {
         isWannaGo = wannaGo;
         notifyPropertyChanged(BR.wannaGo);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -52,6 +60,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setHaveBeen(boolean haveBeen) {
         isHaveBeen = haveBeen;
         notifyPropertyChanged(BR.haveBeen);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -62,6 +71,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setKoreanFood(boolean koreanFood) {
         this.koreanFood = koreanFood;
         notifyPropertyChanged(BR.koreanFood);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -72,6 +82,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setJapaneseFood(boolean japaneseFood) {
         this.japaneseFood = japaneseFood;
         notifyPropertyChanged(BR.japaneseFood);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -82,6 +93,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setChineseFood(boolean chineseFood) {
         this.chineseFood = chineseFood;
         notifyPropertyChanged(BR.chineseFood);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -92,6 +104,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setWesternFood(boolean westernFood) {
         this.westernFood = westernFood;
         notifyPropertyChanged(BR.westernFood);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -102,6 +115,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setWorldWideFood(boolean worldWideFood) {
         this.worldWideFood = worldWideFood;
         notifyPropertyChanged(BR.worldWideFood);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -112,6 +126,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setBuffet(boolean buffet) {
         this.buffet = buffet;
         notifyPropertyChanged(BR.buffet);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -122,6 +137,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setCafe(boolean coffee) {
         this.cafe = cafe;
         notifyPropertyChanged(BR.cafe);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -132,6 +148,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setBar(boolean bar) {
         this.bar = bar;
         notifyPropertyChanged(BR.bar);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -142,6 +159,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setCost1(boolean cost1) {
         this.cost1 = cost1;
         notifyPropertyChanged(BR.cost1);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -152,6 +170,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setCost2(boolean cost2) {
         this.cost2 = cost2;
         notifyPropertyChanged(BR.cost2);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -162,6 +181,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setCost3(boolean cost3) {
         this.cost3 = cost3;
         notifyPropertyChanged(BR.cost3);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -172,6 +192,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setCost4(boolean cost4) {
         this.cost4 = cost4;
         notifyPropertyChanged(BR.cost4);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -182,6 +203,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setDontCare(boolean dontCare) {
         this.dontCare = dontCare;
         notifyPropertyChanged(BR.dontCare);
+        notifyPropertyChanged(BR.dirty);
     }
 
     @Bindable
@@ -192,6 +214,7 @@ public class Filter extends BaseObservable implements Cloneable {
     public void setAvailable(boolean available) {
         this.available = available;
         notifyPropertyChanged(BR.available);
+        notifyPropertyChanged(BR.dirty);
     }
 
     public Filter clone() throws CloneNotSupportedException {

@@ -3,6 +3,7 @@ package com.study.restaurant.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.databinding.Observable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -73,7 +73,6 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
         fragmentFindRestaurantBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_restaurant, container, false);
         fragmentFindRestaurantBinding.setSort(((GlobalApplication) getActivity().getApplication()).getFindRestaurant().getSort());
         fragmentFindRestaurantBinding.setBoundary(((GlobalApplication) getActivity().getApplication()).getFindRestaurant().getBoundary());
-
         fragmentFindRestaurantBinding.setPresenter(findRestaurantPresenter);
 
         findRestaurantRv = fragmentFindRestaurantBinding.findRestaurantRv;
@@ -191,8 +190,19 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
                 requestStoreSummary();
             }
 
-            if (requestCode == 0x04) {
+            if (requestCode == 0x02 || requestCode == 0x03 || requestCode == 0x04) {
+                fragmentFindRestaurantBinding.findRestaurantRv.setVisibility(View.GONE);
+                fragmentFindRestaurantBinding.progress.setVisibility(View.VISIBLE);
+                requestStoreSummary();
+            }
 
+            //필터 on/off 여부 파악하기
+            if (requestCode == 0x04) {
+                boolean dirty = ((GlobalApplication) getActivity().getApplication()).getFindRestaurant().getFilter().isDirty();
+                LOG.d(dirty);
+                fragmentFindRestaurantBinding.layoutFilter.setSelected(
+                        dirty
+                );
             }
         }
 
