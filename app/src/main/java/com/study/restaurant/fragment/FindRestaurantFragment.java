@@ -3,7 +3,6 @@ package com.study.restaurant.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.Observable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,30 +16,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.study.restaurant.R;
 import com.study.restaurant.activity.GlobalApplication;
-import com.study.restaurant.activity.RestaurantDetailActivity;
+import com.study.restaurant.adapter.StoreRvAdt;
 import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
-import com.study.restaurant.databinding.ItemBinding;
 import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.Region;
-import com.study.restaurant.model.Store;
 import com.study.restaurant.popup.SelectDistancePopup;
 import com.study.restaurant.popup.SelectFilterPoppupActivity;
 import com.study.restaurant.popup.SelectRegionPopupActivity;
 import com.study.restaurant.popup.SelectSortPopupActivity;
 import com.study.restaurant.presenter.FindRestaurantPresenter;
 import com.study.restaurant.util.LOG;
-import com.study.restaurant.util.MyGlide;
 import com.study.restaurant.view.FindRestaurantView;
+import com.study.restaurant.viewmodel.FindRestaurantViewModel;
 import com.viewpagerindicator.CirclePageIndicator;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FindRestaurantFragment extends Fragment implements FindRestaurantView {
 
@@ -71,13 +63,17 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentFindRestaurantBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_restaurant, container, false);
+
+        FindRestaurantViewModel findRestaurantViewModel = new FindRestaurantViewModel();
+        fragmentFindRestaurantBinding.setVm(findRestaurantViewModel);
+
         fragmentFindRestaurantBinding.setSort(((GlobalApplication) getActivity().getApplication()).getFindRestaurant().getSort());
         fragmentFindRestaurantBinding.setBoundary(((GlobalApplication) getActivity().getApplication()).getFindRestaurant().getBoundary());
         fragmentFindRestaurantBinding.setPresenter(findRestaurantPresenter);
 
         findRestaurantRv = fragmentFindRestaurantBinding.findRestaurantRv;
         findRestaurantRv.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-        findRestaurantRv.setAdapter(new RvAdt());
+        //findRestaurantRv.setAdapter(new StoreRvAdt());
         findRestaurantRv.setNestedScrollingEnabled(false);
 
         bannerPager = fragmentFindRestaurantBinding.bannerPager;
@@ -101,7 +97,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
                     getGlobalApplication().getFindRestaurant().getFilter(),
                     getGlobalApplication().getFindRestaurant().getSort(),
                     storeArrayList -> {
-                        ((RvAdt) findRestaurantRv.getAdapter()).setStoreList(storeArrayList);
+                        ((StoreRvAdt) findRestaurantRv.getAdapter()).setStoreList(storeArrayList);
                         fragmentFindRestaurantBinding.progress.setVisibility(View.GONE);
                         fragmentFindRestaurantBinding.findRestaurantRv.setVisibility(View.VISIBLE);
                     });
@@ -113,7 +109,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
                 getGlobalApplication().getFindRestaurant().getFilter(),
                 getGlobalApplication().getFindRestaurant().getSort(),
                 storeArrayList -> {
-                    ((RvAdt) findRestaurantRv.getAdapter()).setStoreList(storeArrayList);
+                    ((StoreRvAdt) findRestaurantRv.getAdapter()).setStoreList(storeArrayList);
                     fragmentFindRestaurantBinding.progress.setVisibility(View.GONE);
                     fragmentFindRestaurantBinding.findRestaurantRv.setVisibility(View.VISIBLE);
                 });
@@ -206,66 +202,6 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
             }
         }
 
-    }
-
-    public class RvAdt extends RecyclerView.Adapter<RvHolder> {
-
-        List<Store> storeList = new ArrayList<>();
-
-        public List<Store> getStoreList() {
-            return storeList;
-        }
-
-        public void setStoreList(List<Store> storeList) {
-            this.storeList = storeList;
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return RvHolder.create(parent, viewType);
-        }
-
-        @Override
-        public void onBindViewHolder(RvHolder holder, int position) {
-            storeList.get(position).setPosition(position);
-            holder.setStore(storeList.get(position));
-            MyGlide.with(holder.itemView.getContext())
-                    .load(storeList.get(position).getImg())
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(holder.img);
-            holder.itemBinding.parent.setOnClickListener(view -> RestaurantDetailActivity.go((AppCompatActivity) getActivity(), storeList.get(position)));
-        }
-
-        @Override
-        public int getItemCount() {
-            return storeList.size();
-        }
-    }
-
-    public static class RvHolder extends RecyclerView.ViewHolder {
-        ItemBinding itemBinding;
-
-        public static RvHolder create(ViewGroup parent, int viewType) {
-            ItemBinding itemBinding = ItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-            return new RvHolder(itemBinding);
-        }
-
-        ImageView img;
-
-        public RvHolder(ItemBinding itemBinding) {
-            super(itemBinding.getRoot());
-            this.itemBinding = itemBinding;
-            img = itemView.findViewById(R.id.img);
-        }
-
-        public ItemBinding getItemBinding() {
-            return itemBinding;
-        }
-
-        public void setStore(Store store) {
-            itemBinding.setStore(store);
-        }
     }
 
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {

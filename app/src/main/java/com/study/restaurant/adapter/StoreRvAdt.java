@@ -1,6 +1,5 @@
 package com.study.restaurant.adapter;
 
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -15,11 +14,6 @@ import java.util.List;
 public class StoreRvAdt extends RecyclerView.Adapter<StoreHolder> {
 
     List<Store> storeList = new ArrayList<>();
-    AppCompatActivity appCompatActivity;
-
-    public StoreRvAdt(AppCompatActivity appCompatActivity) {
-        this.appCompatActivity = appCompatActivity;
-    }
 
     public List<Store> getStoreList() {
         return storeList;
@@ -43,7 +37,7 @@ public class StoreRvAdt extends RecyclerView.Adapter<StoreHolder> {
                 .load(storeList.get(position).getImg())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(holder.img);
-        holder.itemBinding.parent.setOnClickListener(view -> RestaurantDetailActivity.go(appCompatActivity, storeList.get(position)));
+        //holder.itemBinding.parent.setOnClickListener(view -> RestaurantDetailActivity.go(appCompatActivity, storeList.get(position)));
     }
 
     @Override

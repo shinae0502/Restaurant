@@ -24,6 +24,10 @@
         <variable
             name="boundary"
             type="com.study.restaurant.model.Boundary" />
+
+        <variable
+            name="vm"
+            type="com.study.restaurant.viewmodel.FindRestaurantViewModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -260,6 +264,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:visibility="gone"
+                        app:adapter="@{vm.storeRvAdt}"
                         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
                 </RelativeLayout>
             </LinearLayout>
