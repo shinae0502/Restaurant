@@ -40,6 +40,9 @@ public class FindRestaurant {
     }
 
     public Cities getCities() {
+        if (cities == null)
+            cities = new Cities();
+
         return cities;
     }
 

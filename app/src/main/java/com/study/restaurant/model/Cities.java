@@ -16,6 +16,7 @@ public class Cities extends BaseObservable implements Cloneable {
     ArrayList<City> cities = new ArrayList<>();
     ArrayList<Region> lastSelectRegion = new ArrayList<>();
     FindRestaurant parent;
+    private Region currentRegion;
 
     public Cities clone() throws CloneNotSupportedException {
         Cities cities = new Cities();
@@ -150,5 +151,13 @@ public class Cities extends BaseObservable implements Cloneable {
                     return;
                 }
             }
+    }
+
+    public void setCurrentRegion(Region currentRegion) {
+        this.currentRegion = currentRegion;
+    }
+
+    public Region getCurrentRegion() {
+        return currentRegion;
     }
 }
