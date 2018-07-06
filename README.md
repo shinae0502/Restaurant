@@ -37,6 +37,9 @@ https://github.com/sarang628/MyLocationManager
 ## 지오코딩(좌표 -> 주소 변환)
 https://github.com/sarang628/Geocoding
 
+## 하단 감지 RecyclerView + 프로그래스바
+https://github.com/sarang628/BottomDetectionRecyclerView
+
 ## Git 사용방법
 ### 1. Github 사이트에서 주소 복사하기
 ![Alt Text](sample/git/0.png)
