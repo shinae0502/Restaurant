@@ -7,7 +7,6 @@ public class FindRestaurant {
     Sort sort;
     Boundary boundary;
     Filter filter;
-
     ArrayList<Store> storeArrayList = new ArrayList<>();
 
     public ArrayList<Store> getStoreArrayList() {

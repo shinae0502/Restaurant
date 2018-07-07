@@ -57,10 +57,11 @@ public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof StoreHolder) {
-            findRestaurant.getStoreArrayList().get(position).setPosition(position);
-            ((StoreHolder) holder).setStore(findRestaurant.getStoreArrayList().get(position));
+            Store store = (Store) vm.getRvItem(position);
+            store.setPosition(position);
+            ((StoreHolder) holder).setStore(store);
             MyGlide.with(holder.itemView.getContext())
-                    .load(findRestaurant.getStoreArrayList().get(position).getImg())
+                    .load(store.getImg())
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(((StoreHolder) holder).img);
         }
@@ -75,6 +76,9 @@ public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return findRestaurant.getStoreArrayList().size();
+        int count = 0;
+        if (vm != null)
+            count = vm.getRvCount();
+        return count;
     }
 }

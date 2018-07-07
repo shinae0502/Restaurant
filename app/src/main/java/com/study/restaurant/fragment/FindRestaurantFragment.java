@@ -196,14 +196,10 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 0x01) {
                 fragmentFindRestaurantBinding.setCities(((GlobalApplication) getActivity().getApplication()).getFindRestaurant().getCities());
-                fragmentFindRestaurantBinding.findRestaurantRv.setVisibility(View.GONE);
-                fragmentFindRestaurantBinding.progress.setVisibility(View.VISIBLE);
                 requestStoreSummary();
             }
 
             if (requestCode == 0x02 || requestCode == 0x03 || requestCode == 0x04) {
-                fragmentFindRestaurantBinding.findRestaurantRv.setVisibility(View.GONE);
-                fragmentFindRestaurantBinding.progress.setVisibility(View.VISIBLE);
                 requestStoreSummary();
             }
 

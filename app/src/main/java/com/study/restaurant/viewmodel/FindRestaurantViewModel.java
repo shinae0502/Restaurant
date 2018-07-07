@@ -8,10 +8,9 @@ import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.study.restaurant.activity.GlobalApplication;
-import com.study.restaurant.activity.SearchActivity;
 import com.study.restaurant.adapter.StoreRvAdt;
 import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.model.Banner;
 import com.study.restaurant.model.Boundary;
 import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.FindRestaurant;
@@ -29,6 +28,20 @@ public class FindRestaurantViewModel extends BaseObservable {
     StoreRvAdt storeRvAdt = new StoreRvAdt();
     boolean isLast;
     private FindRestaurant findRestaurant;
+
+    Banner banner = new Banner();
+
+    public Object getRvItem(int position) {
+        if (position > 1) {
+            return findRestaurant.getStoreArrayList().get(position - 2);
+        } else {
+            return null;
+        }
+    }
+
+    public int getRvCount() {
+        return 2 + findRestaurant.getStoreArrayList().size();
+    }
 
     public FindRestaurantViewModel(FindRestaurantNavigation findRestaurantNavigation) {
         this.findRestaurantNavigation = findRestaurantNavigation;
