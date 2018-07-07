@@ -23,11 +23,9 @@ import com.study.restaurant.R;
 import com.study.restaurant.activity.GlobalApplication;
 import com.study.restaurant.activity.SearchActivity;
 import com.study.restaurant.api.ApiManager;
-import com.study.restaurant.common.FunctionImpl;
 import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
 import com.study.restaurant.manager.MyLocationManager;
 import com.study.restaurant.model.Region;
-import com.study.restaurant.model.Store;
 import com.study.restaurant.popup.SelectDistancePopup;
 import com.study.restaurant.popup.SelectFilterPoppupActivity;
 import com.study.restaurant.popup.SelectRegionPopupActivity;
@@ -234,7 +232,6 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
                 List<Region> regionList = new Gson().fromJson(result, listType);
                 if (regionList != null && regionList.size() > 0) {
                     onReceiveRegionListener.onReceiveRegion(regionList.get(0));
-                    //findRestaurantView.setRegion(regionList.get(0));
                 }
             }
 

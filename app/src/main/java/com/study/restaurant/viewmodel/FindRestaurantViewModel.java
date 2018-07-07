@@ -138,7 +138,8 @@ public class FindRestaurantViewModel extends BaseObservable {
         if (boundary.getBoundary().equals("내 주변")) {
             cities.releaseAllSelected();
             boundary.setLevel3(true);
-            //requestAroundStore();
+            removeAllStore();
+            requestStoreSummary();
         } else {
             findRestaurantNavigation.showBoundaryPopup();
         }

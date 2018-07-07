@@ -3,6 +3,7 @@ package com.study.restaurant.binding;
 import android.databinding.BindingAdapter;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
+import android.view.ViewGroup;
 
 import com.study.restaurant.adapter.StoreRvAdt;
 import com.study.restaurant.model.FindRestaurant;
@@ -23,10 +24,10 @@ public class DataBindingAdapter {
         recyclerView.addOnScrollListener(onScrollListener);
     }
 
-    @BindingAdapter({"app:onScrollChangeListener"})
-    public static void nestedScrollBind(NestedScrollView nestedScrollView
-            , NestedScrollView.OnScrollChangeListener onScrollChangeListener
+    @BindingAdapter({"app:selected"})
+    public static void selectedBind(ViewGroup viewGroup
+            , boolean selected
     ) {
-        nestedScrollView.setOnScrollChangeListener(onScrollChangeListener);
+        viewGroup.setSelected(selected);
     }
 }

@@ -71,6 +71,7 @@ public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
             ((FindReataurantMenuHolder) holder).findRestaurantMenuBinding.setBoundary(findRestaurant.getBoundary());
             ((FindReataurantMenuHolder) holder).findRestaurantMenuBinding.setSort(findRestaurant.getSort());
             ((FindReataurantMenuHolder) holder).findRestaurantMenuBinding.setVm(vm);
+            ((FindReataurantMenuHolder) holder).findRestaurantMenuBinding.setFilter(findRestaurant.getFilter());
         }
 
         if (holder instanceof ProgressHolder) {

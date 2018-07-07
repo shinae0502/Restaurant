@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -11,6 +12,10 @@
         <variable
             name="boundary"
             type="com.study.restaurant.model.Boundary" />
+
+        <variable
+            name="filter"
+            type="com.study.restaurant.model.Filter" />
 
         <variable
             name="vm"
@@ -79,7 +84,8 @@
             android:background="@drawable/selector_common_line_box"
             android:clickable="true"
             android:onClick="@{vm::clickFilter}"
-            android:padding="7dp">
+            android:padding="7dp"
+            app:selected="@{filter.dirty}">
 
             <ImageView
                 android:layout_width="14dp"
