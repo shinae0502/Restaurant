@@ -10,47 +10,34 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.R;
 import com.study.restaurant.activity.GlobalApplication;
-import com.study.restaurant.adapter.StoreRvAdt;
-import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.activity.SearchActivity;
 import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
 import com.study.restaurant.model.FindRestaurant;
 import com.study.restaurant.model.Region;
-import com.study.restaurant.model.Store;
 import com.study.restaurant.popup.SelectDistancePopup;
 import com.study.restaurant.popup.SelectFilterPoppupActivity;
 import com.study.restaurant.popup.SelectRegionPopupActivity;
 import com.study.restaurant.popup.SelectSortPopupActivity;
 import com.study.restaurant.presenter.FindRestaurantPresenter;
 import com.study.restaurant.util.LOG;
-import com.study.restaurant.view.FindRestaurantView;
+import com.study.restaurant.view.FindRestaurantNavigation;
 import com.study.restaurant.viewmodel.FindRestaurantViewModel;
-import com.viewpagerindicator.CirclePageIndicator;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import static com.study.restaurant.adapter.ProgressRvAdt.VIEW_TYPE_PROGRESS;
 import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_BANNER;
 import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_MENU;
 
-public class FindRestaurantFragment extends Fragment implements FindRestaurantView {
+public class FindRestaurantFragment extends Fragment implements FindRestaurantNavigation {
 
     FindRestaurantPresenter findRestaurantPresenter;
     FragmentFindRestaurantBinding fragmentFindRestaurantBinding;
@@ -80,7 +67,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
                              Bundle savedInstanceState) {
         fragmentFindRestaurantBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_restaurant, container, false);
 
-        findRestaurantViewModel = new FindRestaurantViewModel();
+        findRestaurantViewModel = new FindRestaurantViewModel(this);
         fragmentFindRestaurantBinding.setVm(findRestaurantViewModel);
         FindRestaurant findRestaurant = getGlobalApplication().getFindRestaurant();
         findRestaurantViewModel.setFindRestaurant(findRestaurant);
@@ -94,21 +81,20 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
         ((GridLayoutManager) findRestaurantRv.getLayoutManager()).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (((StoreRvAdt) findRestaurantRv.getAdapter()).getItemViewType(position) == VIEW_TYPE_PROGRESS)
+                if (findRestaurantRv.getAdapter().getItemViewType(position) == VIEW_TYPE_PROGRESS)
                     return 2;
 
-                if (((StoreRvAdt) findRestaurantRv.getAdapter()).getItemViewType(position) == VIEW_TYPE_BANNER) {
+                if (VIEW_TYPE_BANNER == findRestaurantRv.getAdapter().getItemViewType(position)) {
                     return 2;
                 }
 
-                if (((StoreRvAdt) findRestaurantRv.getAdapter()).getItemViewType(position) == VIEW_TYPE_MENU) {
+                if (findRestaurantRv.getAdapter().getItemViewType(position) == VIEW_TYPE_MENU) {
                     return 2;
                 }
 
                 return 1;
             }
         });
-        //findRestaurantRv.setNestedScrollingEnabled(false);
 
         findRestaurantPresenter.initLocationManager(getActivity());
         requestAroundStore();
@@ -116,7 +102,6 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
         return fragmentFindRestaurantBinding.getRoot();
     }
 
-    @Override
     public void requestStoreSummary() {
         if (getGlobalApplication().getFindRestaurant().getCities() != null)
             findRestaurantPresenter.requestStoreSummery(getGlobalApplication().getFindRestaurant().getCities(),
@@ -124,7 +109,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
                     getGlobalApplication().getFindRestaurant().getFilter(),
                     getGlobalApplication().getFindRestaurant().getSort(),
                     storeArrayList -> {
-                        ((StoreRvAdt) findRestaurantRv.getAdapter()).setStoreList(storeArrayList);
+                        findRestaurantViewModel.setStoreArrayList(storeArrayList);
                         fragmentFindRestaurantBinding.progress.setVisibility(View.GONE);
                         fragmentFindRestaurantBinding.findRestaurantRv.setVisibility(View.VISIBLE);
                     });
@@ -142,7 +127,6 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
                 });
     }
 
-    @Override
     public void requestAroundStore() {
         //위치 요청하기
         fragmentFindRestaurantBinding.progress.setVisibility(View.VISIBLE);
@@ -172,8 +156,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
         findRestaurantPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    @Override
-    public void setRegion(Region region) {
+    private void setRegion(Region region) {
         fragmentFindRestaurantBinding.setRegion(region);
         fragmentFindRestaurantBinding.location.setText(region.getRegion_name());
     }
@@ -196,6 +179,11 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
     @Override
     public void showFilterPopup() {
         SelectFilterPoppupActivity.show((AppCompatActivity) getActivity());
+    }
+
+    @Override
+    public void goSearch() {
+        SearchActivity.go((AppCompatActivity) getActivity());
     }
 
     private GlobalApplication getGlobalApplication() {
@@ -229,43 +217,5 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantVi
             }
         }
 
-    }
-
-    public class ViewPagerAdapter extends FragmentStatePagerAdapter {
-
-        public ViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return BlankFragment.newInstance();
-        }
-
-        @Override
-        public int getCount() {
-            return 10;
-        }
-    }
-
-    public static class BlankFragment extends Fragment {
-        public BlankFragment() {
-        }
-
-        public static BlankFragment newInstance() {
-            BlankFragment fragment = new BlankFragment();
-            return fragment;
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_blank, container, false);
-        }
     }
 }

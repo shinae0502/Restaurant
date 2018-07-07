@@ -4,14 +4,20 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.study.restaurant.activity.GlobalApplication;
+import com.study.restaurant.activity.SearchActivity;
 import com.study.restaurant.adapter.StoreRvAdt;
 import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.model.Boundary;
+import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.FindRestaurant;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.util.LOG;
+import com.study.restaurant.view.FindRestaurantNavigation;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -19,28 +25,38 @@ import java.util.HashMap;
 import java.util.List;
 
 public class FindRestaurantViewModel extends BaseObservable {
+    FindRestaurantNavigation findRestaurantNavigation;
     StoreRvAdt storeRvAdt = new StoreRvAdt();
-
-    ArrayList<Store> storeArrayList = new ArrayList<>();
+    boolean isLast;
     private FindRestaurant findRestaurant;
+
+    public FindRestaurantViewModel(FindRestaurantNavigation findRestaurantNavigation) {
+        this.findRestaurantNavigation = findRestaurantNavigation;
+    }
+
+    public FindRestaurant getFindRestaurant() {
+        return findRestaurant;
+    }
+
+    public void clickSelectLocation(View v) {
+        findRestaurantNavigation.showSelectRegionPopup();
+    }
 
     @Bindable
     public ArrayList<Store> getStoreArrayList() {
-        return storeArrayList;
+        return findRestaurant.getStoreArrayList();
     }
 
     public void setStoreArrayList(ArrayList<Store> storeArrayList) {
-        this.storeArrayList.removeAll(this.storeArrayList);
-        this.storeArrayList.addAll(storeArrayList);
+        findRestaurant.getStoreArrayList().removeAll(findRestaurant.getStoreArrayList());
+        findRestaurant.getStoreArrayList().addAll(storeArrayList);
         storeRvAdt.notifyDataSetChanged();
     }
 
     public void addStoreArrayList(ArrayList<Store> storeArrayList) {
-        this.storeArrayList.addAll(storeArrayList);
+        findRestaurant.getStoreArrayList().addAll(storeArrayList);
         storeRvAdt.notifyDataSetChanged();
     }
-
-    boolean isLast;
 
     public StoreRvAdt getStoreRvAdt() {
         return storeRvAdt;
@@ -115,4 +131,31 @@ public class FindRestaurantViewModel extends BaseObservable {
             }
         });
     }
+
+    public void clickSearch(View v) {
+        findRestaurantNavigation.goSearch();
+    }
+
+    public void clickSort(View v) {
+        findRestaurantNavigation.showSortPopup();
+    }
+
+    public void clickBoundary(View v) {
+        //내 주변을 클릭 시 기존 선택된 도시가 모두 해제된다.
+        Boundary boundary = findRestaurant.getBoundary();
+        Cities cities = findRestaurant.getCities();
+        if (boundary.getBoundary().equals("내 주변")) {
+            cities.releaseAllSelected();
+            boundary.setLevel3(true);
+            //requestAroundStore();
+        } else {
+            findRestaurantNavigation.showBoundaryPopup();
+        }
+    }
+
+    public void clickFilter(View v) {
+        findRestaurantNavigation.showFilterPopup();
+    }
+
+
 }

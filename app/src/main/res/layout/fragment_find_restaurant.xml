@@ -63,7 +63,7 @@
                             android:layout_height="match_parent"
                             android:clickable="true"
                             android:gravity="center_vertical"
-                            android:onClick="@{presenter::clickSelectLocation}"
+                            android:onClick="@{vm::clickSelectLocation}"
                             android:orientation="vertical">
 
                             <TextView
@@ -106,7 +106,7 @@
                                 android:layout_width="23dp"
                                 android:layout_height="23dp"
                                 android:clickable="true"
-                                android:onClick="@{presenter::clickSearch}"
+                                android:onClick="@{vm::clickSearch}"
                                 android:src="@drawable/ic_common_search" />
 
                             <TextView
@@ -121,7 +121,6 @@
                                 android:layout_height="23dp"
                                 android:layout_marginRight="10dp"
                                 android:clickable="true"
-                                android:onClick="@{presenter::clickMap}"
                                 android:src="@drawable/btn_find_map_gray" />
                         </LinearLayout>
                     </RelativeLayout>
@@ -169,8 +168,8 @@
             android:visibility="gone"
             app:adapter="@{vm.storeRvAdt}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:myData="@{vm.storeArrayList}"
-            app:onScrollListener="@{vm.onScrollListener}" />
+            app:onScrollListener="@{vm.onScrollListener}"
+            app:vm="@{vm}" />
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

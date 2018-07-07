@@ -1,10 +1,22 @@
 package com.study.restaurant.model;
 
+import java.util.ArrayList;
+
 public class FindRestaurant {
     Cities cities;
     Sort sort;
     Boundary boundary;
     Filter filter;
+
+    ArrayList<Store> storeArrayList = new ArrayList<>();
+
+    public ArrayList<Store> getStoreArrayList() {
+        return storeArrayList;
+    }
+
+    public void setStoreArrayList(ArrayList<Store> storeArrayList) {
+        this.storeArrayList = storeArrayList;
+    }
 
     public Filter getFilter() {
         if (filter == null)

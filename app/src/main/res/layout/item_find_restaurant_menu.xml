@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -14,8 +13,9 @@
             type="com.study.restaurant.model.Boundary" />
 
         <variable
-            name="presenter"
-            type="com.study.restaurant.presenter.FindRestaurantPresenter" />
+            name="vm"
+            type="com.study.restaurant.viewmodel.FindRestaurantViewModel" />
+
     </data>
 
     <RelativeLayout
@@ -28,7 +28,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:clickable="true"
-            android:onClick="@{presenter::clickSort}">
+            android:onClick="@{vm::clickSort}">
 
             <TextView
                 android:id="@+id/filter"
@@ -53,7 +53,7 @@
             android:layout_toLeftOf="@+id/layoutFilter"
             android:background="@drawable/shape_gray_box"
             android:clickable="true"
-            android:onClick="@{presenter::clickBoundary}"
+            android:onClick="@{vm::clickBoundary}"
             android:padding="7dp">
 
             <ImageView
@@ -78,7 +78,7 @@
             android:layout_marginRight="5dp"
             android:background="@drawable/selector_common_line_box"
             android:clickable="true"
-            android:onClick="@{presenter::clickFilter}"
+            android:onClick="@{vm::clickFilter}"
             android:padding="7dp">
 
             <ImageView

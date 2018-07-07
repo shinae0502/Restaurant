@@ -6,8 +6,10 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.study.restaurant.model.Banner;
+import com.study.restaurant.model.FindRestaurant;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.util.MyGlide;
+import com.study.restaurant.viewmodel.FindRestaurantViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,24 +19,25 @@ public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
     public static int VIEW_TYPE_BANNER = 2;
     public static int VIEW_TYPE_MENU = 3;
 
-    List<Store> storeList = new ArrayList<>();
+    FindRestaurantViewModel vm;
+    private FindRestaurant findRestaurant;
 
-
-    public List<Store> getStoreList() {
-        return storeList;
+    public void setVm(FindRestaurantViewModel vm) {
+        this.vm = vm;
+        findRestaurant = vm.getFindRestaurant();
+        notifyDataSetChanged();
     }
 
-    public void setStoreList(List<Store> storeList) {
-        this.storeList = storeList;
-        notifyDataSetChanged();
+    public FindRestaurant getFindRestaurant() {
+        return findRestaurant;
     }
 
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
-            return VIEW_TYPE_MENU;
-        } else if (position == 1) {
             return VIEW_TYPE_BANNER;
+        } else if (position == 1) {
+            return VIEW_TYPE_MENU;
         }
         return super.getItemViewType(position);
     }
@@ -54,18 +57,24 @@ public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof StoreHolder) {
-            storeList.get(position).setPosition(position);
-            ((StoreHolder) holder).setStore(storeList.get(position));
+            findRestaurant.getStoreArrayList().get(position).setPosition(position);
+            ((StoreHolder) holder).setStore(findRestaurant.getStoreArrayList().get(position));
             MyGlide.with(holder.itemView.getContext())
-                    .load(storeList.get(position).getImg())
+                    .load(findRestaurant.getStoreArrayList().get(position).getImg())
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(((StoreHolder) holder).img);
+        }
+
+        if (holder instanceof FindReataurantMenuHolder) {
+            ((FindReataurantMenuHolder) holder).findRestaurantMenuBinding.setBoundary(findRestaurant.getBoundary());
+            ((FindReataurantMenuHolder) holder).findRestaurantMenuBinding.setSort(findRestaurant.getSort());
+            ((FindReataurantMenuHolder) holder).findRestaurantMenuBinding.setVm(vm);
         }
         //holder.itemBinding.parent.setOnClickListener(view -> RestaurantDetailActivity.go(appCompatActivity, storeList.get(position)));
     }
 
     @Override
     public int getItemCount() {
-        return storeList.size();
+        return findRestaurant.getStoreArrayList().size();
     }
 }
