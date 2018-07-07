@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.study.restaurant.R;
 import com.study.restaurant.databinding.ItemBinding;
 import com.study.restaurant.model.Store;
+import com.study.restaurant.viewmodel.FindRestaurantViewModel;
 
 public class StoreHolder extends RecyclerView.ViewHolder {
     ItemBinding itemBinding;
@@ -23,6 +24,10 @@ public class StoreHolder extends RecyclerView.ViewHolder {
         super(itemBinding.getRoot());
         this.itemBinding = itemBinding;
         img = itemView.findViewById(R.id.img);
+    }
+
+    public void setVm(FindRestaurantViewModel viewModel) {
+        itemBinding.setVm(viewModel);
     }
 
     public ItemBinding getItemBinding() {

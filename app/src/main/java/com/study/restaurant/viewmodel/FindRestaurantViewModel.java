@@ -3,6 +3,7 @@ package com.study.restaurant.viewmodel;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -22,6 +23,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.study.restaurant.adapter.ProgressRvAdt.VIEW_TYPE_PROGRESS;
+import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_BANNER;
+import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_MENU;
 
 public class FindRestaurantViewModel extends BaseObservable {
     FindRestaurantNavigation findRestaurantNavigation;
@@ -157,5 +162,25 @@ public class FindRestaurantViewModel extends BaseObservable {
 
     public void clickRestaurant(View v) {
         findRestaurantNavigation.goDeatilRestaurant((Store) v.getTag());
+    }
+
+    public GridLayoutManager.SpanSizeLookup getSpanSizeLookup() {
+        return new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (storeRvAdt.getItemViewType(position) == VIEW_TYPE_PROGRESS)
+                    return 2;
+
+                if (VIEW_TYPE_BANNER == storeRvAdt.getItemViewType(position)) {
+                    return 2;
+                }
+
+                if (storeRvAdt.getItemViewType(position) == VIEW_TYPE_MENU) {
+                    return 2;
+                }
+
+                return 1;
+            }
+        };
     }
 }

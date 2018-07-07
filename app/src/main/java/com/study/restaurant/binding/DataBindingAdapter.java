@@ -2,6 +2,7 @@ package com.study.restaurant.binding;
 
 import android.databinding.BindingAdapter;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -22,6 +23,16 @@ public class DataBindingAdapter {
         rvAdt.setVm(vm);
         recyclerView.setAdapter(rvAdt);
         recyclerView.addOnScrollListener(onScrollListener);
+    }
+
+    @BindingAdapter({"app:setSpanSizeLookup"})
+    public static void spanSizeLookupBind(RecyclerView recyclerView, GridLayoutManager.SpanSizeLookup spanSizeLookup) {
+        ((GridLayoutManager) recyclerView.getLayoutManager()).setSpanSizeLookup(spanSizeLookup);
+    }
+
+    @BindingAdapter({"app:spanCount"})
+    public static void spanCountBind(RecyclerView recyclerView, int count) {
+        ((GridLayoutManager) recyclerView.getLayoutManager()).setSpanCount(count);
     }
 
     @BindingAdapter({"app:selected"})

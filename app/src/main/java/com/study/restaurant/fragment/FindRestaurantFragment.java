@@ -48,20 +48,9 @@ import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_MENU;
 public class FindRestaurantFragment extends Fragment implements FindRestaurantNavigation {
 
     private FragmentFindRestaurantBinding fragmentFindRestaurantBinding;
-    private RecyclerView findRestaurantRv;
     private FindRestaurantViewModel findRestaurantViewModel;
     private MyLocationManager myLocationManager;
     private OnSuccessListener<? super Location> tempListener;
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    public FindRestaurantFragment() {
-        // Required empty public constructor
-    }
 
     public static FindRestaurantFragment newInstance() {
         FindRestaurantFragment fragment = new FindRestaurantFragment();
@@ -79,30 +68,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
 
         //Sets Binding ViewModel
         fragmentFindRestaurantBinding.setVm(findRestaurantViewModel);
-
         findRestaurantViewModel.setFindRestaurant(getGlobalApplication().getFindRestaurant());
-
-
-        findRestaurantRv = fragmentFindRestaurantBinding.findRestaurantRv;
-        findRestaurantRv.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-        ((GridLayoutManager) findRestaurantRv.getLayoutManager()).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                if (findRestaurantRv.getAdapter().getItemViewType(position) == VIEW_TYPE_PROGRESS)
-                    return 2;
-
-                if (VIEW_TYPE_BANNER == findRestaurantRv.getAdapter().getItemViewType(position)) {
-                    return 2;
-                }
-
-                if (findRestaurantRv.getAdapter().getItemViewType(position) == VIEW_TYPE_MENU) {
-                    return 2;
-                }
-
-                return 1;
-            }
-        });
-
         myLocationManager = new MyLocationManager(getActivity());
 
 
@@ -209,15 +175,6 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
             if (requestCode == 0x02 || requestCode == 0x03 || requestCode == 0x04) {
                 findRestaurantViewModel.removeAllStore();
                 findRestaurantViewModel.requestStoreSummary();
-            }
-
-            //필터 on/off 여부 파악하기
-            if (requestCode == 0x04) {
-                boolean dirty = ((GlobalApplication) getActivity().getApplication()).getFindRestaurant().getFilter().isDirty();
-                LOG.d(dirty);
-                /*fragmentFindRestaurantBinding.layoutFilter.setSelected(
-                        dirty
-                );*/
             }
         }
     }

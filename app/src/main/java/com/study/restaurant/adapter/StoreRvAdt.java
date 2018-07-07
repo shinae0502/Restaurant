@@ -78,7 +78,6 @@ public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
         if (holder instanceof ProgressHolder) {
             ((ProgressHolder) holder).progressBinding.progressImg.setVisibility(View.VISIBLE);
         }
-        //holder.itemBinding.parent.setOnClickListener(view -> RestaurantDetailActivity.go(appCompatActivity, storeList.get(position)));
     }
 
     @Override
