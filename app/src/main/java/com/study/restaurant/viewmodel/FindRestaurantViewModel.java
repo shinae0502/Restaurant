@@ -154,4 +154,8 @@ public class FindRestaurantViewModel extends BaseObservable {
         findRestaurant.getStoreArrayList().removeAll(findRestaurant.getStoreArrayList());
         storeRvAdt.notifyDataSetChanged();
     }
+
+    public void clickRestaurant(View v) {
+        findRestaurantNavigation.goDeatilRestaurant((Store) v.getTag());
+    }
 }

@@ -21,11 +21,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.R;
 import com.study.restaurant.activity.GlobalApplication;
+import com.study.restaurant.activity.RestaurantDetailActivity;
 import com.study.restaurant.activity.SearchActivity;
 import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.common.FunctionImpl;
 import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
 import com.study.restaurant.manager.MyLocationManager;
 import com.study.restaurant.model.Region;
+import com.study.restaurant.model.Store;
 import com.study.restaurant.popup.SelectDistancePopup;
 import com.study.restaurant.popup.SelectFilterPoppupActivity;
 import com.study.restaurant.popup.SelectRegionPopupActivity;
@@ -181,6 +184,11 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
     @Override
     public void goSearch() {
         SearchActivity.go((AppCompatActivity) getActivity());
+    }
+
+    @Override
+    public void goDeatilRestaurant(Store store) {
+        RestaurantDetailActivity.go((AppCompatActivity) getActivity(), store);
     }
 
     private GlobalApplication getGlobalApplication() {

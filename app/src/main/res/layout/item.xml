@@ -5,6 +5,10 @@
     <data>
 
         <variable
+            name="vm"
+            type="com.study.restaurant.viewmodel.FindRestaurantViewModel" />
+
+        <variable
             name="store"
             type="com.study.restaurant.model.Store" />
     </data>
@@ -22,7 +26,9 @@
         android:clickable="true"
         android:elevation="0dp"
         android:foreground="?android:attr/selectableItemBackground"
-        android:padding="1dp">
+        android:onClick="@{vm::clickRestaurant}"
+        android:padding="1dp"
+        android:tag="@{store}">
 
         <LinearLayout
             android:layout_width="match_parent"

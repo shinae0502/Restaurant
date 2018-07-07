@@ -61,6 +61,7 @@ public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
             Store store = (Store) vm.getRvItem(position);
             store.setPosition(position);
             ((StoreHolder) holder).setStore(store);
+            ((StoreHolder) holder).setVm(vm);
             MyGlide.with(holder.itemView.getContext())
                     .load(store.getImg())
                     .transition(DrawableTransitionOptions.withCrossFade())

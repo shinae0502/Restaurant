@@ -86,7 +86,6 @@ public class SelectRegionPopupActivity extends BasePopupActivity implements Sele
     @Override
     public void validateButton(boolean isValiate) {
         LOG.d(isValiate);
-        //activitySelectRetionPopupBinding.adapt.setEnabled(isValiate);
     }
 
     public void adapt(View view) {
