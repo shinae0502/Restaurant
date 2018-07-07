@@ -1,6 +1,7 @@
 package com.study.restaurant.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -71,6 +72,10 @@ public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
             ((FindReataurantMenuHolder) holder).findRestaurantMenuBinding.setSort(findRestaurant.getSort());
             ((FindReataurantMenuHolder) holder).findRestaurantMenuBinding.setVm(vm);
         }
+
+        if (holder instanceof ProgressHolder) {
+            ((ProgressHolder) holder).progressBinding.progressImg.setVisibility(View.VISIBLE);
+        }
         //holder.itemBinding.parent.setOnClickListener(view -> RestaurantDetailActivity.go(appCompatActivity, storeList.get(position)));
     }
 
@@ -78,7 +83,7 @@ public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
     public int getItemCount() {
         int count = 0;
         if (vm != null)
-            count = vm.getRvCount();
+            count = vm.getRvCount() + super.getItemCount();
         return count;
     }
 }
