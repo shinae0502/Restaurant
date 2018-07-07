@@ -12,6 +12,10 @@
         <variable
             name="storeSpec"
             type="com.study.restaurant.model.StoreSpec" />
+
+        <variable
+            name="vm"
+            type="com.study.restaurant.viewmodel.RestaurantDetailViewModel" />
     </data>
 
     <LinearLayout
@@ -259,12 +263,14 @@
                         layout="@layout/layout_related_toplist" />
 
                     <!-- 관련 스토리 -->
-                    <include layout="@layout/layout_related_story"
-                        android:id="@+id/layout_related_story"/>
+                    <include
+                        android:id="@+id/layout_related_story"
+                        layout="@layout/layout_related_story" />
 
                     <!-- 주변 인기 식당 -->
-                    <include layout="@layout/layout_around_restaurant"
-                        android:id="@+id/layout_around_restaurant"/>
+                    <include
+                        android:id="@+id/layout_around_restaurant"
+                        layout="@layout/layout_around_restaurant" />
 
                 </LinearLayout>
 

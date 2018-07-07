@@ -5,19 +5,57 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.study.restaurant.adapter.AroundRestaurantRvAdt;
+import com.study.restaurant.adapter.ReviewRvAdt;
 import com.study.restaurant.adapter.StoreRvAdt;
+import com.study.restaurant.adapter.StoryRvAdt;
+import com.study.restaurant.adapter.TopListRvAdt;
+import com.study.restaurant.model.Review;
+import com.study.restaurant.model.Store;
+import com.study.restaurant.model.Story;
+import com.study.restaurant.model.TopList;
 import com.study.restaurant.viewmodel.FindRestaurantViewModel;
 
+import java.util.ArrayList;
+
 public class DataBindingAdapter {
-    @BindingAdapter({"app:adapter", "app:onScrollListener", "app:vm"})
+    @BindingAdapter({"app:onScrollListener", "app:vm"})
     public static void bind(RecyclerView recyclerView
-            , StoreRvAdt rvAdt
             , RecyclerView.OnScrollListener onScrollListener
             , FindRestaurantViewModel vm
     ) {
-        rvAdt.setVm(vm);
-        recyclerView.setAdapter(rvAdt);
+        ((StoreRvAdt) recyclerView.getAdapter()).setVm(vm);
         recyclerView.addOnScrollListener(onScrollListener);
+    }
+
+    @BindingAdapter({"app:adapter"})
+    public static void setAdapterBind(RecyclerView recyclerView
+            , RecyclerView.Adapter rvAdt) {
+        recyclerView.setAdapter(rvAdt);
+    }
+
+    @BindingAdapter({"app:items"})
+    public static void setItemsBind(RecyclerView recyclerView
+            , ArrayList<Review> items) {
+        ((ReviewRvAdt) recyclerView.getAdapter()).setReviews(items);
+    }
+
+    @BindingAdapter({"app:items"})
+    public static void setItemsBind1(RecyclerView recyclerView
+            , ArrayList<TopList> items) {
+        ((TopListRvAdt) recyclerView.getAdapter()).setTopLists(items);
+    }
+
+    @BindingAdapter({"app:items"})
+    public static void setItemsBind2(RecyclerView recyclerView
+            , ArrayList<Store> items) {
+        ((AroundRestaurantRvAdt) recyclerView.getAdapter()).setStoreList(items);
+    }
+
+    @BindingAdapter({"app:items"})
+    public static void setItemsBind3(RecyclerView recyclerView
+            , ArrayList<Story> items) {
+        ((StoryRvAdt) recyclerView.getAdapter()).setStoryList(items);
     }
 
     @BindingAdapter({"app:setSpanSizeLookup"})

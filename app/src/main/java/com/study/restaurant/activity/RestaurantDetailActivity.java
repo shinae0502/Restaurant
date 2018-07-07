@@ -6,35 +6,24 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.gson.Gson;
 import com.study.restaurant.R;
-import com.study.restaurant.adapter.ReviewRvAdt;
-import com.study.restaurant.adapter.StoryRvAdt;
-import com.study.restaurant.adapter.TopListRvAdt;
 import com.study.restaurant.databinding.ActivityRestaurantDetailBinding;
-import com.study.restaurant.databinding.ItemBinding;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.model.StoreSpec;
 import com.study.restaurant.util.AppBarStateChangeListener;
 import com.study.restaurant.util.MyGlide;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.study.restaurant.viewmodel.RestaurantDetailViewModel;
 
 public class RestaurantDetailActivity extends AppCompatActivity {
 
     //레스토랑 상세 정보 불러오기
     ActivityRestaurantDetailBinding activityRestaurantDetailBinding;
+    RestaurantDetailViewModel vm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +32,28 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         // create view binding
         activityRestaurantDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_restaurant_detail);
 
+        vm = new RestaurantDetailViewModel();
+
         // test create storeSpec
         StoreSpec storeSpec = new Gson().fromJson(dummy1, StoreSpec.class);
 
+        vm.setStoreSpec(storeSpec);
+
         // data binding
-        activityRestaurantDetailBinding.layoutDetailRestaurantTitleBar.setStoreSpec(storeSpec);
+        activityRestaurantDetailBinding.setVm(vm);
+        activityRestaurantDetailBinding.layoutReviewList.setVm(vm);
+        activityRestaurantDetailBinding.layoutRelatedToplist.setVm(vm);
+        activityRestaurantDetailBinding.layoutRelatedStory.setVm(vm);
+        activityRestaurantDetailBinding.layoutAroundRestaurant.setVm(vm);
+
+        activityRestaurantDetailBinding.setStore(getStore());
         activityRestaurantDetailBinding.layoutDetailRestaurantTitleBar.setStore(getStore());
         activityRestaurantDetailBinding.layoutDetailRestaurantMain.setStore(getStore());
-        activityRestaurantDetailBinding.setStore(getStore());
+
+        activityRestaurantDetailBinding.setStoreSpec(storeSpec);
+        activityRestaurantDetailBinding.layoutDetailRestaurantTitleBar.setStoreSpec(storeSpec);
+        activityRestaurantDetailBinding.layoutRestaurantInformation.setStoreSpec(storeSpec);
+
 
         // Set actionbar
         AppBarLayout appBarLayout = activityRestaurantDetailBinding.appBar;
@@ -94,31 +97,6 @@ public class RestaurantDetailActivity extends AppCompatActivity {
                 .load(storeSpec.getImg5())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(activityRestaurantDetailBinding.layoutDetailRestaurantMain.img5);
-
-        activityRestaurantDetailBinding.setStoreSpec(storeSpec);
-        activityRestaurantDetailBinding.layoutRestaurantInformation.setStoreSpec(storeSpec);
-
-
-        //맛깔나는 리뷰
-        ReviewRvAdt adapter = new ReviewRvAdt();
-        adapter.setReviews(storeSpec.getReviews());
-        activityRestaurantDetailBinding.layoutReviewList.reviewRv.setAdapter(adapter);
-
-        //관련 top 리스트
-        TopListRvAdt toplistRvAdt = new TopListRvAdt();
-        toplistRvAdt.setTopLists(storeSpec.getTopLists());
-        activityRestaurantDetailBinding.layoutRelatedToplist.topListRv.setAdapter(toplistRvAdt);
-
-        //관련 스토리
-        StoryRvAdt storyRvAdt = new StoryRvAdt();
-        storyRvAdt.setStoryList(storeSpec.getStories());
-        activityRestaurantDetailBinding.layoutRelatedStory.storyRv.setAdapter(storyRvAdt);
-
-        //주변 인기 식당
-        StoreRvAdt rvAdt = new StoreRvAdt();
-        rvAdt.setStoreList(storeSpec.getAroundRestaurant());
-        activityRestaurantDetailBinding.layoutAroundRestaurant.restaurantRv.setAdapter(rvAdt);
-
     }
 
     public static void go(AppCompatActivity appCompatActivity, Store store) {
@@ -134,71 +112,6 @@ public class RestaurantDetailActivity extends AppCompatActivity {
     public void clickClose(View view) {
         onBackPressed();
     }
-
-    public class StoreRvAdt extends RecyclerView.Adapter<StoreHolder> {
-
-        List<Store> storeList = new ArrayList<>();
-
-        public List<Store> getStoreList() {
-            return storeList;
-        }
-
-        public void setStoreList(List<Store> storeList) {
-            this.storeList = storeList;
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public StoreHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return StoreHolder.create(parent, viewType);
-        }
-
-        @Override
-        public void onBindViewHolder(StoreHolder holder, int position) {
-            storeList.get(position).setPosition(position);
-            holder.setStore(storeList.get(position));
-            MyGlide.with(holder.itemView.getContext())
-                    .load(storeList.get(position).getImg())
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(holder.img);
-            holder.itemBinding.parent.setOnClickListener(view -> RestaurantDetailActivity.go(RestaurantDetailActivity.this, storeList.get(position)));
-        }
-
-        @Override
-        public int getItemCount() {
-            int count = 0;
-            if (storeList != null)
-                count = storeList.size();
-
-            return count;
-        }
-    }
-
-    public static class StoreHolder extends RecyclerView.ViewHolder {
-        ItemBinding itemBinding;
-
-        public static StoreHolder create(ViewGroup parent, int viewType) {
-            ItemBinding itemBinding = ItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-            return new StoreHolder(itemBinding);
-        }
-
-        ImageView img;
-
-        public StoreHolder(ItemBinding itemBinding) {
-            super(itemBinding.getRoot());
-            this.itemBinding = itemBinding;
-            img = itemView.findViewById(R.id.img);
-        }
-
-        public ItemBinding getItemBinding() {
-            return itemBinding;
-        }
-
-        public void setStore(Store store) {
-            itemBinding.setStore(store);
-        }
-    }
-
 
     String dummy1 = "{\n" +
             "  \"img1\": \"http://www.globalcardsalud.com/wp-content/uploads/2011/12/banquete.jpg\",\n" +
