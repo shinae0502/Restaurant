@@ -29,6 +29,8 @@ public class Cities extends BaseObservable implements Cloneable {
             cities.setLastSelectRegion(region);
         }
 
+        cities.setCurrentRegion(getCurrentRegion());
+
         return cities;
     }
 
@@ -129,6 +131,9 @@ public class Cities extends BaseObservable implements Cloneable {
     }
 
     public String getSelectedRegionIds() {
+        if (currentRegion != null)
+            return currentRegion.getRegion_id();
+
         String regionIds = "";
 
         for (City city : cities) {

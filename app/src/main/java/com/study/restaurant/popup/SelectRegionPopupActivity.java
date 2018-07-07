@@ -56,7 +56,7 @@ public class SelectRegionPopupActivity extends BasePopupActivity implements Sele
         //기존 불러온 도시 정보가 있다면 적용하기
         Cities tempCities = null;
         tempCities = ((GlobalApplication) getApplication()).getFindRestaurant().getCities();
-        if (tempCities != null) {
+        if (tempCities.getCities().size() > 0) {
             try {
                 tempCities = tempCities.clone();
             } catch (CloneNotSupportedException e) {

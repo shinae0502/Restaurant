@@ -1,29 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="cities"
             type="com.study.restaurant.model.Cities" />
-
-        <variable
-            name="region"
-            type="com.study.restaurant.model.Region" />
-
-        <variable
-            name="presenter"
-            type="com.study.restaurant.presenter.FindRestaurantPresenter" />
-
-        <variable
-            name="sort"
-            type="com.study.restaurant.model.Sort" />
-
-        <variable
-            name="boundary"
-            type="com.study.restaurant.model.Boundary" />
 
         <variable
             name="vm"
@@ -129,43 +112,10 @@
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:onScrollChangeListener="@{vm.onScrollChangeListener}"
-            tools:context=".collapsing_toolbar_layour.CollapsingToolbarLayoutActivity">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="3dp"
-                    android:descendantFocusability="blocksDescendants"
-                    android:orientation="vertical">
-
-                    <com.study.restaurant.util.ProgressImageView
-                        android:id="@+id/progress"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp" />
-
-                </RelativeLayout>
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/findRestaurantRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             app:adapter="@{vm.storeRvAdt}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:onScrollListener="@{vm.onScrollListener}"

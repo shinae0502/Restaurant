@@ -61,7 +61,7 @@ public class FindRestaurantViewModel extends BaseObservable {
     }
 
     public void setStoreArrayList(ArrayList<Store> storeArrayList) {
-        findRestaurant.getStoreArrayList().removeAll(findRestaurant.getStoreArrayList());
+        removeAllStore();
         findRestaurant.getStoreArrayList().addAll(storeArrayList);
         storeRvAdt.notifyDataSetChanged();
     }
@@ -95,35 +95,13 @@ public class FindRestaurantViewModel extends BaseObservable {
         };
     }
 
-    public NestedScrollView.OnScrollChangeListener getOnScrollChangeListener() {
-        return new NestedScrollView.OnScrollChangeListener() {
-            /**
-             * Called when the scroll position of a view changes.
-             *
-             * @param v          The view whose scroll position has changed.
-             * @param scrollX    Current horizontal scroll origin.
-             * @param scrollY    Current vertical scroll origin.
-             * @param oldScrollX Previous horizontal scroll origin.
-             * @param oldScrollY Previous vertical scroll origin.
-             */
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) && !isLast) {
-                    isLast = true;
-                    LOG.d("Last!!!!");
-                    requestStoreSummary();
-                }
-            }
-        };
-    }
-
     public void setFindRestaurant(FindRestaurant findRestaurant) {
         this.findRestaurant = findRestaurant;
     }
 
     public void requestStoreSummary() {
         HashMap<String, String> param = new HashMap<>();
-        param.put("region_id", findRestaurant.getCities().getCurrentRegion().getRegion_id());
+        param.put("region_id", findRestaurant.getCities().getSelectedRegionIds());
         param.put("boundary", "");
         param.put("filter", "");
         param.put("sort", findRestaurant.getSort().getAttribute());
@@ -171,4 +149,8 @@ public class FindRestaurantViewModel extends BaseObservable {
     }
 
 
+    public void removeAllStore() {
+        findRestaurant.getStoreArrayList().removeAll(findRestaurant.getStoreArrayList());
+        storeRvAdt.notifyDataSetChanged();
+    }
 }
