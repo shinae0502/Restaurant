@@ -8,18 +8,17 @@ import android.view.View;
 import com.study.restaurant.BR;
 import com.study.restaurant.view.MainActivitytNavigation;
 
-public class MainActivityViewModel extends BaseObservable{
+public class MainActivityViewModel extends BaseObservable {
     boolean menu1 = true;
     boolean menu2;
     boolean menu3;
     boolean menu4;
     boolean menu5;
 
-    boolean isMenuEanbled = true;
+    boolean isMenuEanbled;
     MainActivitytNavigation mainActivitytNavigation;
 
-    public MainActivityViewModel(MainActivitytNavigation mainActivitytNavigation)
-    {
+    public MainActivityViewModel(MainActivitytNavigation mainActivitytNavigation) {
         this.mainActivitytNavigation = mainActivitytNavigation;
     }
 
@@ -39,8 +38,7 @@ public class MainActivityViewModel extends BaseObservable{
 
     public void setMenu1(boolean b) {
         this.menu1 = b;
-        if(b == true)
-        {
+        if (b == true) {
             menu2 = false;
             menu3 = false;
             menu4 = false;
@@ -49,8 +47,7 @@ public class MainActivityViewModel extends BaseObservable{
         }
     }
 
-    private void notifyAllMenu()
-    {
+    private void notifyAllMenu() {
         notifyPropertyChanged(BR.menu1);
         notifyPropertyChanged(BR.menu2);
         notifyPropertyChanged(BR.menu3);
@@ -65,8 +62,7 @@ public class MainActivityViewModel extends BaseObservable{
 
     public void setMenu2(boolean b) {
         this.menu2 = b;
-        if(b == true)
-        {
+        if (b == true) {
             menu1 = false;
             menu3 = false;
             menu4 = false;
@@ -82,7 +78,7 @@ public class MainActivityViewModel extends BaseObservable{
 
     public void setMenu3(boolean b) {
         this.menu3 = b;
-        setMenuEanbled(!b);
+        setMenuEanbled(b);
         notifyPropertyChanged(BR.menuEanbled);
         notifyAllMenu();
     }
@@ -94,8 +90,7 @@ public class MainActivityViewModel extends BaseObservable{
 
     public void setMenu4(boolean b) {
         this.menu4 = b;
-        if(b == true)
-        {
+        if (b == true) {
             menu1 = false;
             menu2 = false;
             menu3 = false;
@@ -111,8 +106,7 @@ public class MainActivityViewModel extends BaseObservable{
 
     public void setMenu5(boolean b) {
         this.menu5 = b;
-        if(b == true)
-        {
+        if (b == true) {
             menu1 = false;
             menu2 = false;
             menu3 = false;
@@ -121,38 +115,32 @@ public class MainActivityViewModel extends BaseObservable{
         }
     }
 
-    public void clickFindRestaurant(View v)
-    {
+    public void clickFindRestaurant(View v) {
         mainActivitytNavigation.goFindRestaurant();
         setMenu1(true);
     }
 
 
-    public void clickMangoPick(View v)
-    {
+    public void clickMangoPick(View v) {
         mainActivitytNavigation.goMangoPick();
         setMenu2(true);
     }
 
-    public void clickMyInformation(View v)
-    {
+    public void clickMyInformation(View v) {
         mainActivitytNavigation.goMyInformation();
         setMenu5(true);
     }
 
-    public void clickNews(View v)
-    {
+    public void clickNews(View v) {
         mainActivitytNavigation.goNews();
         setMenu4(true);
     }
 
-    public void clickRegister(View v)
-    {
+    public void clickRegister(View v) {
         setMenu3(!isMenu3());
     }
 
-    public ViewPager.OnPageChangeListener getOnPageChangeListener()
-    {
+    public ViewPager.OnPageChangeListener getOnPageChangeListener() {
         return new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

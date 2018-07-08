@@ -3,12 +3,15 @@ package com.study.restaurant.activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.study.restaurant.R;
 import com.study.restaurant.common.BananaPreference;
@@ -28,14 +31,16 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
     MyInformationFragment myInformationFragment;
     NewsFragment newsFragment;
     MangoPickFragment mangoPickFragment;
+    private MainActivityViewModel mainActivityViewModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityMainBinding activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        MainActivityViewModel mainActivityViewModel = new MainActivityViewModel(this);
+        mainActivityViewModel = new MainActivityViewModel(this);
         activityMainBinding.setVm(mainActivityViewModel);
+        activityMainBinding.layoutRegister.setVm(mainActivityViewModel);
 
         BananaPreference.getInstance(this).loadUser();
 
@@ -134,4 +139,33 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
         super.onDestroy();
         ((GlobalApplication) getApplication()).findRestaurant = null;
     }
+
+    @Override
+    public void onBackPressed() {
+        if (mainActivityViewModel.isMenuEanbled()) {
+            mainActivityViewModel.setMenu3(false);
+        } else if (!isFinish) {
+            handler.sendEmptyMessage(0);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    boolean isFinish = false;
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    Toast.makeText(MainActivity.this, "뒤로가기 버튼을 한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show();
+                    isFinish = true;
+                    sendEmptyMessageDelayed(1, 5000);
+                    break;
+                case 1:
+                    isFinish = false;
+                    break;
+            }
+        }
+    };
 }
