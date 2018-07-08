@@ -1,6 +1,7 @@
 package com.study.restaurant.binding;
 
 import android.databinding.BindingAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
@@ -40,6 +41,11 @@ public class DataBindingAdapter {
         ((ReviewRvAdt) recyclerView.getAdapter()).setReviews(items);
     }
 
+    @BindingAdapter({"app:enabled"})
+    public static void setEanbledBind(ViewGroup viewGroup, boolean b) {
+        viewGroup.setEnabled(b);
+    }
+
     @BindingAdapter({"app:items"})
     public static void setItemsBind1(RecyclerView recyclerView
             , ArrayList<TopList> items) {
@@ -73,5 +79,17 @@ public class DataBindingAdapter {
             , boolean selected
     ) {
         viewGroup.setSelected(selected);
+    }
+
+    @BindingAdapter({"app:onPageChangeListener"})
+    public static void pageChangeBind(ViewPager viewPager, ViewPager.OnPageChangeListener onPageChangeListener)
+    {
+        viewPager.addOnPageChangeListener(onPageChangeListener);
+    }
+
+    @BindingAdapter({"app:offscreenPageLimit"})
+    public static void pageLimitBind(ViewPager viewPager, int limit)
+    {
+        viewPager.setOffscreenPageLimit(limit);
     }
 }
