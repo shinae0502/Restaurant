@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="cities"
             type="com.study.restaurant.model.Cities" />
@@ -123,6 +125,17 @@
             app:setSpanSizeLookup="@{vm.spanSizeLookup}"
             app:spanCount="2"
             app:vm="@{vm}" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:clickable="true"
+            android:onClick="@{vm::clickToTop}"
+            android:src="@drawable/btn_top_move"
+            android:visibility="@{vm.visibleTopButton ? View.VISIBLE : View.GONE}" />
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

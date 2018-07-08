@@ -157,6 +157,11 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
         RestaurantDetailActivity.go((AppCompatActivity) getActivity(), store);
     }
 
+    @Override
+    public void rvToTop() {
+        fragmentFindRestaurantBinding.findRestaurantRv.scrollToPosition(0);
+    }
+
     private GlobalApplication getGlobalApplication() {
         return (GlobalApplication) getActivity().getApplication();
     }

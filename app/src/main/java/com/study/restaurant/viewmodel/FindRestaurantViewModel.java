@@ -2,7 +2,6 @@ package com.study.restaurant.viewmodel;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -24,6 +23,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.study.restaurant.BR;
+
 import static com.study.restaurant.adapter.ProgressRvAdt.VIEW_TYPE_PROGRESS;
 import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_BANNER;
 import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_MENU;
@@ -33,6 +34,17 @@ public class FindRestaurantViewModel extends BaseObservable {
     StoreRvAdt storeRvAdt = new StoreRvAdt();
     boolean isLast;
     private FindRestaurant findRestaurant;
+    boolean isVisibleTopButton;
+
+    @Bindable
+    public boolean isVisibleTopButton() {
+        return isVisibleTopButton;
+    }
+
+    public void setVisibleTopButton(boolean visibleTopButton) {
+        isVisibleTopButton = visibleTopButton;
+        notifyPropertyChanged(BR.visibleTopButton);
+    }
 
     Banner banner = new Banner();
 
@@ -97,6 +109,22 @@ public class FindRestaurantViewModel extends BaseObservable {
                     LOG.d("not Last");
                 }
             }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) {
+                    // Scroll Down
+                    if (!isVisibleTopButton()) {
+                        setVisibleTopButton(true);
+                    }
+                } else if (dy < 0) {
+                    // Scroll Up
+                    if (isVisibleTopButton()) {
+                        setVisibleTopButton(false);
+                    }
+                }
+            }
+
         };
     }
 
@@ -182,5 +210,10 @@ public class FindRestaurantViewModel extends BaseObservable {
                 return 1;
             }
         };
+    }
+
+    public void clickToTop(View v) {
+        findRestaurantNavigation.rvToTop();
+        setVisibleTopButton(false);
     }
 }

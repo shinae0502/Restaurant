@@ -15,4 +15,6 @@ public interface FindRestaurantNavigation {
     void goSearch();
 
     void goDeatilRestaurant(Store store);
+
+    void rvToTop();
 }
