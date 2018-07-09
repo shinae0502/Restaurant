@@ -4,8 +4,12 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 
 import com.study.restaurant.BR;
+import com.study.restaurant.R;
 import com.study.restaurant.view.MainActivitytNavigation;
 
 public class MainActivityViewModel extends BaseObservable {
@@ -78,9 +82,6 @@ public class MainActivityViewModel extends BaseObservable {
 
     public void setMenu3(boolean b) {
         this.menu3 = b;
-        setMenuEanbled(b);
-        notifyPropertyChanged(BR.menuEanbled);
-        notifyAllMenu();
     }
 
     @Bindable
@@ -137,7 +138,28 @@ public class MainActivityViewModel extends BaseObservable {
     }
 
     public void clickRegister(View v) {
-        setMenu3(!isMenu3());
+        Animation animation = AnimationUtils.loadAnimation(v.getContext(), R.anim.menu_rotation);
+        if (!isMenu3()) {
+            setMenu3(!isMenu3());
+            ((RelativeLayout) v).getChildAt(1)
+                    .startAnimation(animation);
+            ((RelativeLayout) v).getChildAt(1)
+                    .setRotation(45);
+            setMenuEanbled(isMenu3());
+            notifyPropertyChanged(BR.menuEanbled);
+            notifyAllMenu();
+            mainActivitytNavigation.registerShowAnimation();
+        } else {
+            setMenu3(!isMenu3());
+            setMenuEanbled(isMenu3());
+            ((RelativeLayout) v).getChildAt(1)
+                    .startAnimation(AnimationUtils.loadAnimation(v.getContext(), R.anim.menu_rotation_1));
+            ((RelativeLayout) v).getChildAt(1)
+                    .setRotation(0);
+            notifyPropertyChanged(BR.menuEanbled);
+            notifyAllMenu();
+            mainActivitytNavigation.hideMenu();
+        }
     }
 
     public ViewPager.OnPageChangeListener getOnPageChangeListener() {

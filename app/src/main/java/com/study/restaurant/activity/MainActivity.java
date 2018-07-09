@@ -11,6 +11,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.study.restaurant.R;
@@ -32,12 +35,13 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
     NewsFragment newsFragment;
     MangoPickFragment mangoPickFragment;
     private MainActivityViewModel mainActivityViewModel;
+    private ActivityMainBinding activityMainBinding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMainBinding activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mainActivityViewModel = new MainActivityViewModel(this);
         activityMainBinding.setVm(mainActivityViewModel);
         activityMainBinding.layoutRegister.setVm(mainActivityViewModel);
@@ -168,4 +172,50 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
             }
         }
     };
+
+    @Override
+    public void registerShowAnimation() {
+        registerShowAnimation(0);
+    }
+
+    @Override
+    public void hideMenu() {
+        activityMainBinding.layoutRegister.checkIn.setVisibility(View.INVISIBLE);
+        activityMainBinding.layoutRegister.photo.setVisibility(View.INVISIBLE);
+        activityMainBinding.layoutRegister.review.setVisibility(View.INVISIBLE);
+        activityMainBinding.layoutRegister.restaurant.setVisibility(View.INVISIBLE);
+    }
+
+    private void registerShowAnimation(int step) {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.menu_fade_in);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (step == 0)
+                    registerShowAnimation(1);
+                else if (step == 1)
+                    registerShowAnimation(2);
+                else if (step == 2)
+                    registerShowAnimation(3);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        View v = step == 0 ? activityMainBinding.layoutRegister.checkIn
+                : step == 1 ? activityMainBinding.layoutRegister.photo
+                : step == 2 ? activityMainBinding.layoutRegister.review
+                : step == 3 ? activityMainBinding.layoutRegister.restaurant
+                : null;
+        v.startAnimation(animation);
+        v.setVisibility(View.VISIBLE);
+    }
 }
