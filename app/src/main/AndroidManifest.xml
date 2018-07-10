@@ -15,8 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.SplashActivity"
-            android:theme="@style/NoActionBar">
+            android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,11 +23,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
-            android:theme="@style/NoActionBar" />
+            android:name=".activity.LoginActivity" />
         <activity
-            android:name=".activity.MainActivity"
-            android:theme="@style/NoActionBar" />
+            android:name=".activity.MainActivity" />
 
         <!-- facebook login start -->
         <meta-data
@@ -74,8 +71,7 @@
         </activity>
         <activity android:name=".activity.OAuthSampleActivity" />
         <activity
-            android:name=".activity.SearchActivity"
-            android:theme="@style/NoActionBar" />
+            android:name=".activity.SearchActivity" />
         <activity
             android:name=".popup.SelectRegionPopupActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />
@@ -89,8 +85,9 @@
             android:name=".popup.SelectFilterPoppupActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
-            android:name=".activity.RestaurantDetailActivity"
-            android:theme="@style/NoActionBar" />
+            android:name=".activity.RestaurantDetailActivity" />
+        <activity android:name=".activity.RegisterRestaurantActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
     </application>
 
 </manifest>
