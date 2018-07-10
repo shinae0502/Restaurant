@@ -69,6 +69,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@null"
+                        android:singleLine="true"
                         android:hint="*식당 이름(예: 망고반점)"
                         app:textWhatcher="@{vm.nameTextWhatcher}"
                         android:text="@={vm.restaurantName}"
@@ -102,6 +103,7 @@
                             android:background="@null"
                             android:hint="*지역 및 위치 선택"
                             android:paddingTop="5dp"
+                            android:enabled="false"
                             app:textWhatcher="@{vm.locationWhatcher}"
                             android:text="@={vm.location}" />
                     </android.support.design.widget.TextInputLayout>

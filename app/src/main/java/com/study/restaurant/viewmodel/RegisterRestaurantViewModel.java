@@ -43,6 +43,7 @@ public class RegisterRestaurantViewModel extends BaseObservable {
     public void setLocation(String location) {
         this.location = location;
         notifyPropertyChanged(BR.add);
+        notifyPropertyChanged(BR.location);
     }
 
     public RegisterRestaurantNavigator getRegisterRestaurantNavigator() {
@@ -267,7 +268,7 @@ public class RegisterRestaurantViewModel extends BaseObservable {
     }
 
     public void clickLocation(View v) {
-
+        registerRestaurantNavigator.goMap();
     }
 
     @Bindable

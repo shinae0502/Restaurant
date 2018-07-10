@@ -3,7 +3,9 @@ package com.study.restaurant.manager;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
@@ -52,9 +54,21 @@ public class MyLocationManager {
         Geocoder geocoder = new Geocoder(activity);
         try {
             return geocoder.getFromLocation(latitude, longitude, 1).get(0).getPostalCode();
-        } catch (IOException e) {
+        } catch (Exception e) {
             LOG.d(e.toString());
             return "";
+        }
+    }
+
+    public static String getAddress(Context context, double latitude, double longitude)
+    {
+        Geocoder geocoder = new Geocoder(context);
+        try {
+            Address address = geocoder.getFromLocation(latitude, longitude, 1).get(0);
+            return address.getCountryName() + " " + address.getFeatureName() + " " + address.getLocality();
+        } catch (Exception e) {
+            LOG.d(e.toString());
+            return "주소 못찾음";
         }
     }
 }

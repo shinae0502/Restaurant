@@ -1,5 +1,6 @@
 package com.study.restaurant.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
@@ -17,11 +18,15 @@ import com.study.restaurant.viewmodel.RegisterRestaurantViewModel;
 
 public class RegisterRestaurantActivity extends AppCompatActivity implements RegisterRestaurantNavigator {
 
+
+    RegisterRestaurantViewModel vm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityRegisterRestaurantBinding activityRegisterRestaurantBindin = DataBindingUtil.setContentView(this, R.layout.activity_register_restaurant);
-        activityRegisterRestaurantBindin.setVm(new RegisterRestaurantViewModel(this));
+        ActivityRegisterRestaurantBinding activityRegisterRestaurantBinding = DataBindingUtil.setContentView(this, R.layout.activity_register_restaurant);
+        vm = new RegisterRestaurantViewModel(this);
+        activityRegisterRestaurantBinding.setVm(vm);
     }
 
     @BindingAdapter({"app:selected"})
@@ -45,5 +50,21 @@ public class RegisterRestaurantActivity extends AppCompatActivity implements Reg
     public void clickBackBtn(View v)
     {
         onBackPressed();
+    }
+
+
+    @Override
+    public void goMap() {
+        MapsActivity.go(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK)
+        {
+            String address = data.getStringExtra("address");
+            vm.setLocation(address);
+        }
     }
 }
