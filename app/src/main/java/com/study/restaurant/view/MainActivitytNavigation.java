@@ -15,4 +15,6 @@ public interface MainActivitytNavigation {
     void registerShowAnimation();
 
     void hideMenu();
+
+    void rotationMenu(boolean b);
 }

@@ -138,13 +138,9 @@ public class MainActivityViewModel extends BaseObservable {
     }
 
     public void clickRegister(View v) {
-        Animation animation = AnimationUtils.loadAnimation(v.getContext(), R.anim.menu_rotation);
         if (!isMenu3()) {
             setMenu3(!isMenu3());
-            ((RelativeLayout) v).getChildAt(1)
-                    .startAnimation(animation);
-            ((RelativeLayout) v).getChildAt(1)
-                    .setRotation(45);
+            mainActivitytNavigation.rotationMenu(true);
             setMenuEanbled(isMenu3());
             notifyPropertyChanged(BR.menuEanbled);
             notifyAllMenu();
@@ -152,10 +148,7 @@ public class MainActivityViewModel extends BaseObservable {
         } else {
             setMenu3(!isMenu3());
             setMenuEanbled(isMenu3());
-            ((RelativeLayout) v).getChildAt(1)
-                    .startAnimation(AnimationUtils.loadAnimation(v.getContext(), R.anim.menu_rotation_1));
-            ((RelativeLayout) v).getChildAt(1)
-                    .setRotation(0);
+            mainActivitytNavigation.rotationMenu(false);
             notifyPropertyChanged(BR.menuEanbled);
             notifyAllMenu();
             mainActivitytNavigation.hideMenu();

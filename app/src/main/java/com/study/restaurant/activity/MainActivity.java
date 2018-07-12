@@ -187,6 +187,17 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
         activityMainBinding.layoutRegister.restaurant.setVisibility(View.INVISIBLE);
     }
 
+    @Override
+    public void rotationMenu(boolean b) {
+        if (b) {
+            activityMainBinding.imgMenu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.menu_rotation));
+            activityMainBinding.imgMenu.setRotation(45);
+        } else {
+            activityMainBinding.imgMenu.startAnimation(AnimationUtils.loadAnimation(this, R.anim.menu_rotation_1));
+            activityMainBinding.imgMenu.setRotation(0);
+        }
+    }
+
     private void registerShowAnimation(int step) {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.menu_fade_in);
         animation.setAnimationListener(new Animation.AnimationListener() {
