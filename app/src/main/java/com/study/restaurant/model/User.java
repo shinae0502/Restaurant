@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.study.restaurant.common.BananaPreference;
 
 public class User {
+    public String id;
     public String email;
     public String login_platform;
     public String picture;

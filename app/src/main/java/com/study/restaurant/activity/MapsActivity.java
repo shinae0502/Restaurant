@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.study.restaurant.R;
+import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.databinding.ActivityMapsBinding;
 import com.study.restaurant.manager.MyLocationManager;
 import com.study.restaurant.util.LOG;
@@ -25,6 +27,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     ActivityMapsBinding activityMapsBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,20 +49,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnCameraIdleListener(() -> activityMapsBinding.title.setText(MyLocationManager.getAddress(getBaseContext(), mMap.getCameraPosition().target.latitude, mMap.getCameraPosition().target.longitude)));
 
 
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         mMap.setMyLocationEnabled(true);
     }
 
-    public static void go(AppCompatActivity appCompatActivity)
-    {
-        appCompatActivity.startActivityForResult(new Intent(appCompatActivity, MapsActivity.class),0x05);
+    public static void go(AppCompatActivity appCompatActivity) {
+        appCompatActivity.startActivityForResult(new Intent(appCompatActivity, MapsActivity.class), 0x05);
     }
 
-    public void clickBackBtn(View v)
-    {
+    public void clickBackBtn(View v) {
         finish();
     }
 
@@ -72,12 +72,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             LOG.d(charSequence.toString());
-            if(charSequence.toString().length() > 0)
-            {
+            if (charSequence.toString().length() > 0) {
                 activityMapsBinding.setting.setSelected(true);
-            }
-            else
-            {
+            } else {
                 activityMapsBinding.setting.setSelected(false);
             }
         }
@@ -89,11 +86,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     };
 
     public void setting(View view) {
-        if(view.isSelected())
-        {
+        if (view.isSelected()) {
             Intent intent = new Intent();
-            intent.putExtra("lat", mMap.getCameraPosition().target.latitude);
-            intent.putExtra("lon",  mMap.getCameraPosition().target.longitude);
+            intent.putExtra("lat", "" + mMap.getCameraPosition().target.latitude);
+            intent.putExtra("lng", "" + mMap.getCameraPosition().target.longitude);
             intent.putExtra("address", activityMapsBinding.title.getText().toString());
             setResult(Activity.RESULT_OK, intent);
             finish();

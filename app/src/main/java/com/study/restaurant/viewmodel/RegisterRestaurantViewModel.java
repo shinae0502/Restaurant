@@ -9,22 +9,48 @@ import android.util.Log;
 import android.view.View;
 
 import com.study.restaurant.BR;
+import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.model.FoodCategotyModel;
+import com.study.restaurant.util.LOG;
 import com.study.restaurant.view.RegisterRestaurantNavigator;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterRestaurantViewModel extends BaseObservable {
     private RegisterRestaurantNavigator registerRestaurantNavigator;
     private String restaurantName;
     private String phone;
-    private boolean selectBar;
-    private boolean selectCafe;
-    private boolean selectBuffet;
-    private boolean selectWorldWideFood;
-    private boolean selectWesternFood;
-    private boolean selectChineseFood;
-    private boolean selectJapaneseFood;
-    private boolean selectKoreanFood;
+    private String lat;
+    private String lng;
     private String location;
 
+    FoodCategotyModel foodCategotyModel = new FoodCategotyModel();
+
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+    public FoodCategotyModel getFoodCategotyModel() {
+        return foodCategotyModel;
+    }
+
+    public void setFoodCategotyModel(FoodCategotyModel foodCategotyModel) {
+        this.foodCategotyModel = foodCategotyModel;
+    }
 
     @Bindable
     public String getPhone() {
@@ -66,200 +92,103 @@ public class RegisterRestaurantViewModel extends BaseObservable {
 
     @Bindable
     public boolean isSelectCafe() {
-        return selectCafe;
-    }
-
-    public void setSelectCafe(boolean selectCafe) {
-        this.selectCafe = selectCafe;
-        if (selectCafe) {
-            setSelectBar(false);
-            setSelectWorldWideFood(false);
-            setSelectBuffet(false);
-            setSelectJapaneseFood(false);
-            setSelectKoreanFood(false);
-            setSelectChineseFood(false);
-            setSelectWesternFood(false);
-        }
-        notifyPropertyChanged(BR.selectCafe);
-        notifyPropertyChanged(BR.add);
+        return foodCategotyModel.isSelected(FoodCategotyModel.FoodCategory.CAFE);
     }
 
     @Bindable
     public boolean isSelectBuffet() {
-        return selectBuffet;
-    }
-
-    public void setSelectBuffet(boolean selectBuffet) {
-        this.selectBuffet = selectBuffet;
-        if (selectBuffet) {
-            setSelectBar(false);
-            setSelectWorldWideFood(false);
-            setSelectCafe(false);
-            setSelectJapaneseFood(false);
-            setSelectKoreanFood(false);
-            setSelectChineseFood(false);
-            setSelectWesternFood(false);
-        }
-        notifyPropertyChanged(BR.selectBuffet);
-        notifyPropertyChanged(BR.add);
-    }
-
-    @Bindable
-    public boolean isSelect() {
-        return selectWorldWideFood;
-    }
-
-    public void setSelectWorldWideFood(boolean selectWorldWideFood) {
-        this.selectWorldWideFood = selectWorldWideFood;
-        if (selectWorldWideFood) {
-            setSelectBar(false);
-            setSelectBuffet(false);
-            setSelectCafe(false);
-            setSelectJapaneseFood(false);
-            setSelectKoreanFood(false);
-            setSelectChineseFood(false);
-            setSelectWesternFood(false);
-        }
-        notifyPropertyChanged(BR.selectWorldWideFood);
-        notifyPropertyChanged(BR.add);
-    }
-
-    @Bindable
-    public boolean isSelectWesternFood() {
-        return selectWesternFood;
-    }
-
-
-    public void setSelectWesternFood(boolean selectWesternFood) {
-        this.selectWesternFood = selectWesternFood;
-        if (selectWesternFood) {
-            setSelectBar(false);
-            setSelectBuffet(false);
-            setSelectCafe(false);
-            setSelectJapaneseFood(false);
-            setSelectKoreanFood(false);
-            setSelectChineseFood(false);
-            setSelectWorldWideFood(false);
-        }
-        notifyPropertyChanged(BR.selectWesternFood);
-        notifyPropertyChanged(BR.add);
-    }
-
-    @Bindable
-    public boolean isSelectChineseFood() {
-        return selectChineseFood;
-    }
-
-    public void setSelectChineseFood(boolean selectChineseFood) {
-        this.selectChineseFood = selectChineseFood;
-        if (selectChineseFood) {
-            setSelectBar(false);
-            setSelectBuffet(false);
-            setSelectCafe(false);
-            setSelectJapaneseFood(false);
-            setSelectKoreanFood(false);
-            setSelectWesternFood(false);
-            setSelectWorldWideFood(false);
-        }
-        notifyPropertyChanged(BR.selectChineseFood);
-        notifyPropertyChanged(BR.add);
-    }
-
-    @Bindable
-    public boolean isSelectJapaneseFood() {
-        return selectJapaneseFood;
-    }
-
-    public void setSelectJapaneseFood(boolean selectJapaneseFood) {
-        this.selectJapaneseFood = selectJapaneseFood;
-        if (selectJapaneseFood) {
-            setSelectBar(false);
-            setSelectBuffet(false);
-            setSelectCafe(false);
-            setSelectChineseFood(false);
-            setSelectKoreanFood(false);
-            setSelectWesternFood(false);
-            setSelectWorldWideFood(false);
-        }
-        notifyPropertyChanged(BR.selectJapaneseFood);
-        notifyPropertyChanged(BR.add);
-    }
-
-    @Bindable
-    public boolean isSelectKoreanFood() {
-        return selectKoreanFood;
-    }
-
-    public void setSelectKoreanFood(boolean selectKoreanFood) {
-        this.selectKoreanFood = selectKoreanFood;
-        if (selectKoreanFood) {
-            setSelectBar(false);
-            setSelectBuffet(false);
-            setSelectCafe(false);
-            setSelectChineseFood(false);
-            setSelectJapaneseFood(false);
-            setSelectWesternFood(false);
-            setSelectWorldWideFood(false);
-        }
-        notifyPropertyChanged(BR.selectKoreanFood);
-        notifyPropertyChanged(BR.add);
-    }
-
-    public void clickKoreanFood(View v) {
-        setSelectKoreanFood(!isSelectKoreanFood());
-    }
-
-    public void clickJapaneseFood(View v) {
-        setSelectJapaneseFood(!isSelectJapaneseFood());
-    }
-
-    public void clickChineseFood(View v) {
-        setSelectChineseFood(!isSelectChineseFood());
-    }
-
-    public void clickWesternFood(View v) {
-        setSelectWesternFood(!isSelectWesternFood());
+        return foodCategotyModel.isSelected(FoodCategotyModel.FoodCategory.BUFFET);
     }
 
     @Bindable
     public boolean isSelectWorldWideFood() {
-        return selectWorldWideFood;
+        return foodCategotyModel.isSelected(FoodCategotyModel.FoodCategory.WORLD_WIDE_FOOD);
     }
 
-    public void clickWorldWideFood(View v) {
-        setSelectWorldWideFood(!isSelectWorldWideFood());
+    @Bindable
+    public boolean isSelectWesternFood() {
+        return foodCategotyModel.isSelected(FoodCategotyModel.FoodCategory.WESTERN_FOOD);
     }
 
-    public void clickBuffet(View v) {
-        setSelectBuffet(!isSelectBuffet());
+    @Bindable
+    public boolean isSelectChineseFood() {
+        return foodCategotyModel.isSelected(FoodCategotyModel.FoodCategory.CHINESE_FOOD);
+    }
+
+    @Bindable
+    public boolean isSelectJapaneseFood() {
+        return foodCategotyModel.isSelected(FoodCategotyModel.FoodCategory.JAPANESE_FOOD);
+    }
+
+    @Bindable
+    public boolean isSelectKoreanFood() {
+        return foodCategotyModel.isSelected(FoodCategotyModel.FoodCategory.KOREAN_FOOD);
     }
 
     @Bindable
     public boolean isSelectBar() {
-        return selectBar;
+        return foodCategotyModel.isSelected(FoodCategotyModel.FoodCategory.BAR);
     }
 
-    public void setSelectBar(boolean selectBar) {
-        this.selectBar = selectBar;
-        if (selectBar) {
-            setSelectKoreanFood(false);
-            setSelectBuffet(false);
-            setSelectCafe(false);
-            setSelectChineseFood(false);
-            setSelectJapaneseFood(false);
-            setSelectWesternFood(false);
-            setSelectWorldWideFood(false);
-        }
-        notifyPropertyChanged(BR.selectBar);
-        notifyPropertyChanged(BR.add);
+    public void clickKoreanFood(View v) {
+        LOG.d("");
+        foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.KOREAN_FOOD);
+        foodCategoryNofity();
+        //LOG.d(isSelectKoreanFood());
+    }
+
+    public void clickJapaneseFood(View v) {
+        LOG.d("");
+        foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.JAPANESE_FOOD);
+        foodCategoryNofity();
+    }
+
+    public void clickChineseFood(View v) {
+        LOG.d("");
+        foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.CHINESE_FOOD);
+        foodCategoryNofity();
+    }
+
+    public void clickWesternFood(View v) {
+        LOG.d("");
+        foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.WESTERN_FOOD);
+        foodCategoryNofity();
+    }
+
+    public void clickWorldWideFood(View v) {
+        LOG.d("");
+        foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.WORLD_WIDE_FOOD);
+        foodCategoryNofity();
+    }
+
+    public void clickBuffet(View v) {
+        LOG.d("");
+        foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.BUFFET);
+        foodCategoryNofity();
     }
 
     public void clickBar(View v) {
-        setSelectBar(!isSelectBar());
+        LOG.d("");
+        foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.BAR);
+        foodCategoryNofity();
     }
 
     public void clickCafe(View v) {
-        setSelectCafe(!isSelectCafe());
+        LOG.d("");
+        foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.CAFE);
+        foodCategoryNofity();
+    }
+
+    public void foodCategoryNofity() {
+        notifyPropertyChanged(BR.selectKoreanFood);
+        notifyPropertyChanged(BR.selectJapaneseFood);
+        notifyPropertyChanged(BR.selectChineseFood);
+        notifyPropertyChanged(BR.selectWesternFood);
+        notifyPropertyChanged(BR.selectWorldWideFood);
+        notifyPropertyChanged(BR.selectBuffet);
+        notifyPropertyChanged(BR.selectCafe);
+        notifyPropertyChanged(BR.selectBar);
+        notifyPropertyChanged(BR.add);
     }
 
 
@@ -282,8 +211,7 @@ public class RegisterRestaurantViewModel extends BaseObservable {
     }
 
     @Bindable
-    public TextWatcher getNameTextWhatcher()
-    {
+    public TextWatcher getNameTextWhatcher() {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -303,8 +231,7 @@ public class RegisterRestaurantViewModel extends BaseObservable {
     }
 
     @Bindable
-    public TextWatcher getLocationWhatcher()
-    {
+    public TextWatcher getLocationWhatcher() {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -323,32 +250,39 @@ public class RegisterRestaurantViewModel extends BaseObservable {
         };
     }
 
-    public void add(View v)
-    {
-        if(!TextUtils.isEmpty(restaurantName))
-        Log.d("sarang", restaurantName);
-        if(!TextUtils.isEmpty(location))
-        Log.d("sarang", location);
-        if(!TextUtils.isEmpty(phone))
-        Log.d("sarang", phone);
+    public void add(View v) {
+        Map<String, String> param = new HashMap<>();
+        if (!TextUtils.isEmpty(restaurantName)) {
+            param.put("store_name", restaurantName);
+        }
+        if (!TextUtils.isEmpty(location)) {
+            param.put("address", location);
+        }
+        if (!TextUtils.isEmpty(phone)) {
+            param.put("phone", phone);
+        }
+        if (!TextUtils.isEmpty(lat)) {
+            param.put("lat", lat);
+        }
+        if (!TextUtils.isEmpty(lng)) {
+            param.put("lng", lng);
+        }
 
-        if(selectBar)
-            Log.d("sarang", "selectBar");
-        if(selectCafe)
-            Log.d("sarang", "selectCafe");
-        if(selectBuffet)
-            Log.d("sarang", "selectBuffet");
-        if(selectWorldWideFood)
-            Log.d("sarang", "selectWorldWideFood");
-        if(selectWesternFood)
-            Log.d("sarang", "selectWesternFood");
-        if(selectChineseFood)
-            Log.d("sarang", "selectChineseFood");
-        if(selectJapaneseFood)
-            Log.d("sarang", "selectJapaneseFood");
-        if(selectKoreanFood)
-            Log.d("sarang", "selectKoreanFood");
+        //TODO::id필요
+        //BananaPreference.getInstance(this).loadUser().id
+        param.put("reg_user_id", " 1");
 
+        ApiManager.getInstance().regStore(param, new ApiManager.CallbackListener() {
+            @Override
+            public void callback(String result) {
+                LOG.d(result);
+            }
+
+            @Override
+            public void failed(String msg) {
+
+            }
+        });
     }
 
 }

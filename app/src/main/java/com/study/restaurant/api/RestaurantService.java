@@ -37,4 +37,8 @@ public interface RestaurantService {
     @GET("getCity.php")
     Call<ResponseBody> getCity();
 
+    @FormUrlEncoded
+    @POST("regStore.php")
+    Call<ResponseBody> regStore(@FieldMap Map<String, String> params);
+
 }

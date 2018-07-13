@@ -17,6 +17,94 @@ public class Store extends BaseObservable implements Parcelable {
     String img;
     private int position;
 
+    String store_name;
+    String address;
+    String reg_user_id;
+
+    protected Store(Parcel in) {
+        store_id = in.readString();
+        name = in.readString();
+        score = in.readString();
+        lat = in.readString();
+        lng = in.readString();
+        location = in.readString();
+        hit = in.readString();
+        review_count = in.readString();
+        img = in.readString();
+        position = in.readInt();
+        store_name = in.readString();
+        lat = in.readString();
+        address = in.readString();
+        reg_user_id = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(store_id);
+        dest.writeString(name);
+        dest.writeString(score);
+        dest.writeString(lat);
+        dest.writeString(lng);
+        dest.writeString(location);
+        dest.writeString(hit);
+        dest.writeString(review_count);
+        dest.writeString(img);
+        dest.writeInt(position);
+        dest.writeString(store_name);
+        dest.writeString(lat);
+        dest.writeString(address);
+        dest.writeString(reg_user_id);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Store> CREATOR = new Creator<Store>() {
+        @Override
+        public Store createFromParcel(Parcel in) {
+            return new Store(in);
+        }
+
+        @Override
+        public Store[] newArray(int size) {
+            return new Store[size];
+        }
+    };
+
+    public int getPosition() {
+        return position;
+    }
+
+    public String getStore_name() {
+        return store_name;
+    }
+
+    public void setStore_name(String store_name) {
+        this.store_name = store_name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getReg_user_id() {
+        return reg_user_id;
+    }
+
+    public void setReg_user_id(String reg_user_id) {
+        this.reg_user_id = reg_user_id;
+    }
+
+    public static Creator<Store> getCREATOR() {
+        return CREATOR;
+    }
+
     public String getImg() {
         return img;
     }
@@ -98,52 +186,9 @@ public class Store extends BaseObservable implements Parcelable {
         this.review_count = review_count;
     }
 
-    protected Store(Parcel in) {
-        store_id = in.readString();
-        name = in.readString();
-        score = in.readString();
-        lat = in.readString();
-        lng = in.readString();
-        location = in.readString();
-        hit = in.readString();
-        review_count = in.readString();
-        img = in.readString();
-
-    }
-
     public Store() {
 
     }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(store_id);
-        dest.writeString(name);
-        dest.writeString(score);
-        dest.writeString(lat);
-        dest.writeString(lng);
-        dest.writeString(location);
-        dest.writeString(hit);
-        dest.writeString(review_count);
-        dest.writeString(img);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Store> CREATOR = new Creator<Store>() {
-        @Override
-        public Store createFromParcel(Parcel in) {
-            return new Store(in);
-        }
-
-        @Override
-        public Store[] newArray(int size) {
-            return new Store[size];
-        }
-    };
 
     public void setPosition(int position) {
         this.position = position;

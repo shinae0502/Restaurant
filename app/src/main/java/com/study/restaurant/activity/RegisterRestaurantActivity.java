@@ -65,6 +65,8 @@ public class RegisterRestaurantActivity extends AppCompatActivity implements Reg
         {
             String address = data.getStringExtra("address");
             vm.setLocation(address);
+            vm.setLat(data.getStringExtra("lat"));
+            vm.setLng(data.getStringExtra("lng"));
         }
     }
 }
