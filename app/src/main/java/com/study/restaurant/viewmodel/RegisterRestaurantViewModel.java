@@ -276,6 +276,9 @@ public class RegisterRestaurantViewModel extends BaseObservable {
             @Override
             public void callback(String result) {
                 LOG.d(result);
+                if (result != null && result.equals("db삽입")) {
+                    registerRestaurantNavigator.onFinish();
+                }
             }
 
             @Override

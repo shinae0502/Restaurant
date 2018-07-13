@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.study.restaurant.R;
 import com.study.restaurant.databinding.ActivityRegisterRestaurantBinding;
@@ -56,6 +57,12 @@ public class RegisterRestaurantActivity extends AppCompatActivity implements Reg
     @Override
     public void goMap() {
         MapsActivity.go(this);
+    }
+
+    @Override
+    public void onFinish() {
+        Toast.makeText(this, "등록되었습니다.", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
