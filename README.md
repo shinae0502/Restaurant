@@ -4,7 +4,7 @@
 https://drive.google.com/open?id=1EfbzRXmUDIfy4iQovcftCxq3qwHzh-hbaKqDqP-PsGo
 
 ## 개발진행상황
-https://drive.google.com/open?id=1EfbzRXmUDIfy4iQovcftCxq3qwHzh-hbaKqDqP-PsGo
+https://docs.google.com/spreadsheets/d/1Us2VpNvM-DoLsIk1AkfVFqhb1HgKWXci0LCCHV1ebpA/edit?usp=sharing
 
 ## 플레이스토어 링크
 https://play.google.com/store/apps/details?id=com.study.restaurant
