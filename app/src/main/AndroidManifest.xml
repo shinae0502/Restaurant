@@ -81,11 +81,9 @@
             android:name=".popup.SelectFilterPoppupActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity android:name=".activity.RestaurantDetailActivity" />
-        <activity
-            android:name=".activity.MangoPickMainActivity"
-             >
-        </activity>
+        <activity android:name=".activity.MangoPickMainActivity"></activity>
 
+        <activity
             android:name=".activity.RegisterRestaurantActivity"
             android:windowSoftInputMode="adjustResize" />
         <!--
