@@ -28,17 +28,17 @@ public class StoreSpec extends BaseObservable {
     String menu3_price;
 
     ArrayList<Review> reviews;
-    ArrayList<TopList> topLists;
-    ArrayList<Story> stories;
+    //ArrayList<TopList> topLists;
+    //ArrayList<Story> stories;
     ArrayList<Store> aroundRestaurant;
 
-    public ArrayList<Story> getStories() {
+    /*public ArrayList<Story> getStories() {
         return stories;
-    }
+    }*/
 
-    public void setStories(ArrayList<Story> stories) {
+    /*public void setStories(ArrayList<Story> stories) {
         this.stories = stories;
-    }
+    }*/
 
     public ArrayList<Store> getAroundRestaurant() {
         return aroundRestaurant;
@@ -48,13 +48,13 @@ public class StoreSpec extends BaseObservable {
         this.aroundRestaurant = aroundRestaurant;
     }
 
-    public ArrayList<TopList> getTopLists() {
+    /*public ArrayList<TopList> getTopLists() {
         return topLists;
     }
 
     public void setTopLists(ArrayList<TopList> topLists) {
         this.topLists = topLists;
-    }
+    }*/
 
     public ArrayList<Review> getReviews() {
         return reviews;
