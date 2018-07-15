@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.study.restaurant.R;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
     private MainActivityViewModel mainActivityViewModel;
     private ActivityMainBinding activityMainBinding;
 
+    ImageView image_mangopick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

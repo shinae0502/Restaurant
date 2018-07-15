@@ -4,17 +4,27 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Story implements Parcelable {
-    String story_id;
-    String title;
-    String subtitle;
-    String image;
 
-    public String getStory_id() {
-        return story_id;
+    //    private Context context;
+    private String storyId;
+    private String title;
+    private String subtitle;
+    private int image;
+//    private String image;   // ------------------------- DB의 이미지 파일 주소값
+
+    public Story(String storyId, String title, String subtitle, int image) {
+        this.storyId = storyId;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.image = image;
     }
 
-    public void setStory_id(String story_id) {
-        this.story_id = story_id;
+    public String getStoryId() {
+        return storyId;
+    }
+
+    public void setStoryId(String storyId) {
+        this.storyId = storyId;
     }
 
     public String getTitle() {
@@ -33,27 +43,26 @@ public class Story implements Parcelable {
         this.subtitle = subtitle;
     }
 
-    public String getImage() {
-        return image;
-    }
+    public int getImage() { return image; }
 
-    public void setImage(String image) {
+    public void setImage(int image) {
         this.image = image;
     }
 
+
     protected Story(Parcel in) {
-        story_id = in.readString();
+        storyId = in.readString();
         title = in.readString();
         subtitle = in.readString();
-        image = in.readString();
+        image = Integer.parseInt(in.readString());
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(story_id);
+        dest.writeString(storyId);
         dest.writeString(title);
         dest.writeString(subtitle);
-        dest.writeString(image);
+        dest.writeString(image+"");
     }
 
     @Override
@@ -72,4 +81,7 @@ public class Story implements Parcelable {
             return new Story[size];
         }
     };
-}
+
+
+
+} // =====================================================  class StoryContents

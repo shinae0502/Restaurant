@@ -3,21 +3,35 @@ package com.study.restaurant.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class TopList implements Parcelable {
-    String toplist_id;
-    String title;
-    String subtitle;
-    String badge;
-    String image;
-    String hit;
-    String date;
 
-    public String getToplist_id() {
-        return toplist_id;
+public class TopList implements Parcelable {
+
+    private String topListId;
+    private String title;
+    private String subtitle;
+    private String badge;
+    private int image;
+    private int hit;
+    private String date;
+//    private Date date;
+
+    public TopList(String topListId, String title, String subtitle, String badge, int image, int hit, String date) {
+//        this.context = context;
+        this.topListId = topListId;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.badge = badge;
+        this.image = image;
+        this.hit = hit;
+        this.date = date;
     }
 
-    public void setToplist_id(String toplist_id) {
-        this.toplist_id = toplist_id;
+    public String getTopListId() {
+        return topListId;
+    }
+
+    public void setTopListId(String topListId) {
+        this.topListId = topListId;
     }
 
     public String getTitle() {
@@ -44,19 +58,19 @@ public class TopList implements Parcelable {
         this.badge = badge;
     }
 
-    public String getImage() {
+    public int getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(int image) {
         this.image = image;
     }
 
-    public String getHit() {
+    public int getHit() {
         return hit;
     }
 
-    public void setHit(String hit) {
+    public void setHit(int hit) {
         this.hit = hit;
     }
 
@@ -68,25 +82,26 @@ public class TopList implements Parcelable {
         this.date = date;
     }
 
+
     protected TopList(Parcel in) {
-        toplist_id = in.readString();
+        topListId = in.readString();
         title = in.readString();
         subtitle = in.readString();
         badge = in.readString();
-        image = in.readString();
-        hit = in.readString();
+        image = Integer.parseInt(in.readString());
+        hit = Integer.parseInt(in.readString());
         date = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(toplist_id);
+        dest.writeString(topListId);
         dest.writeString(title);
         dest.writeString(subtitle);
         dest.writeString(badge);
-        dest.writeString(image);
-        dest.writeString(hit);
-        dest.writeString(date);
+        dest.writeString(image+"");
+        dest.writeString(hit+"");
+        dest.writeString(date+"");
     }
 
     @Override
@@ -105,4 +120,7 @@ public class TopList implements Parcelable {
             return new TopList[size];
         }
     };
-}
+
+
+
+} // =========================================================  class TopListContents
