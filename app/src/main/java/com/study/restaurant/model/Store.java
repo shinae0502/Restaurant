@@ -9,6 +9,7 @@ import android.os.Parcelable;
 import java.text.DecimalFormat;
 
 public class Store extends BaseObservable implements Parcelable {
+    private int position;
     String store_id;
     String name;
     String score;
@@ -18,14 +19,11 @@ public class Store extends BaseObservable implements Parcelable {
     String hit;
     String review_count;
     String img;
-    private int position;
-
     String store_name;
     String address;
     String reg_user_id;
-
     String region_name;
-
+    /** 내위치 */
     Location myLocation;
 
     protected Store(Parcel in) {
