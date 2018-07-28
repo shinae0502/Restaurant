@@ -1,6 +1,7 @@
 package com.study.restaurant.activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,10 +17,13 @@ import com.study.restaurant.databinding.ActivityRestaurantDetailBinding;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.model.StoreSpec;
 import com.study.restaurant.util.AppBarStateChangeListener;
+import com.study.restaurant.util.LOG;
 import com.study.restaurant.util.MyGlide;
 import com.study.restaurant.viewmodel.RestaurantDetailViewModel;
 
-public class RestaurantDetailActivity extends AppCompatActivity {
+import java.io.InputStream;
+
+public class RestaurantDetailActivity extends AppCompatActivity implements RestaurantDetailViewModel.RestaurantDetailNavigation {
 
     //레스토랑 상세 정보 불러오기
     ActivityRestaurantDetailBinding activityRestaurantDetailBinding;
@@ -34,13 +38,25 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 
         vm = new RestaurantDetailViewModel();
 
-        // test create storeSpec
-        StoreSpec storeSpec = new Gson().fromJson(dummy1, StoreSpec.class);
+        StoreSpec storeSpec = null;
+        /** 더미 테스트 코드 */
+        try {
+            Resources res = getBaseContext().getResources();
+            InputStream in_s = res.openRawResource(R.raw.store_spec_dummy);
+
+            byte[] b = new byte[in_s.available()];
+            in_s.read(b);
+            storeSpec = new Gson().fromJson(new String(b), StoreSpec.class);
+        } catch (Exception e) {
+            LOG.d(e.toString());
+        }
 
         vm.setStoreSpec(storeSpec);
-
+        /** 네비게이션 설정하기 */
+        vm.setRestaurantDetailNavigation(this);
         // data binding
         activityRestaurantDetailBinding.setVm(vm);
+        activityRestaurantDetailBinding.layoutDetailRestaurantMain.setVm(vm);
         activityRestaurantDetailBinding.layoutReviewList.setVm(vm);
         activityRestaurantDetailBinding.layoutRelatedToplist.setVm(vm);
         activityRestaurantDetailBinding.layoutRelatedStory.setVm(vm);
@@ -74,27 +90,27 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 
         // Set main images
         MyGlide.with(this)
-                .load(storeSpec.getImg1())
+                .load(storeSpec.getImg1().getImg1())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(activityRestaurantDetailBinding.layoutDetailRestaurantMain.img1);
 
         MyGlide.with(this)
-                .load(storeSpec.getImg2())
+                .load(storeSpec.getImg2().getImg1())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(activityRestaurantDetailBinding.layoutDetailRestaurantMain.img2);
 
         MyGlide.with(this)
-                .load(storeSpec.getImg3())
+                .load(storeSpec.getImg3().getImg1())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(activityRestaurantDetailBinding.layoutDetailRestaurantMain.img3);
 
         MyGlide.with(this)
-                .load(storeSpec.getImg4())
+                .load(storeSpec.getImg4().getImg1())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(activityRestaurantDetailBinding.layoutDetailRestaurantMain.img4);
 
         MyGlide.with(this)
-                .load(storeSpec.getImg5())
+                .load(storeSpec.getImg5().getImg1())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(activityRestaurantDetailBinding.layoutDetailRestaurantMain.img5);
     }
@@ -113,163 +129,8 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         onBackPressed();
     }
 
-    String dummy1 = "{\n" +
-            "  \"img1\": \"http://www.globalcardsalud.com/wp-content/uploads/2011/12/banquete.jpg\",\n" +
-            "  \"img2\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVjQ08rDw0pOvd8q7Un6KByZ1GrFMAKGb89JTT1pZQlQVpiSEC\",\n" +
-            "  \"img3\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/220px-Good_Food_Display_-_NCI_Visuals_Online.jpg\",\n" +
-            "  \"img4\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5koo3US24I9QEb-Su1ZUz9nVFW9-10IZ_V7QtDKxMUsARUTIv\",\n" +
-            "  \"img5\": \"https://steptohealth.co.kr/wp-content/uploads/2017/03/foods-to-avoid-eating-for-breakfast-500x283.jpg\",\n" +
-            "  \"updateDate\": \"2018-07-03\",\n" +
-            "  \"openingHours\": \"월-금: 11:10 - 21:30\\n       토: 11:10- 15:30\",\n" +
-            "  \"breaktime\": \"15:00-17:00\",\n" +
-            "  \"prices\": \"만원-2만원 / 1인\",\n" +
-            "  \"menu1\": \"국밥\",\n" +
-            "  \"menu2\": \"정식\",\n" +
-            "  \"menu3\": \"술국\",\n" +
-            "  \"menu1_price\": \"7,000\",\n" +
-            "  \"menu2_price\": \"10,000\",\n" +
-            "  \"menu3_price\": \"13,000\",\n" +
-            "  \"keyword\": \"강남역,에디터,국밥\",\n" +
-            "  \"reviews\": [\n" +
-            "    {\n" +
-            "      \"prifile_pic\": \"a\",\n" +
-            "      \"name\": \"양사랑\",\n" +
-            "      \"review_count\": \"10\",\n" +
-            "      \"follower\": \"234\",\n" +
-            "      \"tag\": \"농민백암왕순대\",\n" +
-            "      \"review\": \"가가가가가\",\n" +
-            "      \"img1\": \"1\",\n" +
-            "      \"img2\": \"2\",\n" +
-            "      \"img3\": \"3\",\n" +
-            "      \"img4\": \"4\",\n" +
-            "      \"img5\": \"5\",\n" +
-            "      \"like\": \"5\",\n" +
-            "      \"comment\": \"10\",\n" +
-            "      \"date\": \"2018-07-03\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"prifile_pic\": \"a\",\n" +
-            "      \"name\": \"자라\",\n" +
-            "      \"review_count\": \"10\",\n" +
-            "      \"follower\": \"234\",\n" +
-            "      \"tag\": \"농민백암왕순대\",\n" +
-            "      \"review\": \"가가가가가\",\n" +
-            "      \"img1\": \"1\",\n" +
-            "      \"img2\": \"2\",\n" +
-            "      \"img3\": \"3\",\n" +
-            "      \"img4\": \"4\",\n" +
-            "      \"img5\": \"5\",\n" +
-            "      \"like\": \"5\",\n" +
-            "      \"comment\": \"10\",\n" +
-            "      \"date\": \"2018-07-03\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"prifile_pic\": \"a\",\n" +
-            "      \"name\": \"고고\",\n" +
-            "      \"review_count\": \"10\",\n" +
-            "      \"follower\": \"234\",\n" +
-            "      \"tag\": \"농민백암왕순대\",\n" +
-            "      \"review\": \"가가가가가\",\n" +
-            "      \"img1\": \"1\",\n" +
-            "      \"img2\": \"2\",\n" +
-            "      \"img3\": \"3\",\n" +
-            "      \"img4\": \"4\",\n" +
-            "      \"img5\": \"5\",\n" +
-            "      \"like\": \"5\",\n" +
-            "      \"comment\": \"10\",\n" +
-            "      \"date\": \"2018-07-03\"\n" +
-            "    }\n" +
-            "  ],\n" +
-            "  \"topLists\": [\n" +
-            "    {\n" +
-            "      \"toplist_id\": \"1\",\n" +
-            "      \"image\": \"http://\",\n" +
-            "      \"hit\": \"56650\",\n" +
-            "      \"date\": \"2018-03-04\",\n" +
-            "      \"title\": \"망고플레이트 에디터 C양 추천 맛집 베스트\",\n" +
-            "      \"subtitle\": \"망고플레이트 에디터R양이 아끼는..\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"toplist_id\": \"1\",\n" +
-            "      \"image\": \"http://\",\n" +
-            "      \"hit\": \"56650\",\n" +
-            "      \"date\": \"2018-03-04\",\n" +
-            "      \"title\": \"망고플레이트 에디터 C양 추천 맛집 베스트\",\n" +
-            "      \"subtitle\": \"망고플레이트 에디터R양이 아끼는..\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"toplist_id\": \"1\",\n" +
-            "      \"image\": \"http://\",\n" +
-            "      \"hit\": \"56650\",\n" +
-            "      \"date\": \"2018-03-04\",\n" +
-            "      \"title\": \"망고플레이트 에디터 C양 추천 맛집 베스트\",\n" +
-            "      \"subtitle\": \"망고플레이트 에디터R양이 아끼는..\"\n" +
-            "    }\n" +
-            "  ],\n" +
-            "  \"stories\": [\n" +
-            "    {\n" +
-            "      \"story_id\": \"1\",\n" +
-            "      \"image\": \"http://\",\n" +
-            "      \"title\": \"망고플레이트 에디터 C양 추천 맛집 베스트\",\n" +
-            "      \"subtitle\": \"망고플레이트 에디터R양이 아끼는..\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"story_id\": \"1\",\n" +
-            "      \"image\": \"http://\",\n" +
-            "      \"title\": \"망고플레이트 에디터 C양 추천 맛집 베스트\",\n" +
-            "      \"subtitle\": \"망고플레이트 에디터R양이 아끼는..\"\n" +
-            "    }\n" +
-            "  ],\n" +
-            "  \"aroundRestaurant\": [\n" +
-            "    {\n" +
-            "      \"store_id\": \"2\",\n" +
-            "      \"name\": \"고에몬 강남점\",\n" +
-            "      \"img\": \"https://lh5.googleusercontent.com/p/AF1QipOIuCK8Cmm0FEn4yZDSU-LRLPtNSNVXqLI26mnu=w408-h306-k-no\",\n" +
-            "      \"lat\": \"37.4985798\",\n" +
-            "      \"lon\": \"127.0255659\",\n" +
-            "      \"hit\": \"1\",\n" +
-            "      \"review_count\": \"10\",\n" +
-            "      \"score\": \"3.5\",\n" +
-            "      \"region_id\": \"100\",\n" +
-            "      \"food_category_id\": \"2\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"store_id\": \"1\",\n" +
-            "      \"name\": \"딘타이펑 강남역점\",\n" +
-            "      \"img\": \"https://lh5.googleusercontent.com/p/AF1QipOcvf4raK8kvhe7buplK5_2Fw7r_y0Iiw3bUpVH=w408-h229-k-no\",\n" +
-            "      \"lat\": \"37.4985798\",\n" +
-            "      \"lon\": \"127.0255659\",\n" +
-            "      \"hit\": \"2\",\n" +
-            "      \"review_count\": \"4\",\n" +
-            "      \"score\": \"4.5\",\n" +
-            "      \"region_id\": \"100\",\n" +
-            "      \"food_category_id\": \"2\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"store_id\": \"3\",\n" +
-            "      \"name\": \"느린마을 양조장 강남점\",\n" +
-            "      \"img\": \"https://lh5.googleusercontent.com/p/AF1QipPRfHHwnIOOJQLvC9lxMd42IHYtTtrzqsmW-H48=w408-h306-k-no\",\n" +
-            "      \"lat\": \"37.4982914\",\n" +
-            "      \"lon\": \"127.025206\",\n" +
-            "      \"hit\": \"5\",\n" +
-            "      \"review_count\": \"34\",\n" +
-            "      \"score\": \"3.8\",\n" +
-            "      \"region_id\": \"100\",\n" +
-            "      \"food_category_id\": \"7\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"store_id\": \"4\",\n" +
-            "      \"name\": \"장꼬방\",\n" +
-            "      \"img\": \"https://lh5.googleusercontent.com/p/AF1QipOgCgZf7qJdzvACnRj0SB3pfW8TrutdPfuIjqCq=w408-h229-k-no\",\n" +
-            "      \"lat\": \"37.4983037\",\n" +
-            "      \"lon\": \"127.0230639\",\n" +
-            "      \"hit\": \"15\",\n" +
-            "      \"review_count\": \"22\",\n" +
-            "      \"score\": \"4.4\",\n" +
-            "      \"region_id\": \"100\",\n" +
-            "      \"food_category_id\": \"0\"\n" +
-            "    }\n" +
-            "  ]\n" +
-            "}";
-
+    @Override
+    public void goDetailPhoto() {
+        PhotoDetailActivity.go(this);
+    }
 }

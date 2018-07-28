@@ -1,6 +1,8 @@
 package com.study.restaurant;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.res.Resources;
 
 import com.google.gson.Gson;
 import com.study.restaurant.api.ApiManager;
@@ -12,7 +14,10 @@ import com.study.restaurant.util.LOG;
 
 import org.junit.Test;
 
+import java.io.InputStream;
 import java.util.ArrayList;
+
+import static junit.framework.Assert.assertEquals;
 
 public class ExampleUnitTestJava {
 
@@ -104,4 +109,5 @@ public class ExampleUnitTestJava {
         System.out.println(storeSpec.getReviews().size());
         System.out.println(storeSpec.getReviews().get(1).getName());
     }
+
 }
