@@ -2,15 +2,18 @@ package com.study.restaurant.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.text.DecimalFormat;
 
 public class Store extends BaseObservable implements Parcelable {
     String store_id;
     String name;
     String score;
     String lat;
-    String lng;
+    String lon;
     String location;
     String hit;
     String review_count;
@@ -21,12 +24,16 @@ public class Store extends BaseObservable implements Parcelable {
     String address;
     String reg_user_id;
 
+    String region_name;
+
+    Location myLocation;
+
     protected Store(Parcel in) {
         store_id = in.readString();
         name = in.readString();
         score = in.readString();
         lat = in.readString();
-        lng = in.readString();
+        lon = in.readString();
         location = in.readString();
         hit = in.readString();
         review_count = in.readString();
@@ -44,7 +51,7 @@ public class Store extends BaseObservable implements Parcelable {
         dest.writeString(name);
         dest.writeString(score);
         dest.writeString(lat);
-        dest.writeString(lng);
+        dest.writeString(lon);
         dest.writeString(location);
         dest.writeString(hit);
         dest.writeString(review_count);
@@ -152,12 +159,12 @@ public class Store extends BaseObservable implements Parcelable {
         this.lat = lat;
     }
 
-    public String getLng() {
-        return lng;
+    public String getLon() {
+        return lon;
     }
 
-    public void setLng(String lng) {
-        this.lng = lng;
+    public void setLon(String lon) {
+        this.lon = lon;
     }
 
     public String getLocation() {
@@ -192,5 +199,44 @@ public class Store extends BaseObservable implements Parcelable {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public Location getMyLocation() {
+        return myLocation;
+    }
+
+    public void setMyLocation(Location myLocation) {
+        this.myLocation = myLocation;
+    }
+
+    /** 내위치와 가게의 거리 */
+    @Bindable
+    public String getDistance() {
+        float distance = 0;
+        try {
+            Location locationB = new Location("point B");
+            locationB.setLatitude(Double.valueOf(getLat()));
+            locationB.setLongitude(Double.valueOf(getLon()));
+            distance = myLocation.distanceTo(locationB);
+        } catch (Exception e) {
+
+        }
+
+        /** 소수점 2자리 설정*/
+        DecimalFormat format = new DecimalFormat(".##");
+
+        if (distance > 1000)
+            return format.format(distance / 1000) + "km";
+        else
+            return (int) distance + "m";
+    }
+
+    @Bindable
+    public String getRegion_name() {
+        return region_name;
+    }
+
+    public void setRegion_name(String region_name) {
+        this.region_name = region_name;
     }
 }

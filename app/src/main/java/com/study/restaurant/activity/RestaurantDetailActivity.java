@@ -1,5 +1,6 @@
 package com.study.restaurant.activity;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
@@ -36,7 +37,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Resta
         // create view binding
         activityRestaurantDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_restaurant_detail);
 
-        vm = new RestaurantDetailViewModel();
+        vm = ViewModelProviders.of(this).get(RestaurantDetailViewModel.class);
 
         StoreSpec storeSpec = null;
         /** 더미 테스트 코드 */

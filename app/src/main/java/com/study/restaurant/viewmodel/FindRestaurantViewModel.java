@@ -2,6 +2,7 @@ package com.study.restaurant.viewmodel;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.location.Location;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -79,12 +80,12 @@ public class FindRestaurantViewModel extends BaseObservable {
 
     public void setStoreArrayList(ArrayList<Store> storeArrayList) {
         removeAllStore();
-        findRestaurant.getStoreArrayList().addAll(storeArrayList);
+        findRestaurant.addAllStoreArrayList(storeArrayList);
         storeRvAdt.notifyDataSetChanged();
     }
 
     public void addStoreArrayList(ArrayList<Store> storeArrayList) {
-        findRestaurant.getStoreArrayList().addAll(storeArrayList);
+        findRestaurant.addAllStoreArrayList(storeArrayList);
         storeRvAdt.notifyDataSetChanged();
     }
 
@@ -146,6 +147,7 @@ public class FindRestaurantViewModel extends BaseObservable {
                 Type listType = new TypeToken<ArrayList<Store>>() {
                 }.getType();
                 List<Store> storeList = new Gson().fromJson(result, listType);
+                /** 내 위치 넣어주기 */
                 addStoreArrayList((ArrayList<Store>) storeList);
             }
 
@@ -216,4 +218,13 @@ public class FindRestaurantViewModel extends BaseObservable {
         findRestaurantNavigation.rvToTop();
         setVisibleTopButton(false);
     }
+
+    public void setMyLocation(Location myLocation) {
+        findRestaurant.setMyLocation(myLocation);
+    }
+
+    /** 지역 */
+
+
+    /** 나와의 거리 */
 }

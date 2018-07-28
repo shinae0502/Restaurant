@@ -1,5 +1,6 @@
 package com.study.restaurant.viewmodel;
 
+import android.arch.lifecycle.ViewModel;
 import android.view.View;
 
 import com.study.restaurant.adapter.AroundRestaurantRvAdt;
@@ -8,7 +9,7 @@ import com.study.restaurant.adapter.StoryRvAdt;
 import com.study.restaurant.adapter.TopListRvAdt;
 import com.study.restaurant.model.StoreSpec;
 
-public class RestaurantDetailViewModel {
+public class RestaurantDetailViewModel extends ViewModel {
     private StoreSpec storeSpec;
 
     /**

@@ -114,6 +114,7 @@
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
+        <!-- 맛집 리스트 뷰 -->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/findRestaurantRv"
             android:layout_width="match_parent"

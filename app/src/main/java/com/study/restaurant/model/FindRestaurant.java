@@ -1,5 +1,7 @@
 package com.study.restaurant.model;
 
+import android.location.Location;
+
 import java.util.ArrayList;
 
 public class FindRestaurant {
@@ -8,6 +10,7 @@ public class FindRestaurant {
     Boundary boundary;
     Filter filter;
     ArrayList<Store> storeArrayList = new ArrayList<>();
+    private Location myLocation;
 
     public ArrayList<Store> getStoreArrayList() {
         return storeArrayList;
@@ -65,5 +68,18 @@ public class FindRestaurant {
             boundary.releaseAll();
 
         this.cities = cities;
+    }
+
+    public void setMyLocation(Location myLocation) {
+        this.myLocation = myLocation;
+    }
+
+    public void addAllStoreArrayList(ArrayList<Store> storeArrayList) {
+        /** 내 위치 설정해주기 */
+        if (myLocation != null)
+            for (Store store : storeArrayList) {
+                store.setMyLocation(myLocation);
+            }
+        getStoreArrayList().addAll(storeArrayList);
     }
 }

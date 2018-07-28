@@ -67,4 +67,7 @@ dependencies {
     // 카카오 로그인 sdk를 사용하기 위해 필요.
     implementation 'com.kakao.sdk:usermgmt:1.11.1'
     implementation project(':naveridlogin_android_sdk_4.2.0')
+
+    /** 뷰 모델을 사용하기위한 라이브러리 */
+    implementation "android.arch.lifecycle:extensions:1.1.1"
 }

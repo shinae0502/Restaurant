@@ -7,11 +7,8 @@ import android.databinding.DataBindingUtil;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +21,6 @@ import com.study.restaurant.activity.GlobalApplication;
 import com.study.restaurant.activity.RestaurantDetailActivity;
 import com.study.restaurant.activity.SearchActivity;
 import com.study.restaurant.api.ApiManager;
-import com.study.restaurant.common.FunctionImpl;
 import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
 import com.study.restaurant.manager.MyLocationManager;
 import com.study.restaurant.model.Region;
@@ -41,15 +37,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.study.restaurant.adapter.ProgressRvAdt.VIEW_TYPE_PROGRESS;
-import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_BANNER;
-import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_MENU;
-
 public class FindRestaurantFragment extends Fragment implements FindRestaurantNavigation {
 
+    /** 데이터 바인딩 */
     private FragmentFindRestaurantBinding fragmentFindRestaurantBinding;
+    /** 뷰 모델 */
     private FindRestaurantViewModel findRestaurantViewModel;
+    /** 위치 기능 관리 */
     private MyLocationManager myLocationManager;
+    /** 위치 권한 없을 시 요청 후 처리를 위한 리스너 */
     private OnSuccessListener<? super Location> tempListener;
 
     public static FindRestaurantFragment newInstance() {
@@ -60,28 +56,27 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //Sets Binding
+        /** Sets Binding */
         fragmentFindRestaurantBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_restaurant, container, false);
-
-        //create ViewModel
+        /** create ViewModel */
         findRestaurantViewModel = new FindRestaurantViewModel(this);
-
-        //Sets Binding ViewModel
+        /** Sets Binding ViewModel */
         fragmentFindRestaurantBinding.setVm(findRestaurantViewModel);
         findRestaurantViewModel.setFindRestaurant(getGlobalApplication().getFindRestaurant());
         myLocationManager = new MyLocationManager(getActivity());
 
 
-        //내 위치 요청하기
+        /** 내 위치 요청하기 */
         requestLocation(location -> {
             if (location != null) {
-                //현재 내 위치에 해당하는 지역 요청하기
+                /** 뷰 모델에 내 위치 셋팅해주기 식당과 내위치 거리계산을 위함*/
+                findRestaurantViewModel.setMyLocation(location);
+                /** 현재 내 위치에 해당하는 지역 요청하기 */
                 if (!requestAddress(location.getLatitude(), location.getLongitude(), region -> {
-                    //타이틀바 지역명 변경하기
+                    /** 타이틀바 지역명 변경하기 */
                     fragmentFindRestaurantBinding.location.setText(region.getRegion_name());
-
                     findRestaurantViewModel.getFindRestaurant().getCities().setCurrentRegion(region);
-                    //내위치 해당 지역 맛집 검색하기
+                    /** 내위치 해당 지역 맛집 검색하기 */
                     findRestaurantViewModel.requestStoreSummary();
                 })) {
                     fragmentFindRestaurantBinding.location.setText("지역 없음");
@@ -95,13 +90,13 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
     }
 
     public void requestLocation(OnSuccessListener<? super Location> listener) {
-        //GPS 사용 전 권한 체크
+        /** PS 사용 전 권한 체크 */
         if (myLocationManager.isGrantedPermission()) {
-            //권한이 허용되어있다면 위치요청
+            /** 권한이 허용되어있다면 위치요청 */
             LOG.d("위치요청하기");
             myLocationManager.getLastLocation(listener);
         } else {
-            //권한이 없다면 권한 요청하기
+            /** 권한이 없다면 권한 요청하기 */
             tempListener = listener;
             LOG.d("권한요청하기");
             myLocationManager.requestLocationPermissionPopup(0x02);
@@ -114,13 +109,13 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 0x02) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //위치 다시 요청하기
+                /** 위치 다시 요청하기 */
                 if (tempListener != null) {
                     requestLocation(tempListener);
                     tempListener = null;
                 }
             } else {
-                //권한 거부시
+                /** 권한 거부시 */
                 LOG.d("권한 거부");
                 tempListener = null;
             }
