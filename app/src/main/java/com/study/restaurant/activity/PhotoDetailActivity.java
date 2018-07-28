@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.study.restaurant.R;
 import com.study.restaurant.fragment.PhotoFragment;
@@ -26,6 +27,10 @@ public class PhotoDetailActivity extends AppCompatActivity {
     public static void go(AppCompatActivity appCompatActivity) {
         Intent intent = new Intent(appCompatActivity, PhotoDetailActivity.class);
         appCompatActivity.startActivity(intent);
+    }
+
+    public void clickProfile(View view) {
+        ProfileActivity.go(this);
     }
 
     private class PhotoPageAdater extends FragmentStatePagerAdapter {

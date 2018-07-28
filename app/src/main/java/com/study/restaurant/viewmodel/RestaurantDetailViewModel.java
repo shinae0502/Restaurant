@@ -73,8 +73,13 @@ public class RestaurantDetailViewModel {
         restaurantDetailNavigation.goDetailPhoto();
     }
 
+    public void clickCheckIn(View v) {
+        restaurantDetailNavigation.goCheckIn();
+    }
+
     public interface RestaurantDetailNavigation {
         void goDetailPhoto();
 
+        void goCheckIn();
     }
 }

@@ -100,7 +100,13 @@
         <activity
             android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".activity.PhotoDetailActivity"></activity>
+        <activity android:name=".activity.PhotoDetailActivity" />
+        <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.ProfilePicDetailActivity" />
+        <activity android:name=".activity.FollowerActivity" />
+        <activity android:name=".activity.TimelineActivity" />
+        <activity android:name=".activity.CheckInActivity" />
+        <activity android:name=".activity.ReviewActivity"></activity>
     </application>
 
 </manifest>

@@ -276,7 +276,9 @@
 
             </android.support.v4.widget.NestedScrollView>
 
-            <include layout="@layout/layout_detail_restaurant_menu" />
+            <include
+                android:id="@+id/layout_detail_restaurant_menu"
+                layout="@layout/layout_detail_restaurant_menu" />
 
         </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>

@@ -56,6 +56,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Resta
         vm.setRestaurantDetailNavigation(this);
         // data binding
         activityRestaurantDetailBinding.setVm(vm);
+        activityRestaurantDetailBinding.layoutDetailRestaurantMenu.setVm(vm);
         activityRestaurantDetailBinding.layoutDetailRestaurantMain.setVm(vm);
         activityRestaurantDetailBinding.layoutReviewList.setVm(vm);
         activityRestaurantDetailBinding.layoutRelatedToplist.setVm(vm);
@@ -132,5 +133,10 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Resta
     @Override
     public void goDetailPhoto() {
         PhotoDetailActivity.go(this);
+    }
+
+    @Override
+    public void goCheckIn() {
+        CheckInActivity.go(this);
     }
 }

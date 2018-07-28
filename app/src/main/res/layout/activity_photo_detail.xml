@@ -36,6 +36,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="10dp"
+                    android:clickable="true"
+                    android:onClick="clickProfile"
                     android:src="@drawable/img_intro_bg_2" />
 
                 <LinearLayout
