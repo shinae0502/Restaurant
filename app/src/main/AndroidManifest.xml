@@ -14,6 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- 스플레시 화면 -->
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,8 +23,63 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- 로그인 화면 -->
         <activity android:name=".activity.LoginActivity" />
+
+        <!-- 메인화면 -->
         <activity android:name=".activity.MainActivity" />
+
+        <!-- 셋팅화면 -->
+        <activity
+            android:name=".activity.SettingActivity"
+            android:theme="@style/ActionBar" />
+
+        <!-- 검색화면 -->
+        <activity android:name=".activity.SearchActivity" />
+
+                                                                                                                                                                                                                                                                                                                                                                                                                           <!-- 지역선택 팝업 -->
+        <activity
+            android:name=".popup.SelectRegionPopupActivity"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <!-- 정렬 팝업 -->
+        <activity
+            android:name=".popup.SelectSortPopupActivity"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <!-- 반경선택 화면-->
+        <activity
+            android:name=".popup.SelectDistancePopup"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+
+        <!-- 필터화면 -->
+        <activity
+            android:name=".popup.SelectFilterPoppupActivity"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+
+        <!-- 레스토랑 상세화면 -->
+        <activity android:name=".activity.RestaurantDetailActivity" />
+
+        <!-- 망고픽 화면 -->
+        <activity android:name=".activity.MangoPickMainActivity" />
+
+        <!-- 식당 등록화면 -->
+        <activity
+            android:name=".activity.RegisterRestaurantActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name=".activity.MapsActivity" />
+        <activity android:name=".activity.PhotoDetailActivity" />
+        <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.ProfilePicDetailActivity" />
+        <activity android:name=".activity.FollowerActivity" />
+        <activity android:name=".activity.TimelineActivity" />
+        <activity android:name=".activity.CheckInActivity" />
+        <activity android:name=".activity.ReviewActivity"></activity>
+
+        <!-- google map meta data -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
         <!-- facebook login start -->
         <meta-data
@@ -47,10 +104,6 @@
         </activity>
         <!-- facebook login end -->
 
-        <activity
-            android:name=".activity.SettingActivity"
-            android:theme="@style/ActionBar" />
-
         <!-- 3 -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -66,47 +119,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <!-- 네이버 아이디로 로그인 샘플앱 -->
         <activity android:name=".activity.OAuthSampleActivity" />
-        <activity android:name=".activity.SearchActivity" />
-        <activity
-            android:name=".popup.SelectRegionPopupActivity"
-            android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity
-            android:name=".popup.SelectSortPopupActivity"
-            android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity
-            android:name=".popup.SelectDistancePopup"
-            android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity
-            android:name=".popup.SelectFilterPoppupActivity"
-            android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity android:name=".activity.RestaurantDetailActivity" />
-        <activity android:name=".activity.MangoPickMainActivity" />
-        <activity
-            android:name=".activity.RegisterRestaurantActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".activity.MapsActivity"
-            android:label="@string/title_activity_maps" />
-        <activity android:name=".activity.PhotoDetailActivity" />
-        <activity android:name=".activity.ProfileActivity" />
-        <activity android:name=".activity.ProfilePicDetailActivity" />
-        <activity android:name=".activity.FollowerActivity" />
-        <activity android:name=".activity.TimelineActivity" />
-        <activity android:name=".activity.CheckInActivity" />
-        <activity android:name=".activity.ReviewActivity"></activity>
     </application>
 
 </manifest>
