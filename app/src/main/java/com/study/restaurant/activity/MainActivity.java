@@ -31,6 +31,7 @@ import com.study.restaurant.viewmodel.MainActivityViewModel;
 
 public class MainActivity extends AppCompatActivity implements MainActivitytNavigation {
 
+    /** 맛집찾기 - 망고픽 - 소식 - 내정보를 담고 있는 페이지 */
     ViewPager pager;
     FindRestaurantFragment findRestaurantFragment;
     MyInformationFragment myInformationFragment;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
 
         pager = findViewById(R.id.pager);
         pager.setAdapter(new MainPageAdapter(getSupportFragmentManager()));
+        // 페이지 이동 시 화면 제거되지 않게 설정
+        pager.setOffscreenPageLimit(4);
     }
 
     public static void go(AppCompatActivity appCompatActivity) {
@@ -99,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
                     }
                     return findRestaurantFragment;
                 case 1:
+                    // 망고픽 화면 만들기
                     if (mangoPickFragment == null) {
                         mangoPickFragment = MangoPickFragment.newInstance();
                     }
@@ -233,8 +237,7 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
         v.setVisibility(View.VISIBLE);
     }
 
-    public void clickRegisterRestaurant(View v)
-    {
+    public void clickRegisterRestaurant(View v) {
         LOG.d("clickRegisterRestaurant");
         RegisterRestaurantActivity.go(this);
     }
