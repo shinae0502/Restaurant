@@ -10,20 +10,12 @@ public class TopList implements Parcelable {
     private String title;
     private String subtitle;
     private String badge;
-    private int image;
+    private String image;
     private int hit;
     private String date;
 //    private Date date;
 
-    public TopList(String topListId, String title, String subtitle, String badge, int image, int hit, String date) {
-//        this.context = context;
-        this.topListId = topListId;
-        this.title = title;
-        this.subtitle = subtitle;
-        this.badge = badge;
-        this.image = image;
-        this.hit = hit;
-        this.date = date;
+    public TopList() {
     }
 
     public String getTopListId() {
@@ -58,11 +50,11 @@ public class TopList implements Parcelable {
         this.badge = badge;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -88,7 +80,6 @@ public class TopList implements Parcelable {
         title = in.readString();
         subtitle = in.readString();
         badge = in.readString();
-        image = Integer.parseInt(in.readString());
         hit = Integer.parseInt(in.readString());
         date = in.readString();
     }
@@ -99,9 +90,9 @@ public class TopList implements Parcelable {
         dest.writeString(title);
         dest.writeString(subtitle);
         dest.writeString(badge);
-        dest.writeString(image+"");
-        dest.writeString(hit+"");
-        dest.writeString(date+"");
+        dest.writeString(image + "");
+        dest.writeString(hit + "");
+        dest.writeString(date + "");
     }
 
     @Override
@@ -120,7 +111,6 @@ public class TopList implements Parcelable {
             return new TopList[size];
         }
     };
-
 
 
 } // =========================================================  class TopListContents

@@ -3,7 +3,9 @@ package com.study.restaurant.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.study.restaurant.model.TopList;
+import com.study.restaurant.util.MyGlide;
 
 import java.util.ArrayList;
 
@@ -18,11 +20,11 @@ public class TopListRvAdt extends RecyclerView.Adapter<TopListHolder> {
 
     @Override
     public void onBindViewHolder(TopListHolder holder, int position) {
-        holder.itemToplistBinding.setTopList(topLists.get(position));
-            /*MyGlide.with(holder.itemView.getContext())
-                    .load(storeList.get(position).getImg())
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(holder.img);*/
+        //holder.itemToplistBinding.setTopList(topLists.get(position));
+        /*MyGlide.with(holder.itemView.getContext())
+                .load(topLists.get(position).getImage())
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(holder.img);*/
     }
 
     @Override

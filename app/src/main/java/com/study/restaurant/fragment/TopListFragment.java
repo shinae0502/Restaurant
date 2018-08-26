@@ -2,54 +2,30 @@ package com.study.restaurant.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.study.restaurant.R;
-import com.study.restaurant.adapter.TopListAdapter;
+import com.study.restaurant.adapter.TopListRvAdt;
 import com.study.restaurant.model.TopList;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.study.restaurant.util.BottomDetectRecyclerView;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 
-public class TopListFragment extends Fragment {
+public class
+TopListFragment extends Fragment {
 
-    private Context context; //
+    private BottomDetectRecyclerView topListRv;
 
-    TextView textView;
     ArrayList<TopList> toplistList = new ArrayList<>();
 
-    RecyclerView recyclerView_TopList;
-    LinearLayoutManager linearLayoutManager_TopList;
-
-    TopListAdapter adapter_TopList;
-
-    private String jsonString
-            = "{"
-            + "\"data\":"
-            + "["
-            + "{\"story_id\" : \"1\", \"title\":\"타이틀 1\", \"subtitle\":\"서브 타이틀 1\", \"image\":\"storyimage01\"},"
-            + "{\"story_id\" : \"2\", \"title\":\"타이틀 2\", \"subtitle\":\"서브 타이틀 2\", \"image\":\"storyimage02\"},"
-            + "{\"story_id\" : \"3\", \"title\":\"타이틀 3\", \"subtitle\":\"서브 타이틀 3\", \"image\":\"storyimage03\"},"
-            + "{\"story_id\" : \"4\", \"title\":\"타이틀 4\", \"subtitle\":\"서브 타이틀 4\", \"image\":\"storyimage04\"},"
-            + "{\"story_id\" : \"5\", \"title\":\"타이틀 5\", \"subtitle\":\"서브 타이틀 5\", \"image\":\"storyimage05\"},"
-            + "{\"story_id\" : \"6\", \"title\":\"타이틀 6\", \"subtitle\":\"서브 타이틀 6\", \"image\":\"그림 6\"}"
-            + "]"
-            + "}";
-
-    //
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -58,21 +34,29 @@ public class TopListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_top_list, container, false);
 
-        // RecyclerView 객체 참조
-        //recyclerView_TopList = view.findViewById(R.id.recyclerView_TopList);
+        topListRv = view.findViewById(R.id.topListRv);
+        topListRv.setAdapter(new TopListRvAdt());
 
-        // JSON data Parsing 및 셋팅
-        //toplistList = setData(jsonString);
-        // TopList의 RecyclerView 셋팅
-        //setTopListRecyclerView();
+        topListRv.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //하단 감지
+        topListRv.addOnBottomDetectListener(() -> {
+            new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+                    //requestData();
+                }
+            }.sendEmptyMessageDelayed(0, 5000);
+        });
+
+        requestData();
         return view;
     }
 
     @Override
-    public void onAttach(Context context) {  // ----- ???
+    public void onAttach(Context context) {
         super.onAttach(context);
-        this.context = context;
     }
 
     @Override
@@ -80,92 +64,19 @@ public class TopListFragment extends Fragment {
         super.onDetach();
     }
 
-    public void setTopListRecyclerView() {   // TopList의 RecyclerView 셋팅
-
-        // RecyclerView 객체 참조
-        recyclerView_TopList.setHasFixedSize(true);
-
-        //  RecyclerView에 Adapter 설정
-//        Log.d("testtest", ""+storyList.size());
-        adapter_TopList = new TopListAdapter(context, toplistList);
-        recyclerView_TopList.setAdapter(adapter_TopList);
-
-        // View의 형태 정의 : LayoutManager 정의 --> GridLayoutManager 로 설정
-        linearLayoutManager_TopList = new LinearLayoutManager(context);
-        recyclerView_TopList.setLayoutManager(linearLayoutManager_TopList);
-    }
-
-    public ArrayList<TopList> setData(String jsonString) {
-
-        String toplist_id = null;
-        String title = null;
-        String subtitle = null;
-        String imageName = null;
-        int imageID;
-        int hit;
-        String badge;
-        Date date;
-//        Image image = null;
-//        ImageView imageView = null;
-
-        try {
-            JSONArray jarray = new JSONObject(jsonString).getJSONArray("data");
-            for (int i = 0; i < jarray.length() - 1; i++) {
-                HashMap map = new HashMap<>();
-                JSONObject jObject = jarray.getJSONObject(i);
-
-                toplist_id = jObject.optString("story_id");
-                title = jObject.optString("title");
-                subtitle = jObject.optString("subtitle");
-                imageName = jObject.optString("image");  // ??????
-
-                // 현재 시간 가져오기
-                long now = System.currentTimeMillis();
-//                date = new Date(now);
-//                date = Object.optString("date");
-
-                imageID = getResources().getIdentifier(imageName, "drawable", "com.example.kim.gangnam_project_02");
-//                image = ContextCompat.getDrawable(context, imageID);
-//                image = jObject.get(ContextCompat.getDrawable(context, R.drawable.images_image01_story));
-                toplistList.add(new TopList(toplist_id, title, subtitle, "???", imageID, 0, "??"));  // ?????
-            }
-        } catch (JSONException e) {
-//            Log.d("testest",e.toString());
-            e.printStackTrace();
+    public void requestData() {
+        for (int i = 0; i < 20; i++) {
+            TopList topList = new TopList();
+            topList.setTitle("수요미식회 방속 맛집 7곳");
+            topList.setSubtitle("빙수, 전복, 대구맛집이 궁금해?");
+            topList.setImage("https://mp-seoul-image-production-s3.mangoplate.com/659356_1514182764198632.jpg");
+            toplistList.add(topList);
         }
-        return toplistList;
-    } // ------------------------------------------------ setData()
+        // 데이터가 로드되었기때문에 리스트의 하단 감지 플레그 초기화
+        topListRv.setLast(false);
+        ((TopListRvAdt) topListRv.getAdapter()).setTopLists(toplistList);
+    }
 
 
 }
 
-
-
-
-/*
-   public TopListFragment() {
-        // Required empty public constructor
-    }
-
-    public static TopListFragment newInstance() {
-        TopListFragment fragment = new TopListFragment();
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_top_list, container, false);
-        return v;
-    }
-
-
-
-
-
- */
