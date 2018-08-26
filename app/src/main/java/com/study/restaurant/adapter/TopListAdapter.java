@@ -47,7 +47,7 @@ public class TopListAdapter extends RecyclerView.Adapter<TopListAdapter.ItemView
 //        Log.d("imageIDxx", ""+R.drawable.storyimage01);
 
 //        holder.storyContentImage.setBackground(ContextCompat.getDrawable(context, R.drawable.storyimage01));
-        holder.toplistContentImage.setBackground(ContextCompat.getDrawable(context, toplistList.get(position).getImage())); // ?????
+//        holder.toplistContentImage.setBackground(ContextCompat.getDrawable(context, toplistList.get(position).getImage())); // ?????
 //        holder.storyContentImage.setBackground(storyList.get(position).getImage());
         holder.toplistContentTitle.setText(toplistList.get(position).getTitle());
         holder.toplistContentSubtitle.setText(toplistList.get(position).getSubtitle());

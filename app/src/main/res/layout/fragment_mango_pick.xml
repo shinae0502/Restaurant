@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 스크롤시 타이틀바 이동을 위해 CoordinatorLayout 사용 -->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
+
+    <!-- 앱바 영역 start -->
+    <!-- 스크롤시 타이틀바 이동을 위해 AppBarLayout 사용 -->
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 스크롤시 타이틀바 이동을 위해 CollapsingToolbarLayout 사용 -->
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+
+            <!-- 일반적으로 이 안에서는 Toolbar가 사용됨 -->
+            <!-- 사라지는 영역이 TabLayout -->
+            <android.support.design.widget.TabLayout
+                android:id="@+id/mangoPickTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:tabIndicatorColor="@color/orange"
+                app:tabSelectedTextColor="@color/orange"
+                app:tabTextColor="@color/gray">
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="스토리" />
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TOP 리스트" />
+            </android.support.design.widget.TabLayout>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+    <!-- 앱바 영역 end -->
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/mangoPickViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v4.view.ViewPager>
 
 </android.support.design.widget.CoordinatorLayout>

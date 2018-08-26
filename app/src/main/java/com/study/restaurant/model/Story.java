@@ -9,14 +9,17 @@ public class Story implements Parcelable {
     private String storyId;
     private String title;
     private String subtitle;
-    private int image;
-//    private String image;   // ------------------------- DB의 이미지 파일 주소값
+    // private int image;
+    private String image;
+
+    public Story() {
+
+    }
 
     public Story(String storyId, String title, String subtitle, int image) {
         this.storyId = storyId;
         this.title = title;
         this.subtitle = subtitle;
-        this.image = image;
     }
 
     public String getStoryId() {
@@ -43,9 +46,11 @@ public class Story implements Parcelable {
         this.subtitle = subtitle;
     }
 
-    public int getImage() { return image; }
+    public String getImage() {
+        return image;
+    }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -54,7 +59,6 @@ public class Story implements Parcelable {
         storyId = in.readString();
         title = in.readString();
         subtitle = in.readString();
-        image = Integer.parseInt(in.readString());
     }
 
     @Override
@@ -62,7 +66,7 @@ public class Story implements Parcelable {
         dest.writeString(storyId);
         dest.writeString(title);
         dest.writeString(subtitle);
-        dest.writeString(image+"");
+        dest.writeString(image + "");
     }
 
     @Override
@@ -81,7 +85,6 @@ public class Story implements Parcelable {
             return new Story[size];
         }
     };
-
 
 
 } // =====================================================  class StoryContents

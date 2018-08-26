@@ -56,17 +56,17 @@ public class TopListFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.activity_scrolling_toplist, container,false);
+        View view = inflater.inflate(R.layout.fragment_top_list, container, false);
 
         // RecyclerView 객체 참조
-        recyclerView_TopList =  view.findViewById(R.id.recyclerView_TopList);
+        //recyclerView_TopList = view.findViewById(R.id.recyclerView_TopList);
 
         // JSON data Parsing 및 셋팅
-        toplistList = setData(jsonString);
+        //toplistList = setData(jsonString);
         // TopList의 RecyclerView 셋팅
-        setTopListRecyclerView();
+        //setTopListRecyclerView();
 
-        return view ;
+        return view;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class TopListFragment extends Fragment {
         super.onDetach();
     }
 
-    public void setTopListRecyclerView(){   // TopList의 RecyclerView 셋팅
+    public void setTopListRecyclerView() {   // TopList의 RecyclerView 셋팅
 
         // RecyclerView 객체 참조
         recyclerView_TopList.setHasFixedSize(true);
@@ -95,7 +95,7 @@ public class TopListFragment extends Fragment {
         recyclerView_TopList.setLayoutManager(linearLayoutManager_TopList);
     }
 
-    public ArrayList<TopList> setData(String jsonString){
+    public ArrayList<TopList> setData(String jsonString) {
 
         String toplist_id = null;
         String title = null;
@@ -110,7 +110,7 @@ public class TopListFragment extends Fragment {
 
         try {
             JSONArray jarray = new JSONObject(jsonString).getJSONArray("data");
-            for (int i = 0; i < jarray.length()-1; i++) {
+            for (int i = 0; i < jarray.length() - 1; i++) {
                 HashMap map = new HashMap<>();
                 JSONObject jObject = jarray.getJSONObject(i);
 
@@ -127,7 +127,7 @@ public class TopListFragment extends Fragment {
                 imageID = getResources().getIdentifier(imageName, "drawable", "com.example.kim.gangnam_project_02");
 //                image = ContextCompat.getDrawable(context, imageID);
 //                image = jObject.get(ContextCompat.getDrawable(context, R.drawable.images_image01_story));
-                toplistList.add(new TopList(toplist_id, title, subtitle, "???", imageID, 0, "??" ));  // ?????
+                toplistList.add(new TopList(toplist_id, title, subtitle, "???", imageID, 0, "??"));  // ?????
             }
         } catch (JSONException e) {
 //            Log.d("testest",e.toString());

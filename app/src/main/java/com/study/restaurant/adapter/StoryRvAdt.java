@@ -10,7 +10,7 @@ import com.study.restaurant.util.MyGlide;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoryRvAdt extends RecyclerView.Adapter<StoryHolder> {
+public class StoryRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
 
     List<Story> storyList = new ArrayList<>();
 
@@ -20,17 +20,25 @@ public class StoryRvAdt extends RecyclerView.Adapter<StoryHolder> {
     }
 
     @Override
-    public StoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == VIEW_TYPE_PROGRESS)
+            return ProgressHolder.create(parent, viewType);
+
         return StoryHolder.create(parent, viewType);
     }
 
     @Override
-    public void onBindViewHolder(StoryHolder holder, int position) {
-        holder.setStory(storyList.get(position));
-        MyGlide.with(holder.itemView.getContext())
-                .load(storyList.get(position).getImage())
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(holder.img);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        if (holder instanceof StoryHolder) {
+            ((StoryHolder) holder).setStory(storyList.get(position));
+            MyGlide.with(holder.itemView.getContext())
+                    .load(storyList.get(position).getImage())
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(((StoryHolder) holder).img);
+        }
+
+        holder.itemView.setTag(position);
 
     }
 
@@ -40,6 +48,6 @@ public class StoryRvAdt extends RecyclerView.Adapter<StoryHolder> {
         if (storyList != null)
             count = storyList.size();
 
-        return count;
+        return count + super.getItemCount();
     }
 }

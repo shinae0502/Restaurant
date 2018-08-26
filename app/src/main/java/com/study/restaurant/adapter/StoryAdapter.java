@@ -53,7 +53,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ItemViewHold
 //        Log.d("imageIDxx", ""+R.drawable.storyimage01);
 
 //        holder.storyContentImage.setBackground(ContextCompat.getDrawable(context, R.drawable.storyimage01));
-        holder.storyContentImage.setBackground(ContextCompat.getDrawable(context, storyList.get(position).getImage())); // ?????
+//        holder.storyContentImage.setBackground(ContextCompat.getDrawable(context, storyList.get(position).getImage())); // ?????
 //        holder.storyContentImage.setBackground(storyList.get(position).getImage());
         holder.storyContentTitle.setText(storyList.get(position).getTitle());
         holder.storyContentSubtitle.setText(storyList.get(position).getSubtitle());
