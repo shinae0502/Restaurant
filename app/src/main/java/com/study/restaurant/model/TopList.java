@@ -11,7 +11,7 @@ public class TopList implements Parcelable {
     private String subtitle;
     private String badge;
     private String image;
-    private int hit;
+    private String hit;
     private String date;
 //    private Date date;
 
@@ -58,11 +58,11 @@ public class TopList implements Parcelable {
         this.image = image;
     }
 
-    public int getHit() {
+    public String getHit() {
         return hit;
     }
 
-    public void setHit(int hit) {
+    public void setHit(String hit) {
         this.hit = hit;
     }
 
@@ -80,7 +80,7 @@ public class TopList implements Parcelable {
         title = in.readString();
         subtitle = in.readString();
         badge = in.readString();
-        hit = Integer.parseInt(in.readString());
+        hit = in.readString();
         date = in.readString();
     }
 
@@ -90,9 +90,9 @@ public class TopList implements Parcelable {
         dest.writeString(title);
         dest.writeString(subtitle);
         dest.writeString(badge);
-        dest.writeString(image + "");
-        dest.writeString(hit + "");
-        dest.writeString(date + "");
+        dest.writeString(image );
+        dest.writeString(hit );
+        dest.writeString(date );
     }
 
     @Override

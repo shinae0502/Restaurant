@@ -1,6 +1,8 @@
 package com.study.restaurant.activity;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.study.restaurant.model.FindRestaurant;
 
@@ -16,6 +18,11 @@ public class GlobalApplication extends Application {
 
     public void setFindRestaurant(FindRestaurant findRestaurant) {
         this.findRestaurant = findRestaurant;
+    }
+
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     /*Cities cities;

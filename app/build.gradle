@@ -16,11 +16,12 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.study.restaurant"
-        minSdkVersion 22
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 6
         versionName "1.0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -70,4 +71,6 @@ dependencies {
 
     /** 뷰 모델을 사용하기위한 라이브러리 */
     implementation "android.arch.lifecycle:extensions:1.1.1"
+
+    implementation 'com.android.support:multidex:1.0.2'
 }
