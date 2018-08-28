@@ -11,20 +11,21 @@
     <!-- 스크롤시 타이틀바 이동을 위해 AppBarLayout 사용 -->
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <!-- 스크롤시 타이틀바 이동을 위해 CollapsingToolbarLayout 사용 -->
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+            app:layout_scrollFlags="scroll|enterAlways">
 
             <!-- 일반적으로 이 안에서는 Toolbar가 사용됨 -->
             <!-- 사라지는 영역이 TabLayout -->
             <android.support.design.widget.TabLayout
                 android:id="@+id/mangoPickTabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="50dp"
                 app:tabIndicatorColor="@color/orange"
                 app:tabSelectedTextColor="@color/orange"
                 app:tabTextColor="@color/gray">

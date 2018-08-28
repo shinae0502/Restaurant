@@ -21,5 +21,6 @@ public class TopListHolder extends RecyclerView.ViewHolder {
     public TopListHolder(ItemTopListBinding itemToplistBinding) {
         super(itemToplistBinding.getRoot());
         this.itemToplistBinding = itemToplistBinding;
+        img = itemToplistBinding.img;
     }
 }

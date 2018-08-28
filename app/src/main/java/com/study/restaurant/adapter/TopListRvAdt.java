@@ -20,11 +20,11 @@ public class TopListRvAdt extends RecyclerView.Adapter<TopListHolder> {
 
     @Override
     public void onBindViewHolder(TopListHolder holder, int position) {
-        //holder.itemToplistBinding.setTopList(topLists.get(position));
-        /*MyGlide.with(holder.itemView.getContext())
+        holder.itemToplistBinding.setTopList(topLists.get(position));
+        MyGlide.with(holder.itemView.getContext())
                 .load(topLists.get(position).getImage())
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(holder.img);*/
+                .into(holder.img);
     }
 
     @Override
