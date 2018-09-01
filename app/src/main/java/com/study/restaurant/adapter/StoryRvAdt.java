@@ -1,9 +1,11 @@
 package com.study.restaurant.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.study.restaurant.activity.StoryDetailActivity;
 import com.study.restaurant.model.Story;
 import com.study.restaurant.util.MyGlide;
 
@@ -39,6 +41,7 @@ public class StoryRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
         }
 
         holder.itemView.setTag(position);
+        holder.itemView.setOnClickListener(view -> StoryDetailActivity.go(holder.itemView.getContext()));
 
     }
 

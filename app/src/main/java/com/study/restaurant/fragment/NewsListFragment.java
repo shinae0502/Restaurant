@@ -15,6 +15,8 @@ import com.study.restaurant.R;
 
 public class NewsListFragment extends Fragment {
 
+    RecyclerView rvNewsList;
+
     public NewsListFragment() {
         // Required empty public constructor
     }
@@ -34,9 +36,9 @@ public class NewsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_news_list, container, false);
-        RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
-        recyclerView.setAdapter(new RvAdt());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvNewsList = v.findViewById(R.id.rvNewsList);
+        rvNewsList.setAdapter(new RvAdt());
+        rvNewsList.setLayoutManager(new LinearLayoutManager(getContext()));
         return v;
     }
 

@@ -50,17 +50,14 @@
         <!-- 지역선택 팝업 -->
         <activity
             android:name=".popup.SelectRegionPopupActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <!-- 정렬 팝업 -->
         <activity
             android:name=".popup.SelectSortPopupActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <!-- 반경선택 화면 -->
         <activity
             android:name=".popup.SelectDistancePopup"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Translucent" />
 
         <!-- 필터화면 -->
@@ -107,6 +104,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ReviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.StoryDetailActivity"
             android:screenOrientation="portrait" />
 
         <!-- google map meta data -->
@@ -155,10 +155,6 @@
         </activity>
         <!-- 네이버 아이디로 로그인 샘플앱 -->
         <activity android:name=".activity.OAuthSampleActivity" />
-        <activity
-            android:name=".activity.ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -1,7 +1,12 @@
 package com.study.restaurant.fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +16,16 @@ import android.view.ViewGroup;
 import com.study.restaurant.R;
 
 public class NewsFragment extends Fragment {
+
+    /**
+     * 뉴스 뷰페이저
+     */
+    ViewPager newsVp;
+
+    /**
+     * 뉴스 탭레이아웃
+     */
+    TabLayout tlNews;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -30,38 +45,45 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_news_list, container, false);
-        RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
-        recyclerView.setAdapter(new NewsRvAdt());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        View v = inflater.inflate(R.layout.fragment_news, container, false);
+        newsVp = v.findViewById(R.id.newsVp);
+        tlNews = v.findViewById(R.id.tlNews);
+
+        newsVp.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tlNews));
+        tlNews.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                newsVp.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        newsVp.setAdapter(new NewsVpAdt(getFragmentManager()));
         return v;
     }
 
-    public class NewsRvAdt extends RecyclerView.Adapter<RvHolder> {
-
-        @Override
-        public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news, parent, false);
-            RvHolder rvHolder = new RvHolder(v);
-            return rvHolder;
+    private class NewsVpAdt extends FragmentStatePagerAdapter {
+        public NewsVpAdt(FragmentManager fm) {
+            super(fm);
         }
 
         @Override
-        public void onBindViewHolder(RvHolder holder, int position) {
-
+        public Fragment getItem(int position) {
+            return new NewsListFragment();
         }
 
         @Override
-        public int getItemCount() {
-            return 100;
+        public int getCount() {
+            return tlNews.getTabCount();
         }
     }
-
-    public class RvHolder extends RecyclerView.ViewHolder {
-
-        public RvHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
 }
