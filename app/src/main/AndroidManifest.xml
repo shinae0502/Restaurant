@@ -155,6 +155,7 @@
         </activity>
         <!-- 네이버 아이디로 로그인 샘플앱 -->
         <activity android:name=".activity.OAuthSampleActivity" />
+        <activity android:name=".activity.TopListDetailActivity"></activity>
     </application>
 
 </manifest>
