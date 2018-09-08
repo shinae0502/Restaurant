@@ -6,9 +6,9 @@ https://drive.google.com/open?id=1EfbzRXmUDIfy4iQovcftCxq3qwHzh-hbaKqDqP-PsGo
 ## 개발진행상황
 https://docs.google.com/spreadsheets/d/1Us2VpNvM-DoLsIk1AkfVFqhb1HgKWXci0LCCHV1ebpA/edit?usp=sharing
 
-## [개발 환경 셋팅]((develop_node/develop_enviroment_setting.md))
+## [개발 환경 셋팅](develop_note/develop_enviroment_setting.md)
 
-## [git 사용하기](develop_node/how_to_use_git.md)
+## [git 사용하기](develop_note/how_to_use_git.md)
 
 ## WireFrame
 http://sarang628.iptime.org:83/wire_frame/index.html
