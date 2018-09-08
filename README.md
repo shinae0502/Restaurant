@@ -16,6 +16,13 @@ http://sarang628.iptime.org:83/wire_frame/index.html
 ## 플레이스토어 링크
 https://play.google.com/store/apps/details?id=com.study.restaurant
 
+## 개발 페이지
+* 맛집 찾기
+* [망고픽](develop_note/mango_pick.md)
+* 등록
+* 소식
+* 내정보
+
 ## 기본 컴포넌트 샘플
 https://github.com/sarang628/BasicComponent
 
