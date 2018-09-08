@@ -14,11 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.R;
 import com.study.restaurant.adapter.StoryRvAdt;
+import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.model.Story;
 import com.study.restaurant.util.BottomDetectRecyclerView;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class StoryFragment extends Fragment {
@@ -41,7 +45,7 @@ public class StoryFragment extends Fragment {
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (position == 0)
+                if (position == 0 || position == storyRv.getAdapter().getItemCount() - 1)
                     return 2;
                 return 1;
             }
@@ -87,15 +91,25 @@ public class StoryFragment extends Fragment {
     }
 
     public void requestData() {
-        for (int i = 0; i < 20; i++) {
-            Story story = new Story();
-            story.setTitle("수요미식회 방속 맛집 7곳");
-            story.setSubtitle("빙수, 전복, 대구맛집이 궁금해?");
-            story.setImage("https://mp-seoul-image-production-s3.mangoplate.com/659356_1514182764198632.jpg");
-            storyArrayList.add(story);
-        }
-        // 데이터가 로드되었기때문에 리스트의 하단 감지 플레그 초기화
-        storyRv.setLast(false);
-        ((StoryRvAdt) storyRv.getAdapter()).setStoryList(storyArrayList);
+        ApiManager.getInstance().getStory(new ApiManager.CallbackListener() {
+            @Override
+            public void callback(String result) {
+                System.out.println(result);
+                try {
+                    Type listType = new TypeToken<ArrayList<Story>>() {
+                    }.getType();
+                    storyArrayList = new Gson().fromJson(result, listType);
+                    // 데이터가 로드되었기때문에 리스트의 하단 감지 플레그 초기화
+                    storyRv.setLast(false);
+                    ((StoryRvAdt) storyRv.getAdapter()).setStoryList(storyArrayList);
+                } catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void failed(String msg) {
+
+            }
+        });
     }
 }

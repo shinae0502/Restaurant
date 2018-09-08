@@ -6,12 +6,18 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.model.Region;
 import com.study.restaurant.model.StoreSpec;
+import com.study.restaurant.model.Story;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -40,5 +46,27 @@ public class AndroidTest {
             System.out.println(e.toString());
         }
         assertEquals("!!", "!!");
+    }
+
+    @Test
+    public void retrofitTest() {
+        ApiManager.getInstance().getStory(new ApiManager.CallbackListener() {
+            @Override
+            public void callback(String result) {
+                System.out.println(result);
+                try {
+                    Type listType = new TypeToken<ArrayList<Story>>() {
+                    }.getType();
+                    ArrayList<Story> story = new Gson().fromJson(result, listType);
+                    System.out.println(story.get(0).toString());
+                } catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void failed(String msg) {
+
+            }
+        });
     }
 }

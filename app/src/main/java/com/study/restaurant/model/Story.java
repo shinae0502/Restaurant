@@ -5,29 +5,19 @@ import android.os.Parcelable;
 
 public class Story implements Parcelable {
 
-    //    private Context context;
-    private String storyId;
-    private String title;
-    private String subtitle;
-    // private int image;
-    private String image;
+    String story_id;
+    String title;
+    String subtitle;
+    String image;
+    String date;
 
-    public Story() {
 
+    public String getStory_id() {
+        return story_id;
     }
 
-    public Story(String storyId, String title, String subtitle, int image) {
-        this.storyId = storyId;
-        this.title = title;
-        this.subtitle = subtitle;
-    }
-
-    public String getStoryId() {
-        return storyId;
-    }
-
-    public void setStoryId(String storyId) {
-        this.storyId = storyId;
+    public void setStory_id(String story_id) {
+        this.story_id = story_id;
     }
 
     public String getTitle() {
@@ -54,19 +44,12 @@ public class Story implements Parcelable {
         this.image = image;
     }
 
-
-    protected Story(Parcel in) {
-        storyId = in.readString();
-        title = in.readString();
-        subtitle = in.readString();
+    public String getDate() {
+        return date;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(storyId);
-        dest.writeString(title);
-        dest.writeString(subtitle);
-        dest.writeString(image + "");
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override
@@ -74,17 +57,19 @@ public class Story implements Parcelable {
         return 0;
     }
 
-    public static final Creator<Story> CREATOR = new Creator<Story>() {
-        @Override
-        public Story createFromParcel(Parcel in) {
-            return new Story(in);
-        }
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
 
-        @Override
-        public Story[] newArray(int size) {
-            return new Story[size];
-        }
-    };
+    }
 
-
-} // =====================================================  class StoryContents
+    public String toString() {
+        String s = "storyId:" + story_id;
+        s += "\n";
+        s += "title:" + title;
+        s += "\n";
+        s += "subtitle:" + subtitle;
+        s += "\n";
+        s += "image:" + image;
+        return s;
+    }
+}
