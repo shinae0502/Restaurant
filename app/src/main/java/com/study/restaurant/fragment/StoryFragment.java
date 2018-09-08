@@ -42,6 +42,8 @@ public class StoryFragment extends Fragment {
         storyRv.setAdapter(new StoryRvAdt());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+
+        // 포지션에 따른 리스트 아이템 머지
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -90,6 +92,7 @@ public class StoryFragment extends Fragment {
         return view;
     }
 
+    /** 스토리 데이터 요청하기 */
     public void requestData() {
         ApiManager.getInstance().getStory(new ApiManager.CallbackListener() {
             @Override
