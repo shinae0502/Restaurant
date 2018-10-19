@@ -3,9 +3,9 @@
 
 # 맛집찾기 ERD
 ```
-[Restaurant] - <located> - [dong] - <소속> - [si,gu]
-(restaurant_id)            (dong_id)        (city_id)
-(restaurant_name)          (dong_name)      (city_name)
+[Restaurant] - <located> - [region] - <소속> - [city]
+(restaurant_id)            (region_id)        (city_id)
+(restaurant_name)          (region_name)      (city_name)
 (hit)
 (fav)
 (writing)
