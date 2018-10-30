@@ -31,7 +31,9 @@ import com.study.restaurant.viewmodel.MainActivityViewModel;
 
 public class MainActivity extends AppCompatActivity implements MainActivitytNavigation {
 
-    /** 맛집찾기 - 망고픽 - 소식 - 내정보를 담고 있는 페이지 */
+    /**
+     * 맛집찾기 - 망고픽 - 소식 - 내정보를 담고 있는 페이지
+     */
     ViewPager pager;
     FindRestaurantFragment findRestaurantFragment;
     MyInformationFragment myInformationFragment;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
     private ActivityMainBinding activityMainBinding;
 
     ImageView image_mangopick;
+    View layout_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,11 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
         pager.setAdapter(new MainPageAdapter(getSupportFragmentManager()));
         // 페이지 이동 시 화면 제거되지 않게 설정
         pager.setOffscreenPageLimit(4);
+
+        //식당 리뷰등 등록 메뉴 화면
+        layout_register = findViewById(R.id.layout_register);
+        layout_register.findViewById(R.id.review).setOnClickListener
+                (view -> SearchRestaurantActivity.go(MainActivity.this));
     }
 
     public static void go(AppCompatActivity appCompatActivity) {

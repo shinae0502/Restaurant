@@ -24,11 +24,11 @@ public class TopListRvAdt extends RecyclerView.Adapter<TopListHolder> {
     public void onBindViewHolder(TopListHolder holder, int position) {
         holder.itemToplistBinding.setTopList(topLists.get(position));
         MyGlide.with(holder.itemView.getContext())
-                .load(topLists.get(position).getImage())
+                .load(topLists.get(position).getImg_url())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(holder.img);
 
-        holder.itemView.setOnClickListener(view -> TopListDetailActivity.go(holder.itemView.getContext()));
+        holder.itemView.setOnClickListener(view -> TopListDetailActivity.go(holder.itemView.getContext(), topLists.get(position)));
     }
 
     @Override

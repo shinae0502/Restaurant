@@ -39,13 +39,21 @@ import java.util.List;
 
 public class FindRestaurantFragment extends Fragment implements FindRestaurantNavigation {
 
-    /** 데이터 바인딩 */
+    /**
+     * 데이터 바인딩
+     */
     private FragmentFindRestaurantBinding fragmentFindRestaurantBinding;
-    /** 뷰 모델 */
+    /**
+     * 뷰 모델
+     */
     private FindRestaurantViewModel findRestaurantViewModel;
-    /** 위치 기능 관리 */
+    /**
+     * 위치 기능 관리
+     */
     private MyLocationManager myLocationManager;
-    /** 위치 권한 없을 시 요청 후 처리를 위한 리스너 */
+    /**
+     * 위치 권한 없을 시 요청 후 처리를 위한 리스너
+     */
     private OnSuccessListener<? super Location> tempListener;
 
     public static FindRestaurantFragment newInstance() {
@@ -185,7 +193,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
 
     public boolean requestAddress(double latitude, double longitude, OnReceiveRegionListener onReceiveRegionListener) {
         String zipCode = myLocationManager.getZipcode(latitude, longitude);
-        if (zipCode.equals("")) {
+        if (zipCode == null || zipCode.equals("")) {
             return false;
         }
         LOG.d(zipCode);

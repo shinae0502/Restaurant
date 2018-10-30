@@ -41,7 +41,7 @@ public class StoryRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
         }
 
         holder.itemView.setTag(position);
-        holder.itemView.setOnClickListener(view -> StoryDetailActivity.go(holder.itemView.getContext()));
+        holder.itemView.setOnClickListener(view -> StoryDetailActivity.go(holder.itemView.getContext(), storyList.get(position)));
 
     }
 

@@ -1,8 +1,8 @@
 package com.study.restaurant.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,15 +11,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.R;
+import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.model.TopList;
+import com.study.restaurant.model.TopListDetail;
+import com.study.restaurant.util.MyGlide;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TopListDetailActivity extends AppCompatActivity {
 
     RecyclerView rvTopDetailList;
-    ArrayList<TopDetailListItem> detailListItems = new ArrayList<>();
+    ArrayList<TopListDetail> detailListItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,30 +42,58 @@ public class TopListDetailActivity extends AppCompatActivity {
         TopListDetailAdapter topListDetailAdapter = new TopListDetailAdapter();
         rvTopDetailList.setAdapter(topListDetailAdapter);
         rvTopDetailList.setLayoutManager(new LinearLayoutManager(this));
-        makeDummy();
+        Map<String, String> param = new HashMap<>();
+        param.put("top_list_id", getTopList().getTop_list_id());
+        ApiManager.getInstance().getToplistDetail(param, new ApiManager.CallbackListener() {
+            @Override
+            public void callback(String result) {
 
-        topListDetailAdapter.setDetailListItems(detailListItems);
+                Type type = new TypeToken<ArrayList<TopListDetail>>() {
+                }.getType();
+                detailListItems = new Gson().fromJson(result, type);
+                topListDetailAdapter.setDetailListItems(detailListItems);
+
+            }
+
+            @Override
+            public void failed(String msg) {
+
+            }
+        });
+        rvTopDetailList.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                if ((int) view.getTag() == 0) {
+
+                } else if ((int) view.getTag() == 1) {
+                    outRect.top = 20;
+                    outRect.left = 20;
+                    outRect.right = 20;
+                    outRect.bottom = 20;
+                } else {
+                    outRect.left = 20;
+                    outRect.right = 20;
+                    outRect.bottom = 20;
+                }
+            }
+        });
     }
 
-    private void makeDummy() {
-        TopDetailListItem topDetailListItem = new TopDetailListItem();
-        topDetailListItem.itemType = TopDetailListItem.TopDetailListItemType.TOP_LIST_DETAIL_TITLE.ordinal();
-        topDetailListItem.title = "수제버거 맛집 베스트 30곳";
-        topDetailListItem.hit = "380,029";
-        topDetailListItem.date = "2018-09-04_05:13:00";
-        topDetailListItem.subtitle = "버거덕후라면 꼭 방문해야할 이곳들";
-        detailListItems.add(topDetailListItem);
+    private TopList getTopList() {
+        return getIntent().getParcelableExtra("topList");
     }
 
-    public static void go(Context context) {
+    public static void go(Context context, TopList topList) {
         Intent intent = new Intent(context, TopListDetailActivity.class);
+        intent.putExtra("topList", topList);
         context.startActivity(intent);
     }
 
     private class TopListDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        ArrayList<TopDetailListItem> detailListItems;
+        ArrayList<TopListDetail> detailListItems;
 
-        public void setDetailListItems(ArrayList<TopDetailListItem> detailListItems) {
+        public void setDetailListItems(ArrayList<TopListDetail> detailListItems) {
             this.detailListItems = detailListItems;
             notifyDataSetChanged();
         }
@@ -61,28 +101,53 @@ public class TopListDetailActivity extends AppCompatActivity {
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            if (TopDetailListItem.TopDetailListItemType.values()[viewType] == TopDetailListItem.TopDetailListItemType.TOP_LIST_DETAIL_TITLE) {
-                return new TopListTitleVH(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_top_list_detail_title, parent, false));
+            if (TopDetailListItem.TopDetailListItemType.values()[viewType]
+                    == TopDetailListItem.TopDetailListItemType.TOP_LIST_DETAIL_TITLE) {
+                return new TopListTitleVH(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_top_list_detail_title, parent, false));
+            } else {
+                return new TopListTitleVH(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_top_list1, parent, false));
             }
-
-            return null;
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+            holder.itemView.setTag(position);
+            if (position == 0) {
 
+            } else {
+
+                ((TextView) holder.itemView.findViewById(R.id.title)).setText(detailListItems.get(position - 1).getStore_name());
+                ((TextView) holder.itemView.findViewById(R.id.score)).setText(detailListItems.get(position - 1).getScore());
+                ((TextView) holder.itemView.findViewById(R.id.reply_contents)).setText(detailListItems.get(position - 1).getReply_contents());
+                ((TextView) holder.itemView.findViewById(R.id.address)).setText(detailListItems.get(position - 1).getAddress());
+
+                MyGlide.with(holder.itemView.getContext())
+                        .load(detailListItems.get(position - 1).getProfile_pic())
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into((ImageView) holder.itemView.findViewById(R.id.profilePic));
+
+                MyGlide.with(holder.itemView.getContext())
+                        .load(detailListItems.get(position - 1).getProfile_pic())
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into((ImageView) holder.itemView.findViewById(R.id.image));
+
+            }
         }
 
         @Override
         public int getItemViewType(int position) {
-            return detailListItems.get(position).itemType;
+            if (position == 0)
+                return TopDetailListItem.TopDetailListItemType.TOP_LIST_DETAIL_TITLE.ordinal();
+            return TopDetailListItem.TopDetailListItemType.TOP_LIST_DETAIL_ITEM.ordinal();
         }
 
         @Override
         public int getItemCount() {
             int count = 0;
             if (detailListItems != null)
-                count = detailListItems.size();
+                count = detailListItems.size() + 1;
 
             return count;
         }
@@ -98,14 +163,6 @@ public class TopListDetailActivity extends AppCompatActivity {
             POPULATE_STORY,
             RELATIVE_RESTAURANT
         }
-
-        int itemType;
-
-        String title;
-        String hit;
-        String date;
-        String subtitle;
-        String isBookMark;
     }
 
     public class TopListTitleVH extends RecyclerView.ViewHolder {

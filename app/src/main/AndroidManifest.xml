@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".activity.GlobalApplication"
@@ -63,7 +64,6 @@
         <!-- 필터화면 -->
         <activity
             android:name=".popup.SelectFilterPoppupActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Translucent" />
 
         <!-- 레스토랑 상세화면 -->
@@ -155,7 +155,9 @@
         </activity>
         <!-- 네이버 아이디로 로그인 샘플앱 -->
         <activity android:name=".activity.OAuthSampleActivity" />
-        <activity android:name=".activity.TopListDetailActivity"></activity>
+        <activity android:name=".activity.TopListDetailActivity" />
+        <activity android:name=".activity.SearchRestaurantActivity" />
+        <activity android:name=".activity.SelectPictureActivity"></activity>
     </application>
 
 </manifest>

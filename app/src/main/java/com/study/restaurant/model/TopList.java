@@ -6,24 +6,59 @@ import android.os.Parcelable;
 
 public class TopList implements Parcelable {
 
-    private String topListId;
+    private String top_list_id;
     private String title;
     private String subtitle;
     private String badge;
-    private String image;
-    private String hit;
+    private String img_url;
+    private String view_count;
     private String date;
-//    private Date date;
 
-    public TopList() {
+
+    protected TopList(Parcel in) {
+        top_list_id = in.readString();
+        title = in.readString();
+        subtitle = in.readString();
+        badge = in.readString();
+        img_url = in.readString();
+        view_count = in.readString();
+        date = in.readString();
     }
 
-    public String getTopListId() {
-        return topListId;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(top_list_id);
+        dest.writeString(title);
+        dest.writeString(subtitle);
+        dest.writeString(badge);
+        dest.writeString(img_url);
+        dest.writeString(view_count);
+        dest.writeString(date);
     }
 
-    public void setTopListId(String topListId) {
-        this.topListId = topListId;
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<TopList> CREATOR = new Creator<TopList>() {
+        @Override
+        public TopList createFromParcel(Parcel in) {
+            return new TopList(in);
+        }
+
+        @Override
+        public TopList[] newArray(int size) {
+            return new TopList[size];
+        }
+    };
+
+    public String getTop_list_id() {
+        return top_list_id;
+    }
+
+    public void setTop_list_id(String top_list_id) {
+        this.top_list_id = top_list_id;
     }
 
     public String getTitle() {
@@ -50,20 +85,20 @@ public class TopList implements Parcelable {
         this.badge = badge;
     }
 
-    public String getImage() {
-        return image;
+    public String getImg_url() {
+        return img_url;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
     }
 
-    public String getHit() {
-        return hit;
+    public String getView_count() {
+        return view_count;
     }
 
-    public void setHit(String hit) {
-        this.hit = hit;
+    public void setView_count(String view_count) {
+        this.view_count = view_count;
     }
 
     public String getDate() {
@@ -73,44 +108,4 @@ public class TopList implements Parcelable {
     public void setDate(String date) {
         this.date = date;
     }
-
-
-    protected TopList(Parcel in) {
-        topListId = in.readString();
-        title = in.readString();
-        subtitle = in.readString();
-        badge = in.readString();
-        hit = in.readString();
-        date = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(topListId);
-        dest.writeString(title);
-        dest.writeString(subtitle);
-        dest.writeString(badge);
-        dest.writeString(image );
-        dest.writeString(hit );
-        dest.writeString(date );
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<TopList> CREATOR = new Creator<TopList>() {
-        @Override
-        public TopList createFromParcel(Parcel in) {
-            return new TopList(in);
-        }
-
-        @Override
-        public TopList[] newArray(int size) {
-            return new TopList[size];
-        }
-    };
-
-
-} // =========================================================  class TopListContents
+}

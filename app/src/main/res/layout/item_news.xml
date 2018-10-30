@@ -30,8 +30,7 @@
                     android:id="@+id/profilePic"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/img_intro_bg_2" />
+                    android:layout_marginTop="10dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -41,9 +40,9 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/userName"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="월드콘" />
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -58,10 +57,10 @@
                             android:src="@drawable/ic_common_profile_review" />
 
                         <TextView
+                            android:id="@+id/userWriting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="5dp"
-                            android:text="6"
                             android:textSize="12sp" />
 
                         <ImageView
@@ -71,6 +70,7 @@
                             android:src="@drawable/ic_common_profile_follower" />
 
                         <TextView
+                            android:id="@+id/userFollower"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -143,11 +143,11 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/contents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:maxLines="5"
-            android:text="밤이면 생각나는 음식들.. 시원한 맥주한잔부터 시작해서 끝도없는데요~ 오늘도 음식생각에 잠못이룰 각. 밤이면 유난히 더 생각나는 음식들 함께볼까요?" />
+            android:maxLines="5" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -159,52 +159,52 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/image1"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/img_intro_bg_1" />
+                    android:layout_marginRight="5dp" />
 
                 <ImageView
+                    android:id="@+id/image2"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/img_intro_bg_1" />
+                    android:layout_marginRight="5dp" />
 
                 <ImageView
+                    android:id="@+id/image3"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/img_intro_bg_1" />
+                    android:layout_marginRight="5dp" />
 
                 <ImageView
+                    android:id="@+id/image4"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/img_intro_bg_1" />
+                    android:layout_marginRight="5dp" />
 
                 <ImageView
+                    android:id="@+id/image5"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/img_intro_bg_1" />
+                    android:layout_marginRight="5dp" />
 
                 <ImageView
+                    android:id="@+id/image6"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/img_intro_bg_1" />
+                    android:layout_marginRight="5dp" />
 
                 <ImageView
+                    android:id="@+id/image7"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/img_intro_bg_1" />
+                    android:layout_marginRight="5dp" />
 
                 <ImageView
+                    android:id="@+id/image8"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/img_intro_bg_1" />
+                    android:layout_marginRight="5dp" />
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -214,7 +214,7 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:id="@+id/like"
+                android:id="@+id/likeCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="좋아요 1개"
@@ -222,6 +222,7 @@
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/replyCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -231,6 +232,7 @@
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

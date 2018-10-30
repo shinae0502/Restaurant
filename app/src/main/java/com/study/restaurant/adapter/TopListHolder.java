@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.study.restaurant.databinding.ItemTopListBinding;
-import com.study.restaurant.databinding.ItemStoryBinding;
 
 
 public class TopListHolder extends RecyclerView.ViewHolder {

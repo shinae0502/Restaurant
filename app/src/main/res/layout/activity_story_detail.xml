@@ -3,27 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".activity.StoryDetailActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/img_intro_bg_1" />
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/loading"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#55000000" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_detail_story_title_bar">
+        <include layout="@layout/fragment_story_detail_fragment0" />
+    </RelativeLayout>
 
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vpDetailStory"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v4.view.ViewPager>
 
 
-    <include layout="@layout/layout_detail_story_title_bar" />
+    <include
+        android:id="@+id/layout_detail_story_title_bar"
+        layout="@layout/layout_detail_story_title_bar1" />
 
 </RelativeLayout>

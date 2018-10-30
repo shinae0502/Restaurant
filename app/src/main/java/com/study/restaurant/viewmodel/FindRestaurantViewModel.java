@@ -139,6 +139,7 @@ public class FindRestaurantViewModel extends BaseObservable {
         param.put("boundary", "");
         param.put("filter", "");
         param.put("sort", findRestaurant.getSort().getAttribute());
+        param.put("total_count", "" + findRestaurant.getStoreArrayList().size());
         ApiManager.getInstance().getStoreSummary(param, new ApiManager.CallbackListener() {
             @Override
             public void callback(String result) {

@@ -41,4 +41,20 @@ public interface RestaurantService {
     @POST("regStore.php")
     Call<ResponseBody> regStore(@FieldMap Map<String, String> params);
 
+    @FormUrlEncoded
+    @POST("getStoryDetail.php")
+    Call<ResponseBody> getStoryDetail(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("getToplistDetail.php")
+    Call<ResponseBody> getToplistDetail(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("getNews.php")
+    Call<ResponseBody> getNews(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("getStoreKeyword.php")
+    Call<ResponseBody> getStoreKeyword(@FieldMap Map<String, String> params);
+
 }
