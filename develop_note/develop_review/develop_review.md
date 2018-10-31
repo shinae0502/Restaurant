@@ -1,55 +1,63 @@
 # 식당 등록하기 개발
 
-<img src = "register_review1.png" width ="200">
-<img src = "register_review2.png" width ="200">
-<img src = "register_review3.png" width ="200">
-<img src = "register_review4.png" width ="200">
-
 식당 리뷰 등록 하기는 총 4단계로 구성되어 있다.
+
 1. 메뉴화면
 2. 식당 검색화면
 3. 사진 업로드 화면
 4. 리뷰 작성 화면
 
-첫번쨰 등록 메뉴화면은 간단하며 이미 개발 되어있는 상태여서
-그다음인 식당 검색화면을 개발해 보려고 한다.
+<img src = "register_review1.png" height="800px">
+1. 메뉴화면
 
-식당 검색화면의 기능을 분석해봤다.
+
+​<img src = "register_review2.png" height="800px">
+2. 식당 등록화면
+
+
+<img src = "register_review3.png" height="800px">
+3. 이미지 선택화면
+
+
+<img src = "register_review4.png" height="800px">
+4. 리뷰 등록화면
+
+1.메뉴화면은 이미 개발 되어있는 상태여서 2.식당 검색화면을 개발해 보려고 한다.
+
+2.식당 검색화면의 기능을 분석해봤다.
 
 ```
+식당 검색화면 기능 분석
 1. 내 현재 위치를 검색해 주면에 있는 식당이름을 우선으로 보여줌
 2. 그러면 위치 검색 실패했을경우 그냥 아무것도 보여주지 않는다.
 3. 사용자가 검색어를 입력하면 1,2 번의 동작은 취소하고 검색을 시작한다.
 ```
 
+검색화면의 UI를 만들어보자. 일단 화면의 이름은 SearchRestaurantActivity 라고 정했다. 1.메뉴화면에서 리뷰쓰기 버튼을 눌렀을 때 식당검색화면으로 진입할 수 있게 연결을 해준다.
 
-검색화면의 UI를 만들어 봤다.
-일단 화면의 이름은 SearchRestaurantActivity 라고 정했다.
-1번에서 리뷰쓰기 버튼을 눌렀을 때 식당검색화면으로 진입할 수 있게
-연결을 해준다.
+<div style="text-align: right"> SearchRestaurantActivity.java </div>
 
-
-
-검색화면 이동 함수
 ```
+// 검색화면 이동 함수
 public static void go(AppCompatActivity activity){
     Intent intent = new Intent(activity, SearchRestaurantActivity.class);
     activity.startActivity(intent);
 }
 ```
 
-MainActivity화면에 등록 메뉴 화면이 숨겨져있다. 리뷰 버튼을 클릭할 때 이벤트를 등록한다.
-```
+<div style="text-align: right"> MainActivity.java </div>
+
+```java
 //식당 리뷰등 등록 메뉴 화면
 layout_register = findViewById(R.id.layout_register);
+//식당 리뷰 버튼 클릭 시 검색화면으로 이동하는 이벤트
 layout_register.findViewById(R.id.review).setOnClickListener
         (view -> SearchRestaurantActivity.go(MainActivity.this));
 ```
 
-이제 화면 부분을 만들어보았다.
-먼저 상단에 타이틀바 부분은 레이아웃을 include 할 것이라 따로 레이아웃을 만들었다.
+이제 화면 부분을 만들어보자. 먼저 상단에 타이틀바 부분은 레이아웃을 include 할 것이라 따로 레이아웃을 만들었다
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -83,7 +91,10 @@ layout_register.findViewById(R.id.review).setOnClickListener
 ```
 
 상단 레이아웃을 적용 한 코드이다.
-```
+
+<div style="text-align: right"> activity_search_restaurant.xml </div>
+
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -102,7 +113,7 @@ layout_register.findViewById(R.id.review).setOnClickListener
 완성 코드는 activity_search_restaurant.xml에서 볼 수 있다.
 
 이제 사용자가 텍스트를 입력하면 서버에 요창하는 코드이다.
-```
+```java
 //사용자가 키워드롤 입력했을 때 검색 요청하기
         ((EditText) findViewById(R.id.keyword)).addTextChangedListener(new TextWatcher() {
             @Override
@@ -130,7 +141,7 @@ layout_register.findViewById(R.id.review).setOnClickListener
 
 이제 서버사이드쪽 처리를 구현해보자.
 간단하게 post로 입력받은 키워드를 검색하는 쿼리를 짜면 될 것 같다.
-```
+```php
 public static function getStoreKeyword()
     {
         $dbConnection = new DBConnection();
@@ -162,10 +173,10 @@ $q = "select restaurant_name, region_name, city_name from Store join Region on S
 ```
 
 이부분을 이제 retrofit 에 적용한다음 호출해보았다.
-```
-            Map<String, String> param = new HashMap<>();
-            param.put("keyword", msg.obj.toString());
-            ApiManager.getInstance().getStoreKeyword(param, new ApiManager.CallbackListener() {
+```java
+Map<String, String> param = new HashMap<>();
+param.put("keyword", msg.obj.toString());
+ApiManager.getInstance().getStoreKeyword(param, new ApiManager.CallbackListener() {
                 @Override
                 public void callback(String result) {
 
