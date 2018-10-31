@@ -2,23 +2,27 @@
 
 식당 리뷰 등록 하기는 총 4단계로 구성되어 있다.
 
-1. 메뉴화면
+1. 메뉴화면 
 2. 식당 검색화면
 3. 사진 업로드 화면
 4. 리뷰 작성 화면
 
 
-1. 메뉴화면
+1. 메뉴화면 <br>
 <img src = "register_review1.png" height="800px">
+<br>
 
-2. 식당 등록화면
+2. 식당 등록화면<br>
 ​<img src = "register_review2.png" height="800px">
+<br>
 
-3. 이미지 선택화면
+3. 이미지 선택화면<br>
 <img src = "register_review3.png" height="800px">
+<br>
 
-4. 리뷰 등록화면
+4. 리뷰 등록화면<br>
 <img src = "register_review4.png" height="800px">
+<br>
 
 
 1.메뉴화면은 이미 개발 되어있는 상태여서 2.식당 검색화면을 개발해 보려고 한다.
