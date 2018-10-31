@@ -7,20 +7,19 @@
 3. 사진 업로드 화면
 4. 리뷰 작성 화면
 
-<img src = "register_review1.png" height="800px">
+
 1. 메뉴화면
+<img src = "register_review1.png" height="800px">
 
-
-​<img src = "register_review2.png" height="800px">
 2. 식당 등록화면
+​<img src = "register_review2.png" height="800px">
 
-
-<img src = "register_review3.png" height="800px">
 3. 이미지 선택화면
+<img src = "register_review3.png" height="800px">
 
-
-<img src = "register_review4.png" height="800px">
 4. 리뷰 등록화면
+<img src = "register_review4.png" height="800px">
+
 
 1.메뉴화면은 이미 개발 되어있는 상태여서 2.식당 검색화면을 개발해 보려고 한다.
 
