@@ -15,7 +15,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="리뷰 쓰기"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/orange" />
 
             <ImageView
                 android:id="@+id/close"
@@ -25,7 +25,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:onClick="clickClose"
-                android:src="@drawable/ic_btn_close_white" />
+                android:src="@drawable/ic_btn_close_gray" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 </layout>

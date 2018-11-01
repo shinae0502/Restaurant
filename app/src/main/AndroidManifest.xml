@@ -157,7 +157,10 @@
         <activity android:name=".activity.OAuthSampleActivity" />
         <activity android:name=".activity.TopListDetailActivity" />
         <activity android:name=".activity.SearchRestaurantActivity" />
-        <activity android:name=".activity.SelectPictureActivity"></activity>
+        <activity android:name=".activity.SelectPictureActivity" />
+        <activity
+            android:name=".activity.WriteReviewActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
     </application>
 
 </manifest>

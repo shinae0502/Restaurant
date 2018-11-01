@@ -9,10 +9,44 @@
 
     <include layout="@layout/title_bar_select_picture" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/selectPicRv"
+    <Spinner
+        android:id="@+id/spFolder"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"></Spinner>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/selectPicRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottomMenu" />
 
+        <RelativeLayout
+            android:id="@+id/bottomMenu"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/orange">
+
+            <Button
+                android:id="@+id/pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="건너뛰기"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:text="완료(0/20)"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>

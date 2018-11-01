@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
 
         //식당 리뷰등 등록 메뉴 화면
         layout_register = findViewById(R.id.layout_register);
+        //식당 리뷰 버튼 클릭 시 검색화면으로 이동하는 이벤트
         layout_register.findViewById(R.id.review).setOnClickListener
                 (view -> SearchRestaurantActivity.go(MainActivity.this));
     }

@@ -57,4 +57,8 @@ public interface RestaurantService {
     @POST("getStoreKeyword.php")
     Call<ResponseBody> getStoreKeyword(@FieldMap Map<String, String> params);
 
+    @FormUrlEncoded
+    @POST("registerNews.php")
+    Call<ResponseBody> registerNews(@FieldMap Map<String, String> params);
+
 }

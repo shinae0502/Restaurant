@@ -20,7 +20,15 @@ public class News {
     String like_count;
     String reply_count;
     String date;
+    String user_id;
 
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
 
     public String getNews_id() {
         return news_id;
