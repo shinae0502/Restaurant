@@ -269,7 +269,7 @@ public class RegisterRestaurantViewModel extends BaseObservable {
         }
 
         //TODO::id필요
-        //BananaPreference.getInstance(this).loadUser().id
+        //BananaPreference.getInstance(this).loadUser().user_id
         param.put("reg_user_id", " 1");
 
         ApiManager.getInstance().regStore(param, new ApiManager.CallbackListener() {

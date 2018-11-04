@@ -5,12 +5,17 @@ import android.text.TextUtils;
 import com.study.restaurant.common.BananaPreference;
 
 public class User {
-    public String id;
+    public String user_id;
     public String email;
     public String login_platform;
     public String picture;
     public String name;
     public String accessToken;
+    public String follower;
+    public String following;
+    public String review;
+    public String checkin;
+    public String upload_pictures;
 
     @Override
     public String toString() {

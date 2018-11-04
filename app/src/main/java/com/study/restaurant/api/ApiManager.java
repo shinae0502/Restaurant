@@ -9,6 +9,7 @@ import com.study.restaurant.util.LOG;
 import java.io.IOException;
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -376,5 +377,58 @@ public class ApiManager {
         });
     }
 
+    public void registerNews(Map<String, RequestBody> param, final CallbackListener callbackListener) {
+        getService().registerNews(param).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
+                String body = "";
+                try {
+                    body = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (callbackListener != null)
+                    try {
+                        callbackListener.callback(body);
+                    } catch (Exception e) {
+                        LOG.d(e.toString());
+                    }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void getUser(Map<String, String> param, final CallbackListener callbackListener) {
+        getService().getUser(param).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
+                String body = "";
+                try {
+                    body = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (callbackListener != null)
+                    try {
+                        callbackListener.callback(body);
+                    } catch (Exception e) {
+                        LOG.d(e.toString());
+                    }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
 
 }

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.common.api.Api;
@@ -30,6 +32,7 @@ import java.util.Map;
 public class NewsListFragment extends Fragment {
 
     RecyclerView rvNewsList;
+    SwipeRefreshLayout srlNewsList;
 
     public NewsListFragment() {
         // Required empty public constructor
@@ -54,6 +57,14 @@ public class NewsListFragment extends Fragment {
         rvNewsList.setAdapter(new RvAdt());
         rvNewsList.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        srlNewsList = v.findViewById(R.id.srlNewsList);
+        srlNewsList.setOnRefreshListener(() -> requestNews());
+
+        requestNews();
+        return v;
+    }
+
+    void requestNews() {
         //뉴스 피드 요청하기
         Map<String, String> param = new HashMap<>();
         ApiManager.getInstance().getNews(param, new ApiManager.CallbackListener() {
@@ -63,14 +74,14 @@ public class NewsListFragment extends Fragment {
                 }.getType();
                 ArrayList<News> newsArrayList = new Gson().fromJson(result, type);
                 ((RvAdt) rvNewsList.getAdapter()).setNewsList(newsArrayList);
+                srlNewsList.setRefreshing(false);
             }
 
             @Override
             public void failed(String msg) {
-
+                Toast.makeText(getContext(), "소식 요청에 실패하였습니다.", Toast.LENGTH_SHORT).show();
             }
         });
-        return v;
     }
 
     public class RvAdt extends RecyclerView.Adapter<RvHolder> {
@@ -130,10 +141,21 @@ public class NewsListFragment extends Fragment {
             holder.date.setText(news.getDate());
             holder.likeCount.setText(news.getLike_count());
             holder.replyCount.setText(news.getReply_count());
-            holder.tag1.setText(news.getHash_tag());
+            holder.tag1.setText(news.getTag1());
+            holder.tag2.setText(news.getTag2());
             holder.userFollower.setText(news.getUser_follower());
             holder.userName.setText(news.getUser_name());
             holder.userWriting.setText(news.getUser_writing());
+            if (Integer.valueOf(news.getScore()) <= 1) {
+                holder.imgScroe.setImageResource(R.drawable.ic_egmt_review_rating_3_pressed);
+                holder.tvScore.setText("별로");
+            } else if (Integer.valueOf(news.getScore()) == 3) {
+                holder.imgScroe.setImageResource(R.drawable.ic_egmt_review_rating_2_pressed);
+                holder.tvScore.setText("괜찮다");
+            } else if (Integer.valueOf(news.getScore()) == 5) {
+                holder.imgScroe.setImageResource(R.drawable.ic_egmt_review_rating_1_pressed);
+                holder.tvScore.setText("맛있다!");
+            }
 
         }
 
@@ -171,6 +193,9 @@ public class NewsListFragment extends Fragment {
         TextView replyCount;
         TextView date;
 
+        ImageView imgScroe;
+        TextView tvScore;
+
 
         public RvHolder(View itemView) {
             super(itemView);
@@ -192,6 +217,8 @@ public class NewsListFragment extends Fragment {
             likeCount = itemView.findViewById(R.id.likeCount);
             replyCount = itemView.findViewById(R.id.replyCount);
             date = itemView.findViewById(R.id.date);
+            imgScroe = itemView.findViewById(R.id.imgScore);
+            tvScore = itemView.findViewById(R.id.tvScore);
         }
     }
 

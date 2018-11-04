@@ -12,8 +12,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="#ffffff">
+            android:background="#ffffff"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -44,8 +44,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp">
 
 
                     <ImageView
@@ -53,30 +53,31 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:background="#f0f0f0"
-                        android:clickable="true"/>
+                        android:clickable="true"
+                        android:scaleType="centerCrop" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
+                        android:layout_marginLeft="30dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginLeft="30dp">
+                        android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvFollower"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:layout_gravity="center_horizontal"
                             android:textColor="#000000"
-                            android:textSize="11sp"
-                            android:layout_gravity="center_horizontal"/>
+                            android:textSize="11sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:text="팔로워"
                             android:textColor="#000000"
-                            android:textSize="11sp"
-                            android:layout_gravity="center_horizontal"/>
+                            android:textSize="11sp" />
                     </LinearLayout>
 
                     <TextView
@@ -90,32 +91,32 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginTop="20dp">
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvFollowing"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:layout_gravity="center_horizontal"
                             android:textColor="#000000"
-                            android:textSize="11sp"
-                            android:layout_gravity="center_horizontal"/>
+                            android:textSize="11sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="팔로잉"
                             android:textColor="#000000"
-                            android:textSize="11sp"/>
+                            android:textSize="11sp" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="25dp"
-                    android:layout_alignParentRight="true"
                     android:background="@drawable/shape_stroke_gray_box"
                     android:clickable="true"
                     android:onClick="modify"
@@ -129,10 +130,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="7dp"
                         android:text="수정"
-                        android:textSize="13sp"
                         android:textColor="#000000"
-                        android:layout_marginRight="7dp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
             </RelativeLayout>
@@ -141,23 +142,24 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="20dp">
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp">
+
                 <TextView
-                    android:id="@+id/location"
+                    android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="가나다"
                     android:textColor="#000000"
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="20dp"
-                android:background="#f0f0f0"/>
+                android:background="#f0f0f0" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -167,44 +169,45 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp">
 
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_profile_event"/>
+                        android:src="@drawable/ic_profile_event" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="이벤트"
                         android:textColor="#000000"
-                        android:layout_marginLeft="5dp"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginRight="15dp">
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="25dp">
 
 
                     <ImageView
                         android:layout_width="8dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/ic_egmt_arrow_right"/>
+                        android:src="@drawable/ic_egmt_arrow_right" />
                 </LinearLayout>
             </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="20dp"
-                android:background="#f0f0f0"/>
+                android:background="#f0f0f0" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -227,27 +230,28 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/ic_profile_timeline" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:text="타임라인"
                             android:textColor="#000000"
-                            android:layout_marginLeft="5dp"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginRight="15dp">
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="25dp">
 
 
                         <ImageView
                             android:layout_width="8dp"
                             android:layout_height="15dp"
-                            android:src="@drawable/ic_egmt_arrow_right"/>
+                            android:src="@drawable/ic_egmt_arrow_right" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -259,23 +263,23 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="50dp">
+                        android:layout_marginLeft="50dp"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="리뷰\n"
                             android:textColor="#000000"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tvReview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:layout_gravity="center_horizontal"
                             android:textColor="#000000"
-                            android:textSize="12sp"
-                            android:layout_gravity="center_horizontal"/>
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <TextView
@@ -287,23 +291,23 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="50dp">
+                        android:layout_marginLeft="50dp"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="체크인\n"
                             android:textColor="#000000"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tvCheckIn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:layout_gravity="center_horizontal"
                             android:textColor="#000000"
-                            android:textSize="12sp"
-                            android:layout_gravity="center_horizontal"/>
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <TextView
@@ -315,32 +319,33 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="50dp">
+                        android:layout_marginLeft="50dp"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="사진\n"
                             android:textColor="#000000"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tvPicture"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:layout_gravity="center_horizontal"
                             android:textColor="#000000"
-                            android:textSize="12sp"
-                            android:layout_gravity="center_horizontal"/>
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="20dp"
-                android:background="#f0f0f0"/>
+                android:background="#f0f0f0" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -350,44 +355,45 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp">
 
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_profile_wannago"/>
+                        android:src="@drawable/ic_profile_wannago" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="가고싶다"
                         android:textColor="#000000"
-                        android:layout_marginLeft="5dp"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginRight="15dp">
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="25dp">
 
 
                     <ImageView
                         android:layout_width="8dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/ic_egmt_arrow_right"/>
+                        android:src="@drawable/ic_egmt_arrow_right" />
                 </LinearLayout>
             </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="20dp"
-                android:background="#f0f0f0"/>
+                android:background="#f0f0f0" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -397,44 +403,45 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp">
 
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_profile_mylist"/>
+                        android:src="@drawable/ic_profile_mylist" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="마이리스트"
                         android:textColor="#000000"
-                        android:layout_marginLeft="5dp"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginRight="15dp">
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="25dp">
 
 
                     <ImageView
                         android:layout_width="8dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/ic_egmt_arrow_right"/>
+                        android:src="@drawable/ic_egmt_arrow_right" />
                 </LinearLayout>
             </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="20dp"
-                android:background="#f0f0f0"/>
+                android:background="#f0f0f0" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -444,44 +451,45 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp">
 
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_profile_bookmark"/>
+                        android:src="@drawable/ic_profile_bookmark" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="북마크"
                         android:textColor="#000000"
-                        android:layout_marginLeft="5dp"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginRight="15dp">
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="25dp">
 
 
                     <ImageView
                         android:layout_width="8dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/ic_egmt_arrow_right"/>
+                        android:src="@drawable/ic_egmt_arrow_right" />
                 </LinearLayout>
             </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="20dp"
-                android:background="#f0f0f0"/>
+                android:background="#f0f0f0" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -491,44 +499,45 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp">
 
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_profile_added_restaurant"/>
+                        android:src="@drawable/ic_profile_added_restaurant" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="내가 등록한 식당"
                         android:textColor="#000000"
-                        android:layout_marginLeft="5dp"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginRight="15dp">
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="25dp">
 
 
                     <ImageView
                         android:layout_width="8dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/ic_egmt_arrow_right"/>
+                        android:src="@drawable/ic_egmt_arrow_right" />
                 </LinearLayout>
             </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="20dp"
-                android:background="#f0f0f0"/>
+                android:background="#f0f0f0" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -538,45 +547,46 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp">
 
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_profile_setting"/>
+                        android:src="@drawable/ic_profile_setting" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="설정"
                         android:textColor="#000000"
-                        android:layout_marginLeft="5dp"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginRight="15dp">
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="25dp">
 
 
                     <ImageView
                         android:layout_width="8dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/ic_egmt_arrow_right"/>
+                        android:src="@drawable/ic_egmt_arrow_right" />
                 </LinearLayout>
             </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="20dp"
-                android:background="#f0f0f0"/>
+                android:background="#f0f0f0" />
         </LinearLayout>
 
-</android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </layout>

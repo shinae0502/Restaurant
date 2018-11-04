@@ -36,6 +36,7 @@ import android.databinding.Observable;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.study.restaurant.BR;
 import com.study.restaurant.R;
+import com.study.restaurant.model.StoreKeyword;
 import com.study.restaurant.util.MyGlide;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class SelectPictureActivity extends AppCompatActivity {
 
     RecyclerView selectPicRv;
     Spinner spFolder;
+    StoreKeyword storeKeyword;
 
     class SelPicVM extends BaseObservable {
         String count;
@@ -69,6 +71,8 @@ public class SelectPictureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_picture);
         spFolder = findViewById(R.id.spFolder);
+
+        storeKeyword = getIntent().getParcelableExtra("storeKeyword");
 
         selectPicRv = findViewById(R.id.selectPicRv);
         selectPicRv.setLayoutManager(new GridLayoutManager(this, 4));
@@ -127,11 +131,13 @@ public class SelectPictureActivity extends AppCompatActivity {
 
 
         count.setOnClickListener(view -> {
-            WriteReviewActivity.go(SelectPictureActivity.this, selectedImgList);
+            ((GlobalApplication) getApplication()).addActivity(SelectPictureActivity.this);
+            WriteReviewActivity.go(SelectPictureActivity.this, selectedImgList, storeKeyword);
         });
 
         pass.setOnClickListener(view -> {
-            WriteReviewActivity.go(SelectPictureActivity.this, new ArrayList<MyImage>());
+            ((GlobalApplication) getApplication()).addActivity(SelectPictureActivity.this);
+            WriteReviewActivity.go(SelectPictureActivity.this, new ArrayList<MyImage>(), storeKeyword);
         });
 
     }
@@ -222,8 +228,9 @@ public class SelectPictureActivity extends AppCompatActivity {
         return myImageArrayList;
     }
 
-    public static void go(AppCompatActivity appCompatActivity) {
+    public static void go(AppCompatActivity appCompatActivity, StoreKeyword storeKeyword) {
         Intent intent = new Intent(appCompatActivity, SelectPictureActivity.class);
+        intent.putExtra("storeKeyword", storeKeyword);
         appCompatActivity.startActivity(intent);
     }
 

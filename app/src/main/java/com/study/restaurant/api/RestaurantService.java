@@ -2,12 +2,15 @@ package com.study.restaurant.api;
 
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -57,8 +60,12 @@ public interface RestaurantService {
     @POST("getStoreKeyword.php")
     Call<ResponseBody> getStoreKeyword(@FieldMap Map<String, String> params);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("registerNews.php")
-    Call<ResponseBody> registerNews(@FieldMap Map<String, String> params);
+    Call<ResponseBody> registerNews(@PartMap() Map<String, RequestBody> params);
+
+    @FormUrlEncoded
+    @POST("getUser.php")
+    Call<ResponseBody> getUser(@FieldMap Map<String, String> params);
 
 }

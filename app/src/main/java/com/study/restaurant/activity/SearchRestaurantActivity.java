@@ -50,7 +50,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() > 0) {
+                if (charSequence.length() > 0) {
                     Message msg = new Message();
                     msg.obj = charSequence.toString();
                     msg.what = 0;
@@ -128,7 +128,10 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                             storeKeywordArrayList.get(position).getRegion_name()
             );
 
-            ((StoreKeywordRvHolder)holder).itemView.setOnClickListener(view -> SelectPictureActivity.go(SearchRestaurantActivity.this));
+            ((StoreKeywordRvHolder) holder).itemView.setOnClickListener(view -> {
+                ((GlobalApplication) getApplication()).addActivity(SearchRestaurantActivity.this);
+                SelectPictureActivity.go(SearchRestaurantActivity.this, storeKeywordArrayList.get(position));
+            });
         }
 
         @Override
@@ -152,8 +155,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
         }
     }
 
-    public void clickClose(View v)
-    {
+    public void clickClose(View v) {
         onBackPressed();
     }
 }

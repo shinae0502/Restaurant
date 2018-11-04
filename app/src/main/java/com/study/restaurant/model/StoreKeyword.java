@@ -1,9 +1,53 @@
 package com.study.restaurant.model;
 
-public class StoreKeyword {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class StoreKeyword implements Parcelable{
+    String store_id;
     String restaurant_name;
     String city_name;
     String region_name;
+
+    protected StoreKeyword(Parcel in) {
+        store_id = in.readString();
+        restaurant_name = in.readString();
+        city_name = in.readString();
+        region_name = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(store_id);
+        dest.writeString(restaurant_name);
+        dest.writeString(city_name);
+        dest.writeString(region_name);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<StoreKeyword> CREATOR = new Creator<StoreKeyword>() {
+        @Override
+        public StoreKeyword createFromParcel(Parcel in) {
+            return new StoreKeyword(in);
+        }
+
+        @Override
+        public StoreKeyword[] newArray(int size) {
+            return new StoreKeyword[size];
+        }
+    };
+
+    public String getStore_id() {
+        return store_id;
+    }
+
+    public void setStore_id(String store_id) {
+        this.store_id = store_id;
+    }
 
     public String getRestaurant_name() {
         return restaurant_name;

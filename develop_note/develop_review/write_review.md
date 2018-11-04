@@ -31,6 +31,27 @@ TODO:: activity_write_review.xml 링크하기
 4. 완료 버튼을 눌렀을 경우 서버로 데이터 전송
 ```
 
+먼저 이미지 업로드를 제외한 리뷰 등록코드를 먼저 작성해보자.
+먼저 서버로 전송하는 부분은 POST타입이 아닌 MULTIPART타입으로 전송해야한다.
+레트로 핏으로 멀티파트 작상하는 방법
+```java
+@Multipart
+@POST("registerNews.php")
+Call<ResponseBody> registerNews(@PartMap() Map<String, RequestBody> params);
+```
+멀티파트 파라미터 작성 방법
+```java
+Map<String, RequestBody> params = new HashMap<>();
+    params.put("user_id", RequestBody.create(MediaType.parse("text/plain"), BananaPreference.getInstance(this).loadUser().user_id));
+    params.put("store_id", RequestBody.create(MediaType.parse("text/plain"), storeKeyword.getStore_id()));
+    params.put("user_name", RequestBody.create(MediaType.parse("text/plain"), BananaPreference.getInstance(this).loadUser().name));
+    params.put("profile_img", RequestBody.create(MediaType.parse("text/plain"), BananaPreference.getInstance(this).loadUser().picture));
+    params.put("score", RequestBody.create(MediaType.parse("text/plain"), "" + score));
+    params.put("contents", RequestBody.create(MediaType.parse("text/plain"), "" + edReview.getText().toString()));
+    params.put("tag1", RequestBody.create(MediaType.parse("text/plain"), storeKeyword.getRestaurant_name()));
+    params.put("tag2", RequestBody.create(MediaType.parse("text/plain"), storeKeyword.getCity_name()));
+```
+
 서버 전송 부분을 좀더 상세하게 정리해보자.
 
 ```
@@ -50,16 +71,22 @@ TODO:: activity_write_review.xml 링크하기
 4. 데이터 테이블에 삽입
 ```
 
-
-
-리뷰 수정과 삭제 부분은 나중에... 일단 이미지를 어떤방식으로 저장할지 생각해봐야한다.
-
 ```
 이미지 활용이 필요한 부분
 1. 맛집 상세화면에서 상단부분에 업로드된 이미지 5장 정도를 로드해야한다. 이부분은 리뷰테이블에서 가져와야함.
 2. 맛집 화면을 갤러리처럼 보는 부분이 리뷰테이블에서 가져오는 방법
 3. 타임라인 부분에 내가 올린 리뷰 사진 리스트가 나온다.
-4. 
+```
+
+리뷰 쓰기가 완료되면 이전에 열려져있던 activity를 다 종료 시켜줘야하는데
+쌓여있는데 activity에 대한 관리 방법에 대해 알아보자.
 
 ```
+찾아낸 방법
+1. onActivityResult를 이용해서 각 엑티비티마다 종료해주는 기능을 추가한다.
+2. Activity 객채를 static 하게 모아두었다가 finish 시킨다.
+```
+두 방법다 뭔가 좋은 방법은 아닌것 같지만 다른방법을 찾지 못하여
+2번째 방법을 사용하였다.
+
 

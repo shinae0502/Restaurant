@@ -251,4 +251,8 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
         RegisterRestaurantActivity.go(this);
     }
 
+    public void alarmNotify(View v) {
+
+    }
+
 }
