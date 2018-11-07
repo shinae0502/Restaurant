@@ -162,8 +162,8 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
 
     @Override
     public void onBackPressed() {
-        if (mainActivityViewModel.isMenuEanbled()) {
-            mainActivityViewModel.setMenu3(false);
+        if (mainActivityViewModel.isMenu3()) {
+            mainActivityViewModel.showRegisterMenu(false);
         } else if (!isFinish) {
             handler.sendEmptyMessage(0);
         } else {

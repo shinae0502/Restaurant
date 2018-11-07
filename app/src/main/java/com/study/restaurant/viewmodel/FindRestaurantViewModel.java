@@ -1,16 +1,19 @@
 package com.study.restaurant.viewmodel;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.location.Location;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.adapter.StoreRvAdt;
 import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.model.Banner;
 import com.study.restaurant.model.Boundary;
 import com.study.restaurant.model.Cities;
@@ -23,6 +26,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.study.restaurant.BR;
 
@@ -31,6 +35,7 @@ import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_BANNER;
 import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_MENU;
 
 public class FindRestaurantViewModel extends BaseObservable {
+    private final Context context;
     FindRestaurantNavigation findRestaurantNavigation;
     StoreRvAdt storeRvAdt = new StoreRvAdt();
     boolean isLast;
@@ -61,7 +66,8 @@ public class FindRestaurantViewModel extends BaseObservable {
         return 2 + findRestaurant.getStoreArrayList().size();
     }
 
-    public FindRestaurantViewModel(FindRestaurantNavigation findRestaurantNavigation) {
+    public FindRestaurantViewModel(Context context, FindRestaurantNavigation findRestaurantNavigation) {
+        this.context = context;
         this.findRestaurantNavigation = findRestaurantNavigation;
     }
 
@@ -140,6 +146,8 @@ public class FindRestaurantViewModel extends BaseObservable {
         param.put("filter", "");
         param.put("sort", findRestaurant.getSort().getAttribute());
         param.put("total_count", "" + findRestaurant.getStoreArrayList().size());
+        param.put("user_id", BananaPreference.getInstance(context).loadUser().isLogin() ?
+                BananaPreference.getInstance(context).loadUser().user_id : "-1");
         ApiManager.getInstance().getStoreSummary(param, new ApiManager.CallbackListener() {
             @Override
             public void callback(String result) {
@@ -222,6 +230,18 @@ public class FindRestaurantViewModel extends BaseObservable {
 
     public void setMyLocation(Location myLocation) {
         findRestaurant.setMyLocation(myLocation);
+    }
+
+    public void clickFavorite(View v, Store store) {
+        if (!BananaPreference.getInstance(v.getContext()).loadUser().isLogin()) {
+            Toast.makeText(v.getContext(), "로그인 해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (store.isExistsFavority_id()) {
+            ApiManager.getInstance().deleteFavorite(v.getContext(), store);
+        } else {
+            ApiManager.getInstance().addFavorite(v.getContext(), store);
+        }
     }
 
     /** 지역 */

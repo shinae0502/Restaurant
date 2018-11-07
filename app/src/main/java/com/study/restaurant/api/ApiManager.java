@@ -1,12 +1,15 @@
 package com.study.restaurant.api;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.model.Banner;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.util.LOG;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.RequestBody;
@@ -422,6 +425,54 @@ public class ApiManager {
                     } catch (Exception e) {
                         LOG.d(e.toString());
                     }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void addFavorite(Context context, Store store) {
+        Map<String, String> param = new HashMap<>();
+        param.put("user_id", BananaPreference.getInstance(context).loadUser().user_id);
+        param.put("store_id", store.getStore_id());
+        getService().addFavorite(param).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
+                String body = "";
+                try {
+                    body = response.body().string();
+                    store.setFavority_id("100");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void deleteFavorite(Context context, Store store) {
+        Map<String, String> param = new HashMap<>();
+        param.put("user_id", BananaPreference.getInstance(context).loadUser().user_id);
+        param.put("store_id", store.getStore_id());
+        getService().deleteFavorite(param).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
+                String body = "";
+                try {
+                    body = response.body().string();
+                    store.setFavority_id(null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

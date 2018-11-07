@@ -37,7 +37,7 @@
                 android:layout_height="45dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{vm::clickFindRestaurant}"
+                android:onClick="@{(view)->vm.clickFindRestaurant(view)}"
                 app:enabled="@{!vm.menuEanbled}"
                 app:selected="@{vm.menu1}">
 
@@ -112,7 +112,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:gravity="center"
-                android:onClick="@{vm::clickRegister}"
+                android:onClick="@{(view)->vm.clickRegister(view)}"
                 android:orientation="vertical"
                 app:selected="@{vm.menu3}">
 

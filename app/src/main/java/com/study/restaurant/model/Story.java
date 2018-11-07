@@ -10,6 +10,9 @@ public class Story implements Parcelable{
     String subtitle;
     String image;
     String date;
+    String user_img_url;
+    String user_name;
+    String hit;
 
 
     protected Story(Parcel in) {
@@ -18,6 +21,9 @@ public class Story implements Parcelable{
         subtitle = in.readString();
         image = in.readString();
         date = in.readString();
+        user_img_url = in.readString();
+        user_name = in.readString();
+        hit = in.readString();
     }
 
     @Override
@@ -27,6 +33,9 @@ public class Story implements Parcelable{
         dest.writeString(subtitle);
         dest.writeString(image);
         dest.writeString(date);
+        dest.writeString(user_img_url);
+        dest.writeString(user_name);
+        dest.writeString(hit);
     }
 
     @Override
@@ -80,6 +89,30 @@ public class Story implements Parcelable{
 
     public String getDate() {
         return date;
+    }
+
+    public String getUser_img_url() {
+        return user_img_url;
+    }
+
+    public void setUser_img_url(String user_img_url) {
+        this.user_img_url = user_img_url;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public String getHit() {
+        return hit;
+    }
+
+    public void setHit(String hit) {
+        this.hit = hit;
     }
 
     public void setDate(String date) {

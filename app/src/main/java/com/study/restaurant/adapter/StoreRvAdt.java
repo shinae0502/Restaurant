@@ -1,5 +1,7 @@
 package com.study.restaurant.adapter;
 
+import android.databinding.Observable;
+import android.databinding.ObservableField;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +11,14 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.study.restaurant.model.Banner;
 import com.study.restaurant.model.FindRestaurant;
 import com.study.restaurant.model.Store;
+import com.study.restaurant.util.LOG;
 import com.study.restaurant.util.MyGlide;
 import com.study.restaurant.viewmodel.FindRestaurantViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.study.restaurant.BR;
 
 public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
 
@@ -62,10 +67,6 @@ public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
             store.setPosition(position);
             ((StoreHolder) holder).setStore(store);
             ((StoreHolder) holder).setVm(vm);
-            MyGlide.with(holder.itemView.getContext())
-                    .load(store.getImg())
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(((StoreHolder) holder).img);
         }
 
         if (holder instanceof FindReataurantMenuHolder) {

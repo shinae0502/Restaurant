@@ -30,13 +30,6 @@ public class RegisterRestaurantActivity extends AppCompatActivity implements Reg
         activityRegisterRestaurantBinding.setVm(vm);
     }
 
-    @BindingAdapter({"app:selected"})
-    public static void selectedBind(ViewGroup viewGroup
-            , boolean selected
-    ) {
-        viewGroup.setSelected(selected);
-    }
-
     @BindingAdapter({"app:textWhatcher"})
     public static void setTextWhatcher(EditText editText, TextWatcher textWatcher)
     {

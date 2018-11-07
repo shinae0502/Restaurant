@@ -68,4 +68,12 @@ public interface RestaurantService {
     @POST("getUser.php")
     Call<ResponseBody> getUser(@FieldMap Map<String, String> params);
 
+    @FormUrlEncoded
+    @POST("addFavorite.php")
+    Call<ResponseBody> addFavorite(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("deleteFavorite.php")
+    Call<ResponseBody> deleteFavorite(@FieldMap Map<String, String> params);
+
 }

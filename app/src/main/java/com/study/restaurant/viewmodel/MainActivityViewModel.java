@@ -137,20 +137,25 @@ public class MainActivityViewModel extends BaseObservable {
         setMenu4(true);
     }
 
+    /**
+     * 하단 메뉴의 가운데 버튼을 클릭 시 등록화면 보여주는기능
+     * TODO::함수명 바꿔주기
+     *
+     * @param v
+     */
     public void clickRegister(View v) {
-        if (!isMenu3()) {
-            setMenu3(!isMenu3());
-            mainActivitytNavigation.rotationMenu(true);
-            setMenuEanbled(isMenu3());
-            notifyPropertyChanged(BR.menuEanbled);
-            notifyAllMenu();
+        showRegisterMenu(!isMenu3());
+    }
+
+    public void showRegisterMenu(boolean b) {
+        setMenu3(b);
+        setMenuEanbled(b);
+        mainActivitytNavigation.rotationMenu(b);
+        notifyPropertyChanged(BR.menuEanbled);
+        notifyAllMenu();
+        if (b) {
             mainActivitytNavigation.registerShowAnimation();
         } else {
-            setMenu3(!isMenu3());
-            setMenuEanbled(isMenu3());
-            mainActivitytNavigation.rotationMenu(false);
-            notifyPropertyChanged(BR.menuEanbled);
-            notifyAllMenu();
             mainActivitytNavigation.hideMenu();
         }
     }

@@ -67,7 +67,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
         /** Sets Binding */
         fragmentFindRestaurantBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_restaurant, container, false);
         /** create ViewModel */
-        findRestaurantViewModel = new FindRestaurantViewModel(this);
+        findRestaurantViewModel = new FindRestaurantViewModel(getContext(),this);
         /** Sets Binding ViewModel */
         fragmentFindRestaurantBinding.setVm(findRestaurantViewModel);
         findRestaurantViewModel.setFindRestaurant(getGlobalApplication().getFindRestaurant());

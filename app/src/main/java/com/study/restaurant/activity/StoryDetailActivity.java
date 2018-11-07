@@ -2,6 +2,7 @@ package com.study.restaurant.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.R;
 import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.databinding.ActivityStoryDetailBinding;
 import com.study.restaurant.fragment.StoryDetailFragment1;
 import com.study.restaurant.fragment.StoryDetailFragment2;
 import com.study.restaurant.fragment.StoryDetailFragment3;
@@ -32,15 +34,17 @@ public class StoryDetailActivity extends AppCompatActivity {
 
     ViewPager vpDetailStory;
     Story story;
+    ActivityStoryDetailBinding activityStoryDetailBinding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_story_detail);
-        vpDetailStory = findViewById(R.id.vpDetailStory);
+        activityStoryDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_story_detail);
+        vpDetailStory = activityStoryDetailBinding.vpDetailStory;
         vpDetailStory.setAdapter(new DetailStoryVpAdt(getSupportFragmentManager()));
         story = getIntent().getParcelableExtra("story");
+        activityStoryDetailBinding.setStory(story);
 
         //스토리 상세 정보 요청하기
 
@@ -56,7 +60,7 @@ public class StoryDetailActivity extends AppCompatActivity {
                     Toast.makeText(StoryDetailActivity.this, "등록되지 않은 스토리 입니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     findViewById(R.id.loading).setVisibility(View.GONE);
-                    vpDetailStory.setVisibility(View.VISIBLE);
+                    activityStoryDetailBinding.rlDetailStory.setVisibility(View.VISIBLE);
                     ((DetailStoryVpAdt) vpDetailStory.getAdapter()).setStoryDetailList(storyDetailArrayList);
                 }
             }

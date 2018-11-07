@@ -6,6 +6,8 @@ import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.study.restaurant.BR;
+
 import java.text.DecimalFormat;
 
 public class Store extends BaseObservable implements Parcelable {
@@ -23,8 +25,11 @@ public class Store extends BaseObservable implements Parcelable {
     String address;
     String reg_user_id;
     String region_name;
-    /** 내위치 */
+    /**
+     * 내위치
+     */
     Location myLocation;
+    String favority_id;
 
     protected Store(Parcel in) {
         store_id = in.readString();
@@ -41,6 +46,7 @@ public class Store extends BaseObservable implements Parcelable {
         lat = in.readString();
         address = in.readString();
         reg_user_id = in.readString();
+        favority_id = in.readString();
     }
 
     @Override
@@ -59,6 +65,7 @@ public class Store extends BaseObservable implements Parcelable {
         dest.writeString(lat);
         dest.writeString(address);
         dest.writeString(reg_user_id);
+        dest.writeString(favority_id);
     }
 
     @Override
@@ -207,7 +214,23 @@ public class Store extends BaseObservable implements Parcelable {
         this.myLocation = myLocation;
     }
 
-    /** 내위치와 가게의 거리 */
+    public String getFavority_id() {
+        return favority_id;
+    }
+
+    @Bindable
+    public boolean isExistsFavority_id() {
+        return favority_id != null;
+    }
+
+    public void setFavority_id(String favority_id) {
+        this.favority_id = favority_id;
+        notifyPropertyChanged(BR.existsFavority_id);
+    }
+
+    /**
+     * 내위치와 가게의 거리
+     */
     @Bindable
     public String getDistance() {
         float distance = 0;
@@ -236,5 +259,23 @@ public class Store extends BaseObservable implements Parcelable {
 
     public void setRegion_name(String region_name) {
         this.region_name = region_name;
+    }
+
+    @Override
+    public String toString() {
+        return "position:" + position + "\n"
+                + "store_id:" + store_id + "\n"
+                + "name:" + name + "\n"
+                + "score:" + score + "\n"
+                + "lat:" + lat + "\n"
+                + "lon:" + lon + "\n"
+                + "location:" + location + "\n"
+                + "hit:" + hit + "\n"
+                + "review_count:" + review_count + "\n"
+                + "img:" + img + "\n"
+                + "store_name:" + store_name + "\n"
+                + "address:" + address + "\n"
+                + "reg_user_id:" + reg_user_id + "\n"
+                + "region_name:" + region_name + "\n";
     }
 }

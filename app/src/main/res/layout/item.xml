@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -46,12 +47,14 @@
                     android:scaleType="centerCrop" />
                 <!-- 즐겨찾기 버튼 -->
                 <ImageView
+                    android:id="@+id/imgFavorite"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/restaurant_wannago_nor" />
+                    android:onClick='@{(view) -> vm.clickFavorite(view, store)}'
+                    android:src="@drawable/selector_restaurant_wannago" />
             </RelativeLayout>
 
             <RelativeLayout

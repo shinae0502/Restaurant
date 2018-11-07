@@ -5,7 +5,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.study.restaurant.adapter.AroundRestaurantRvAdt;
 import com.study.restaurant.adapter.ReviewRvAdt;
 import com.study.restaurant.adapter.StoreRvAdt;
@@ -15,9 +17,14 @@ import com.study.restaurant.model.Review;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.model.Story;
 import com.study.restaurant.model.TopList;
+import com.study.restaurant.util.MyGlide;
 import com.study.restaurant.viewmodel.FindRestaurantViewModel;
 
 import java.util.ArrayList;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
+import static com.study.restaurant.util.GlideOptions.bitmapTransform;
 
 public class DataBindingAdapter {
     @BindingAdapter({"app:onScrollListener", "app:vm"})
@@ -82,14 +89,29 @@ public class DataBindingAdapter {
     }
 
     @BindingAdapter({"app:onPageChangeListener"})
-    public static void pageChangeBind(ViewPager viewPager, ViewPager.OnPageChangeListener onPageChangeListener)
-    {
+    public static void pageChangeBind(ViewPager viewPager, ViewPager.OnPageChangeListener onPageChangeListener) {
         viewPager.addOnPageChangeListener(onPageChangeListener);
     }
 
     @BindingAdapter({"app:offscreenPageLimit"})
-    public static void pageLimitBind(ViewPager viewPager, int limit)
-    {
+    public static void pageLimitBind(ViewPager viewPager, int limit) {
         viewPager.setOffscreenPageLimit(limit);
+    }
+
+    @BindingAdapter({"app:glideLoadImage"})
+    public static void glideLoadImage(ImageView imageView, String url) {
+        MyGlide.with(imageView.getContext())
+                .load(url)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageView);
+    }
+
+    @BindingAdapter({"app:glideBlurImage"})
+    public static void glideBlurImage(ImageView imageView, String url) {
+        MyGlide.with(imageView.getContext())
+                .load(url)
+                .apply(bitmapTransform(new BlurTransformation(25, 3)))
+                //.transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageView);
     }
 }

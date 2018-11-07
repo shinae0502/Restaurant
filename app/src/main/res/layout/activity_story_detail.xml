@@ -1,32 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#000000"
-    tools:context=".activity.StoryDetailActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="story"
+            type="com.study.restaurant.model.Story" />
+    </data>
 
     <RelativeLayout
-        android:id="@+id/loading"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_detail_story_title_bar">
-        <include layout="@layout/fragment_story_detail_fragment0" />
+        android:layout_height="match_parent"
+        android:background="#000000"
+        tools:context=".activity.StoryDetailActivity">
+
+
+        <RelativeLayout
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_detail_story_title_bar">
+
+            <include layout="@layout/fragment_story_detail_fragment0" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlDetailStory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:glideBlurImage="@{story.image}" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.6"
+                android:background="#000000" />
+
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vpDetailStory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+
+        <include
+            android:id="@+id/layout_detail_story_title_bar"
+            layout="@layout/layout_detail_story_title_bar1" />
+
     </RelativeLayout>
-
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vpDetailStory"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.v4.view.ViewPager>
-
-
-    <include
-        android:id="@+id/layout_detail_story_title_bar"
-        layout="@layout/layout_detail_story_title_bar1" />
-
-</RelativeLayout>
+</layout>
