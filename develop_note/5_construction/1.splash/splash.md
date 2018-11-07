@@ -1,5 +1,6 @@
 # [구현] Splash화면 개발하기
 ![스플레시 화면](./splash.gif)
+
 이 화면에서 중요한 가운데 프로그래스바 처리 부분이다.
 
 ProgressImageView 라는 클래스를 만들어 ImageView를 상속받게하였다.
