@@ -2,11 +2,7 @@ package com.study.restaurant.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-
-import com.study.restaurant.util.LOG;
 
 public class Search extends BaseObservable {
 

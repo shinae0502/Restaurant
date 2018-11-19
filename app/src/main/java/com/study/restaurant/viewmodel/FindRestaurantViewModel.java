@@ -19,14 +19,13 @@ import com.study.restaurant.model.Boundary;
 import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.FindRestaurant;
 import com.study.restaurant.model.Store;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 import com.study.restaurant.view.FindRestaurantNavigation;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.study.restaurant.BR;
 
@@ -110,10 +109,10 @@ public class FindRestaurantViewModel extends BaseObservable {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (!recyclerView.canScrollVertically(1) && !isLast) {
                     isLast = true;
-                    LOG.d("Last!!");
+                    Logger.d("Last!!");
                     requestStoreSummary();
                 } else {
-                    LOG.d("not Last");
+                    Logger.d("not Last");
                 }
             }
 
@@ -151,7 +150,7 @@ public class FindRestaurantViewModel extends BaseObservable {
         ApiManager.getInstance().getStoreSummary(param, new ApiManager.CallbackListener() {
             @Override
             public void callback(String result) {
-                LOG.d(result);
+                Logger.d(result);
                 isLast = false;
                 Type listType = new TypeToken<ArrayList<Store>>() {
                 }.getType();

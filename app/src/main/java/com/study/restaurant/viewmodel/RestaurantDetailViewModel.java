@@ -1,12 +1,16 @@
 package com.study.restaurant.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
+import android.databinding.Bindable;
+import android.databinding.ObservableField;
 import android.view.View;
 
+import com.study.restaurant.BR;
 import com.study.restaurant.adapter.AroundRestaurantRvAdt;
 import com.study.restaurant.adapter.ReviewRvAdt;
 import com.study.restaurant.adapter.StoryRvAdt;
 import com.study.restaurant.adapter.TopListRvAdt;
+import com.study.restaurant.model.StoreDetail;
 import com.study.restaurant.model.StoreSpec;
 
 public class RestaurantDetailViewModel extends ViewModel {
@@ -21,6 +25,21 @@ public class RestaurantDetailViewModel extends ViewModel {
     TopListRvAdt topListRvAdt = new TopListRvAdt();
     StoryRvAdt storyRvAdt = new StoryRvAdt();
     AroundRestaurantRvAdt aroundRestaurantRvAdt = new AroundRestaurantRvAdt();
+
+    ObservableField<StoreDetail> observableField = new ObservableField<>();
+
+    public ObservableField<StoreDetail> getObservableField() {
+        return observableField;
+    }
+
+    public StoreDetail getStoreDetail() {
+        return observableField.get();
+    }
+
+    public void setStoreDetail(StoreDetail storeDetail) {
+        observableField.set(storeDetail);
+        observableField.notifyChange();
+    }
 
     public StoreSpec getStoreSpec() {
         return storeSpec;

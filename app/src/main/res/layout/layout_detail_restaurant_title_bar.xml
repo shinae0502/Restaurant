@@ -50,17 +50,21 @@
                 <ImageView
                     android:layout_width="45dp"
                     android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:onClick="addMyList"
                     android:src="@drawable/selector_btn_mylist" />
 
                 <ImageView
                     android:layout_width="45dp"
                     android:layout_height="match_parent"
+                    android:onClick="shareKakao"
                     android:src="@drawable/btn_share_kakao" />
 
                 <ImageView
                     android:layout_width="45dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="5dp"
+                    android:onClick="normarShare"
                     android:src="@drawable/selector_btn_share" />
             </LinearLayout>
 

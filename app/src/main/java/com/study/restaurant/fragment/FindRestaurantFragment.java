@@ -29,7 +29,7 @@ import com.study.restaurant.popup.SelectDistancePopup;
 import com.study.restaurant.popup.SelectFilterPoppupActivity;
 import com.study.restaurant.popup.SelectRegionPopupActivity;
 import com.study.restaurant.popup.SelectSortPopupActivity;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 import com.study.restaurant.view.FindRestaurantNavigation;
 import com.study.restaurant.viewmodel.FindRestaurantViewModel;
 
@@ -101,12 +101,12 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
         /** PS 사용 전 권한 체크 */
         if (myLocationManager.isGrantedPermission()) {
             /** 권한이 허용되어있다면 위치요청 */
-            LOG.d("위치요청하기");
+            Logger.d("위치요청하기");
             myLocationManager.getLastLocation(listener);
         } else {
             /** 권한이 없다면 권한 요청하기 */
             tempListener = listener;
-            LOG.d("권한요청하기");
+            Logger.d("권한요청하기");
             myLocationManager.requestLocationPermissionPopup(0x02);
         }
     }
@@ -124,7 +124,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
                 }
             } else {
                 /** 권한 거부시 */
-                LOG.d("권한 거부");
+                Logger.d("권한 거부");
                 tempListener = null;
             }
         }
@@ -196,7 +196,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
         if (zipCode == null || zipCode.equals("")) {
             return false;
         }
-        LOG.d(zipCode);
+        Logger.d(zipCode);
         ApiManager.getInstance().getRegion(zipCode, new ApiManager.CallbackListener() {
             @Override
             public void callback(String result) {

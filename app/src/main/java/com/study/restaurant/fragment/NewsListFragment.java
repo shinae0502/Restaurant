@@ -103,38 +103,62 @@ public class NewsListFragment extends Fragment {
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(holder.profilePic);
 
-            MyGlide.with(holder.itemView.getContext())
-                    .load(news.getImage1())
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(holder.image1);
-            MyGlide.with(holder.itemView.getContext())
-                    .load(news.getImage2())
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(holder.image2);
-            MyGlide.with(holder.itemView.getContext())
-                    .load(news.getImage3())
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(holder.image3);
-            MyGlide.with(holder.itemView.getContext())
-                    .load(news.getImage4())
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(holder.image4);
-            MyGlide.with(holder.itemView.getContext())
-                    .load(news.getImage5())
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(holder.image5);
-            MyGlide.with(holder.itemView.getContext())
-                    .load(news.getImage6())
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(holder.image6);
-            MyGlide.with(holder.itemView.getContext())
-                    .load(news.getImage7())
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(holder.image7);
-            MyGlide.with(holder.itemView.getContext())
-                    .load(news.getImage8())
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(holder.image8);
+            if (!news.getImage1().equals("")) {
+                holder.image1.setVisibility(View.VISIBLE);
+                MyGlide.with(holder.itemView.getContext())
+                        .load(news.getImage1())
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(holder.image1);
+            }
+            if (!news.getImage2().equals("")) {
+                holder.image2.setVisibility(View.VISIBLE);
+                MyGlide.with(holder.itemView.getContext())
+                        .load(news.getImage2())
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(holder.image2);
+            }
+            if (!news.getImage3().equals("")) {
+                holder.image3.setVisibility(View.VISIBLE);
+                MyGlide.with(holder.itemView.getContext())
+                        .load(news.getImage3())
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(holder.image3);
+            }
+            if (!news.getImage4().equals("")) {
+                holder.image4.setVisibility(View.VISIBLE);
+                MyGlide.with(holder.itemView.getContext())
+                        .load(news.getImage4())
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(holder.image4);
+            }
+            if (!news.getImage5().equals("")) {
+                holder.image5.setVisibility(View.VISIBLE);
+                MyGlide.with(holder.itemView.getContext())
+                        .load(news.getImage5())
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(holder.image5);
+            }
+            if (!news.getImage6().equals("")) {
+                holder.image6.setVisibility(View.VISIBLE);
+                MyGlide.with(holder.itemView.getContext())
+                        .load(news.getImage6())
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(holder.image6);
+            }
+            if (!news.getImage7().equals("")) {
+                holder.image7.setVisibility(View.VISIBLE);
+                MyGlide.with(holder.itemView.getContext())
+                        .load(news.getImage7())
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(holder.image7);
+            }
+            if (!news.getImage8().equals("")) {
+                holder.image8.setVisibility(View.VISIBLE);
+                MyGlide.with(holder.itemView.getContext())
+                        .load(news.getImage8())
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(holder.image8);
+            }
 
 
             holder.contents.setText(news.getContents());

@@ -13,7 +13,7 @@ import com.study.restaurant.activity.GlobalApplication;
 import com.study.restaurant.databinding.ActivitySelectFilterPoppupBinding;
 import com.study.restaurant.model.Filter;
 import com.study.restaurant.BR;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 
 public class SelectFilterPoppupActivity extends BasePopupActivity {
 
@@ -41,7 +41,7 @@ public class SelectFilterPoppupActivity extends BasePopupActivity {
         filter.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                LOG.d("" + propertyId);
+                Logger.d("" + propertyId);
                 if (propertyId == BR.all || propertyId == BR.wannaGo || propertyId == BR.haveBeen) {
                     refreshCategoryUI();
                 }
@@ -65,7 +65,7 @@ public class SelectFilterPoppupActivity extends BasePopupActivity {
     }
 
     private void refreshParkUI() {
-        LOG.d("");
+        Logger.d("");
         activitySelectFilterPopupBinding.dontCare.setSelected(filter.isDontCare());
         activitySelectFilterPopupBinding.available.setSelected(filter.isAvailable());
     }
@@ -78,7 +78,7 @@ public class SelectFilterPoppupActivity extends BasePopupActivity {
     }
 
     private void refreshFoodUI() {
-        LOG.d("");
+        Logger.d("");
         activitySelectFilterPopupBinding.koeranFood.setSelected(filter.isKoreanFood());
         activitySelectFilterPopupBinding.japaneseFood.setSelected(filter.isJapaneseFood());
         activitySelectFilterPopupBinding.chineseFood.setSelected(filter.isChineseFood());
@@ -90,7 +90,7 @@ public class SelectFilterPoppupActivity extends BasePopupActivity {
     }
 
     private void refreshCategoryUI() {
-        LOG.d("");
+        Logger.d("");
         activitySelectFilterPopupBinding.all.setSelected(filter.isAll());
         activitySelectFilterPopupBinding.wannaGo.setSelected(filter.isWannaGo());
         activitySelectFilterPopupBinding.haveBeen.setSelected(filter.isHaveBeen());

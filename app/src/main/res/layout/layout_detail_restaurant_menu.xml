@@ -30,6 +30,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:clickable="true"
+                android:onClick="addFavorite"
                 android:orientation="vertical">
 
                 <ImageView
@@ -50,7 +52,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{vm::clickCheckIn}"
+                android:onClick="checkIn"
                 android:orientation="vertical">
 
                 <ImageView
@@ -71,6 +73,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:clickable="true"
+                android:onClick="writeReview"
                 android:orientation="vertical">
 
                 <ImageView
@@ -91,6 +95,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:clickable="true"
+                android:onClick="uploadPicture"
                 android:orientation="vertical">
 
 

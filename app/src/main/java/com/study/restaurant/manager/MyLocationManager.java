@@ -10,14 +10,11 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
-import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.study.restaurant.util.LOG;
-
-import java.io.IOException;
+import com.study.restaurant.util.Logger;
 
 public class MyLocationManager {
 
@@ -38,7 +35,7 @@ public class MyLocationManager {
     @SuppressLint("MissingPermission")
     public void getLastLocation(OnSuccessListener<? super Location> listener) {
         if (!isGrantedPermission()) {
-            LOG.d("권한 없음");
+            Logger.d("권한 없음");
             return;
         }
         mFusedLocationClient.getLastLocation()
@@ -55,7 +52,7 @@ public class MyLocationManager {
         try {
             return geocoder.getFromLocation(latitude, longitude, 1).get(0).getPostalCode();
         } catch (Exception e) {
-            LOG.d(e.toString());
+            Logger.d(e.toString());
             return "";
         }
     }
@@ -67,7 +64,7 @@ public class MyLocationManager {
             Address address = geocoder.getFromLocation(latitude, longitude, 1).get(0);
             return address.getCountryName() + " " + address.getFeatureName() + " " + address.getLocality();
         } catch (Exception e) {
-            LOG.d(e.toString());
+            Logger.d(e.toString());
             return "주소 못찾음";
         }
     }

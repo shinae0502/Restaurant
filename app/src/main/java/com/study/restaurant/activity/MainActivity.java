@@ -24,7 +24,7 @@ import com.study.restaurant.fragment.FindRestaurantFragment;
 import com.study.restaurant.fragment.MangoPickFragment;
 import com.study.restaurant.fragment.MyInformationFragment;
 import com.study.restaurant.fragment.NewsFragment;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 import com.study.restaurant.view.MainActivitytNavigation;
 import com.study.restaurant.viewmodel.MainActivityViewModel;
 
@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements MainActivitytNavi
     }
 
     public void clickRegisterRestaurant(View v) {
-        LOG.d("clickRegisterRestaurant");
+        Logger.d("clickRegisterRestaurant");
         RegisterRestaurantActivity.go(this);
     }
 

@@ -74,4 +74,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.2'
 
     implementation 'jp.wasabeef:glide-transformations:3.3.0'
+
+    //image compress
+    implementation 'id.zelory:compressor:2.1.0'
 }

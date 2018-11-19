@@ -1,20 +1,13 @@
 package com.study.restaurant;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.res.Resources;
-
 import com.google.gson.Gson;
-import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.City;
 import com.study.restaurant.model.Region;
 import com.study.restaurant.model.StoreSpec;
-import com.study.restaurant.util.LOG;
 
 import org.junit.Test;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;

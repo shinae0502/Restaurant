@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -23,7 +22,6 @@ import com.study.restaurant.fragment.StoryDetailFragment2;
 import com.study.restaurant.fragment.StoryDetailFragment3;
 import com.study.restaurant.model.Story;
 import com.study.restaurant.model.StoryDetail;
-import com.study.restaurant.util.LOG;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

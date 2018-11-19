@@ -1,0 +1,93 @@
+package com.study.restaurant.model;
+
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.study.restaurant.BR;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
+public class StoreDetail extends BaseObservable implements Parcelable {
+    Store restaurant;
+    ArrayList<Image> image;
+    ArrayList<News> news;
+    ArrayList<TopList> toplist;
+    ArrayList<Store> store;
+
+
+    protected StoreDetail(Parcel in) {
+        restaurant = in.readParcelable(Store.class.getClassLoader());
+        image = in.createTypedArrayList(Image.CREATOR);
+        toplist = in.createTypedArrayList(TopList.CREATOR);
+        store = in.createTypedArrayList(Store.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(restaurant, flags);
+        dest.writeTypedList(image);
+        dest.writeTypedList(toplist);
+        dest.writeTypedList(store);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<StoreDetail> CREATOR = new Creator<StoreDetail>() {
+        @Override
+        public StoreDetail createFromParcel(Parcel in) {
+            return new StoreDetail(in);
+        }
+
+        @Override
+        public StoreDetail[] newArray(int size) {
+            return new StoreDetail[size];
+        }
+    };
+
+    public Store getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Store restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public ArrayList<Image> getImage() {
+        return image;
+    }
+
+    public void setImage(ArrayList<Image> image) {
+        this.image = image;
+    }
+
+    public ArrayList<News> getNews() {
+        return news;
+    }
+
+    public void setNews(ArrayList<News> news) {
+        this.news = news;
+    }
+
+    public ArrayList<TopList> getToplist() {
+        return toplist;
+    }
+
+    public void setToplist(ArrayList<TopList> toplist) {
+        this.toplist = toplist;
+    }
+
+    public ArrayList<Store> getStore() {
+        return store;
+    }
+
+    public void setStore(ArrayList<Store> store) {
+        this.store = store;
+    }
+}

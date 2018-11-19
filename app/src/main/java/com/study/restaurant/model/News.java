@@ -9,21 +9,21 @@ public class News {
     String hash_tag;
     String score;
     String contents;
-    String image1;
-    String image2;
-    String image3;
-    String image4;
-    String image5;
-    String image6;
-    String image7;
-    String image8;
     String like_count;
     String reply_count;
     String date;
     String user_id;
     String tag1;
     String tag2;
+    String url;
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getTag1() {
         return tag1;
@@ -113,68 +113,40 @@ public class News {
         this.contents = contents;
     }
 
-    public String getImage1() {
-        return image1;
-    }
+    String domain = "http://sarang628.iptime.org:83/image_upload/";
 
-    public void setImage1(String image1) {
-        this.image1 = image1;
+    public String getImage1() {
+        if(url == null)
+            setUrl("");
+        return (url.split(",").length) > 0 ? domain + url.split(",")[0] : "";
     }
 
     public String getImage2() {
-        return image2;
-    }
-
-    public void setImage2(String image2) {
-        this.image2 = image2;
+        return (url.split(",").length) > 1 ? domain + url.split(",")[1] : "";
     }
 
     public String getImage3() {
-        return image3;
-    }
-
-    public void setImage3(String image3) {
-        this.image3 = image3;
+        return (url.split(",").length) > 2 ? domain + url.split(",")[2] : "";
     }
 
     public String getImage4() {
-        return image4;
-    }
-
-    public void setImage4(String image4) {
-        this.image4 = image4;
+        return (url.split(",").length) > 3 ? domain + url.split(",")[3] : "";
     }
 
     public String getImage5() {
-        return image5;
-    }
-
-    public void setImage5(String image5) {
-        this.image5 = image5;
+        return (url.split(",").length) > 4 ? domain + url.split(",")[4] : "";
     }
 
     public String getImage6() {
-        return image6;
-    }
-
-    public void setImage6(String image6) {
-        this.image6 = image6;
+        return (url.split(",").length) > 5 ? domain + url.split(",")[5] : "";
     }
 
     public String getImage7() {
-        return image7;
-    }
-
-    public void setImage7(String image7) {
-        this.image7 = image7;
+        return (url.split(",").length) > 6 ? domain + url.split(",")[6] : "";
     }
 
     public String getImage8() {
-        return image8;
-    }
-
-    public void setImage8(String image8) {
-        this.image8 = image8;
+        return (url.split(",").length) > 7 ? domain + url.split(",")[7] : "";
     }
 
     public String getLike_count() {

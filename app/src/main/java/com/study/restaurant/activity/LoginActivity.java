@@ -9,16 +9,14 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import com.kakao.auth.AuthType;
 import com.kakao.auth.Session;
 import com.study.restaurant.R;
 import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.common.ProgressDialog;
-import com.study.restaurant.login.LoginProvider;
 import com.study.restaurant.manager.BananaLoginManager;
-import com.study.restaurant.model.User;
 import com.study.restaurant.presenter.LoginPresenter;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -36,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        progressDialog =  new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
 
         loginPresenter = new LoginPresenter(this);
 
@@ -88,33 +86,28 @@ public class LoginActivity extends AppCompatActivity {
 
     public void requestFacebookLogin(View view) {
         progressDialog.show();
-        BananaLoginManager.getInstance(this).requestFacebookLogin();
-        BananaLoginManager.getInstance(this).setCallbackListener(new LoginProvider.CallBack() {
-            @Override
-            public void onSuccessLogin(User user) {
-                //페이스북 로그인 하기
-                ApiManager.getInstance().requestFacebookLogin(user.accessToken, new ApiManager.CallbackListener() {
-                    @Override
-                    public void callback(String result) {
-                        if (loginPresenter.processLogin(result)) {
-                            MainActivity.go(LoginActivity.this);
-                            finish();
-                        }
+        BananaLoginManager.getInstance(this).requestFacebookLogin((result, user) -> {
+            ApiManager.getInstance().requestFacebookLogin(user.accessToken, new ApiManager.CallbackListener() {
+                @Override
+                public void callback(String result) {
+                    if (loginPresenter.processLogin(result)) {
+                        MainActivity.go(LoginActivity.this);
+                        finish();
                     }
+                }
 
-                    @Override
-                    public void failed(String msg) {
+                @Override
+                public void failed(String msg) {
 
-                    }
-                });
-            }
+                }
+            });
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LOG.d("");
+        Logger.v("requestCode:" + requestCode + ", " + "resultCode:" + resultCode);
         BananaLoginManager.getInstance(this).onActivityResult(requestCode, resultCode, data);
         progressDialog.dismiss();
     }
@@ -123,38 +116,22 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         BananaLoginManager.getInstance(this).onDestroy();
-        BananaLoginManager.getInstance(this).setCallbackListener(null);
     }
 
     public void onClickSignup(View v) {
-
-        //리스너를 먼저 등록해야한다.
-        BananaLoginManager.getInstance(this).setCallbackListener(new LoginProvider.CallBack() {
-            @Override
-            public void onSuccessLogin(User user) {
-                LOG.d("onSuccessLogin");
-                String accessToken = Session.getCurrentSession().getTokenInfo().getAccessToken();
-                //카카오 로그인 성공
-                //서버 로그인 api 호출
-                ApiManager.getInstance().requestKakaoLogin(accessToken, new ApiManager.CallbackListener() {
-                    @Override
-                    public void callback(String result) {
-                        if (loginPresenter.processLogin(result)) {
-                            MainActivity.go(LoginActivity.this);
-                            finish();
-                        }
-                    }
-
-                    @Override
-                    public void failed(String msg) {
-                        LOG.d("failed");
-                    }
-                });
+        progressDialog.show();
+        BananaLoginManager.getInstance(this).requestKakaoLogin((result, user) -> {
+            Logger.d("onSuccessLogin");
+            if (result == 0) {
+                //로그인 성공
+                BananaPreference.getInstance(this).saveUser(user);
+                MainActivity.go(LoginActivity.this);
+                finish();
+            } else {
+                //로그인 실패
+                Logger.e("kakao login failed");
             }
         });
-
-        progressDialog.show();
-        Session.getCurrentSession().open(AuthType.KAKAO_TALK, this);
     }
 
 

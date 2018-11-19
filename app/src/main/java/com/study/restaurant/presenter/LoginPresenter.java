@@ -1,14 +1,12 @@
 package com.study.restaurant.presenter;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.model.User;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -30,7 +28,7 @@ public class LoginPresenter {
             BananaPreference.getInstance(context).saveUser(users.get(0));
             return true;
         } catch (Exception e) {
-            LOG.d(e.toString());
+            Logger.d(e.toString());
             return false;
         }
     }

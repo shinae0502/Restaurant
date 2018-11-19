@@ -16,6 +16,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.gson.Gson;
 import com.study.restaurant.model.User;
+import com.study.restaurant.util.Logger;
 
 import org.json.JSONObject;
 
@@ -26,6 +27,7 @@ public class FacebookLoginProvider extends LoginProvider {
     private static FacebookLoginProvider facebookLoginProvider;
     private CallbackManager callbackManager; //로그인 상태를
     private Activity activity;
+    private OnResultLoginListener onResultLoginListener;
     //콜백 리스너
 
     public static FacebookLoginProvider getInstance(Activity activity) {
@@ -49,10 +51,10 @@ public class FacebookLoginProvider extends LoginProvider {
 
             @Override
             public void onSuccess(LoginResult loginResult) {
-                if (callBack != null) {
+                if (onResultLoginListener != null) {
                     User user = new User();
                     user.accessToken = loginResult.getAccessToken().getToken();
-                    callBack.onSuccessLogin(user);
+                    onResultLoginListener.onResult(0, user);
                 }
             }
 
@@ -63,6 +65,7 @@ public class FacebookLoginProvider extends LoginProvider {
 
             @Override
             public void onError(FacebookException error) {
+                Logger.e("onError" + error.toString());
                 Toast.makeText(activity, "onError" + error.toString(), Toast.LENGTH_SHORT).show();
                 LoginManager.getInstance().logOut();
             }
@@ -77,48 +80,47 @@ public class FacebookLoginProvider extends LoginProvider {
         }
     }
 
-    public boolean isLoggedIn() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        return accessToken != null;
-    }
-
-    public void requestLogin() {
+    @Override
+    public void requestLogin(OnResultLoginListener onResultLoginListener) {
+        this.onResultLoginListener = onResultLoginListener;
         LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList("public_profile", "email"));
     }
 
-    private void requestProfile(AccessToken accessToken) {
-        GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
-            @Override
-            public void onCompleted(JSONObject object, GraphResponse response) {
-                Log.d("exceptiontag", object.toString());
-                Toast.makeText(activity, object.toString(), Toast.LENGTH_SHORT).show();
-                User user = new Gson().fromJson(object.toString(), User.class);
-                callBack.onSuccessLogin(user);
-            }
-        });
-
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "user_id,name,email,gender,birthday");
-        request.setParameters(parameters);
-        request.executeAsync();
-    }
-
-    /**
-     * 엑세스 토큰이 없을경우 현재꺼를 사용 함.
-     */
-    public void requestProfile() {
+    @Override
+    public void requestUser(OnReceiveUserListener onReceiveUserListener) {
         if (isLoggedIn()) {
             callbackManager = CallbackManager.Factory.create();
             AccessToken accessToken = AccessToken.getCurrentAccessToken();
             if (accessToken != null) {
                 if (!accessToken.isExpired()) {
-                    requestProfile(accessToken);
+                    GraphRequest request = GraphRequest.newMeRequest(accessToken, (object, response) -> {
+                        Logger.v(object.toString());
+                        Toast.makeText(activity, object.toString(), Toast.LENGTH_SHORT).show();
+                        User user = new Gson().fromJson(object.toString(), User.class);
+                        onReceiveUserListener.onReceive(user);
+                    });
+
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "user_id,name,email,gender,birthday");
+                    request.setParameters(parameters);
+                    request.executeAsync();
                 }
             }
         }
     }
 
-    public void logout() {
+    @Override
+    public boolean isLoggedIn() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken != null;
+    }
+
+    @Override
+    public void logout(OnResultLogoutListener onResultLogoutListener) {
         LoginManager.getInstance().logOut();
+    }
+
+    public void onDestory() {
+
     }
 }

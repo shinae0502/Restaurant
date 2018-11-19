@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 
 import com.study.restaurant.BR;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 
 import java.util.ArrayList;
 
@@ -93,7 +93,7 @@ public class SearchView extends BaseObservable {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                LOG.d(charSequence);
+                Logger.d(charSequence);
                 //TODO::검색어 API CALL 하기
                 requestRecommandKeyword(charSequence.toString());
                 setKeyword(charSequence.toString());

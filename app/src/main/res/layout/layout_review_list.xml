@@ -129,7 +129,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right">
+            android:layout_gravity="right"
+            android:onClick="moreReview">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -149,6 +150,8 @@
             android:layout_height="120dp"
             android:layout_marginTop="10dp"
             android:background="#FFFFFF"
+            android:clickable="true"
+            android:onClick="searchBlog"
             android:orientation="vertical">
 
             <TextView

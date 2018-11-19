@@ -25,6 +25,7 @@ public class Store extends BaseObservable implements Parcelable {
     String address;
     String reg_user_id;
     String region_name;
+    String region_id;
     /**
      * 내위치
      */
@@ -47,6 +48,7 @@ public class Store extends BaseObservable implements Parcelable {
         address = in.readString();
         reg_user_id = in.readString();
         favority_id = in.readString();
+        region_id = in.readString();
     }
 
     @Override
@@ -66,6 +68,7 @@ public class Store extends BaseObservable implements Parcelable {
         dest.writeString(address);
         dest.writeString(reg_user_id);
         dest.writeString(favority_id);
+        dest.writeString(region_id);
     }
 
     @Override
@@ -216,6 +219,14 @@ public class Store extends BaseObservable implements Parcelable {
 
     public String getFavority_id() {
         return favority_id;
+    }
+
+    public String getRegion_id() {
+        return region_id;
+    }
+
+    public void setRegion_id(String region_id) {
+        this.region_id = region_id;
     }
 
     @Bindable

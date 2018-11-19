@@ -346,6 +346,10 @@ public class SelectPictureActivity extends AppCompatActivity {
             this.data = data;
         }
 
+        public String getData() {
+            return data;
+        }
+
         @Override
         public boolean equals(Object obj) {
             boolean compare = false;

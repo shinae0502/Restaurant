@@ -11,7 +11,7 @@ import com.study.restaurant.BR;
 import com.study.restaurant.R;
 import com.study.restaurant.databinding.ItemBinding;
 import com.study.restaurant.model.Store;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 import com.study.restaurant.util.MyGlide;
 import com.study.restaurant.viewmodel.FindRestaurantViewModel;
 
@@ -59,7 +59,7 @@ public class StoreHolder extends RecyclerView.ViewHolder {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 if (propertyId == BR.existsFavority_id) {
-                    LOG.d(((Store) sender).toString());
+                    Logger.d(((Store) sender).toString());
                     itemBinding.imgFavorite.setSelected(((Store) sender).isExistsFavority_id());
                 }
             }

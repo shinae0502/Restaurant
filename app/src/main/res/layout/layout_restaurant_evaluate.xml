@@ -1,93 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<layout>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <data>
+        <import type="com.study.restaurant.common.BananaConstants.ReviewScore" />
+    </data>
 
-    <TextView
-        android:id="@+id/review"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="이 식당에 대한 솔직한 평점을 들려주세요." />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/review"
-        android:layout_alignRight="@+id/review"
-        android:layout_below="@+id/review"
-        android:layout_marginTop="10dp">
-
-        <LinearLayout
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_egmt_review_rating_1_normal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:maxLines="1"
-                android:text="맛있다!"
-                android:textSize="11sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
+        <TextView
+            android:id="@+id/review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp"
+            android:text="이 식당에 대한 솔직한 평점을 들려주세요." />
 
-            <ImageView
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/review"
+            android:layout_alignRight="@+id/review"
+            android:layout_below="@+id/review"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
                 android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_egmt_review_rating_2_normal" />
+                android:layout_height="match_parent"
+                android:onClick="reviewFilter"
+                android:tag="@{ReviewScore.BEST}"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:text="괜찮다"
-                android:textSize="11sp" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_egmt_review_rating_1_normal" />
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:maxLines="1"
+                    android:text="맛있다!"
+                    android:textSize="11sp" />
 
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:orientation="vertical">
-
-            <ImageView
+            <LinearLayout
                 android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_egmt_review_rating_3_normal" />
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:onClick="reviewFilter"
+                android:tag="@{ReviewScore.NORMAL}"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:text="별로"
-                android:textSize="11sp" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_egmt_review_rating_2_normal" />
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="괜찮다"
+                    android:textSize="11sp" />
 
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:onClick="reviewFilter"
+                android:tag="@{ReviewScore.BAD}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_egmt_review_rating_3_normal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="별로"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
-</RelativeLayout>
-
+</layout>

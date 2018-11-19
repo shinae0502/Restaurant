@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -18,10 +17,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.study.restaurant.R;
-import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.databinding.ActivityMapsBinding;
 import com.study.restaurant.manager.MyLocationManager;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -71,7 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            LOG.d(charSequence.toString());
+            Logger.d(charSequence.toString());
             if (charSequence.toString().length() > 0) {
                 activityMapsBinding.setting.setSelected(true);
             } else {

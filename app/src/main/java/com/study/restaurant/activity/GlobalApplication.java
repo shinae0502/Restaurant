@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 
+import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.model.FindRestaurant;
 
 import java.util.ArrayList;
@@ -13,6 +14,12 @@ public class GlobalApplication extends Application {
 
     FindRestaurant findRestaurant;
     ArrayList<AppCompatActivity> activityArrayList = new ArrayList<>();
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ApiManager.getInstance().setApplication(this);
+    }
 
     public FindRestaurant getFindRestaurant() {
         if (findRestaurant == null)
@@ -40,47 +47,4 @@ public class GlobalApplication extends Application {
             }
         }
     }
-
-    /*Cities cities;
-    Sort sort;
-    Boundary boundary;
-    Filter filter;
-
-    public Filter getFilter() {
-        if (filter == null)
-            filter = new Filter();
-        return filter;
-    }
-
-    public void setFilter(Filter filter) {
-        this.filter = filter;
-    }
-
-    public Boundary getBoundary() {
-        if (boundary == null)
-            boundary = new Boundary();
-        return boundary;
-    }
-
-    public void setBoundary(Boundary boundary) {
-        this.boundary = boundary;
-    }
-
-    public Sort getSort() {
-        if (sort == null)
-            sort = new Sort();
-        return sort;
-    }
-
-    public void setSort(Sort sort) {
-        this.sort = sort;
-    }
-
-    public Cities getCities() {
-        return cities;
-    }
-
-    public void setCities(Cities cities) {
-        this.cities = cities;
-    }*/
 }

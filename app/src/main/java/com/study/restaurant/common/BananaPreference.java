@@ -1,13 +1,13 @@
 package com.study.restaurant.common;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.study.restaurant.model.User;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
+
+import java.util.UUID;
 
 public class BananaPreference {
     private static BananaPreference bananaPreference;
@@ -26,13 +26,32 @@ public class BananaPreference {
     }
 
     public void saveUser(User user) {
-        LOG.d(user.toString());
-        sharedPreferences.edit().putString("user", new Gson().toJson(user)).commit();
+        Logger.d(user.toString());
+        sharedPreferences.edit().putString("user", new Gson().toJson(user)).apply();
     }
 
     public User loadUser() {
         String user = sharedPreferences.getString("user", "");
-        LOG.d(user);
+        Logger.d(user);
         return new Gson().fromJson(user, User.class);
+    }
+
+
+    public String getUUID() {
+        if (sharedPreferences.getString("UUID", "").equals("")) {
+            String uuid = UUID.randomUUID().toString();
+            sharedPreferences.edit().putString("UUID", uuid).apply();
+            return uuid;
+        } else {
+            return sharedPreferences.getString("UUID", "");
+        }
+    }
+
+    public void putAccessToken(String accessToken) {
+        sharedPreferences.edit().putString("accessToken", accessToken).apply();
+    }
+
+    public String getAccessToken() {
+        return sharedPreferences.getString("accessToken", "");
     }
 }

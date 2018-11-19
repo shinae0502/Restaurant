@@ -22,7 +22,7 @@ import com.study.restaurant.databinding.ItemRegionBinding;
 import com.study.restaurant.model.City;
 import com.study.restaurant.model.Region;
 import com.study.restaurant.presenter.SelectRegionPopupPresenter;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 
 import java.util.ArrayList;
 
@@ -102,7 +102,7 @@ public class SelectRegionFragment extends Fragment {
                 region.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
                     @Override
                     public void onPropertyChanged(Observable sender, int propertyId) {
-                        LOG.d(propertyId);
+                        Logger.d(propertyId);
                         if (propertyId == BR.checked) {
                             itemRegionBinding.regionLayout.setSelected(region.getChecked());
                         }

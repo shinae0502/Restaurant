@@ -1,7 +1,5 @@
 package com.study.restaurant.model;
 
-import com.study.restaurant.util.LOG;
-
 public class FoodCategotyModel {
 
     FoodCategory foodCategory = FoodCategory.NONE;

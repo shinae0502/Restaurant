@@ -3,6 +3,8 @@ package com.study.restaurant.manager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
+import com.kakao.auth.AuthType;
+import com.kakao.auth.Session;
 import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.login.FacebookLoginProvider;
 import com.study.restaurant.login.KakaoLoginProvider;
@@ -29,13 +31,12 @@ public class BananaLoginManager {
         return bananaLoginManager;
     }
 
-    public void setCallbackListener(LoginProvider.CallBack callbackListener) {
-        FacebookLoginProvider.getInstance(appCompatActivity).setCallBack(callbackListener);
-        KakaoLoginProvider.getInstance(appCompatActivity).setCallBack(callbackListener);
+    public void requestFacebookLogin(LoginProvider.OnResultLoginListener onResultLoginListener) {
+        FacebookLoginProvider.getInstance(appCompatActivity).requestLogin(onResultLoginListener);
     }
 
-    public void requestFacebookLogin() {
-        FacebookLoginProvider.getInstance(appCompatActivity).requestLogin();
+    public void requestKakaoLogin(LoginProvider.OnResultLoginListener onResultLoginListener) {
+        KakaoLoginProvider.getInstance(appCompatActivity).requestLogin(onResultLoginListener);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -49,11 +50,29 @@ public class BananaLoginManager {
     }
 
     public void onDestroy() {
+        FacebookLoginProvider.getInstance(appCompatActivity).onDestory();
+        KakaoLoginProvider.getInstance(appCompatActivity).onDestroy();
     }
 
-    public void logout() {
-        FacebookLoginProvider.getInstance(appCompatActivity).logout();
-        KakaoLoginProvider.getInstance(appCompatActivity).logout();
-        BananaPreference.getInstance(appCompatActivity).saveUser(new User());
+    public void logout(LoginProvider.OnResultLogoutListener onResultLogoutListener) {
+        if (FacebookLoginProvider.getInstance(appCompatActivity).isLoggedIn()) {
+            FacebookLoginProvider.getInstance(appCompatActivity).logout(onResultLogoutListener);
+        } else if (KakaoLoginProvider.getInstance(appCompatActivity).isLoggedIn()) {
+            KakaoLoginProvider.getInstance(appCompatActivity).logout(onResultLogoutListener);
+        } else {
+            onResultLogoutListener.onResult(0);
+        }
+    }
+
+    public void requestLogin() {
+        if (FacebookLoginProvider.getInstance(appCompatActivity).isLoggedIn()) {
+            FacebookLoginProvider.getInstance(appCompatActivity).requestUser(user -> {
+
+            });
+        } else if (KakaoLoginProvider.getInstance(appCompatActivity).isLoggedIn()) {
+            KakaoLoginProvider.getInstance(appCompatActivity).requestUser(user -> {
+
+            });
+        }
     }
 }

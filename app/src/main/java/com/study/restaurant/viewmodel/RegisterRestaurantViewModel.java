@@ -5,13 +5,12 @@ import android.databinding.Bindable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 
 import com.study.restaurant.BR;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.model.FoodCategotyModel;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 import com.study.restaurant.view.RegisterRestaurantNavigator;
 
 import java.util.HashMap;
@@ -131,50 +130,50 @@ public class RegisterRestaurantViewModel extends BaseObservable {
     }
 
     public void clickKoreanFood(View v) {
-        LOG.d("");
+        Logger.d("");
         foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.KOREAN_FOOD);
         foodCategoryNofity();
-        //LOG.d(isSelectKoreanFood());
+        //Logger.d(isSelectKoreanFood());
     }
 
     public void clickJapaneseFood(View v) {
-        LOG.d("");
+        Logger.d("");
         foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.JAPANESE_FOOD);
         foodCategoryNofity();
     }
 
     public void clickChineseFood(View v) {
-        LOG.d("");
+        Logger.d("");
         foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.CHINESE_FOOD);
         foodCategoryNofity();
     }
 
     public void clickWesternFood(View v) {
-        LOG.d("");
+        Logger.d("");
         foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.WESTERN_FOOD);
         foodCategoryNofity();
     }
 
     public void clickWorldWideFood(View v) {
-        LOG.d("");
+        Logger.d("");
         foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.WORLD_WIDE_FOOD);
         foodCategoryNofity();
     }
 
     public void clickBuffet(View v) {
-        LOG.d("");
+        Logger.d("");
         foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.BUFFET);
         foodCategoryNofity();
     }
 
     public void clickBar(View v) {
-        LOG.d("");
+        Logger.d("");
         foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.BAR);
         foodCategoryNofity();
     }
 
     public void clickCafe(View v) {
-        LOG.d("");
+        Logger.d("");
         foodCategotyModel.setFoodCategory(FoodCategotyModel.FoodCategory.CAFE);
         foodCategoryNofity();
     }
@@ -275,7 +274,7 @@ public class RegisterRestaurantViewModel extends BaseObservable {
         ApiManager.getInstance().regStore(param, new ApiManager.CallbackListener() {
             @Override
             public void callback(String result) {
-                LOG.d(result);
+                Logger.d(result);
                 if (result != null && result.equals("db삽입")) {
                     registerRestaurantNavigator.onFinish();
                 }

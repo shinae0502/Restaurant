@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
+        android:onClick="findRounte"
         android:orientation="vertical">
 
         <ImageView
@@ -29,6 +30,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
+        android:onClick="navigation"
         android:orientation="vertical">
 
         <ImageView
@@ -49,6 +51,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
+        android:onClick="callTaxi"
         android:orientation="vertical">
 
         <ImageView
@@ -68,6 +71,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
+        android:onClick="copyAddress"
         android:orientation="vertical">
 
 

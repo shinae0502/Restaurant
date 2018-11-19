@@ -3,15 +3,18 @@ package com.study.restaurant.api;
 import android.content.Context;
 import android.util.Log;
 
+import com.study.restaurant.activity.GlobalApplication;
 import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.model.Banner;
 import com.study.restaurant.model.Store;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -22,6 +25,7 @@ import retrofit2.Retrofit;
 public class ApiManager {
 
     private static ApiManager apiManager;
+    private static GlobalApplication application;
 
     public static ApiManager getInstance() {
         if (apiManager == null) {
@@ -30,18 +34,69 @@ public class ApiManager {
         return apiManager;
     }
 
+    public void setApplication(GlobalApplication application) {
+        this.application = application;
+    }
+
     public static String URL = "http://sarang628.iptime.org:83/php/";
 
     public RestaurantService getService() {
+
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(chain -> {
+            Request original = chain.request();
+
+            Request request = original.newBuilder()
+                    .header("User-Agent", "android")
+                    .header("accessToken", BananaPreference.getInstance(application).getAccessToken())
+                    .method(original.method(), original.body())
+                    .build();
+
+            return chain.proceed(request);
+        });
+
+        OkHttpClient client = httpClient.build();
+
+
         //TODO:: 레트로핏 초기화 BASE URL 설정하는 곳
         Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
                 .baseUrl(URL)
                 .build();
 
         //TODO:: 통신인터페이스 기반 서비스 생성
         RestaurantService service = retrofit.create(RestaurantService.class);
-
         return service;
+    }
+
+    public void connectLog(Map<String, String> param, final CallbackListener callbackListener) {
+        getService().connectLog(param).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
+                String body = "";
+                if (response.code() == 200) {
+                    try {
+                        body = response.body().string();
+                        callbackListener.callback(body);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (response.code() == 500) {
+                    try {
+                        body = response.body().string();
+                        callbackListener.failed(body);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
     public void getBanner(Banner banner, final CallbackListener callbackListener) {
@@ -53,7 +108,7 @@ public class ApiManager {
                 String body = "";
                 try {
                     body = response.body().string();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -76,7 +131,7 @@ public class ApiManager {
                 String body = "";
                 try {
                     body = response.body().string();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -84,7 +139,7 @@ public class ApiManager {
                     try {
                         callbackListener.callback(body);
                     } catch (Exception e) {
-                        LOG.d(e.toString());
+                        Logger.d(e.toString());
                     }
             }
 
@@ -104,7 +159,7 @@ public class ApiManager {
                 String body = "";
                 try {
                     body = response.body().string();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -128,7 +183,7 @@ public class ApiManager {
                 String body = "";
                 try {
                     body = response.body().string();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -150,7 +205,7 @@ public class ApiManager {
     }
 
     public void requestKakaoLogin(String accessToken, final CallbackListener callbackListener) {
-
+        Logger.i(accessToken);
         getService().requestKakaoLogin(accessToken).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -159,7 +214,7 @@ public class ApiManager {
                 try {
                     body = response.body().string();
                 } catch (Exception e) {
-                    Log.d("sarang", e.toString());
+                    Logger.d(e.toString());
                 }
 
                 if (callbackListener != null)
@@ -253,7 +308,7 @@ public class ApiManager {
                 String body = "";
                 try {
                     body = response.body().string();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -261,7 +316,7 @@ public class ApiManager {
                     try {
                         callbackListener.callback(body);
                     } catch (Exception e) {
-                        LOG.d(e.toString());
+                        Logger.d(e.toString());
                     }
             }
 
@@ -280,7 +335,7 @@ public class ApiManager {
                 String body = "";
                 try {
                     body = response.body().string();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -288,7 +343,7 @@ public class ApiManager {
                     try {
                         callbackListener.callback(body);
                     } catch (Exception e) {
-                        LOG.d(e.toString());
+                        Logger.d(e.toString());
                     }
             }
 
@@ -307,7 +362,7 @@ public class ApiManager {
                 String body = "";
                 try {
                     body = response.body().string();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -315,7 +370,7 @@ public class ApiManager {
                     try {
                         callbackListener.callback(body);
                     } catch (Exception e) {
-                        LOG.d(e.toString());
+                        Logger.d(e.toString());
                     }
             }
 
@@ -334,7 +389,7 @@ public class ApiManager {
                 String body = "";
                 try {
                     body = response.body().string();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -342,7 +397,7 @@ public class ApiManager {
                     try {
                         callbackListener.callback(body);
                     } catch (Exception e) {
-                        LOG.d(e.toString());
+                        Logger.d(e.toString());
                     }
             }
 
@@ -361,7 +416,7 @@ public class ApiManager {
                 String body = "";
                 try {
                     body = response.body().string();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -369,7 +424,7 @@ public class ApiManager {
                     try {
                         callbackListener.callback(body);
                     } catch (Exception e) {
-                        LOG.d(e.toString());
+                        Logger.d(e.toString());
                     }
             }
 
@@ -380,15 +435,36 @@ public class ApiManager {
         });
     }
 
-    public void registerNews(Map<String, RequestBody> param, final CallbackListener callbackListener) {
-        getService().registerNews(param).enqueue(new Callback<ResponseBody>() {
+    public void registerNews(Map<String, RequestBody> param,
+                             MultipartBody.Part pic1,
+                             MultipartBody.Part pic2,
+                             MultipartBody.Part pic3,
+                             MultipartBody.Part pic4,
+                             MultipartBody.Part pic5,
+                             MultipartBody.Part pic6,
+                             MultipartBody.Part pic7,
+                             MultipartBody.Part pic8,
+                             MultipartBody.Part pic9,
+                             MultipartBody.Part pic0,
+                             final CallbackListener callbackListener) {
+        getService().registerNews(param,
+                pic1,
+                pic2,
+                pic3,
+                pic4,
+                pic5,
+                pic6,
+                pic7,
+                pic8,
+                pic9,
+                pic0).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
                 String body = "";
                 try {
                     body = response.body().string();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -396,7 +472,7 @@ public class ApiManager {
                     try {
                         callbackListener.callback(body);
                     } catch (Exception e) {
-                        LOG.d(e.toString());
+                        Logger.d(e.toString());
                     }
             }
 
@@ -415,7 +491,7 @@ public class ApiManager {
                 String body = "";
                 try {
                     body = response.body().string();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -423,7 +499,7 @@ public class ApiManager {
                     try {
                         callbackListener.callback(body);
                     } catch (Exception e) {
-                        LOG.d(e.toString());
+                        Logger.d(e.toString());
                     }
             }
 
@@ -446,7 +522,7 @@ public class ApiManager {
                 try {
                     body = response.body().string();
                     store.setFavority_id("100");
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -470,7 +546,32 @@ public class ApiManager {
                 try {
                     body = response.body().string();
                     store.setFavority_id(null);
-                } catch (IOException e) {
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void getStoreDetail(Store store, final CallbackListener callbackListener) {
+        Map<String, String> param = new HashMap<>();
+        param.put("store_id", store.getStore_id());
+        param.put("region_id", store.getRegion_id());
+        getService().getStoreDetail(param).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
+                String body = "";
+                try {
+                    body = response.body().string();
+                    if (callbackListener != null)
+                        callbackListener.callback(body);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

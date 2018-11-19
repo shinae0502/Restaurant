@@ -120,6 +120,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="moreConvenience"
+            android:clickable="true"
             android:layout_gravity="right">
 
             <TextView
@@ -258,6 +260,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="moreMenu"
             android:layout_gravity="right">
 
             <TextView

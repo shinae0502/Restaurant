@@ -21,7 +21,7 @@ import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.City;
 import com.study.restaurant.presenter.SelectRegionPopupPresenter;
 import com.study.restaurant.util.CustomTabLayout;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 import com.study.restaurant.view.SelectRegionPopupView;
 
 import static android.support.design.widget.TabLayout.*;
@@ -85,7 +85,7 @@ public class SelectRegionPopupActivity extends BasePopupActivity implements Sele
 
     @Override
     public void validateButton(boolean isValiate) {
-        LOG.d(isValiate);
+        Logger.d(isValiate);
     }
 
     public void adapt(View view) {

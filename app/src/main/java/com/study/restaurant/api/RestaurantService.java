@@ -2,6 +2,7 @@ package com.study.restaurant.api;
 
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -10,11 +11,18 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RestaurantService {
+
+
+    @FormUrlEncoded
+    @POST("ConnectLog.php")
+    Call<ResponseBody> connectLog(@FieldMap Map<String, String> params);
+
     @GET("getBanner.php")
     Call<ResponseBody> getBanner();
 
@@ -62,7 +70,17 @@ public interface RestaurantService {
 
     @Multipart
     @POST("registerNews.php")
-    Call<ResponseBody> registerNews(@PartMap() Map<String, RequestBody> params);
+    Call<ResponseBody> registerNews(@PartMap() Map<String, RequestBody> params,
+                                    @Part MultipartBody.Part pic1,
+                                    @Part MultipartBody.Part pic2,
+                                    @Part MultipartBody.Part pic3,
+                                    @Part MultipartBody.Part pic4,
+                                    @Part MultipartBody.Part pic5,
+                                    @Part MultipartBody.Part pic6,
+                                    @Part MultipartBody.Part pic7,
+                                    @Part MultipartBody.Part pic8,
+                                    @Part MultipartBody.Part pic9,
+                                    @Part MultipartBody.Part pic0);
 
     @FormUrlEncoded
     @POST("getUser.php")
@@ -75,5 +93,9 @@ public interface RestaurantService {
     @FormUrlEncoded
     @POST("deleteFavorite.php")
     Call<ResponseBody> deleteFavorite(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("getStoreDetail.php")
+    Call<ResponseBody> getStoreDetail(@FieldMap Map<String, String> params);
 
 }

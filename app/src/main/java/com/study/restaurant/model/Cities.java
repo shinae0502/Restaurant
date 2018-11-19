@@ -5,9 +5,8 @@ import android.databinding.Bindable;
 import android.view.View;
 
 
-import com.google.android.gms.common.util.Strings;
 import com.study.restaurant.BR;
-import com.study.restaurant.util.LOG;
+import com.study.restaurant.util.Logger;
 
 import java.util.ArrayList;
 
@@ -143,7 +142,7 @@ public class Cities extends BaseObservable implements Cloneable {
         }
         if (regionIds.length() > 0)
             regionIds = regionIds.substring(0, regionIds.length() - 1);
-        LOG.d(regionIds);
+        Logger.d(regionIds);
         return regionIds;
     }
 

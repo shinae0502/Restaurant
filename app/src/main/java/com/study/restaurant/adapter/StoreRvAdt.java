@@ -1,24 +1,12 @@
 package com.study.restaurant.adapter;
 
-import android.databinding.Observable;
-import android.databinding.ObservableField;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.study.restaurant.model.Banner;
 import com.study.restaurant.model.FindRestaurant;
 import com.study.restaurant.model.Store;
-import com.study.restaurant.util.LOG;
-import com.study.restaurant.util.MyGlide;
 import com.study.restaurant.viewmodel.FindRestaurantViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import com.study.restaurant.BR;
 
 public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
 
