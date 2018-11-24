@@ -2,15 +2,15 @@ package com.study.restaurant.model;
 
 public class CommonResponse {
 
-    String commonError;
+    String errCode;
     String result;
 
-    public String getCommonError() {
-        return commonError;
+    public String getErrCode() {
+        return errCode;
     }
 
-    public void setCommonError(String commonError) {
-        this.commonError = commonError;
+    public void setErrCode(String errCode) {
+        this.errCode = errCode;
     }
 
     public String getResult() {

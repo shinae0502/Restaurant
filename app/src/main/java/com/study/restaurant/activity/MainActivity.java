@@ -28,21 +28,23 @@ import com.study.restaurant.util.Logger;
 import com.study.restaurant.view.MainActivitytNavigation;
 import com.study.restaurant.viewmodel.MainActivityViewModel;
 
-
+/**
+ * 메인화면 맛집찾기, 망고픽, 맛집등록, 소식, 내정보 화면을 가지고 있다.
+ */
 public class MainActivity extends AppCompatActivity implements MainActivitytNavigation {
 
-    /**
-     * 맛집찾기 - 망고픽 - 소식 - 내정보를 담고 있는 페이지
-     */
-    ViewPager pager;
-    FindRestaurantFragment findRestaurantFragment;
-    MyInformationFragment myInformationFragment;
-    NewsFragment newsFragment;
-    MangoPickFragment mangoPickFragment;
     private MainActivityViewModel mainActivityViewModel;
     private ActivityMainBinding activityMainBinding;
-
-    ImageView image_mangopick;
+    ViewPager pager;
+    // 맛집찾기
+    FindRestaurantFragment findRestaurantFragment;
+    // 내정보
+    MyInformationFragment myInformationFragment;
+    // 소식
+    NewsFragment newsFragment;
+    // 망고픽
+    MangoPickFragment mangoPickFragment;
+    // 등록
     View layout_register;
 
     @Override

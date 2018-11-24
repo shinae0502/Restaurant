@@ -47,11 +47,10 @@ public class BananaPreference {
         }
     }
 
-    public void putAccessToken(String accessToken) {
-        sharedPreferences.edit().putString("accessToken", accessToken).apply();
-    }
-
     public String getAccessToken() {
-        return sharedPreferences.getString("accessToken", "");
+        String accessToken = "";
+        if (loadUser() != null && loadUser().accessToken != null)
+            accessToken = loadUser().accessToken;
+        return accessToken;
     }
 }

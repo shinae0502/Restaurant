@@ -19,6 +19,7 @@ import com.study.restaurant.model.Boundary;
 import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.FindRestaurant;
 import com.study.restaurant.model.Store;
+import com.study.restaurant.test.Dummy;
 import com.study.restaurant.util.Logger;
 import com.study.restaurant.view.FindRestaurantNavigation;
 
@@ -33,6 +34,9 @@ import static com.study.restaurant.adapter.ProgressRvAdt.VIEW_TYPE_PROGRESS;
 import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_BANNER;
 import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_MENU;
 
+/**
+ * FindRestaurantFragment 에서 사용
+ */
 public class FindRestaurantViewModel extends BaseObservable {
     private final Context context;
     FindRestaurantNavigation findRestaurantNavigation;
@@ -139,6 +143,7 @@ public class FindRestaurantViewModel extends BaseObservable {
     }
 
     public void requestStoreSummary() {
+
         HashMap<String, String> param = new HashMap<>();
         param.put("region_id", findRestaurant.getCities().getSelectedRegionIds());
         param.put("boundary", "");
@@ -161,9 +166,10 @@ public class FindRestaurantViewModel extends BaseObservable {
 
             @Override
             public void failed(String msg) {
-
+                findRestaurantNavigation.showErrorPopup(msg);
             }
         });
+
     }
 
     public void clickSearch(View v) {

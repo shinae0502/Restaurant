@@ -9,14 +9,21 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kakao.auth.Session;
 import com.study.restaurant.R;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.common.ProgressDialog;
 import com.study.restaurant.manager.BananaLoginManager;
+import com.study.restaurant.model.User;
 import com.study.restaurant.presenter.LoginPresenter;
 import com.study.restaurant.util.Logger;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -90,10 +97,11 @@ public class LoginActivity extends AppCompatActivity {
             ApiManager.getInstance().requestFacebookLogin(user.accessToken, new ApiManager.CallbackListener() {
                 @Override
                 public void callback(String result) {
-                    if (loginPresenter.processLogin(result)) {
-                        MainActivity.go(LoginActivity.this);
-                        finish();
-                    }
+                    User user = new Gson().fromJson(result, User.class);
+                    //사용자 정보 저장하기
+                    BananaPreference.getInstance(LoginActivity.this).saveUser(user);
+                    MainActivity.go(LoginActivity.this);
+                    finish();
                 }
 
                 @Override

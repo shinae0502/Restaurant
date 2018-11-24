@@ -39,6 +39,7 @@ import com.study.restaurant.model.Image;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.model.StoreDetail;
 import com.study.restaurant.model.StoreSpec;
+import com.study.restaurant.test.Dummy;
 import com.study.restaurant.util.AppBarStateChangeListener;
 import com.study.restaurant.util.Logger;
 import com.study.restaurant.util.MyGlide;
@@ -155,18 +156,8 @@ public class RestaurantDetailActivity extends BananaBaseActivity
     public void initData() {
         ActivityRestaurantDetailBinding vb = (ActivityRestaurantDetailBinding) getViewDataBinding();
         RestaurantDetailViewModel vm = (RestaurantDetailViewModel) getViewModel();
-        StoreSpec storeSpec = null;
-        /** 더미 테스트 코드 */
-        try {
-            Resources res = getBaseContext().getResources();
-            InputStream in_s = res.openRawResource(R.raw.store_spec_dummy);
-
-            byte[] b = new byte[in_s.available()];
-            in_s.read(b);
-            storeSpec = new Gson().fromJson(new String(b), StoreSpec.class);
-        } catch (Exception e) {
-            Logger.d(e.toString());
-        }
+        //더미코드
+        StoreSpec storeSpec = Dummy.getInstance().getRestaurantDetail();
 
         vm.setStoreSpec(storeSpec);
         // data binding

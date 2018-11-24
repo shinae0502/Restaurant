@@ -1,4 +1,4 @@
-# [구현][Android] 로그인 개발하기(SNS 로그인 개발하기)
+# [구현][Android] 로그인 개발하기(SNS 로그인 개발하기, 카카오톡, 페이스북)
 
 이전에 기억하기로는 SNS를 통해 서버에 로그인을 하면 서버에서 토큰을 주어서
 그다음부터는 로그인 없이 토큰을 계속 사용하는 방식을 사용했었다. 그러다면 SNS에서
@@ -200,3 +200,65 @@ public void logout(OnResultLogoutListener onResultLogoutListener) {
 ```
          
 ## 3. 페이스북 로그인 개발하기
+
+#### 2.1 로그인 요청
+카카오톡과 마찬가지로 xml과 코드로 요청가능하며 코드 요청 부분은 아래와 같다.
+```java
+LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList("public_profile", "email"));
+```
+
+로그인 요청부
+```java
+public void requestFacebookLogin(View view) {
+    progressDialog.show();
+    BananaLoginManager.getInstance(this).requestFacebookLogin((result, user) -> {
+        ApiManager.getInstance().requestFacebookLogin(user.accessToken, new ApiManager.CallbackListener() {
+            @Override
+            public void callback(String result) {
+                User user = new Gson().fromJson(result, User.class);
+                //사용자 정보 저장하기
+                BananaPreference.getInstance(LoginActivity.this).saveUser(user);
+                MainActivity.go(LoginActivity.this);
+                finish();
+            }
+
+            @Override
+            public void failed(String msg) {
+
+            }
+        });
+    });
+}
+```
+
+#### 2.2 사용자 정보 요청
+삭제
+
+#### 2.3 현재 로그인 상태
+```java
+@Override
+public boolean isLoggedIn() {
+    AccessToken accessToken = AccessToken.getCurrentAccessToken();
+    return accessToken != null;
+}
+```
+#### 2.4 로그아웃
+```java
+@Override
+public void logout(OnResultLogoutListener onResultLogoutListener) {
+    new AccessTokenTracker() {
+        @Override
+        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
+                                                   AccessToken currentAccessToken) {
+            if (currentAccessToken == null) {
+                //write your code here what to do when user logout
+                if (onResultLogoutListener != null) {
+                    onResultLogoutListener.onResult(0);
+                }
+            }
+        }
+    };
+
+    LoginManager.getInstance().logOut();
+}
+```

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.model.FindRestaurant;
+import com.study.restaurant.test.Dummy;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class GlobalApplication extends Application {
     public void onCreate() {
         super.onCreate();
         ApiManager.getInstance().setApplication(this);
+        Dummy.getInstance().setApplication(this);
     }
 
     public FindRestaurant getFindRestaurant() {

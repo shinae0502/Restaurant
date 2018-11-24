@@ -84,10 +84,8 @@ public class KakaoLoginProvider extends LoginProvider {
                     @Override
                     public void callback(String result) {
                         Logger.v(result);
-                        Type listType = new TypeToken<ArrayList<User>>() {
-                        }.getType();
-                        List<User> users = new Gson().fromJson(result, listType);
-                        onResultLoginListener.onResult(0, users.get(0));
+                        User user = new Gson().fromJson(result, User.class);
+                        onResultLoginListener.onResult(0, user);
                     }
 
                     @Override

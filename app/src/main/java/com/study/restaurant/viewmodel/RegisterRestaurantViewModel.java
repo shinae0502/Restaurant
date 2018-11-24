@@ -1,5 +1,6 @@
 package com.study.restaurant.viewmodel;
 
+import android.database.Observable;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.Editable;
@@ -7,8 +8,11 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.study.restaurant.BR;
 import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.common.BananaPreference;
+import com.study.restaurant.model.CommonResponse;
 import com.study.restaurant.model.FoodCategotyModel;
 import com.study.restaurant.util.Logger;
 import com.study.restaurant.view.RegisterRestaurantNavigator;
@@ -23,6 +27,21 @@ public class RegisterRestaurantViewModel extends BaseObservable {
     private String lat;
     private String lng;
     private String location;
+
+    /*Observable<Boolean> isSelectKoreanFood;
+    Observable<Boolean> isSelectJapaneseFood;
+    Observable<Boolean> isSelectChineseFood;
+    Observable<Boolean> isSelectWesternFood;
+    Observable<Boolean> isSelectWorldWideFood;
+    Observable<Boolean> isSelectBuffet;
+    Observable<Boolean> isSelectCafe;
+    Observable<Boolean> isSelectBar;
+    Observable<String> restaurantName;
+    Observable<String> address;
+    Observable<String> latitude;
+    Observable<String> longitude;
+    Observable<Boolean> isRequiredField;
+    Observable<Integer> getSelectedFood;*/
 
     FoodCategotyModel foodCategotyModel = new FoodCategotyModel();
 
@@ -264,18 +283,16 @@ public class RegisterRestaurantViewModel extends BaseObservable {
             param.put("lat", lat);
         }
         if (!TextUtils.isEmpty(lng)) {
-            param.put("lng", lng);
+            param.put("lon", lng);
         }
 
-        //TODO::id필요
-        //BananaPreference.getInstance(this).loadUser().user_id
-        param.put("reg_user_id", " 1");
+        param.put("user_id", BananaPreference.getInstance(v.getContext()).loadUser().user_id);
 
         ApiManager.getInstance().regStore(param, new ApiManager.CallbackListener() {
             @Override
             public void callback(String result) {
-                Logger.d(result);
-                if (result != null && result.equals("db삽입")) {
+                CommonResponse commonResponse = new Gson().fromJson(result, CommonResponse.class);
+                if (commonResponse.getResult().equals("0")) {
                     registerRestaurantNavigator.onFinish();
                 }
             }

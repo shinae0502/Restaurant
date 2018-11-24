@@ -3,12 +3,19 @@ package com.study.restaurant.api;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.activity.GlobalApplication;
 import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.model.Banner;
+import com.study.restaurant.model.CommonResponse;
 import com.study.restaurant.model.Store;
+import com.study.restaurant.test.Dummy;
 import com.study.restaurant.util.Logger;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,13 +65,13 @@ public class ApiManager {
         OkHttpClient client = httpClient.build();
 
 
-        //TODO:: 레트로핏 초기화 BASE URL 설정하는 곳
+        //레트로핏 초기화 BASE URL 설정하는 곳
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
                 .baseUrl(URL)
                 .build();
 
-        //TODO:: 통신인터페이스 기반 서비스 생성
+        //통신인터페이스 기반 서비스 생성
         RestaurantService service = retrofit.create(RestaurantService.class);
         return service;
     }
@@ -124,6 +131,28 @@ public class ApiManager {
     }
 
     public void getStoreSummary(Map<String, String> param, final CallbackListener callbackListener) {
+
+        //TODO:: 맛집 찾기 더미 요청 중
+        boolean isDummy = true;
+        //더미요청
+        if (isDummy) {
+            String result = Dummy.getInstance().getStoreList();
+            try {
+                CommonResponse commonResponse = new Gson().fromJson(result, CommonResponse.class);
+                commonResponse.getResult().equals("-1");
+                {
+                    callbackListener.failed(commonResponse.getErrCode());
+                    return;
+                }
+            } catch (JsonSyntaxException e) {
+
+            }
+
+            callbackListener.callback(result);
+            return;
+        }
+
+
         getService().getStoreSummary(param).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -131,6 +160,13 @@ public class ApiManager {
                 String body = "";
                 try {
                     body = response.body().string();
+                    CommonResponse commonResponse = new Gson().fromJson(body, CommonResponse.class);
+                    if (commonResponse != null) {
+                        commonResponse.getResult().equals("-1");
+                        {
+                            callbackListener.failed(commonResponse.getErrCode());
+                        }
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -229,7 +265,7 @@ public class ApiManager {
     }
 
     public void requestFacebookLogin(String accessToken, final CallbackListener callbackListener) {
-
+        Logger.v(accessToken);
         getService().requestFacebookLogin(accessToken).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -464,6 +500,7 @@ public class ApiManager {
                 String body = "";
                 try {
                     body = response.body().string();
+                    Logger.v(body);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

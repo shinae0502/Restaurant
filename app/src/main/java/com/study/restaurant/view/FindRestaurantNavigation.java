@@ -17,4 +17,6 @@ public interface FindRestaurantNavigation {
     void goDeatilRestaurant(Store store);
 
     void rvToTop();
+
+    void showErrorPopup(String msg);
 }

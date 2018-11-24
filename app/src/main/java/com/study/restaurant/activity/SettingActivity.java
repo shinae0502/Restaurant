@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.study.restaurant.R;
+import com.study.restaurant.common.BananaPreference;
+import com.study.restaurant.login.LoginProvider;
+import com.study.restaurant.manager.BananaLoginManager;
+import com.study.restaurant.model.User;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -24,6 +28,12 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        SplashActivity.go(this);
+        BananaLoginManager.getInstance(this).logout(new LoginProvider.OnResultLogoutListener() {
+            @Override
+            public void onResult(int result) {
+                BananaPreference.getInstance(SettingActivity.this).saveUser(new User());
+                SplashActivity.go(SettingActivity.this);
+            }
+        });
     }
 }

@@ -94,7 +94,6 @@ public class SearchView extends BaseObservable {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Logger.d(charSequence);
-                //TODO::검색어 API CALL 하기
                 requestRecommandKeyword(charSequence.toString());
                 setKeyword(charSequence.toString());
             }

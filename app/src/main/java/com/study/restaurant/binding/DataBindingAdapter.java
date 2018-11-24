@@ -4,7 +4,9 @@ import android.databinding.BindingAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextWatcher;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -113,5 +115,11 @@ public class DataBindingAdapter {
                 .apply(bitmapTransform(new BlurTransformation(25, 3)))
                 //.transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageView);
+    }
+
+    @BindingAdapter({"app:textWhatcher"})
+    public static void setTextWhatcher(EditText editText, TextWatcher textWatcher)
+    {
+        editText.addTextChangedListener(textWatcher);
     }
 }

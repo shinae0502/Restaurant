@@ -9,8 +9,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.model.Region;
+import com.study.restaurant.model.Store;
 import com.study.restaurant.model.StoreSpec;
 import com.study.restaurant.model.Story;
+import com.study.restaurant.test.Dummy;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,5 +70,12 @@ public class AndroidTest {
 
             }
         });
+    }
+
+    @Test
+    public void restaurantListDummyTest()
+    {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        Dummy.getInstance().setContext(appContext);
     }
 }

@@ -190,7 +190,7 @@ public class WriteReviewActivity extends AppCompatActivity {
                     params.put("user_id", RequestBody.create(MediaType.parse("text/plain"), BananaPreference.getInstance(WriteReviewActivity.this).loadUser().user_id));
                     params.put("store_id", RequestBody.create(MediaType.parse("text/plain"), storeKeyword.getStore_id()));
                     params.put("user_name", RequestBody.create(MediaType.parse("text/plain"), BananaPreference.getInstance(WriteReviewActivity.this).loadUser().name));
-                    params.put("profile_img", RequestBody.create(MediaType.parse("text/plain"), BananaPreference.getInstance(WriteReviewActivity.this).loadUser().picture));
+                    params.put("profile_img", RequestBody.create(MediaType.parse("text/plain"), ""));
                     params.put("score", RequestBody.create(MediaType.parse("text/plain"), "" + score));
                     params.put("contents", RequestBody.create(MediaType.parse("text/plain"), "" + edReview.getText().toString()));
                     params.put("tag1", RequestBody.create(MediaType.parse("text/plain"), storeKeyword.getRestaurant_name()));

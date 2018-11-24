@@ -66,6 +66,7 @@ public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
 
         if (holder instanceof ProgressHolder) {
             ((ProgressHolder) holder).progressBinding.progressImg.setVisibility(View.VISIBLE);
+            setProgressImage(((ProgressHolder) holder).progressBinding.progressImg);
         }
     }
 

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -88,25 +89,26 @@ public class FacebookLoginProvider extends LoginProvider {
 
     @Override
     public void requestUser(OnReceiveUserListener onReceiveUserListener) {
-        if (isLoggedIn()) {
-            callbackManager = CallbackManager.Factory.create();
-            AccessToken accessToken = AccessToken.getCurrentAccessToken();
-            if (accessToken != null) {
-                if (!accessToken.isExpired()) {
-                    GraphRequest request = GraphRequest.newMeRequest(accessToken, (object, response) -> {
-                        Logger.v(object.toString());
-                        Toast.makeText(activity, object.toString(), Toast.LENGTH_SHORT).show();
-                        User user = new Gson().fromJson(object.toString(), User.class);
-                        onReceiveUserListener.onReceive(user);
-                    });
-
-                    Bundle parameters = new Bundle();
-                    parameters.putString("fields", "user_id,name,email,gender,birthday");
-                    request.setParameters(parameters);
-                    request.executeAsync();
-                }
-            }
-        }
+//        if (isLoggedIn()) {
+//            callbackManager = CallbackManager.Factory.create();
+//            AccessToken accessToken = AccessToken.getCurrentAccessToken();
+//            Logger.v(accessToken);
+//            if (accessToken != null) {
+//                if (!accessToken.isExpired()) {
+//                    GraphRequest request = GraphRequest.newMeRequest(accessToken, (object, response) -> {
+//                        Logger.v(object.toString());
+//                        Toast.makeText(activity, object.toString(), Toast.LENGTH_SHORT).show();
+//                        User user = new Gson().fromJson(object.toString(), User.class);
+//                        onReceiveUserListener.onReceive(user);
+//                    });
+//
+//                    Bundle parameters = new Bundle();
+//                    parameters.putString("fields", "user_id,name,email,gender,birthday");
+//                    request.setParameters(parameters);
+//                    request.executeAsync();
+//                }
+//            }
+//        }
     }
 
     @Override
@@ -117,6 +119,19 @@ public class FacebookLoginProvider extends LoginProvider {
 
     @Override
     public void logout(OnResultLogoutListener onResultLogoutListener) {
+        new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
+                                                       AccessToken currentAccessToken) {
+                if (currentAccessToken == null) {
+                    //write your code here what to do when user logout
+                    if (onResultLogoutListener != null) {
+                        onResultLogoutListener.onResult(0);
+                    }
+                }
+            }
+        };
+
         LoginManager.getInstance().logOut();
     }
 

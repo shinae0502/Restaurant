@@ -1,11 +1,15 @@
 package com.study.restaurant.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +24,7 @@ import com.study.restaurant.R;
 import com.study.restaurant.activity.GlobalApplication;
 import com.study.restaurant.activity.RestaurantDetailActivity;
 import com.study.restaurant.activity.SearchActivity;
+import com.study.restaurant.adapter.StoreRvAdt;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
 import com.study.restaurant.manager.MyLocationManager;
@@ -30,6 +35,7 @@ import com.study.restaurant.popup.SelectFilterPoppupActivity;
 import com.study.restaurant.popup.SelectRegionPopupActivity;
 import com.study.restaurant.popup.SelectSortPopupActivity;
 import com.study.restaurant.util.Logger;
+import com.study.restaurant.util.MyGlide;
 import com.study.restaurant.view.FindRestaurantNavigation;
 import com.study.restaurant.viewmodel.FindRestaurantViewModel;
 
@@ -37,6 +43,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 맛집 찾기 화면
+ */
 public class FindRestaurantFragment extends Fragment implements FindRestaurantNavigation {
 
     /**
@@ -67,7 +76,7 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
         /** Sets Binding */
         fragmentFindRestaurantBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_find_restaurant, container, false);
         /** create ViewModel */
-        findRestaurantViewModel = new FindRestaurantViewModel(getContext(),this);
+        findRestaurantViewModel = new FindRestaurantViewModel(getContext(), this);
         /** Sets Binding ViewModel */
         fragmentFindRestaurantBinding.setVm(findRestaurantViewModel);
         findRestaurantViewModel.setFindRestaurant(getGlobalApplication().getFindRestaurant());
@@ -86,6 +95,10 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
                     findRestaurantViewModel.getFindRestaurant().getCities().setCurrentRegion(region);
                     /** 내위치 해당 지역 맛집 검색하기 */
                     findRestaurantViewModel.requestStoreSummary();
+
+                    //3초후 프로그래스바 없애기
+                    myHandler.sendEmptyMessageDelayed(1, 3000);
+
                 })) {
                     fragmentFindRestaurantBinding.location.setText("지역 없음");
                 }
@@ -96,6 +109,21 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
 
         return fragmentFindRestaurantBinding.getRoot();
     }
+
+    MyHandler myHandler = new MyHandler();
+
+
+    class MyHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                ((StoreRvAdt) fragmentFindRestaurantBinding.findRestaurantRv.getAdapter()).setDismissProgress();
+            }
+            super.handleMessage(msg);
+        }
+    }
+
+    ;
 
     public void requestLocation(OnSuccessListener<? super Location> listener) {
         /** PS 사용 전 권한 체크 */
@@ -163,6 +191,14 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
     @Override
     public void rvToTop() {
         fragmentFindRestaurantBinding.findRestaurantRv.scrollToPosition(0);
+    }
+
+    @Override
+    public void showErrorPopup(String msg) {
+        AlertDialog.Builder b = new AlertDialog.Builder(getContext());
+        b.setTitle("오류");
+        b.setMessage("오류가 발생하였습니다. 오류코드: " + msg);
+        b.show();
     }
 
     private GlobalApplication getGlobalApplication() {

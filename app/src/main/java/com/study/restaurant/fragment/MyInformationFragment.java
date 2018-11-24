@@ -13,6 +13,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.R;
+import com.study.restaurant.activity.SettingActivity;
 import com.study.restaurant.activity.SplashActivity;
 import com.study.restaurant.adapter.StoryHolder;
 import com.study.restaurant.api.ApiManager;
@@ -54,6 +55,9 @@ public class MyInformationFragment extends Fragment {
         fragmentMyinformationBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_myinformation, null, false);
 
         requestUserInformation();
+
+        fragmentMyinformationBinding.setting.setOnClickListener(view -> SettingActivity.go((AppCompatActivity) getActivity()));
+
 
         return fragmentMyinformationBinding.getRoot();
     }
