@@ -2,7 +2,6 @@ package com.study.restaurant.fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
@@ -35,7 +34,6 @@ import com.study.restaurant.popup.SelectFilterPoppupActivity;
 import com.study.restaurant.popup.SelectRegionPopupActivity;
 import com.study.restaurant.popup.SelectSortPopupActivity;
 import com.study.restaurant.util.Logger;
-import com.study.restaurant.util.MyGlide;
 import com.study.restaurant.view.FindRestaurantNavigation;
 import com.study.restaurant.viewmodel.FindRestaurantViewModel;
 
@@ -81,6 +79,8 @@ public class FindRestaurantFragment extends Fragment implements FindRestaurantNa
         fragmentFindRestaurantBinding.setVm(findRestaurantViewModel);
         findRestaurantViewModel.setFindRestaurant(getGlobalApplication().getFindRestaurant());
         myLocationManager = new MyLocationManager(getActivity());
+
+        findRestaurantViewModel.setFindRestaurantRv(fragmentFindRestaurantBinding.findRestaurantRv);
 
 
         /** 내 위치 요청하기 */

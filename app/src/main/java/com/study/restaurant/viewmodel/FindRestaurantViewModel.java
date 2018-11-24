@@ -4,6 +4,8 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.location.Location;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,12 +16,10 @@ import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.adapter.StoreRvAdt;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.common.BananaPreference;
-import com.study.restaurant.model.Banner;
 import com.study.restaurant.model.Boundary;
 import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.FindRestaurant;
 import com.study.restaurant.model.Store;
-import com.study.restaurant.test.Dummy;
 import com.study.restaurant.util.Logger;
 import com.study.restaurant.view.FindRestaurantNavigation;
 
@@ -39,11 +39,18 @@ import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_MENU;
  */
 public class FindRestaurantViewModel extends BaseObservable {
     private final Context context;
-    FindRestaurantNavigation findRestaurantNavigation;
-    StoreRvAdt storeRvAdt = new StoreRvAdt();
-    boolean isLast;
+    private FindRestaurantNavigation findRestaurantNavigation;
+    private StoreRvAdt storeRvAdt = new StoreRvAdt();
+    private boolean isLast;
     private FindRestaurant findRestaurant;
-    boolean isVisibleTopButton;
+    private boolean isVisibleTopButton;
+
+    //하단 터치 감지를위한 리싸이클러뷰 필요
+    RecyclerView findRestaurantRv;
+
+    public void setFindRestaurantRv(RecyclerView findRestaurantRv) {
+        this.findRestaurantRv = findRestaurantRv;
+    }
 
     @Bindable
     public boolean isVisibleTopButton() {
@@ -54,8 +61,6 @@ public class FindRestaurantViewModel extends BaseObservable {
         isVisibleTopButton = visibleTopButton;
         notifyPropertyChanged(BR.visibleTopButton);
     }
-
-    Banner banner = new Banner();
 
     public Object getRvItem(int position) {
         if (position > 1) {
@@ -82,28 +87,24 @@ public class FindRestaurantViewModel extends BaseObservable {
         findRestaurantNavigation.showSelectRegionPopup();
     }
 
-    @Bindable
-    public ArrayList<Store> getStoreArrayList() {
-        return findRestaurant.getStoreArrayList();
-    }
-
-    public void setStoreArrayList(ArrayList<Store> storeArrayList) {
-        removeAllStore();
-        findRestaurant.addAllStoreArrayList(storeArrayList);
-        storeRvAdt.notifyDataSetChanged();
-    }
-
     public void addStoreArrayList(ArrayList<Store> storeArrayList) {
         findRestaurant.addAllStoreArrayList(storeArrayList);
         storeRvAdt.notifyDataSetChanged();
+        handler.sendEmptyMessageDelayed(0, 100);
     }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (!findRestaurantRv.canScrollVertically(1)) {
+                isLast = true;
+            }
+        }
+    };
 
     public StoreRvAdt getStoreRvAdt() {
         return storeRvAdt;
-    }
-
-    public void setStoreRvAdt(StoreRvAdt storeRvAdt) {
-        this.storeRvAdt = storeRvAdt;
     }
 
     public RecyclerView.OnScrollListener getOnScrollListener() {
@@ -248,9 +249,4 @@ public class FindRestaurantViewModel extends BaseObservable {
             ApiManager.getInstance().addFavorite(v.getContext(), store);
         }
     }
-
-    /** 지역 */
-
-
-    /** 나와의 거리 */
 }
