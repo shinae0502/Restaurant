@@ -1,11 +1,10 @@
 package com.study.restaurant.viewmodel;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.databinding.Bindable;
 import android.databinding.ObservableField;
 import android.view.View;
 
-import com.study.restaurant.BR;
 import com.study.restaurant.adapter.AroundRestaurantRvAdt;
 import com.study.restaurant.adapter.ReviewRvAdt;
 import com.study.restaurant.adapter.StoryRvAdt;
@@ -14,8 +13,6 @@ import com.study.restaurant.model.StoreDetail;
 import com.study.restaurant.model.StoreSpec;
 
 public class RestaurantDetailViewModel extends ViewModel {
-    private StoreSpec storeSpec;
-
     /**
      * 화면 이동 네비게이션
      */
@@ -26,23 +23,25 @@ public class RestaurantDetailViewModel extends ViewModel {
     StoryRvAdt storyRvAdt = new StoryRvAdt();
     AroundRestaurantRvAdt aroundRestaurantRvAdt = new AroundRestaurantRvAdt();
 
-    ObservableField<StoreDetail> observableField = new ObservableField<>();
+    ObservableField<StoreDetail> storeDetailObservableField = new ObservableField<>();
+    public MutableLiveData<Boolean> isExistsFavoriteId = new MutableLiveData<>();
 
-    public ObservableField<StoreDetail> getObservableField() {
-        return observableField;
+    public RestaurantDetailViewModel() {
+        isExistsFavoriteId.setValue(false);
+    }
+
+    public ObservableField<StoreDetail> getStoreDetailObservableField() {
+        return storeDetailObservableField;
     }
 
     public StoreDetail getStoreDetail() {
-        return observableField.get();
+        return storeDetailObservableField.get();
     }
 
     public void setStoreDetail(StoreDetail storeDetail) {
-        observableField.set(storeDetail);
-        observableField.notifyChange();
-    }
-
-    public StoreSpec getStoreSpec() {
-        return storeSpec;
+        storeDetailObservableField.set(storeDetail);
+        storeDetailObservableField.notifyChange();
+        isExistsFavoriteId.setValue(storeDetail.getRestaurant().isExistsFavority_id());
     }
 
     public ReviewRvAdt getReviewRvAdt() {
@@ -83,10 +82,6 @@ public class RestaurantDetailViewModel extends ViewModel {
 
     public void setRestaurantDetailNavigation(RestaurantDetailNavigation restaurantDetailNavigation) {
         this.restaurantDetailNavigation = restaurantDetailNavigation;
-    }
-
-    public void setStoreSpec(StoreSpec storeSpec) {
-        this.storeSpec = storeSpec;
     }
 
     public void clickImage(View v) {

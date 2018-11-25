@@ -32,14 +32,14 @@ public class Dummy {
         setContext(application.getBaseContext());
     }
 
-    public StoreSpec getRestaurantDetail() {
+    public String getRestaurantDetail() {
         try {
             Resources res = application.getBaseContext().getResources();
             InputStream in_s = res.openRawResource(R.raw.store_spec_dummy);
 
             byte[] b = new byte[in_s.available()];
             in_s.read(b);
-            return new Gson().fromJson(new String(b), StoreSpec.class);
+            return new String(b);
         } catch (Exception e) {
             Logger.d(e.toString());
         }
@@ -50,6 +50,32 @@ public class Dummy {
         try {
             Resources res = context.getResources();
             InputStream in_s = res.openRawResource(R.raw.restaurant_list_dummy);
+            byte[] b = new byte[in_s.available()];
+            in_s.read(b);
+            return new String(b);
+        } catch (Exception e) {
+            Logger.d(e.toString());
+        }
+        return null;
+    }
+
+    public String getAddFavorite() {
+        try {
+            Resources res = context.getResources();
+            InputStream in_s = res.openRawResource(R.raw.add_favorite_dummy);
+            byte[] b = new byte[in_s.available()];
+            in_s.read(b);
+            return new String(b);
+        } catch (Exception e) {
+            Logger.d(e.toString());
+        }
+        return null;
+    }
+
+    public String getDeleteFavorite() {
+        try {
+            Resources res = context.getResources();
+            InputStream in_s = res.openRawResource(R.raw.delete_favorite_dummy);
             byte[] b = new byte[in_s.available()];
             in_s.read(b);
             return new String(b);

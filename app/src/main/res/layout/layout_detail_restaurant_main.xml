@@ -9,10 +9,6 @@
             type="com.study.restaurant.model.Store" />
 
         <variable
-            name="storeSpec"
-            type="com.study.restaurant.model.StoreSpec" />
-
-        <variable
             name="vm"
             type="com.study.restaurant.viewmodel.RestaurantDetailViewModel" />
     </data>
@@ -37,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="@{store.getName}"
+                android:text="@{store.getStoreName}"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 

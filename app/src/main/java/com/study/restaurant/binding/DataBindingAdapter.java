@@ -1,6 +1,7 @@
 package com.study.restaurant.binding;
 
 import android.databinding.BindingAdapter;
+import android.graphics.Paint;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.study.restaurant.adapter.AroundRestaurantRvAdt;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 import static com.study.restaurant.util.GlideOptions.bitmapTransform;
 
 public class DataBindingAdapter {
@@ -118,8 +121,16 @@ public class DataBindingAdapter {
     }
 
     @BindingAdapter({"app:textWhatcher"})
-    public static void setTextWhatcher(EditText editText, TextWatcher textWatcher)
-    {
+    public static void setTextWhatcher(EditText editText, TextWatcher textWatcher) {
         editText.addTextChangedListener(textWatcher);
+    }
+
+    @BindingAdapter({"app:setPaintFlags"})
+    public static void setPaintFlags(TextView textView, boolean b) {
+        if (b) {
+            textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        } else {
+            textView.setPaintFlags(textView.getPaintFlags() & Paint.UNDERLINE_TEXT_FLAG);
+        }
     }
 }

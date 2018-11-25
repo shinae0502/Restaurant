@@ -29,15 +29,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:clickable="true"
+                android:gravity="center"
                 android:onClick="addFavorite"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:selected="@{vm.isExistsFavoriteId}">
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/btn_rdp_tab_wannago_normal" />
+                    android:src="@drawable/selector_btn_rpd_tab_wannago" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -72,8 +73,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:clickable="true"
+                android:gravity="center"
                 android:onClick="writeReview"
                 android:orientation="vertical">
 
@@ -94,8 +95,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:clickable="true"
+                android:gravity="center"
                 android:onClick="uploadPicture"
                 android:orientation="vertical">
 

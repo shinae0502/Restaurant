@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:adapter="@{vm.aroundRestaurantRvAdt}"
             android:nestedScrollingEnabled="false"
-            app:items="@{vm.storeSpec.aroundRestaurant}"
+            app:items="@{vm.storeDetail.store}"
             app:layoutManager="android.support.v7.widget.GridLayoutManager"
             app:spanCount="2" />
 

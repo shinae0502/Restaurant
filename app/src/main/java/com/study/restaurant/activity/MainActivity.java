@@ -23,14 +23,14 @@ import com.study.restaurant.fragment.FindRestaurantFragment;
 import com.study.restaurant.fragment.MangoPickFragment;
 import com.study.restaurant.fragment.MyInformationFragment;
 import com.study.restaurant.fragment.NewsFragment;
+import com.study.restaurant.navigation.BananaNavigation;
 import com.study.restaurant.util.Logger;
-import com.study.restaurant.view.MainActivitytNavigation;
 import com.study.restaurant.viewmodel.MainActivityViewModel;
 
 /**
  * 메인화면 맛집찾기, 망고픽, 맛집등록, 소식, 내정보 화면을 가지고 있다.
  */
-public class MainActivity extends AppCompatActivity implements MainActivitytNavigation {
+public class MainActivity extends AppCompatActivity implements BananaNavigation.MainNavigation {
 
     private MainActivityViewModel mainActivityViewModel;
     private ActivityMainBinding activityMainBinding;

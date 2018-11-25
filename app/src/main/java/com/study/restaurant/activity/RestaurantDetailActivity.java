@@ -3,7 +3,6 @@ package com.study.restaurant.activity;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
 import android.databinding.ObservableField;
@@ -45,7 +44,6 @@ import com.study.restaurant.util.Logger;
 import com.study.restaurant.util.MyGlide;
 import com.study.restaurant.viewmodel.RestaurantDetailViewModel;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -128,8 +126,8 @@ public class RestaurantDetailActivity extends BananaBaseActivity
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         vb.layoutDetailRestaurantMain.storeImgRv.setLayoutManager(linearLayoutManager);
 
-        /** 이미지 리스트 */
-        vm.getObservableField().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+        /** 스토어 상세 데이터가 갱신되었을 때 */
+        vm.getStoreDetailObservableField().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 StoreDetail storeDetail = ((ObservableField<StoreDetail>) sender).get();
@@ -156,10 +154,7 @@ public class RestaurantDetailActivity extends BananaBaseActivity
     public void initData() {
         ActivityRestaurantDetailBinding vb = (ActivityRestaurantDetailBinding) getViewDataBinding();
         RestaurantDetailViewModel vm = (RestaurantDetailViewModel) getViewModel();
-        //더미코드
-        StoreSpec storeSpec = Dummy.getInstance().getRestaurantDetail();
 
-        vm.setStoreSpec(storeSpec);
         // data binding
 
 
@@ -167,15 +162,15 @@ public class RestaurantDetailActivity extends BananaBaseActivity
         vb.layoutDetailRestaurantTitleBar.setStore(getStore());
         vb.layoutDetailRestaurantMain.setStore(getStore());
 
-        vb.setStoreSpec(storeSpec);
-        vb.layoutDetailRestaurantTitleBar.setStoreSpec(storeSpec);
-        vb.layoutRestaurantInformation.setStoreSpec(storeSpec);
+//        StoreSpec storeSpec = Dummy.getInstance().getRestaurantDetail();
+
 
         ApiManager.getInstance().getStoreDetail(getIntent().getParcelableExtra("store"), new ApiManager.CallbackListener() {
             @Override
             public void callback(String result) {
                 Logger.d(result);
-                vm.setStoreDetail(new Gson().fromJson(result, StoreDetail.class));
+                StoreDetail storeDetail = new Gson().fromJson(result, StoreDetail.class);
+                vm.setStoreDetail(storeDetail);
             }
 
             @Override
@@ -244,12 +239,54 @@ public class RestaurantDetailActivity extends BananaBaseActivity
      * TODO:: 즐겨찾기
      */
     public void addFavorite(View v) {
+        RestaurantDetailViewModel vm = (RestaurantDetailViewModel) getViewModel();
+        if (vm.getStoreDetail().getRestaurant().isExistsFavority_id()) {
+            deleteFavorite();
+            return;
+        }
+        ApiManager.getInstance().addFavorite(this, vm.getStoreDetail().getRestaurant(), new ApiManager.CallbackListener() {
+            @Override
+            public void callback(String result) {
+                Store store = new Gson().fromJson(result, Store.class);
+                if (store.isExistsFavority_id()) {
+                    vm.getStoreDetail().getRestaurant().setFavority_id(store.getFavority_id());
+                }
+                vm.isExistsFavoriteId.setValue(store.isExistsFavority_id());
+            }
+
+            @Override
+            public void failed(String msg) {
+
+            }
+        });
+    }
+
+    public void deleteFavorite() {
+        RestaurantDetailViewModel vm = (RestaurantDetailViewModel) getViewModel();
+        ApiManager.getInstance().deleteFavorite(this, vm.getStoreDetail().getRestaurant(), new ApiManager.CallbackListener() {
+            @Override
+            public void callback(String result) {
+                Store store = new Gson().fromJson(result, Store.class);
+                if (store.isExistsFavority_id()) {
+                    vm.getStoreDetail().getRestaurant().setFavority_id(store.getFavority_id());
+                } else {
+                    vm.getStoreDetail().getRestaurant().setFavority_id(null);
+                }
+                vm.isExistsFavoriteId.setValue(store.isExistsFavority_id());
+            }
+
+            @Override
+            public void failed(String msg) {
+
+            }
+        });
     }
 
     /**
      * TODO:: 체크인
      */
     public void checkIn(View v) {
+        goCheckIn();
     }
 
     /**
@@ -339,7 +376,7 @@ public class RestaurantDetailActivity extends BananaBaseActivity
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
             googleMap.addMarker(new MarkerOptions().position(latLng)
-                    .title(getStore().getName()));
+                    .title(getStore().getStoreName()));
         } catch (Exception e) {
 
         }
@@ -364,7 +401,8 @@ public class RestaurantDetailActivity extends BananaBaseActivity
             holder.itemView.setTag(position);
 
             MyGlide.with(holder.itemView.getContext())
-                    .load("http://sarang628.iptime.org:83/image_upload/" + imageArrayList.get(position).getUrl())
+                    .load((imageArrayList.get(position).getUrl().contains("http") ? "" : "http://sarang628.iptime.org:83/image_upload/")
+                            + imageArrayList.get(position).getUrl())
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(((StoreImageRvHolder) holder).img);
 

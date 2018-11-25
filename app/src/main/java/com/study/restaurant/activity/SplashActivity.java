@@ -15,13 +15,14 @@ import com.study.restaurant.login.LoginProvider;
 import com.study.restaurant.manager.BananaLoginManager;
 import com.study.restaurant.model.CommonResponse;
 import com.study.restaurant.model.User;
+import com.study.restaurant.navigation.BananaNavigation;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity implements BananaNavigation.SplashNavigation {
 
     boolean isConnectCheck = false;
 
@@ -79,9 +80,9 @@ public class SplashActivity extends AppCompatActivity {
 
         if (BananaPreference.getInstance(this).loadUser() != null
                 && BananaPreference.getInstance(this).loadUser().isLogin()) {
-            MainActivity.go(this);
+            goMain();
         } else {
-            LoginActivity.go(this);
+            goLogin();
         }
         finish();
     }
@@ -92,6 +93,15 @@ public class SplashActivity extends AppCompatActivity {
         appCompatActivity.startActivity(intent);
     }
 
+    @Override
+    public void goLogin() {
+        LoginActivity.go(this);
+    }
+
+    @Override
+    public void goMain() {
+        MainActivity.go(this);
+    }
 }
 
 

@@ -18,6 +18,7 @@ import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.common.ProgressDialog;
 import com.study.restaurant.manager.BananaLoginManager;
 import com.study.restaurant.model.User;
+import com.study.restaurant.navigation.BananaNavigation;
 import com.study.restaurant.presenter.LoginPresenter;
 import com.study.restaurant.util.Logger;
 
@@ -25,7 +26,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements BananaNavigation.LoginNavigation {
 
     int currentBg = R.drawable.img_intro_bg_1;
     int currentAnim = R.anim.left_to_right;
@@ -53,6 +54,11 @@ public class LoginActivity extends AppCompatActivity {
 
         new LoginBackgroundChanger().sendEmptyMessage(0);
 
+    }
+
+    @Override
+    public void goMain() {
+        MainActivity.go(this);
     }
 
     private class LoginBackgroundChanger extends Handler {
@@ -88,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void skip(View view) {
-        MainActivity.go(this);
+        goMain();
     }
 
     public void requestFacebookLogin(View view) {
@@ -100,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                     User user = new Gson().fromJson(result, User.class);
                     //사용자 정보 저장하기
                     BananaPreference.getInstance(LoginActivity.this).saveUser(user);
-                    MainActivity.go(LoginActivity.this);
+                    goMain();
                     finish();
                 }
 
@@ -133,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
             if (result == 0) {
                 //로그인 성공
                 BananaPreference.getInstance(this).saveUser(user);
-                MainActivity.go(LoginActivity.this);
+                goMain();
                 finish();
             } else {
                 //로그인 실패

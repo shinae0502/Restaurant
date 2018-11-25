@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class StoreDetail extends BaseObservable implements Parcelable {
     Store restaurant;
     ArrayList<Image> image;
-    ArrayList<News> news;
+    ArrayList<Review> news;
     ArrayList<TopList> toplist;
     ArrayList<Store> store;
 
@@ -67,11 +67,11 @@ public class StoreDetail extends BaseObservable implements Parcelable {
         this.image = image;
     }
 
-    public ArrayList<News> getNews() {
+    public ArrayList<Review> getNews() {
         return news;
     }
 
-    public void setNews(ArrayList<News> news) {
+    public void setNews(ArrayList<Review> news) {
         this.news = news;
     }
 

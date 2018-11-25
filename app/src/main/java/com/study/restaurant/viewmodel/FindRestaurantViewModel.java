@@ -20,8 +20,8 @@ import com.study.restaurant.model.Boundary;
 import com.study.restaurant.model.Cities;
 import com.study.restaurant.model.FindRestaurant;
 import com.study.restaurant.model.Store;
+import com.study.restaurant.navigation.BananaNavigation;
 import com.study.restaurant.util.Logger;
-import com.study.restaurant.view.FindRestaurantNavigation;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ import static com.study.restaurant.adapter.StoreRvAdt.VIEW_TYPE_MENU;
  */
 public class FindRestaurantViewModel extends BaseObservable {
     private final Context context;
-    private FindRestaurantNavigation findRestaurantNavigation;
+    private BananaNavigation.FindRestaurantNavigation findRestaurantNavigation;
     private StoreRvAdt storeRvAdt = new StoreRvAdt();
     private boolean isLast;
     private FindRestaurant findRestaurant;
@@ -74,7 +74,7 @@ public class FindRestaurantViewModel extends BaseObservable {
         return 2 + findRestaurant.getStoreArrayList().size();
     }
 
-    public FindRestaurantViewModel(Context context, FindRestaurantNavigation findRestaurantNavigation) {
+    public FindRestaurantViewModel(Context context, BananaNavigation.FindRestaurantNavigation findRestaurantNavigation) {
         this.context = context;
         this.findRestaurantNavigation = findRestaurantNavigation;
     }

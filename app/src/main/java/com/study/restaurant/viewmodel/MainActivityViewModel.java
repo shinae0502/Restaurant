@@ -4,13 +4,9 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.RelativeLayout;
 
 import com.study.restaurant.BR;
-import com.study.restaurant.R;
-import com.study.restaurant.view.MainActivitytNavigation;
+import com.study.restaurant.navigation.BananaNavigation;
 
 public class MainActivityViewModel extends BaseObservable {
     boolean menu1 = true;
@@ -20,9 +16,9 @@ public class MainActivityViewModel extends BaseObservable {
     boolean menu5;
 
     boolean isMenuEanbled;
-    MainActivitytNavigation mainActivitytNavigation;
+    BananaNavigation.MainNavigation mainActivitytNavigation;
 
-    public MainActivityViewModel(MainActivitytNavigation mainActivitytNavigation) {
+    public MainActivityViewModel(BananaNavigation.MainNavigation mainActivitytNavigation) {
         this.mainActivitytNavigation = mainActivitytNavigation;
     }
 

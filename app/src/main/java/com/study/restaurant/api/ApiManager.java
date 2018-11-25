@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.activity.GlobalApplication;
 import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.model.Banner;
@@ -14,8 +13,6 @@ import com.study.restaurant.model.Store;
 import com.study.restaurant.test.Dummy;
 import com.study.restaurant.util.Logger;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -547,18 +544,69 @@ public class ApiManager {
         });
     }
 
-    public void addFavorite(Context context, Store store) {
+    public void addFavorite(Context context, Store store, final CallbackListener callbackListener) {
+        boolean isDummy = true;
+        if (isDummy == true) {
+            store.setFavority_id("100");
+            if (callbackListener != null)
+                callbackListener.callback(Dummy.getInstance().getAddFavorite());
+            return;
+        }
         Map<String, String> param = new HashMap<>();
         param.put("user_id", BananaPreference.getInstance(context).loadUser().user_id);
         param.put("store_id", store.getStore_id());
+
         getService().addFavorite(param).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
+
+                String body = "";
+                try {
+                    if (response.code() == 200) {
+                        body = response.body().string();
+                        store.setFavority_id("100");
+                        if (callbackListener != null)
+                            callbackListener.callback(body);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void addFavorite(Context context, Store store) {
+        addFavorite(context, store, null);
+    }
+
+    public void deleteFavorite(Context context, Store store, final CallbackListener callbackListener) {
+        boolean isDummy = true;
+        if (isDummy) {
+            store.setFavority_id(null);
+            if (callbackListener != null)
+                callbackListener.callback(Dummy.getInstance().getDeleteFavorite());
+            return;
+        }
+        Map<String, String> param = new HashMap<>();
+        param.put("user_id", BananaPreference.getInstance(context).loadUser().user_id);
+        param.put("store_id", store.getStore_id());
+        getService().deleteFavorite(param).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
                 String body = "";
                 try {
                     body = response.body().string();
-                    store.setFavority_id("100");
+                    store.setFavority_id(null);
+                    if (callbackListener != null) {
+                        callbackListener.callback(body);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -572,30 +620,29 @@ public class ApiManager {
     }
 
     public void deleteFavorite(Context context, Store store) {
-        Map<String, String> param = new HashMap<>();
-        param.put("user_id", BananaPreference.getInstance(context).loadUser().user_id);
-        param.put("store_id", store.getStore_id());
-        getService().deleteFavorite(param).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
-                String body = "";
-                try {
-                    body = response.body().string();
-                    store.setFavority_id(null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
+        deleteFavorite(context, store, null);
     }
 
     public void getStoreDetail(Store store, final CallbackListener callbackListener) {
+        boolean isDummy = true;
+        //더미요청
+        if (isDummy) {
+            String result = Dummy.getInstance().getRestaurantDetail();
+            try {
+                CommonResponse commonResponse = new Gson().fromJson(result, CommonResponse.class);
+                commonResponse.getResult().equals("-1");
+                {
+                    callbackListener.failed(commonResponse.getErrCode());
+                    return;
+                }
+            } catch (Exception e) {
+
+            }
+
+            callbackListener.callback(result);
+            return;
+        }
+
         Map<String, String> param = new HashMap<>();
         param.put("store_id", store.getStore_id());
         param.put("region_id", store.getRegion_id());

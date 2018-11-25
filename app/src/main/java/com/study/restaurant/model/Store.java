@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 public class Store extends BaseObservable implements Parcelable {
     private int position;
     String store_id;
-    String name;
+    String store_name;
     String score;
     String lat;
     String lon;
@@ -21,7 +21,6 @@ public class Store extends BaseObservable implements Parcelable {
     String hit;
     String review_count;
     String img;
-    String store_name;
     String address;
     String reg_user_id;
     String region_name;
@@ -34,7 +33,7 @@ public class Store extends BaseObservable implements Parcelable {
 
     protected Store(Parcel in) {
         store_id = in.readString();
-        name = in.readString();
+        store_name = in.readString();
         score = in.readString();
         lat = in.readString();
         lon = in.readString();
@@ -54,7 +53,7 @@ public class Store extends BaseObservable implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(store_id);
-        dest.writeString(name);
+        dest.writeString(store_name);
         dest.writeString(score);
         dest.writeString(lat);
         dest.writeString(lon);
@@ -137,17 +136,17 @@ public class Store extends BaseObservable implements Parcelable {
     }
 
     @Bindable
-    public String getName() {
-        return name;
+    public String getStoreName() {
+        return store_name;
     }
 
     @Bindable
     public String getPositionAndName() {
-        return (position + 1) + ". " + getName();
+        return (position + 1) + ". " + getStore_name();
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStoreName(String name) {
+        this.store_name = name;
     }
 
     @Bindable
@@ -276,7 +275,7 @@ public class Store extends BaseObservable implements Parcelable {
     public String toString() {
         return "position:" + position + "\n"
                 + "store_id:" + store_id + "\n"
-                + "name:" + name + "\n"
+                + "name:" + store_name + "\n"
                 + "score:" + score + "\n"
                 + "lat:" + lat + "\n"
                 + "lon:" + lon + "\n"

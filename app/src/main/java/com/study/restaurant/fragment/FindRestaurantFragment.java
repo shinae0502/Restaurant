@@ -29,12 +29,12 @@ import com.study.restaurant.databinding.FragmentFindRestaurantBinding;
 import com.study.restaurant.manager.MyLocationManager;
 import com.study.restaurant.model.Region;
 import com.study.restaurant.model.Store;
+import com.study.restaurant.navigation.BananaNavigation;
 import com.study.restaurant.popup.SelectDistancePopup;
 import com.study.restaurant.popup.SelectFilterPoppupActivity;
 import com.study.restaurant.popup.SelectRegionPopupActivity;
 import com.study.restaurant.popup.SelectSortPopupActivity;
 import com.study.restaurant.util.Logger;
-import com.study.restaurant.view.FindRestaurantNavigation;
 import com.study.restaurant.viewmodel.FindRestaurantViewModel;
 
 import java.lang.reflect.Type;
@@ -44,7 +44,7 @@ import java.util.List;
 /**
  * 맛집 찾기 화면
  */
-public class FindRestaurantFragment extends Fragment implements FindRestaurantNavigation {
+public class FindRestaurantFragment extends Fragment implements BananaNavigation.FindRestaurantNavigation {
 
     /**
      * 데이터 바인딩

@@ -15,6 +15,7 @@ public abstract class BananaBaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewDataBinding = initDataBinding();
+        viewDataBinding.setLifecycleOwner(this);
         viewModel = initViewModel();
         initUI();
         initData();

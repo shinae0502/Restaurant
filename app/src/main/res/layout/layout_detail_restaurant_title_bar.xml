@@ -6,10 +6,6 @@
         <variable
             name="store"
             type="com.study.restaurant.model.Store" />
-
-        <variable
-            name="storeSpec"
-            type="com.study.restaurant.model.StoreSpec" />
     </data>
 
 
@@ -37,7 +33,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_toLeftOf="@+id/option"
                 android:layout_toRightOf="@+id/close"
-                android:text="@{store.getName}"
+                android:text="@{store.getStoreName}"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 

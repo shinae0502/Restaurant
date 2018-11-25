@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.model.Region;
 import com.study.restaurant.model.Store;
+import com.study.restaurant.model.StoreDetail;
 import com.study.restaurant.model.StoreSpec;
 import com.study.restaurant.model.Story;
 import com.study.restaurant.test.Dummy;
@@ -73,9 +74,24 @@ public class AndroidTest {
     }
 
     @Test
-    public void restaurantListDummyTest()
-    {
+    public void restaurantListDummyTest() {
         Context appContext = InstrumentationRegistry.getTargetContext();
         Dummy.getInstance().setContext(appContext);
+    }
+
+    @Test
+    public void restaurantDetailDummyTest() {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        Dummy.getInstance().setContext(appContext);
+        StoreDetail storeDetail = new Gson().fromJson(Dummy.getInstance().getRestaurantDetail(), StoreDetail.class);
+        storeDetail.getRestaurant();
+    }
+
+    @Test
+    public void addFavoriteDummyTest() {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        Dummy.getInstance().setContext(appContext);
+        Store store = new Gson().fromJson(Dummy.getInstance().getAddFavorite(), Store.class);
+        assertEquals("1",store.getFavority_id());
     }
 }
