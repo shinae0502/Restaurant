@@ -49,4 +49,15 @@ public class BananaNavigation {
 
         void showErrorPopup(String msg);
     }
+
+    public interface CheckInNavigation {
+        void goPicture();
+        void goCheckInWrite();
+    }
+
+    public interface SelectPictureNavigation {
+        void goWriteReview();
+        void goWriteReviewWithoutPicture();
+        void goCheckIn();
+    }
 }

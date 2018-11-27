@@ -1,17 +1,17 @@
 package com.study.restaurant.activity;
 
 import android.Manifest;
+import android.app.Activity;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import android.databinding.Observable.OnPropertyChangedCallback;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -22,62 +22,58 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.databinding.Observable;
+import android.widget.Toast;
 
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.study.restaurant.BR;
 import com.study.restaurant.R;
+import com.study.restaurant.adapter.SelectPicRvAdt;
+import com.study.restaurant.common.BananaBaseActivity;
+import com.study.restaurant.databinding.ActivitySelectPictureBinding;
+import com.study.restaurant.model.MyImage;
 import com.study.restaurant.model.StoreKeyword;
-import com.study.restaurant.util.MyGlide;
+import com.study.restaurant.navigation.BananaNavigation;
+import com.study.restaurant.util.Logger;
+import com.study.restaurant.viewmodel.SelectPictureViewModel;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class SelectPictureActivity extends AppCompatActivity {
+public class SelectPictureActivity extends BananaBaseActivity implements BananaNavigation.SelectPictureNavigation {
 
     RecyclerView selectPicRv;
     Spinner spFolder;
     StoreKeyword storeKeyword;
 
-    class SelPicVM extends BaseObservable {
-        String count;
-
-
-        @Bindable
-        public String getCount() {
-            return count;
-        }
-
-        public void setCount(String count) {
-            this.count = count;
-            notifyPropertyChanged(BR.count);
-        }
-    }
-
-    SelPicVM selPicVM = new SelPicVM();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_picture);
-        spFolder = findViewById(R.id.spFolder);
+    }
 
-        storeKeyword = getIntent().getParcelableExtra("storeKeyword");
+    @Override
+    public ViewDataBinding initDataBinding() {
+        return DataBindingUtil.setContentView(this, R.layout.activity_select_picture);
+    }
 
-        selectPicRv = findViewById(R.id.selectPicRv);
+    @Override
+    public ViewModel initViewModel() {
+        return ViewModelProviders.of(this).get(SelectPictureViewModel.class);
+    }
+
+    @Override
+    public void initUI() {
+        ((ActivitySelectPictureBinding) getViewDataBinding()).setVm((SelectPictureViewModel) getViewModel());
+        ((SelectPictureViewModel) getViewModel()).setSelectPictureNavigation(this);
+        spFolder = ((ActivitySelectPictureBinding) getViewDataBinding()).spFolder;
+        selectPicRv = ((ActivitySelectPictureBinding) getViewDataBinding()).selectPicRv;
         selectPicRv.setLayoutManager(new GridLayoutManager(this, 4));
-        selectPicRv.setAdapter(new SelectPicRvAdt());
-
+        SelectPicRvAdt selectPicRvAdt = new SelectPicRvAdt();
+        selectPicRvAdt.setSelectedImageList(((SelectPictureViewModel) getViewModel()).selectedImgList);
+        selectPicRv.setAdapter(selectPicRvAdt);
         selectPicRv.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
@@ -116,30 +112,20 @@ public class SelectPictureActivity extends AppCompatActivity {
             }
         });
 
-        Button count = findViewById(R.id.count);
-        Button pass = findViewById(R.id.pass);
+        ((SelectPictureViewModel) getViewModel()).selectedImgList.observe(this
+                , myImages -> {
+                    Logger.v("" + myImages.size());
+                    ((SelectPictureViewModel) getViewModel()).setCount(myImages.size());
+                });
+    }
 
-
-        count.setText(String.format("완료(%s/20)", selectedImgList.size()));
-
-        selPicVM.addOnPropertyChangedCallback(new OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                count.setText(String.format("완료(%s/20)", selPicVM.getCount()));
-            }
-        });
-
-
-        count.setOnClickListener(view -> {
-            ((GlobalApplication) getApplication()).addActivity(SelectPictureActivity.this);
-            WriteReviewActivity.go(SelectPictureActivity.this, selectedImgList, storeKeyword);
-        });
-
-        pass.setOnClickListener(view -> {
-            ((GlobalApplication) getApplication()).addActivity(SelectPictureActivity.this);
-            WriteReviewActivity.go(SelectPictureActivity.this, new ArrayList<MyImage>(), storeKeyword);
-        });
-
+    @Override
+    public void initData() {
+        storeKeyword = getIntent().getParcelableExtra("storeKeyword");
+        if (storeKeyword == null) {
+            ((SelectPictureViewModel) getViewModel()).isCheckIn.setValue(true);
+            ((SelectPicRvAdt) selectPicRv.getAdapter()).setIsCheckIn(true);
+        }
     }
 
 
@@ -231,135 +217,38 @@ public class SelectPictureActivity extends AppCompatActivity {
     public static void go(AppCompatActivity appCompatActivity, StoreKeyword storeKeyword) {
         Intent intent = new Intent(appCompatActivity, SelectPictureActivity.class);
         intent.putExtra("storeKeyword", storeKeyword);
-        appCompatActivity.startActivity(intent);
+        appCompatActivity.startActivityForResult(intent, 0x01);
     }
 
-    ArrayList<MyImage> selectedImgList = new ArrayList<>();
-
-    private class SelectPicRvAdt extends RecyclerView.Adapter {
-        private ArrayList<MyImage> myImageList;
-
-        @NonNull
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new SelectPicHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_picture_select, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            SelectPicHolder selectPicHolder = (SelectPicHolder) holder;
-            MyGlide.with(holder.itemView.getContext())
-                    .load(myImageList.get(position).data)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(selectPicHolder.img);
-
-            if (selectedImgList.contains(myImageList.get(position))) {
-                selectPicHolder.dim.setVisibility(View.VISIBLE);
-                selectPicHolder.tag.setVisibility(View.VISIBLE);
-                selectPicHolder.tag.setText("" + selectedImgList.indexOf(myImageList.get(position)));
-            } else {
-                selectPicHolder.dim.setVisibility(View.GONE);
-                selectPicHolder.tag.setVisibility(View.GONE);
-                selectPicHolder.tag.setText("");
-            }
-
-            ((SelectPicHolder) holder).img.setOnClickListener((View view) -> {
-                boolean isContained = selectedImgList.contains(myImageList.get(position));
-                // 이미지를 선택했을때 선택 여부에 따라 딤과 카운트 보여지는 여부
-                selectPicHolder.dim.setVisibility(isContained ? View.GONE : View.VISIBLE);
-                selectPicHolder.tag.setVisibility(isContained ? View.GONE : View.VISIBLE);
-
-                if (isContained) {
-                    selectedImgList.remove(myImageList.get(position));
-                    notifyDataSetChanged();
-                } else {
-                    selectedImgList.add(myImageList.get(position));
-                    selectPicHolder.tag.setText("" + (selectedImgList.size() - 1));
-                }
-                selPicVM.setCount("" + selectedImgList.size());
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            int count = 0;
-            if (myImageList != null)
-                count = myImageList.size();
-            return count;
-        }
-
-        public void setMyImageList(ArrayList<MyImage> myImageList) {
-            this.myImageList = myImageList;
-            notifyDataSetChanged();
-        }
+    @Override
+    public void goWriteReview() {
+        ((GlobalApplication) getApplication()).addActivity(SelectPictureActivity.this);
+        WriteReviewActivity.go(SelectPictureActivity.this,
+                ((SelectPictureViewModel) getViewModel()).selectedImgList.getValue(), storeKeyword);
     }
 
-    private class SelectPicHolder extends RecyclerView.ViewHolder {
-
-        ImageView img;
-        ImageView dim;
-        TextView tag;
-
-        public SelectPicHolder(View itemView) {
-            super(itemView);
-            img = itemView.findViewById(R.id.img);
-            dim = itemView.findViewById(R.id.dim);
-            tag = itemView.findViewById(R.id.imgtag);
-        }
+    @Override
+    public void goWriteReviewWithoutPicture() {
+        ((GlobalApplication) getApplication()).addActivity(SelectPictureActivity.this);
+        WriteReviewActivity.go(SelectPictureActivity.this, new ArrayList<MyImage>(), storeKeyword);
     }
 
-    public static class MyImage implements Parcelable {
+    public SelectPictureViewModel getVm() {
+        return (SelectPictureViewModel) getViewModel();
+    }
 
-        private String data;
+    @Override
+    public void goCheckIn() {
 
-        public MyImage() {
-
+        if (getVm().selectedImgList.getValue().size() < 1) {
+            Toast.makeText(this, "이미지를 선택해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        protected MyImage(Parcel in) {
-            data = in.readString();
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(data);
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        public static final Creator<MyImage> CREATOR = new Creator<MyImage>() {
-            @Override
-            public MyImage createFromParcel(Parcel in) {
-                return new MyImage(in);
-            }
-
-            @Override
-            public MyImage[] newArray(int size) {
-                return new MyImage[size];
-            }
-        };
-
-        public void setData(String data) {
-            this.data = data;
-        }
-
-        public String getData() {
-            return data;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            boolean compare = false;
-
-            if (obj != null && obj instanceof MyImage) {
-                compare = this.data.equals(((MyImage) obj).data);
-            }
-
-            return compare;
-        }
+        Intent intent = new Intent();
+        intent.putExtra("MyImage", getVm().selectedImgList.getValue().get(0));
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 
     public void clickClose(View v) {

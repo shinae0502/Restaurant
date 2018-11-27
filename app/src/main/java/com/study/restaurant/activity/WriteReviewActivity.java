@@ -21,6 +21,7 @@ import com.study.restaurant.R;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.dialog.UploadProgressDialog;
+import com.study.restaurant.model.MyImage;
 import com.study.restaurant.model.StoreKeyword;
 import com.study.restaurant.util.CountingFileRequestBody;
 
@@ -39,7 +40,7 @@ import okhttp3.RequestBody;
 
 public class WriteReviewActivity extends AppCompatActivity {
 
-    ArrayList<SelectPictureActivity.MyImage> selectedImageList;
+    ArrayList<MyImage> selectedImageList;
     Button btnConfirm;
     EditText edReview;
     View rating1;
@@ -120,7 +121,7 @@ public class WriteReviewActivity extends AppCompatActivity {
 
     }
 
-    public static void go(AppCompatActivity appCompatActivity, ArrayList<SelectPictureActivity.MyImage> myImageArrayList, StoreKeyword storeKeyword) {
+    public static void go(AppCompatActivity appCompatActivity, ArrayList<MyImage> myImageArrayList, StoreKeyword storeKeyword) {
         Intent intent = new Intent(appCompatActivity, WriteReviewActivity.class);
         intent.putExtra("selectedImageList", myImageArrayList);
         intent.putExtra("storeKeyword", storeKeyword);

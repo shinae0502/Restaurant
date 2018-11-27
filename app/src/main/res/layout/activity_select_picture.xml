@@ -1,52 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activity.SelectPictureActivity">
+<layout>
 
-    <include layout="@layout/title_bar_select_picture" />
+    <data>
+®
+        <import type="android.view.View" />
 
-    <Spinner
-        android:id="@+id/spFolder"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"></Spinner>
+        <variable
+            name="vm"
+            type="com.study.restaurant.viewmodel.SelectPictureViewModel" />
+    </data>
 
-    <RelativeLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.SelectPictureActivity">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/selectPicRv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/bottomMenu" />
+        <include layout="@layout/title_bar_select_picture" />
+
+        <Spinner
+            android:id="@+id/spFolder"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp" />
 
         <RelativeLayout
-            android:id="@+id/bottomMenu"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/orange">
+            android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/pass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:text="건너뛰기"
-                android:textColor="@color/white" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/selectPicRv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottomMenu" />
 
-            <Button
-                android:id="@+id/count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@null"
-                android:text="완료(0/20)"
-                android:textColor="@color/white" />
+            <RelativeLayout
+                android:id="@+id/bottomMenu"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/orange">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:onClick="@{vm::clickPass}"
+                    android:text="건너뛰기"
+                    android:textColor="@color/white"
+                    android:visibility="@{vm.isCheckIn?View.GONE:View.VISIBLE}" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:onClick="@{vm::clickCount}"
+                    android:text="@{vm.strCount}"
+                    android:textColor="@color/white"
+                    android:visibility="@{vm.isCheckIn?View.GONE:View.VISIBLE}" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@null"
+                    android:onClick="@{vm::clickComplete}"
+                    android:text="완료"
+                    android:textColor="@color/white"
+                    android:visibility="@{vm.isCheckIn?View.VISIBLE:View.GONE}" />
+            </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
-</LinearLayout>
+    </LinearLayout>
+</layout>
