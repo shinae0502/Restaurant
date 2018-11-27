@@ -5,6 +5,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 public abstract class BananaBaseActivity extends AppCompatActivity {
 
@@ -22,8 +23,11 @@ public abstract class BananaBaseActivity extends AppCompatActivity {
     }
 
     public abstract ViewDataBinding initDataBinding();
+
     public abstract ViewModel initViewModel();
+
     public abstract void initUI();
+
     public abstract void initData();
 
     public ViewDataBinding getViewDataBinding() {
@@ -32,5 +36,9 @@ public abstract class BananaBaseActivity extends AppCompatActivity {
 
     public ViewModel getViewModel() {
         return viewModel;
+    }
+
+    public void clickClose(View v) {
+        onBackPressed();
     }
 }

@@ -27,7 +27,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="15dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -75,7 +78,7 @@
                         android:gravity="center"
                         android:onClick="@{vm::clickEgmt}"
                         android:orientation="vertical"
-                        app:selected="@{vm.isEgmt}">
+                        app:selected="@{vm.isPublic}">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -128,10 +131,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginBottom="15dp">
 
                     <ImageView
                         android:layout_width="60dp"
@@ -148,7 +148,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
-                            android:text="송쉐프"
+                            android:text="@{vm.restaurantName}"
                             android:textColor="#000000"
                             android:textSize="12sp" />
 
@@ -160,7 +160,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="가로수길"
+                                android:text="@{vm.regionName}"
                                 android:textSize="11sp" />
 
                             <TextView
@@ -172,7 +172,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="중식"
+                                android:text="@{vm.foodCategory}"
                                 android:textSize="11sp" />
                         </LinearLayout>
 
@@ -191,7 +191,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="2dp"
-                                android:text="48258"
+                                android:text="@{vm.hit}"
                                 android:textSize="11sp" />
 
                             <ImageView
@@ -204,7 +204,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="2dp"
-                                android:text="57"
+                                android:text="@{vm.reviewCount}"
                                 android:textSize="11sp" />
                         </LinearLayout>
 
@@ -219,19 +219,17 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="180dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/img_intro_bg_1"
                         app:glideLoadImage="@{vm.image}" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginBottom="10dp"
+                        android:layout_alignParentBottom="true"
                         android:layout_marginRight="10dp"
-                        android:background="#AEAEAE"
+                        android:layout_marginBottom="10dp"
                         android:clickable="true"
                         android:onClick="@{vm.clickDeleteImage}"
                         android:src="@drawable/btn_egmt_photo_delete" />

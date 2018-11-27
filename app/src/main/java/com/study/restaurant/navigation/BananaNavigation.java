@@ -52,12 +52,21 @@ public class BananaNavigation {
 
     public interface CheckInNavigation {
         void goPicture();
+
         void goCheckInWrite();
+
+        void finish();
+
+        int getCurrentPage();
+
+        void setCurrentPage(int page);
     }
 
     public interface SelectPictureNavigation {
         void goWriteReview();
+
         void goWriteReviewWithoutPicture();
+
         void goCheckIn();
     }
 }

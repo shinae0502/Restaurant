@@ -8,7 +8,6 @@ import android.databinding.ViewDataBinding;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -41,7 +40,8 @@ public class CheckInActivity extends BananaBaseActivity implements BananaNavigat
     @Override
     public void initUI() {
         ((ActivityCheckInBinding) getViewDataBinding()).checkInPager.setAdapter(new CheckInPageAdt(getSupportFragmentManager()));
-        ((CheckInViewModel)getViewModel()).setCheckInNavigation(this);
+        ((CheckInViewModel) getViewModel()).setCheckInNavigation(this);
+        ((ActivityCheckInBinding) getViewDataBinding()).setVm((CheckInViewModel) getViewModel());
     }
 
 
@@ -63,6 +63,16 @@ public class CheckInActivity extends BananaBaseActivity implements BananaNavigat
     @Override
     public void goCheckInWrite() {
         ((ActivityCheckInBinding) getViewDataBinding()).checkInPager.setCurrentItem(1);
+    }
+
+    @Override
+    public int getCurrentPage() {
+        return ((ActivityCheckInBinding) getViewDataBinding()).checkInPager.getCurrentItem();
+    }
+
+    @Override
+    public void setCurrentPage(int page) {
+        ((ActivityCheckInBinding) getViewDataBinding()).checkInPager.setCurrentItem(page);
     }
 
     private class CheckInPageAdt extends FragmentStatePagerAdapter {
@@ -91,5 +101,11 @@ public class CheckInActivity extends BananaBaseActivity implements BananaNavigat
 
     public void clickContents(View v) {
         goCheckInWrite();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ((CheckInViewModel) getViewModel()).onActivityResult(requestCode, resultCode, data);
     }
 }

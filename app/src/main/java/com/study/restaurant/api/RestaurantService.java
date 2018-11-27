@@ -98,4 +98,8 @@ public interface RestaurantService {
     @POST("getStoreDetail.php")
     Call<ResponseBody> getStoreDetail(@FieldMap Map<String, String> params);
 
+    @FormUrlEncoded
+    @POST("checkIn.php")
+    Call<ResponseBody> checkIn(@FieldMap Map<String, String> params);
+
 }

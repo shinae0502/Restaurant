@@ -3,15 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="vm"
+            type="com.study.restaurant.viewmodel.CheckInViewModel" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#EEEEEE"
         tools:context=".activity.CheckInActivity">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/img_intro_bg_1"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#CC000000"/>
+
         <include
             android:id="@+id/title_bar_checkin"
-            layout="@layout/title_bar_checkin" />
+            layout="@layout/title_bar_check_in" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/checkInPager"
@@ -25,7 +42,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentBottom="true"
-            android:background="@color/orange">
+            android:background="@color/orange"
+            android:clickable="true"
+            android:onClick="@{vm::clickComplete}">
 
             <TextView
                 android:layout_width="wrap_content"

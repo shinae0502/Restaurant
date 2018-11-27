@@ -16,6 +16,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+
 public class Dummy {
     private static Dummy dummy;
     private Application application;
@@ -87,5 +90,18 @@ public class Dummy {
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    public String checkIn() {
+        try {
+            Resources res = context.getResources();
+            InputStream in_s = res.openRawResource(R.raw.delete_favorite_dummy);
+            byte[] b = new byte[in_s.available()];
+            in_s.read(b);
+            return new String(b);
+        } catch (Exception e) {
+            Logger.d(e.toString());
+        }
+        return null;
     }
 }
