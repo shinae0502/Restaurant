@@ -217,30 +217,24 @@ public class RestaurantDetailActivity extends BananaBaseActivity
         RestaurantDetailMapActivity.go(this, store);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void showCallPermissionPopup() {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setTitle("권한 요청");
         b.setMessage("전화를 하기위해선 전화하기 권한이 필요합니다. 권한을 요창하시겠습니까?");
-        b.setPositiveButton("예", new DialogInterface.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 0x01);
-            }
+        b.setPositiveButton("예", (dialogInterface, i) ->
+                requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 0x01));
+        b.setNegativeButton("아니오", (dialogInterface, i) -> {
         });
-        b.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
+        b.show();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        ((RestaurantDetailViewModel) getViewModel()).onRequestPermissionsResult(requestCode, permissions, grantResults);
+        ((RestaurantDetailViewModel) getViewModel())
+                .onRequestPermissionsResult(requestCode, permissions, grantResults);
 
     }
 

@@ -120,9 +120,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:layout_marginTop="10dp"
-                        android:background="#EEEEEE"
-                        android:clickable="true"
-                        android:onClick="@{(v)->vm.call(v, store.tel)}">
+                        android:background="#EEEEEE">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -149,6 +147,12 @@
                                     android:text="전화하기" />
 
                             </LinearLayout>
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:onClick="@{(v)->vm.call(v, store.tel)}" />
 
                         </RelativeLayout>
 
