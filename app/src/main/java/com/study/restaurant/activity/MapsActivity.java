@@ -45,27 +45,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
 
-        mMap.setOnCameraIdleListener(() -> activityMapsBinding.title.setText(MyLocationManager.getAddress(getBaseContext(), mMap.getCameraPosition().target.latitude, mMap.getCameraPosition().target.longitude)));
+        mMap.setOnCameraIdleListener(
+                () -> {
+                    double lat = mMap.getCameraPosition().target.latitude;
+                    double lon = mMap.getCameraPosition().target.longitude;
+                    String address = MyLocationManager.getAddress(getBaseContext(), lat, lon);
+                    activityMapsBinding.title.setText(address);
+                }
+        );
 
+        int grantedAccessFindLocation =
+                ActivityCompat.checkSelfPermission(
+                        this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int grantedAccessCoarseLocation =
+                ActivityCompat.checkSelfPermission(
+                        this, Manifest.permission.ACCESS_COARSE_LOCATION);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (grantedAccessFindLocation != PackageManager.PERMISSION_GRANTED
+                && grantedAccessCoarseLocation != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         mMap.setMyLocationEnabled(true);
     }
 
     public static void go(AppCompatActivity appCompatActivity) {
-        appCompatActivity.startActivityForResult(new Intent(appCompatActivity, MapsActivity.class), 0x05);
-    }
-
-    public static void go(AppCompatActivity appCompatActivity, Store store) {
         Intent intent = new Intent(appCompatActivity, MapsActivity.class);
-        intent.putExtra("stroe", store);
-        appCompatActivity.startActivity(intent);
-    }
-
-    private Store getStore() {
-        return getIntent().getParcelableExtra("store");
+        appCompatActivity.startActivityForResult(intent, 0x05);
     }
 
     public void clickBackBtn(View v) {

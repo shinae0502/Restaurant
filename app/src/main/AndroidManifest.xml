@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.study.restaurant">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -162,7 +163,10 @@
         <activity
             android:name=".activity.WriteReviewActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".activity.PictureUploadActivity"></activity>
+        <activity android:name=".activity.PictureUploadActivity" />
+        <activity
+            android:name=".activity.RestaurantDetailMapActivity"
+            android:label="@string/title_activity_restaurant_detail_map"></activity>
     </application>
 
 </manifest>

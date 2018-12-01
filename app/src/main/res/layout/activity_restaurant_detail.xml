@@ -122,7 +122,7 @@
                         android:layout_marginTop="10dp"
                         android:background="#EEEEEE"
                         android:clickable="true"
-                        android:onClick="call">
+                        android:onClick="@{(v)->vm.call(v, store.tel)}">
 
                         <RelativeLayout
                             android:layout_width="match_parent"

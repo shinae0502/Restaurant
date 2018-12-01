@@ -1,7 +1,10 @@
 package com.study.restaurant.activity;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
@@ -9,8 +12,10 @@ import android.databinding.ObservableField;
 import android.databinding.ViewDataBinding;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -209,9 +214,35 @@ public class RestaurantDetailActivity extends BananaBaseActivity
 
     @Override
     public void goMap(Store store) {
-        MapsActivity.go(this);
+        RestaurantDetailMapActivity.go(this, store);
     }
 
+    @Override
+    public void showCallPermissionPopup() {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle("권한 요청");
+        b.setMessage("전화를 하기위해선 전화하기 권한이 필요합니다. 권한을 요창하시겠습니까?");
+        b.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 0x01);
+            }
+        });
+        b.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        ((RestaurantDetailViewModel) getViewModel()).onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
 
     /**********************************************************************************************
      * function

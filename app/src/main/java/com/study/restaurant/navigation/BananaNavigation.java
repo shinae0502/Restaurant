@@ -93,6 +93,8 @@ public class BananaNavigation {
         void goReview();
 
         void goMap(Store store);
+
+        void showCallPermissionPopup();
     }
 
     /**

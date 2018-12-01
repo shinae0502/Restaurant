@@ -1,10 +1,17 @@
 package com.study.restaurant.viewmodel;
 
+import android.Manifest;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.ObservableField;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
+import android.widget.Toast;
 
+import com.study.restaurant.activity.MainActivity;
 import com.study.restaurant.adapter.AroundRestaurantRvAdt;
 import com.study.restaurant.adapter.ReviewRvAdt;
 import com.study.restaurant.adapter.StoryRvAdt;
@@ -99,5 +106,24 @@ public class RestaurantDetailViewModel extends ViewModel {
 
     public void clickMap(View v, Store store) {
         restaurantDetailNavigation.goMap(store);
+    }
+
+    public void call(View v, String tel) {
+        Intent phoneIntent = new Intent(Intent.ACTION_CALL);
+        phoneIntent.setData(Uri.parse("tel:" + tel));
+        if (ActivityCompat.checkSelfPermission(v.getContext(),
+                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            restaurantDetailNavigation.showCallPermissionPopup();
+            return;
+        }
+        v.getContext().startActivity(phoneIntent);
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 0x01) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            }
+        }
     }
 }
