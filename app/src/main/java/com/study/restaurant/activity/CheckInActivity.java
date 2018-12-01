@@ -14,9 +14,11 @@ import android.view.View;
 
 import com.study.restaurant.R;
 import com.study.restaurant.common.BananaBaseActivity;
+import com.study.restaurant.common.BananaConstants;
 import com.study.restaurant.databinding.ActivityCheckInBinding;
 import com.study.restaurant.fragment.CheckInContentsFragment;
 import com.study.restaurant.fragment.CheckInFragment;
+import com.study.restaurant.model.Store;
 import com.study.restaurant.navigation.BananaNavigation;
 import com.study.restaurant.viewmodel.CheckInViewModel;
 
@@ -50,14 +52,19 @@ public class CheckInActivity extends BananaBaseActivity implements BananaNavigat
 
     }
 
-    public static void go(AppCompatActivity appCompatActivity) {
+    public static void go(AppCompatActivity appCompatActivity, Store store) {
         Intent intent = new Intent(appCompatActivity, CheckInActivity.class);
+        intent.putExtra("store", store);
         appCompatActivity.startActivity(intent);
+    }
+
+    private Store getStore() {
+        return getIntent().getParcelableExtra("store");
     }
 
     @Override
     public void goPicture() {
-        SelectPictureActivity.go(this, null);
+        SelectPictureActivity.go(this, BananaConstants.PictureUploadMode.CHECK_IN, getStore());
     }
 
     @Override

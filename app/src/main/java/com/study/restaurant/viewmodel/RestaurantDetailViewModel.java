@@ -9,14 +9,19 @@ import com.study.restaurant.adapter.AroundRestaurantRvAdt;
 import com.study.restaurant.adapter.ReviewRvAdt;
 import com.study.restaurant.adapter.StoryRvAdt;
 import com.study.restaurant.adapter.TopListRvAdt;
+import com.study.restaurant.model.Store;
 import com.study.restaurant.model.StoreDetail;
 import com.study.restaurant.model.StoreSpec;
+import com.study.restaurant.navigation.BananaNavigation;
 
+/**
+ * {@link com.study.restaurant.R.layout#activity_restaurant_detail}
+ */
 public class RestaurantDetailViewModel extends ViewModel {
     /**
      * 화면 이동 네비게이션
      */
-    RestaurantDetailNavigation restaurantDetailNavigation;
+    BananaNavigation.RestaurantDetailNavigation restaurantDetailNavigation;
 
     ReviewRvAdt reviewRvAdt = new ReviewRvAdt();
     TopListRvAdt topListRvAdt = new TopListRvAdt();
@@ -76,11 +81,11 @@ public class RestaurantDetailViewModel extends ViewModel {
         this.aroundRestaurantRvAdt = aroundRestaurantRvAdt;
     }
 
-    public RestaurantDetailNavigation getRestaurantDetailNavigation() {
+    public BananaNavigation.RestaurantDetailNavigation getRestaurantDetailNavigation() {
         return restaurantDetailNavigation;
     }
 
-    public void setRestaurantDetailNavigation(RestaurantDetailNavigation restaurantDetailNavigation) {
+    public void setRestaurantDetailNavigation(BananaNavigation.RestaurantDetailNavigation restaurantDetailNavigation) {
         this.restaurantDetailNavigation = restaurantDetailNavigation;
     }
 
@@ -92,9 +97,7 @@ public class RestaurantDetailViewModel extends ViewModel {
         restaurantDetailNavigation.goCheckIn();
     }
 
-    public interface RestaurantDetailNavigation {
-        void goDetailPhoto();
-
-        void goCheckIn();
+    public void clickMap(View v, Store store) {
+        restaurantDetailNavigation.goMap(store);
     }
 }

@@ -22,6 +22,7 @@ import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.dialog.UploadProgressDialog;
 import com.study.restaurant.model.MyImage;
+import com.study.restaurant.model.Store;
 import com.study.restaurant.model.StoreKeyword;
 import com.study.restaurant.util.CountingFileRequestBody;
 
@@ -47,7 +48,7 @@ public class WriteReviewActivity extends AppCompatActivity {
     View rating2;
     View rating3;
 
-    StoreKeyword storeKeyword;
+    Store store;
     List<File> compressedImagePaths;
 
     @Override
@@ -55,7 +56,7 @@ public class WriteReviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_review);
 
-        storeKeyword = getIntent().getParcelableExtra("storeKeyword");
+        store = getIntent().getParcelableExtra("store");
 
         selectedImageList = getIntent().getParcelableArrayListExtra("selectedImageList");
         btnConfirm = findViewById(R.id.btnConfirm);
@@ -121,10 +122,10 @@ public class WriteReviewActivity extends AppCompatActivity {
 
     }
 
-    public static void go(AppCompatActivity appCompatActivity, ArrayList<MyImage> myImageArrayList, StoreKeyword storeKeyword) {
+    public static void go(AppCompatActivity appCompatActivity, ArrayList<MyImage> myImageArrayList, Store store) {
         Intent intent = new Intent(appCompatActivity, WriteReviewActivity.class);
         intent.putExtra("selectedImageList", myImageArrayList);
-        intent.putExtra("storeKeyword", storeKeyword);
+        intent.putExtra("store", store);
         appCompatActivity.startActivity(intent);
     }
 
@@ -189,13 +190,13 @@ public class WriteReviewActivity extends AppCompatActivity {
                     int score = rating1.isSelected() ? 5 : rating2.isSelected() ? 3 : rating3.isSelected() ? 1 : 0;
                     Map<String, RequestBody> params = new HashMap<>();
                     params.put("user_id", RequestBody.create(MediaType.parse("text/plain"), BananaPreference.getInstance(WriteReviewActivity.this).loadUser().user_id));
-                    params.put("store_id", RequestBody.create(MediaType.parse("text/plain"), storeKeyword.getStore_id()));
+                    params.put("store_id", RequestBody.create(MediaType.parse("text/plain"), store.getStore_id()));
                     params.put("user_name", RequestBody.create(MediaType.parse("text/plain"), BananaPreference.getInstance(WriteReviewActivity.this).loadUser().name));
                     params.put("profile_img", RequestBody.create(MediaType.parse("text/plain"), ""));
                     params.put("score", RequestBody.create(MediaType.parse("text/plain"), "" + score));
                     params.put("contents", RequestBody.create(MediaType.parse("text/plain"), "" + edReview.getText().toString()));
-                    params.put("tag1", RequestBody.create(MediaType.parse("text/plain"), storeKeyword.getRestaurant_name()));
-                    params.put("tag2", RequestBody.create(MediaType.parse("text/plain"), storeKeyword.getCity_name()));
+                    params.put("tag1", RequestBody.create(MediaType.parse("text/plain"), store.getStore_name()));
+                    params.put("tag2", RequestBody.create(MediaType.parse("text/plain"), ""));
 
                     MultipartBody.Part pic1 = null;
                     MultipartBody.Part pic2 = null;
@@ -269,7 +270,7 @@ public class WriteReviewActivity extends AppCompatActivity {
 
                 case MSG_FILE_UPLOAD_FINISH:
                     uploadProgressDialog.dismiss();
-                    ((GlobalApplication)getApplication()).finishActivity();
+                    ((GlobalApplication) getApplication()).finishActivity();
                     finish();
                     break;
             }

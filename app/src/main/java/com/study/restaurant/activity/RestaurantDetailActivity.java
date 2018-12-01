@@ -33,12 +33,12 @@ import com.google.gson.Gson;
 import com.study.restaurant.R;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.common.BananaBaseActivity;
+import com.study.restaurant.common.BananaConstants;
 import com.study.restaurant.databinding.ActivityRestaurantDetailBinding;
 import com.study.restaurant.model.Image;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.model.StoreDetail;
-import com.study.restaurant.model.StoreSpec;
-import com.study.restaurant.test.Dummy;
+import com.study.restaurant.navigation.BananaNavigation;
 import com.study.restaurant.util.AppBarStateChangeListener;
 import com.study.restaurant.util.Logger;
 import com.study.restaurant.util.MyGlide;
@@ -48,6 +48,7 @@ import java.util.ArrayList;
 
 /**
  * 서버에서 받은 정보를 가지고 표시해야하는 기능들
+ * {@link R.layout.activity_restaurant_detail}
  * 맛집 정보 제공 (xml에 구현){@link R.layout.activity_restaurant_detail }
  * 주소표시 {@link R.layout.activity_restaurant_detail }
  * 이미지 리스트 {@link #initUI()}
@@ -61,7 +62,7 @@ import java.util.ArrayList;
  * TODO:: 주변 인기 식당 리스트 표시
  */
 public class RestaurantDetailActivity extends BananaBaseActivity
-        implements RestaurantDetailViewModel.RestaurantDetailNavigation,
+        implements BananaNavigation.RestaurantDetailNavigation,
         OnMapReadyCallback {
 
     /**********************************************************************************************
@@ -198,7 +199,17 @@ public class RestaurantDetailActivity extends BananaBaseActivity
 
     @Override
     public void goCheckIn() {
-        CheckInActivity.go(this);
+        CheckInActivity.go(this, getStore());
+    }
+
+    @Override
+    public void goReview() {
+        SelectPictureActivity.go(this, BananaConstants.PictureUploadMode.REVIEW, getStore());
+    }
+
+    @Override
+    public void goMap(Store store) {
+        MapsActivity.go(this);
     }
 
 
@@ -293,12 +304,14 @@ public class RestaurantDetailActivity extends BananaBaseActivity
      * TODO:: 리뷰쓰기
      */
     public void writeReview(View v) {
+        goReview();
     }
 
     /**
      * TODO:: 사진 올리기
      */
     public void uploadPicture(View v) {
+        SelectPictureActivity.go(this, BananaConstants.PictureUploadMode.PREV_PICTURE, getStore());
     }
 
     /**

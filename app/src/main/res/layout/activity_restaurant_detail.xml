@@ -76,24 +76,32 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <!-- 평가 버튼 -->
-                    <include layout="@layout/layout_restaurant_evaluate" />
-
                     <!-- 지도 -->
-                    <fragment
-                        android:id="@+id/map"
-                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_marginTop="10dp" />
+                        android:layout_height="150dp">
+
+                        <fragment
+                            android:id="@+id/map"
+                            android:name="com.google.android.gms.maps.SupportMapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_marginTop="10dp" />
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:onClick="@{(v) -> vm.clickMap(v, store)}" />
+                    </RelativeLayout>
 
                     <!-- 주소 -->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp"
                         android:text="@{store.address}"
                         android:textColor="#000000"
                         android:textStyle="bold" />
@@ -221,10 +229,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="5dp"
                                 android:background="@drawable/shape_black_line_box"
-                                android:paddingBottom="5dp"
                                 android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
                                 android:paddingTop="5dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="5dp"
                                 android:text="# 막걸리" />
 
                             <TextView
@@ -232,20 +240,20 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="5dp"
                                 android:background="@drawable/shape_black_line_box"
-                                android:paddingBottom="5dp"
                                 android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
                                 android:paddingTop="5dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="5dp"
                                 android:text="# 육전" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/shape_black_line_box"
-                                android:paddingBottom="5dp"
                                 android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
                                 android:paddingTop="5dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="5dp"
                                 android:text="# 육회" />
                         </LinearLayout>
 

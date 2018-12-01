@@ -21,6 +21,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.R;
 import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.common.BananaConstants;
+import com.study.restaurant.model.Store;
 import com.study.restaurant.model.StoreKeyword;
 
 import java.lang.reflect.Type;
@@ -130,7 +132,11 @@ public class SearchRestaurantActivity extends AppCompatActivity {
 
             ((StoreKeywordRvHolder) holder).itemView.setOnClickListener(view -> {
                 ((GlobalApplication) getApplication()).addActivity(SearchRestaurantActivity.this);
-                SelectPictureActivity.go(SearchRestaurantActivity.this, storeKeywordArrayList.get(position));
+                Store store = new Store();
+                store.setStore_id(storeKeywordArrayList.get(position).getStore_id());
+                store.setStoreName(storeKeywordArrayList.get(position).getRestaurant_name());
+                store.setStore_name(storeKeywordArrayList.get(position).getRestaurant_name());
+                SelectPictureActivity.go(SearchRestaurantActivity.this, BananaConstants.PictureUploadMode.REVIEW, store);
             });
         }
 

@@ -1,6 +1,10 @@
 package com.study.restaurant.navigation;
 
+import com.study.restaurant.model.MyImage;
 import com.study.restaurant.model.Store;
+import com.study.restaurant.viewmodel.UploadPictureViewModel;
+
+import java.util.ArrayList;
 
 public class BananaNavigation {
     public interface SplashNavigation {
@@ -62,11 +66,41 @@ public class BananaNavigation {
         void setCurrentPage(int page);
     }
 
+    /**
+     * {@link com.study.restaurant.activity.SelectPictureActivity}
+     *
+     */
     public interface SelectPictureNavigation {
         void goWriteReview();
 
         void goWriteReviewWithoutPicture();
 
         void goCheckIn();
+
+        void goUploadPicture(ArrayList<MyImage> selectedImgList);
+
+        void goUploadPictureOnFinish(ArrayList<MyImage> selectedImgList);
+    }
+
+    /**
+     * Activity {@link com.study.restaurant.activity.RestaurantDetailActivity}
+     */
+    public interface RestaurantDetailNavigation {
+        void goDetailPhoto();
+
+        void goCheckIn();
+
+        void goReview();
+
+        void goMap(Store store);
+    }
+
+    /**
+     * Activity: {@link com.study.restaurant.activity.PictureUploadActivity}
+     */
+    public interface PictureUploadNavigation {
+        void goSelectPicture(ArrayList<MyImage> myImages);
+
+        void finish();
     }
 }

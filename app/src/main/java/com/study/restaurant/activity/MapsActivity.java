@@ -19,6 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.study.restaurant.R;
 import com.study.restaurant.databinding.ActivityMapsBinding;
 import com.study.restaurant.manager.MyLocationManager;
+import com.study.restaurant.model.Store;
 import com.study.restaurant.util.Logger;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -55,6 +56,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public static void go(AppCompatActivity appCompatActivity) {
         appCompatActivity.startActivityForResult(new Intent(appCompatActivity, MapsActivity.class), 0x05);
+    }
+
+    public static void go(AppCompatActivity appCompatActivity, Store store) {
+        Intent intent = new Intent(appCompatActivity, MapsActivity.class);
+        intent.putExtra("stroe", store);
+        appCompatActivity.startActivity(intent);
+    }
+
+    private Store getStore() {
+        return getIntent().getParcelableExtra("store");
     }
 
     public void clickBackBtn(View v) {

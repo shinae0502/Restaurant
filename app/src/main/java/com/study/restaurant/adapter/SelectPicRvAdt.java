@@ -52,6 +52,7 @@ public class SelectPicRvAdt extends RecyclerView.Adapter {
 
             if (isContained) {
                 selectedImgList.getValue().remove(myImageList.get(position));
+                selectedImgList.setValue(selectedImgList.getValue());
                 notifyDataSetChanged();
             } else {
                 if (isCheckIn) {

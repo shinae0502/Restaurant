@@ -2,6 +2,8 @@ package com.study.restaurant.binding;
 
 import android.databinding.BindingAdapter;
 import android.graphics.Paint;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -132,5 +134,10 @@ public class DataBindingAdapter {
         } else {
             textView.setPaintFlags(textView.getPaintFlags() & Paint.UNDERLINE_TEXT_FLAG);
         }
+    }
+
+    @BindingAdapter("app:setPagerAdater")
+    public static void setPagerAdapter(ViewPager viewPager, FragmentStatePagerAdapter adapter) {
+        viewPager.setAdapter(adapter);
     }
 }

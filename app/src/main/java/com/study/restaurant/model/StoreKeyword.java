@@ -3,11 +3,15 @@ package com.study.restaurant.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class StoreKeyword implements Parcelable{
+public class StoreKeyword implements Parcelable {
     String store_id;
     String restaurant_name;
     String city_name;
     String region_name;
+
+    public StoreKeyword() {
+
+    }
 
     protected StoreKeyword(Parcel in) {
         store_id = in.readString();

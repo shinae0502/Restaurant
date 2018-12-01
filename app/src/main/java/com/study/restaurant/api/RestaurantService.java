@@ -102,4 +102,9 @@ public interface RestaurantService {
     @POST("checkIn.php")
     Call<ResponseBody> checkIn(@FieldMap Map<String, String> params);
 
+    @Multipart
+    @POST("registerNews.php")
+    Call<ResponseBody> uploadPicture(@PartMap() Map<String, RequestBody> params,
+                                     @Part MultipartBody.Part pic1);
+
 }

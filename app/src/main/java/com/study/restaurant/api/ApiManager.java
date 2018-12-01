@@ -711,4 +711,56 @@ public class ApiManager {
         });
     }
 
+    public void uploadPicture(Map<String, RequestBody> param,
+                              MultipartBody.Part pic1,
+                              final CallbackListener callbackListener) {
+
+        boolean isDummy = true;
+        //더미요청
+        if (isDummy) {
+            String result = Dummy.getInstance().uploadPicture();
+            try {
+                CommonResponse commonResponse = new Gson().fromJson(result, CommonResponse.class);
+                if (commonResponse.getResult().equals("-1")) {
+                    callbackListener.failed(commonResponse.getErrCode());
+                    return;
+                } else if (commonResponse.getResult().equals("0")) {
+                    callbackListener.callback("");
+                }
+            } catch (Exception e) {
+
+            }
+
+            callbackListener.callback(result);
+            return;
+        }
+
+        getService().uploadPicture(param, pic1).enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //통신 성공시 모든 메시지를 받는 곳(response, 200/500 code 등등..)
+                String body = "";
+                try {
+                    body = response.body().string();
+                    Logger.v(body);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (callbackListener != null)
+                    try {
+                        callbackListener.callback(body);
+                    } catch (Exception e) {
+                        Logger.d(e.toString());
+                    }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

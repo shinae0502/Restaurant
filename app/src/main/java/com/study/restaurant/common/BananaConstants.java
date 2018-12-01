@@ -7,4 +7,11 @@ public class BananaConstants {
         NORMAL,
         BAD
     }
+
+    public enum PictureUploadMode {
+        CHECK_IN,
+        REVIEW,
+        PREV_PICTURE,
+        POST_PICTURE
+    }
 }
