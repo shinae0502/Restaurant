@@ -177,6 +177,7 @@ public class RestaurantDetailActivity extends BananaBaseActivity
                 Logger.d(result);
                 StoreDetail storeDetail = new Gson().fromJson(result, StoreDetail.class);
                 vm.setStoreDetail(storeDetail);
+                ((ActivityRestaurantDetailBinding)getViewDataBinding()).layoutRestaurantInformation.setStoreDetail(storeDetail);
             }
 
             @Override

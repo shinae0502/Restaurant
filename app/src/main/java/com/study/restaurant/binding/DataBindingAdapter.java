@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextWatcher;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -139,5 +140,10 @@ public class DataBindingAdapter {
     @BindingAdapter("app:setPagerAdater")
     public static void setPagerAdapter(ViewPager viewPager, FragmentStatePagerAdapter adapter) {
         viewPager.setAdapter(adapter);
+    }
+
+    @BindingAdapter("app:visibility")
+    public static void setVisibility(View view, Boolean value) {
+        view.setVisibility(value ? View.VISIBLE : View.GONE);
     }
 }

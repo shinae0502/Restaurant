@@ -17,6 +17,7 @@ public class StoreDetail extends BaseObservable implements Parcelable {
     ArrayList<Review> news;
     ArrayList<TopList> toplist;
     ArrayList<Store> store;
+    OpenHours open_hours;
 
 
     protected StoreDetail(Parcel in) {
@@ -24,6 +25,7 @@ public class StoreDetail extends BaseObservable implements Parcelable {
         image = in.createTypedArrayList(Image.CREATOR);
         toplist = in.createTypedArrayList(TopList.CREATOR);
         store = in.createTypedArrayList(Store.CREATOR);
+        open_hours = in.readParcelable(OpenHours.class.getClassLoader());
     }
 
     @Override
@@ -32,6 +34,7 @@ public class StoreDetail extends BaseObservable implements Parcelable {
         dest.writeTypedList(image);
         dest.writeTypedList(toplist);
         dest.writeTypedList(store);
+        dest.writeParcelable(open_hours, flags);
     }
 
     @Override
@@ -89,5 +92,13 @@ public class StoreDetail extends BaseObservable implements Parcelable {
 
     public void setStore(ArrayList<Store> store) {
         this.store = store;
+    }
+
+    public OpenHours getOpen_hours() {
+        return open_hours;
+    }
+
+    public void setOpen_hours(OpenHours open_hours) {
+        this.open_hours = open_hours;
     }
 }

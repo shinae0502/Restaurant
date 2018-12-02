@@ -35,6 +35,10 @@ public class Dummy {
         setContext(application.getBaseContext());
     }
 
+    /**
+     * 맛집 상세정보 더미
+     * @return
+     */
     public String getRestaurantDetail() {
         try {
             Resources res = application.getBaseContext().getResources();

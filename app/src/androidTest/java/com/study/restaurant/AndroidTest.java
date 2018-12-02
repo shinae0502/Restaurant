@@ -84,6 +84,7 @@ public class AndroidTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
         Dummy.getInstance().setContext(appContext);
         StoreDetail storeDetail = new Gson().fromJson(Dummy.getInstance().getRestaurantDetail(), StoreDetail.class);
+        String s =  storeDetail.getOpen_hours().getOffDay();
         storeDetail.getRestaurant();
     }
 

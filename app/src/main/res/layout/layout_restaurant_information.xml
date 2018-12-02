@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="storeSpec"
-            type="com.study.restaurant.model.StoreSpec" />
+            name="storeDetail"
+            type="com.study.restaurant.model.StoreDetail" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <import type="com.study.restaurant.model.OpenHours.DAYS" />
     </data>
 
     <LinearLayout
@@ -39,7 +46,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{storeSpec.getUpdateDate}"
+                    android:text="@{storeDetail.restaurant.conv_update_date}"
                     android:textColor="#aeaeae" />
 
             </LinearLayout>
@@ -59,14 +66,83 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentRight="true"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{storeSpec.getOpeningHours}" />
+                    android:text="@{storeDetail.open_hours.monOpenHours}"
+                    android:visibility="@{!storeDetail.open_hours.dayoffMonday?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.tueOpenHours}"
+                    android:visibility="@{!storeDetail.open_hours.dayoffTuesday?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.wedOpenHours}"
+                    android:visibility="@{!storeDetail.open_hours.dayoffWednesday?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.thuOpenHours}"
+                    android:visibility="@{!storeDetail.open_hours.dayoffThursday?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.friOpenHours}"
+                    android:visibility="@{!storeDetail.open_hours.dayoffFriday?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.satOpenHours}"
+                    android:visibility="@{!storeDetail.open_hours.dayoffSaturday?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.sunOpenHours}"
+                    android:visibility="@{!storeDetail.open_hours.dayoffSunday?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.weekDayOpenHours}"
+                    android:visibility="@{storeDetail.open_hours.hasWeekDaysOpenHours?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.weekendOpenHours}"
+                    android:visibility="@{storeDetail.open_hours.hasWeekendOpenHours?View.VISIBLE:View.GONE}" />
 
             </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="@{storeDetail.open_hours.hasOffDay?View.VISIBLE:View.GONE}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="쉬는날" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@{storeDetail.open_hours.offDay}" />
 
         </RelativeLayout>
 
@@ -83,12 +159,50 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentRight="true"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{storeSpec.getBreaktime}" />
+                    android:text="@{storeDetail.open_hours.monBreakHours}"
+                    android:visibility="@{storeDetail.open_hours.hasBreakMonday?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.tueBreakHours}"
+                    android:visibility="@{storeDetail.open_hours.hasBreakTuesday?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.wedBreakHours}"
+                    android:visibility="@{storeDetail.open_hours.hasBreakWednesday?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.thuBreakHours}"
+                    android:visibility="@{storeDetail.open_hours.hasBreakThursday?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.friBreakHours}"
+                    android:visibility="@{storeDetail.open_hours.hasBreakFriday?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.satBreakHours}"
+                    android:visibility="@{storeDetail.open_hours.hasBreakSaturday?View.VISIBLE:View.GONE}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{storeDetail.open_hours.sunBreakHours}"
+                    android:visibility="@{storeDetail.open_hours.hasBreakSunday?View.VISIBLE:View.GONE}" />
 
             </LinearLayout>
 
@@ -112,7 +226,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{storeSpec.getPrices}" />
+                    android:text="@{storeDetail.restaurant.priceToInform}" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -120,9 +234,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="moreConvenience"
+            android:layout_gravity="right"
             android:clickable="true"
-            android:layout_gravity="right">
+            android:onClick="moreConvenience">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -139,8 +253,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:background="#eeeeee" />
 
         <RelativeLayout
@@ -173,7 +287,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{storeSpec.getMenu1}" />
+                android:text="" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -183,7 +297,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{storeSpec.getMenu1_price}" />
+                    android:text="" />
 
             </LinearLayout>
 
@@ -197,7 +311,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{storeSpec.getMenu2}" />
+                android:text="" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -207,7 +321,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{storeSpec.getMenu2_price}" />
+                    android:text="" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -220,7 +334,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{storeSpec.getMenu3}" />
+                android:text="" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -230,7 +344,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{storeSpec.getMenu3_price}" />
+                    android:text="" />
 
             </LinearLayout>
 
@@ -260,8 +374,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="moreMenu"
-            android:layout_gravity="right">
+            android:layout_gravity="right"
+            android:onClick="moreMenu">
 
             <TextView
                 android:layout_width="wrap_content"
