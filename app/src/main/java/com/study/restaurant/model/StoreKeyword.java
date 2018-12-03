@@ -1,13 +1,25 @@
 package com.study.restaurant.model;
 
+import android.content.Context;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.LayoutInflater;
+import android.view.View;
 
-public class StoreKeyword implements Parcelable {
+import com.study.restaurant.activity.SearchKeywordActivity;
+import com.study.restaurant.databinding.ItemKeywordBinding;
+
+import java.util.zip.Inflater;
+
+public class StoreKeyword extends BaseObservable implements Parcelable {
     String store_id;
     String restaurant_name;
     String city_name;
     String region_name;
+    String store_keyword;
+    String keyword_id;
 
     public StoreKeyword() {
 
@@ -75,5 +87,41 @@ public class StoreKeyword implements Parcelable {
 
     public void setRegion_name(String region_name) {
         this.region_name = region_name;
+    }
+
+    public String getStore_keyword() {
+        return store_keyword;
+    }
+
+    public void setStore_keyword(String store_keyword) {
+        this.store_keyword = store_keyword;
+    }
+
+    public String getKeyword_id() {
+        return keyword_id;
+    }
+
+    public void setKeyword_id(String keyword_id) {
+        this.keyword_id = keyword_id;
+    }
+
+    @Bindable
+    public String getKeyword() {
+        String keyword = "";
+        if (store_keyword != null && store_keyword.length() > 0) {
+            keyword = store_keyword;
+        }
+        return "#" + keyword;
+    }
+
+    public View getView(Context context) {
+        ItemKeywordBinding itemKeywordBinding = ItemKeywordBinding.inflate(LayoutInflater.from(context));
+        itemKeywordBinding.setKeyword(this);
+        return itemKeywordBinding.getRoot();
+
+    }
+
+    public void clickKeyword(View v) {
+        SearchKeywordActivity.go(v.getContext(), this);
     }
 }

@@ -5,6 +5,7 @@ import android.databinding.Bindable;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.Menu;
 
 import com.study.restaurant.BR;
 
@@ -18,6 +19,13 @@ public class StoreDetail extends BaseObservable implements Parcelable {
     ArrayList<TopList> toplist;
     ArrayList<Store> store;
     OpenHours open_hours;
+    ArrayList<StoreMenu> menus;
+    ArrayList<StoreKeyword> keywords;
+    String review_total;
+    String review_best;
+    String review_good;
+    String review_bad;
+
 
 
     protected StoreDetail(Parcel in) {
@@ -100,5 +108,21 @@ public class StoreDetail extends BaseObservable implements Parcelable {
 
     public void setOpen_hours(OpenHours open_hours) {
         this.open_hours = open_hours;
+    }
+
+    public ArrayList<StoreMenu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(ArrayList<StoreMenu> menus) {
+        this.menus = menus;
+    }
+
+    public ArrayList<StoreKeyword> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(ArrayList<StoreKeyword> keywords) {
+        this.keywords = keywords;
     }
 }

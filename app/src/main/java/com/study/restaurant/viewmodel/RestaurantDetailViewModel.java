@@ -23,6 +23,7 @@ import com.study.restaurant.navigation.BananaNavigation;
 
 /**
  * {@link com.study.restaurant.R.layout#activity_restaurant_detail}
+ * Activity {@link com.study.restaurant.activity.RestaurantDetailActivity}
  */
 public class RestaurantDetailViewModel extends ViewModel {
     /**

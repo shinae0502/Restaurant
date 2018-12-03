@@ -83,8 +83,9 @@ public class AndroidTest {
     public void restaurantDetailDummyTest() {
         Context appContext = InstrumentationRegistry.getTargetContext();
         Dummy.getInstance().setContext(appContext);
-        StoreDetail storeDetail = new Gson().fromJson(Dummy.getInstance().getRestaurantDetail(), StoreDetail.class);
-        String s =  storeDetail.getOpen_hours().getOffDay();
+        String dummy = Dummy.getInstance().getRestaurantDetail();
+        StoreDetail storeDetail = new Gson().fromJson(dummy, StoreDetail.class);
+        String s = storeDetail.getOpen_hours().getOffDay();
         storeDetail.getRestaurant();
     }
 
@@ -93,6 +94,6 @@ public class AndroidTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
         Dummy.getInstance().setContext(appContext);
         Store store = new Gson().fromJson(Dummy.getInstance().getAddFavorite(), Store.class);
-        assertEquals("1",store.getFavority_id());
+        assertEquals("1", store.getFavority_id());
     }
 }

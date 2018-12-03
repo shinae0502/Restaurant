@@ -43,6 +43,7 @@ import com.study.restaurant.databinding.ActivityRestaurantDetailBinding;
 import com.study.restaurant.model.Image;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.model.StoreDetail;
+import com.study.restaurant.model.StoreMenu;
 import com.study.restaurant.navigation.BananaNavigation;
 import com.study.restaurant.util.AppBarStateChangeListener;
 import com.study.restaurant.util.Logger;
@@ -53,12 +54,12 @@ import java.util.ArrayList;
 
 /**
  * 서버에서 받은 정보를 가지고 표시해야하는 기능들
- * {@link R.layout.activity_restaurant_detail}
+ * {@link R.layout#activity_restaurant_detail}
  * 맛집 정보 제공 (xml에 구현){@link R.layout.activity_restaurant_detail }
  * 주소표시 {@link R.layout.activity_restaurant_detail }
  * 이미지 리스트 {@link #initUI()}
  * 위치 지도로 표시하기 {@link #onMapReady(GoogleMap)}
- * 편의정보 표시하기 {@link R.layout.layout_restaurant_information}
+ * 편의정보 표시하기 {@link R.layout#layout_restaurant_information}
  * 메뉴 표시하기 {@link R.layout.layout_restaurant_information}
  * 식당 키워드 {@link R.layout.activity_restaurant_detail }
  * TODO:: 베너
@@ -177,7 +178,21 @@ public class RestaurantDetailActivity extends BananaBaseActivity
                 Logger.d(result);
                 StoreDetail storeDetail = new Gson().fromJson(result, StoreDetail.class);
                 vm.setStoreDetail(storeDetail);
-                ((ActivityRestaurantDetailBinding)getViewDataBinding()).layoutRestaurantInformation.setStoreDetail(storeDetail);
+                vb.layoutRestaurantInformation.setStoreDetail(storeDetail);
+                for (int i = 0; i < storeDetail.getMenus().size(); i++) {
+                    if (storeDetail.getMenus().get(i).getStoreMenuType() == StoreMenu.StoreMenuType.TEXT) {
+                        vb.layoutRestaurantInformation.menuLayout.addView(
+                                storeDetail.getMenus().get(i).getView(
+                                        RestaurantDetailActivity.this));
+                    } else {
+                        vb.layoutRestaurantInformation.menuImageLayout.addView(
+                                storeDetail.getMenus().get(i).getView(
+                                        RestaurantDetailActivity.this));
+                    }
+                }
+                for (int i = 0; i < storeDetail.getKeywords().size(); i++) {
+                    vb.keyworkdLayout.addView(storeDetail.getKeywords().get(i).getView(RestaurantDetailActivity.this));
+                }
             }
 
             @Override
@@ -320,21 +335,21 @@ public class RestaurantDetailActivity extends BananaBaseActivity
     }
 
     /**
-     * TODO:: 체크인
+     * 체크인
      */
     public void checkIn(View v) {
         goCheckIn();
     }
 
     /**
-     * TODO:: 리뷰쓰기
+     * 리뷰쓰기
      */
     public void writeReview(View v) {
         goReview();
     }
 
     /**
-     * TODO:: 사진 올리기
+     * 사진 올리기
      */
     public void uploadPicture(View v) {
         SelectPictureActivity.go(this, BananaConstants.PictureUploadMode.PREV_PICTURE, getStore());

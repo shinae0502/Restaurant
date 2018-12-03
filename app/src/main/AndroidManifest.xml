@@ -166,7 +166,8 @@
         <activity android:name=".activity.PictureUploadActivity" />
         <activity
             android:name=".activity.RestaurantDetailMapActivity"
-            android:label="@string/title_activity_restaurant_detail_map"></activity>
+            android:label="@string/title_activity_restaurant_detail_map" />
+        <activity android:name=".activity.SearchKeywordActivity"></activity>
     </application>
 
 </manifest>
