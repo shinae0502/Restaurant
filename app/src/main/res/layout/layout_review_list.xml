@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
-            android:text="맛깔나는 리뷰 (59)"
+            android:text="@{vm.storeDetail.review_total}"
             android:textColor="@color/orange"
             android:textSize="25sp" />
 
@@ -29,11 +29,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:background="#FFFFFF"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp">
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -43,8 +43,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/ic_egmt_review_rating_1_pressed" />
 
                 <TextView
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:maxLines="1"
-                    android:text="맛있다!"
+                    android:text="@{vm.storeDetail.review_best}"
                     android:textColor="@color/orange"
                     android:textSize="11sp" />
 
@@ -71,15 +71,15 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/ic_egmt_review_rating_2_pressed" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="괜찮다"
+                    android:text="@{vm.storeDetail.review_good}"
                     android:textColor="@color/orange"
                     android:textSize="11sp" />
 
@@ -98,15 +98,15 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/ic_egmt_review_rating_3_pressed" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="별로"
+                    android:text="@{vm.storeDetail.review_bad}"
                     android:textColor="@color/orange"
                     android:textSize="11sp" />
 
@@ -123,8 +123,7 @@
             android:background="#FFFFFF"
             android:nestedScrollingEnabled="false"
             app:adapter="@{vm.reviewRvAdt}"
-            app:items="@{vm.storeDetail.news}"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"></android.support.v7.widget.RecyclerView>
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -168,10 +167,10 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/shape_orange_line_box"
-                android:paddingBottom="10dp"
                 android:paddingLeft="40dp"
-                android:paddingRight="40dp"
                 android:paddingTop="10dp"
+                android:paddingRight="40dp"
+                android:paddingBottom="10dp"
                 android:text="블로그 검색하기"
                 android:textColor="@color/orange" />
         </LinearLayout>

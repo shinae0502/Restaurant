@@ -1,12 +1,20 @@
 package com.study.restaurant.model;
 
-public class StorePicture {
-    String pic_id;
-    String number;
-    String user_id;
-    String store_id;
-    String pic_url;
-    String date;
+import android.content.Context;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.view.LayoutInflater;
+import android.view.View;
+
+import com.study.restaurant.databinding.ItemStorePictureBinding;
+
+public class StorePicture extends BaseObservable {
+    private String pic_id;
+    private String number;
+    private String user_id;
+    private String store_id;
+    private String pic_url;
+    private String date;
 
     public String getPic_id() {
         return pic_id;
@@ -40,7 +48,12 @@ public class StorePicture {
         this.store_id = store_id;
     }
 
+    @Bindable
     public String getPic_url() {
+        String domain = "http://sarang628.iptime.org:83/image_upload/";
+        if (!pic_url.contains("http")) {
+            pic_url = domain + pic_url;
+        }
         return pic_url;
     }
 
@@ -54,5 +67,11 @@ public class StorePicture {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public View getView(Context context) {
+        ItemStorePictureBinding itemStorePictureBinding = ItemStorePictureBinding.inflate(LayoutInflater.from(context));
+        itemStorePictureBinding.setPicture(this);
+        return itemStorePictureBinding.getRoot();
     }
 }

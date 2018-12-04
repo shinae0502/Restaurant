@@ -20,6 +20,7 @@ import com.study.restaurant.adapter.ReviewRvAdt;
 import com.study.restaurant.adapter.StoreRvAdt;
 import com.study.restaurant.adapter.StoryRvAdt;
 import com.study.restaurant.adapter.TopListRvAdt;
+import com.study.restaurant.common.BananaConstants;
 import com.study.restaurant.model.Review;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.model.Story;
@@ -48,12 +49,6 @@ public class DataBindingAdapter {
     public static void setAdapterBind(RecyclerView recyclerView
             , RecyclerView.Adapter rvAdt) {
         recyclerView.setAdapter(rvAdt);
-    }
-
-    @BindingAdapter({"app:items"})
-    public static void setItemsBind(RecyclerView recyclerView
-            , ArrayList<Review> items) {
-        ((ReviewRvAdt) recyclerView.getAdapter()).setReviews(items);
     }
 
     @BindingAdapter({"app:enabled"})

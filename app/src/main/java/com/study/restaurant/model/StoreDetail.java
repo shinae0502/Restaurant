@@ -16,6 +16,7 @@ public class StoreDetail extends BaseObservable implements Parcelable {
     Store restaurant;
     ArrayList<Image> image;
     ArrayList<Review> news;
+    ArrayList<News> reviews;
     ArrayList<TopList> toplist;
     ArrayList<Store> store;
     OpenHours open_hours;
@@ -27,6 +28,9 @@ public class StoreDetail extends BaseObservable implements Parcelable {
     String review_bad;
 
 
+    public StoreDetail() {
+
+    }
 
     protected StoreDetail(Parcel in) {
         restaurant = in.readParcelable(Store.class.getClassLoader());
@@ -124,5 +128,49 @@ public class StoreDetail extends BaseObservable implements Parcelable {
 
     public void setKeywords(ArrayList<StoreKeyword> keywords) {
         this.keywords = keywords;
+    }
+
+    public ArrayList<News> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(ArrayList<News> reviews) {
+        this.reviews = reviews;
+    }
+
+    @Bindable
+    public String getReview_total() {
+        return "맛깔나는리뷰 (" + review_total + ")";
+    }
+
+    public void setReview_total(String review_total) {
+        this.review_total = review_total;
+    }
+
+    @Bindable
+    public String getReview_best() {
+        return "맛있다! (" + review_best + ")";
+    }
+
+    public void setReview_best(String review_best) {
+        this.review_best = review_best;
+    }
+
+    @Bindable
+    public String getReview_good() {
+        return "괜찮다 (" + review_good + ")";
+    }
+
+    public void setReview_good(String review_good) {
+        this.review_good = review_good;
+    }
+
+    @Bindable
+    public String getReview_bad() {
+        return "별로 (" + review_bad + ")";
+    }
+
+    public void setReview_bad(String review_bad) {
+        this.review_bad = review_bad;
     }
 }

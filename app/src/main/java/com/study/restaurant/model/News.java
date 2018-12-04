@@ -1,5 +1,7 @@
 package com.study.restaurant.model;
 
+import java.util.ArrayList;
+
 public class News {
     String news_id;
     String profile_img;
@@ -16,6 +18,23 @@ public class News {
     String tag1;
     String tag2;
     String url;
+    ArrayList<StorePicture> storePictures;
+
+    public ArrayList<StorePicture> getStorePictures() {
+        return storePictures;
+    }
+
+    public void setStorePictures(ArrayList<StorePicture> storePictures) {
+        this.storePictures = storePictures;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
 
     public String getUrl() {
         return url;
@@ -116,7 +135,7 @@ public class News {
     String domain = "http://sarang628.iptime.org:83/image_upload/";
 
     public String getImage1() {
-        if(url == null)
+        if (url == null)
             setUrl("");
         return (url.split(",").length) > 0 ? domain + url.split(",")[0] : "";
     }

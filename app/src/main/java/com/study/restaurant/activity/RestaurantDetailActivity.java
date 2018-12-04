@@ -36,6 +36,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.study.restaurant.R;
+import com.study.restaurant.adapter.ReviewRvAdt;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.common.BananaBaseActivity;
 import com.study.restaurant.common.BananaConstants;
@@ -108,6 +109,7 @@ public class RestaurantDetailActivity extends BananaBaseActivity
         vb.layoutDetailRestaurantMenu.setVm(vm);
         vb.layoutDetailRestaurantMain.setVm(vm);
         vb.layoutReviewList.setVm(vm);
+        vb.layoutReviewList.reviewRv.setAdapter(vm.getReviewRvAdt());
         vb.layoutRelatedToplist.setVm(vm);
         vb.layoutRelatedStory.setVm(vm);
         vb.layoutAroundRestaurant.setVm(vm);
@@ -139,8 +141,9 @@ public class RestaurantDetailActivity extends BananaBaseActivity
             public void onPropertyChanged(Observable sender, int propertyId) {
                 StoreDetail storeDetail = ((ObservableField<StoreDetail>) sender).get();
                 ((StoreImgRvAdt) vb.layoutDetailRestaurantMain.storeImgRv.getAdapter()).setImageArrayList(storeDetail.getImage());
-
+                vb.layoutReviewList.reviewRv.getAdapter().notifyDataSetChanged();
                 vm.getTopListRvAdt().setTopLists(storeDetail.getToplist());
+                ((ReviewRvAdt) vb.layoutReviewList.reviewRv.getAdapter()).setNewsList(storeDetail.getReviews());
 
             }
         });

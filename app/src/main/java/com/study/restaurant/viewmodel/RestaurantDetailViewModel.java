@@ -29,14 +29,14 @@ public class RestaurantDetailViewModel extends ViewModel {
     /**
      * 화면 이동 네비게이션
      */
-    BananaNavigation.RestaurantDetailNavigation restaurantDetailNavigation;
+    private BananaNavigation.RestaurantDetailNavigation restaurantDetailNavigation;
 
-    ReviewRvAdt reviewRvAdt = new ReviewRvAdt();
-    TopListRvAdt topListRvAdt = new TopListRvAdt();
-    StoryRvAdt storyRvAdt = new StoryRvAdt();
-    AroundRestaurantRvAdt aroundRestaurantRvAdt = new AroundRestaurantRvAdt();
+    private ReviewRvAdt reviewRvAdt = null;
+    private TopListRvAdt topListRvAdt = new TopListRvAdt();
+    private StoryRvAdt storyRvAdt = new StoryRvAdt();
+    private AroundRestaurantRvAdt aroundRestaurantRvAdt = new AroundRestaurantRvAdt();
 
-    ObservableField<StoreDetail> storeDetailObservableField = new ObservableField<>();
+    private ObservableField<StoreDetail> storeDetailObservableField = new ObservableField<>();
     public MutableLiveData<Boolean> isExistsFavoriteId = new MutableLiveData<>();
 
     public RestaurantDetailViewModel() {
@@ -58,6 +58,9 @@ public class RestaurantDetailViewModel extends ViewModel {
     }
 
     public ReviewRvAdt getReviewRvAdt() {
+        if (reviewRvAdt == null) {
+            reviewRvAdt = new ReviewRvAdt();
+        }
         return reviewRvAdt;
     }
 
