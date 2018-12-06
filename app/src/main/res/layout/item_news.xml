@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="review"
             type="com.study.restaurant.model.News" />
+
+        <import type="android.view.View" />
     </data>
 
     <android.support.v7.widget.CardView
@@ -39,7 +41,8 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginTop="10dp"
-                        android:scaleType="centerCrop" />
+                        android:scaleType="centerCrop"
+                        app:glideLoadImage="@{review.profile_img}" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -49,9 +52,9 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/userName"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:text="@{review.user_name}" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -70,6 +73,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="5dp"
+                                android:text="@{review.user_writing}"
                                 android:textSize="12sp" />
 
                             <ImageView
@@ -79,10 +83,9 @@
                                 android:src="@drawable/ic_common_profile_follower" />
 
                             <TextView
-                                android:id="@+id/userFollower"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                android:text="@{review.user_follower}"
                                 android:textSize="12sp" />
 
                         </LinearLayout>
@@ -100,12 +103,14 @@
                         android:id="@+id/imgScore"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:layout_gravity="center"
                         android:src="@drawable/ic_egmt_review_rating_1_pressed" />
 
                     <TextView
                         android:id="@+id/tvScore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginTop="5dp"
                         android:text="맛있다!"
                         android:textColor="@color/orange"
@@ -127,10 +132,10 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/tag1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
+                    android:text="@{review.tag1}"
                     android:textColor="@color/orange"
                     android:textSize="12sp" />
 
@@ -143,25 +148,26 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/tag2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{review.tag2}"
                     android:textColor="@color/orange"
                     android:textSize="12sp" />
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/contents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:maxLines="5" />
+                android:maxLines="5"
+                android:text="@{review.contents}" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp">
+                android:layout_height="120dp"
+                android:layout_marginTop="10dp"
+                android:visibility="@{(review.storePictures==null||review.storePictures.size() == 0)?View.GONE:View.VISIBLE}">
 
                 <LinearLayout
                     android:id="@+id/pictureLayout"
@@ -176,75 +182,76 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:visibility="@{(review.url == null || review.url.length() == 0)?View.GONE:View.VISIBLE}">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/image1"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginRight="5dp"
                         android:scaleType="fitXY"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        app:glideLoadImage="@{review.image1}" />
 
                     <ImageView
-                        android:id="@+id/image2"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginRight="5dp"
                         android:scaleType="fitXY"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        app:glideLoadImage="@{review.image2}" />
 
                     <ImageView
-                        android:id="@+id/image3"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginRight="5dp"
                         android:scaleType="fitXY"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        app:glideLoadImage="@{review.image3}" />
 
                     <ImageView
-                        android:id="@+id/image4"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginRight="5dp"
                         android:scaleType="fitXY"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        app:glideLoadImage="@{review.image4}" />
 
                     <ImageView
-                        android:id="@+id/image5"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginRight="5dp"
                         android:scaleType="fitXY"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        app:glideLoadImage="@{review.image5}" />
 
                     <ImageView
-                        android:id="@+id/image6"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginRight="5dp"
                         android:scaleType="fitXY"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        app:glideLoadImage="@{review.image6}" />
 
                     <ImageView
-                        android:id="@+id/image7"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginRight="5dp"
                         android:scaleType="fitXY"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        app:glideLoadImage="@{review.image7}" />
 
                     <ImageView
-                        android:id="@+id/image8"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginRight="5dp"
                         android:scaleType="fitXY"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        app:glideLoadImage="@{review.image8}" />
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -254,29 +261,26 @@
                 android:layout_marginTop="8dp">
 
                 <TextView
-                    android:id="@+id/likeCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="좋아요 1개"
+                    android:text="@{review.like_count}"
                     android:textColor="@color/light_gray"
                     android:textSize="10sp" />
 
                 <TextView
-                    android:id="@+id/replyCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/like"
-                    android:text="댓글 1개"
+                    android:text="@{review.reply_count}"
                     android:textColor="@color/light_gray"
                     android:textSize="10sp" />
 
                 <TextView
-                    android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="1 일 전"
+                    android:text="@{review.date}"
                     android:textColor="@color/light_gray"
                     android:textSize="10sp" />
 
@@ -289,14 +293,20 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="40dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/star"
                     android:layout_width="23dp"
                     android:layout_height="23dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/btn_wannago_gray_a" />
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{review::clickFavorite}"
+                    android:src="@drawable/selector_btn_wannago"
+                    app:selected="@{review.existsFavorite_id}" />
 
                 <ImageView
                     android:id="@+id/like1"
@@ -305,7 +315,10 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/star"
-                    android:src="@drawable/btn_like_gray_a" />
+                    android:clickable="true"
+                    android:onClick="@{review::clickHeart}"
+                    android:src="@drawable/selector_btn_like"
+                    app:selected="@{review.existsHeart_id}" />
 
                 <ImageView
                     android:id="@+id/comment"
@@ -314,6 +327,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/like1"
+                    android:clickable="true"
+                    android:onClick="@{review::clickComment}"
                     android:src="@drawable/btn_comment_gray_a" />
 
                 <ImageView

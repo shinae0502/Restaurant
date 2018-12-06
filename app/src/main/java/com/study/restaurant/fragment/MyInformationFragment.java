@@ -7,19 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.study.restaurant.R;
-import com.study.restaurant.activity.SettingActivity;
-import com.study.restaurant.activity.SplashActivity;
-import com.study.restaurant.adapter.StoryHolder;
+import com.study.restaurant.ui.settingview.SettingActivity;
 import com.study.restaurant.api.ApiManager;
 import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.databinding.FragmentMyinformationBinding;
-import com.study.restaurant.manager.BananaLoginManager;
 import com.study.restaurant.model.User;
 import com.study.restaurant.util.MyGlide;
 
@@ -27,8 +23,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import okhttp3.RequestBody;
 
 public class MyInformationFragment extends Fragment {
 

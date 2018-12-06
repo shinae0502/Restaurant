@@ -7,14 +7,14 @@
 
         <variable
             name="vm"
-            type="com.study.restaurant.viewmodel.CheckInViewModel" />
+            type="com.study.restaurant.ui.checkinview.CheckInViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#EEEEEE"
-        tools:context=".activity.CheckInActivity">
+        tools:context=".ui.checkinview.CheckInActivity">
 
         <ImageView
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
 
         <include
             android:id="@+id/title_bar_checkin"
-            layout="@layout/title_bar_check_in" />
+            layout="@layout/title_bar_type_3" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/checkInPager"
@@ -44,7 +44,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/orange"
             android:clickable="true"
-            android:onClick="@{vm::clickComplete}">
+            android:onClick="@{()->vm.clickComplete()}">
 
             <TextView
                 android:layout_width="wrap_content"

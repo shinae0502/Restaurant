@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.study.restaurant.activity.GlobalApplication;
+import com.study.restaurant.ui.GlobalApplication;
 import com.study.restaurant.common.BananaPreference;
 import com.study.restaurant.model.Banner;
 import com.study.restaurant.model.CommonResponse;
@@ -413,6 +413,23 @@ public class ApiManager {
     }
 
     public void getNews(Map<String, String> param, final CallbackListener callbackListener) {
+        boolean isDummy = true;
+        //더미요청
+        if (isDummy) {
+            String result = Dummy.getInstance().getNews();
+            try {
+                CommonResponse commonResponse = new Gson().fromJson(result, CommonResponse.class);
+                if (commonResponse.getResult().equals("-1")) {
+                    callbackListener.failed(commonResponse.getErrCode());
+                    return;
+                }
+            } catch (Exception e) {
+
+            }
+
+            callbackListener.callback(result);
+            return;
+        }
         getService().getNews(param).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -761,6 +778,24 @@ public class ApiManager {
 
             }
         });
+    }
+
+    public void addLikeReview(Context context, String review_id, final CallbackListener callbackListener) {
+        boolean isDummy = true;
+        if (isDummy == true) {
+            if (callbackListener != null)
+                callbackListener.callback(Dummy.getInstance().getAddLike());
+            return;
+        }
+    }
+
+    public void deleteLikeReview(Context context, String review_id, final CallbackListener callbackListener) {
+        boolean isDummy = true;
+        if (isDummy == true) {
+            if (callbackListener != null)
+                callbackListener.callback(Dummy.getInstance().getDeleteLike());
+            return;
+        }
     }
 
 }

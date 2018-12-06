@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.study.restaurant.ui.storereview.StoreReviewViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/storereview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.storereview.StoreReviewFragment">
+
+        <include
+            android:id="@+id/title_bar"
+            layout="@layout/title_bar_type_4" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_bar">
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전체" />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="맛있다!" />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="괜찮다" />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="별로" />
+
+
+        </android.support.design.widget.TabLayout>
+
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/storeReviewRl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tabLayout"
+            app:refreshListener="@{vm.refreshListener}">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/storeReviewRv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:adapter="@{vm.reviewRvAdt}"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_news" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </RelativeLayout>
+</layout>

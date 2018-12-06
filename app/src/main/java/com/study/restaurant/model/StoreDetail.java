@@ -18,6 +18,7 @@ public class StoreDetail extends BaseObservable implements Parcelable {
     ArrayList<Review> news;
     ArrayList<News> reviews;
     ArrayList<TopList> toplist;
+    ArrayList<Story> stories;
     ArrayList<Store> store;
     OpenHours open_hours;
     ArrayList<StoreMenu> menus;
@@ -38,6 +39,12 @@ public class StoreDetail extends BaseObservable implements Parcelable {
         toplist = in.createTypedArrayList(TopList.CREATOR);
         store = in.createTypedArrayList(Store.CREATOR);
         open_hours = in.readParcelable(OpenHours.class.getClassLoader());
+        menus = in.createTypedArrayList(StoreMenu.CREATOR);
+        keywords = in.createTypedArrayList(StoreKeyword.CREATOR);
+        review_total = in.readString();
+        review_best = in.readString();
+        review_good = in.readString();
+        review_bad = in.readString();
     }
 
     @Override
@@ -47,6 +54,12 @@ public class StoreDetail extends BaseObservable implements Parcelable {
         dest.writeTypedList(toplist);
         dest.writeTypedList(store);
         dest.writeParcelable(open_hours, flags);
+        dest.writeTypedList(menus);
+        dest.writeTypedList(keywords);
+        dest.writeString(review_total);
+        dest.writeString(review_best);
+        dest.writeString(review_good);
+        dest.writeString(review_bad);
     }
 
     @Override
@@ -173,4 +186,24 @@ public class StoreDetail extends BaseObservable implements Parcelable {
     public void setReview_bad(String review_bad) {
         this.review_bad = review_bad;
     }
+
+    @Bindable
+    public boolean isHasTopList() {
+        return !(toplist == null || toplist.size() == 0);
+    }
+
+    @Bindable
+    public boolean isHasStory() {
+        return !(stories == null || stories.size() == 0);
+    }
+
+    @Bindable
+    public boolean isHasStore() {
+        return !(store == null || store.size() == 0);
+    }
+
+    public boolean isHasReview() {
+        return !(reviews == null || reviews.size() == 0);
+    }
+
 }

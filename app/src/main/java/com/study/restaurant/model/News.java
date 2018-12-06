@@ -1,24 +1,36 @@
 package com.study.restaurant.model;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.view.View;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.study.restaurant.BR;
+import com.study.restaurant.api.ApiManager;
+
 import java.util.ArrayList;
 
-public class News {
-    String news_id;
-    String profile_img;
-    String user_name;
-    String user_writing;
-    String user_follower;
-    String hash_tag;
-    String score;
-    String contents;
-    String like_count;
-    String reply_count;
-    String date;
-    String user_id;
-    String tag1;
-    String tag2;
-    String url;
-    ArrayList<StorePicture> storePictures;
+public class News extends BaseObservable {
+    private String news_id;
+    private String store_id;
+    private String profile_img;
+    private String user_name;
+    private String user_writing;
+    private String user_follower;
+    private String hash_tag;
+    private String score;
+    private String contents;
+    private String like_count;
+    private String reply_count;
+    private String date;
+    private String user_id;
+    private String tag1;
+    private String tag2;
+    private String url;
+    private String favorite_id;
+    private String like_id;
+    private ArrayList<StorePicture> storePictures;
 
     public ArrayList<StorePicture> getStorePictures() {
         return storePictures;
@@ -134,6 +146,11 @@ public class News {
 
     String domain = "http://sarang628.iptime.org:83/image_upload/";
 
+    @Bindable
+    public boolean ishasUrl() {
+        return !(url == null && url.length() == 0);
+    }
+
     public String getImage1() {
         if (url == null)
             setUrl("");
@@ -161,7 +178,13 @@ public class News {
     }
 
     public String getImage7() {
-        return (url.split(",").length) > 6 ? domain + url.split(",")[6] : "";
+        if (url == null)
+            setUrl("");
+        int length = url.split(",").length;
+        boolean checkSize = length > 6;
+        String[] urlSplit = url.split(",");
+        String result = checkSize ? domain + urlSplit[6] : "";
+        return result;
     }
 
     public String getImage8() {
@@ -190,5 +213,124 @@ public class News {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public void clickFavorite(View v) {
+        Store store = new Store();
+        store.setStore_id(getStore_id());
+        if (v.isSelected()) {
+            ApiManager.getInstance().deleteFavorite(v.getContext(), store, new ApiManager.CallbackListener() {
+                @Override
+                public void callback(String result) {
+                    Store store = new Gson().fromJson(result, Store.class);
+                    if (store.isExistsFavority_id()) {
+                        setFavorite_id(store.getFavority_id());
+                    } else {
+                        setFavorite_id(null);
+                    }
+                }
+
+                @Override
+                public void failed(String msg) {
+
+                }
+            });
+        } else {
+            ApiManager.getInstance().addFavorite(v.getContext(), store, new ApiManager.CallbackListener() {
+                @Override
+                public void callback(String result) {
+                    Store store = new Gson().fromJson(result, Store.class);
+                    if (store.isExistsFavority_id()) {
+                        setFavorite_id(store.getFavority_id());
+                    } else {
+                        setFavorite_id(null);
+                    }
+                }
+
+                @Override
+                public void failed(String msg) {
+
+                }
+            });
+        }
+    }
+
+    public String getStore_id() {
+        return store_id;
+    }
+
+    public void setStore_id(String store_id) {
+        this.store_id = store_id;
+    }
+
+    public String getFavorite_id() {
+        return favorite_id;
+    }
+
+    public void setFavorite_id(String favorite_id) {
+        this.favorite_id = favorite_id;
+        notifyPropertyChanged(BR.existsFavorite_id);
+    }
+
+    @Bindable
+    public boolean isExistsFavorite_id() {
+        return !(favorite_id == null || favorite_id.length() == 0);
+    }
+
+    public void clickHeart(View v) {
+        Store store = new Store();
+        if (v.isSelected()) {
+            ApiManager.getInstance().deleteLikeReview(v.getContext(), news_id, new ApiManager.CallbackListener() {
+                @Override
+                public void callback(String result) {
+                    News news = new Gson().fromJson(result, News.class);
+                    if (news.isExistsHeart_id()) {
+                        setLike_id(news.getLike_id());
+                    } else {
+                        setLike_id(null);
+                    }
+                }
+
+                @Override
+                public void failed(String msg) {
+
+                }
+            });
+        } else {
+            ApiManager.getInstance().addLikeReview(v.getContext(), news_id, new ApiManager.CallbackListener() {
+                @Override
+                public void callback(String result) {
+                    News news = new Gson().fromJson(result, News.class);
+                    if (news.isExistsHeart_id()) {
+                        setLike_id(news.getLike_id());
+                    } else {
+                        setLike_id(null);
+                    }
+                }
+
+                @Override
+                public void failed(String msg) {
+
+                }
+            });
+        }
+    }
+
+    @Bindable
+    public boolean isExistsHeart_id() {
+        return !(like_id == null || like_id.length() == 0);
+    }
+
+    public String getLike_id() {
+        return like_id;
+    }
+
+    public void setLike_id(String like_id) {
+        this.like_id = like_id;
+        notifyPropertyChanged(BR.existsHeart_id);
+    }
+
+    public void clickComment(View v) {
+        Toast.makeText(v.getContext(), "clickComment", Toast.LENGTH_SHORT).show();
     }
 }

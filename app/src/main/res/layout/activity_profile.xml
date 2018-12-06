@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.ProfileActivity">
+    tools:context=".ui.profileview.ProfileActivity">
 
-    <include layout="@layout/title_bar_photo_detail" />
+    <include layout="@layout/title_bar_type_2" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

@@ -12,7 +12,7 @@
 
         <variable
             name="vm"
-            type="com.study.restaurant.viewmodel.FindRestaurantViewModel" />
+            type="com.study.restaurant.ui.findrestaurantview.FindRestaurantViewModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout

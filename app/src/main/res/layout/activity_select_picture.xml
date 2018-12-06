@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.study.restaurant.viewmodel.SelectPictureViewModel" />
+            type="com.study.restaurant.ui.selectpcitureview.SelectPictureViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".activity.SelectPictureActivity">
+        tools:context=".ui.selectpcitureview.SelectPictureActivity">
 
         <include
             android:id="@+id/title_bar_select_picture"

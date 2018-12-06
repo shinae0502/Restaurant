@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.FollowerActivity">
+    tools:context=".ui.followerview.FollowerActivity">
 
-    <include layout="@layout/title_bar_follower" />
+    <include layout="@layout/title_bar_type_2" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/followerRv"

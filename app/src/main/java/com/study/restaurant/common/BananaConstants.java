@@ -14,4 +14,9 @@ public class BananaConstants {
         PREV_PICTURE,
         POST_PICTURE
     }
+
+    public enum CheckInPage {
+        REGISTER,
+        WRITE
+    }
 }

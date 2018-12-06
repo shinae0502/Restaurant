@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import com.study.restaurant.model.FindRestaurant;
 import com.study.restaurant.model.Store;
-import com.study.restaurant.viewmodel.FindRestaurantViewModel;
+import com.study.restaurant.ui.findrestaurantview.FindRestaurantViewModel;
 
 public class StoreRvAdt extends ProgressRvAdt<RecyclerView.ViewHolder> {
 

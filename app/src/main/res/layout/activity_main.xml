@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="com.study.restaurant.viewmodel.MainActivityViewModel" />
+            type="com.study.restaurant.ui.mainview.MainActivityViewModel" />
     </data>
 
     <RelativeLayout

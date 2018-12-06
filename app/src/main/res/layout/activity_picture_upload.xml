@@ -7,14 +7,14 @@
 
         <variable
             name="vm"
-            type="com.study.restaurant.viewmodel.UploadPictureViewModel" />
+            type="com.study.restaurant.ui.pictureuploadview.UploadPictureViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#EEEEEE"
-        tools:context=".activity.CheckInActivity">
+        tools:context=".ui.checkinview.CheckInActivity">
 
         <ImageView
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
 
         <include
             android:id="@+id/title_bar_picture_upload"
-            layout="@layout/title_bar_picture_upload" />
+            layout="@layout/title_bar_type_3" />
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"

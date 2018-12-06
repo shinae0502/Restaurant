@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.study.restaurant.viewmodel.RestaurantDetailViewModel" />
+            type="com.study.restaurant.ui.restaurantdetailmapview.RestaurantDetailViewModel" />
     </data>
 
     <LinearLayout

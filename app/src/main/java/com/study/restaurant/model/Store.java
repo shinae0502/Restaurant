@@ -258,7 +258,7 @@ public class Store extends BaseObservable implements Parcelable {
 
     @Bindable
     public boolean isExistsFavority_id() {
-        return favority_id != null;
+        return !(favority_id == null || favority_id.length() == 0);
     }
 
     public void setFavority_id(String favority_id) {

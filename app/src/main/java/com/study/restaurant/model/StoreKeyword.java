@@ -8,10 +8,8 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.study.restaurant.activity.SearchKeywordActivity;
+import com.study.restaurant.ui.searchkeywordview.SearchKeywordActivity;
 import com.study.restaurant.databinding.ItemKeywordBinding;
-
-import java.util.zip.Inflater;
 
 public class StoreKeyword extends BaseObservable implements Parcelable {
     String store_id;

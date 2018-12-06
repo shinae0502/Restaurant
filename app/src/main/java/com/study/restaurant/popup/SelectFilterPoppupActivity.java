@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.study.restaurant.R;
-import com.study.restaurant.activity.GlobalApplication;
+import com.study.restaurant.ui.GlobalApplication;
 import com.study.restaurant.databinding.ActivitySelectFilterPoppupBinding;
 import com.study.restaurant.model.Filter;
 import com.study.restaurant.BR;

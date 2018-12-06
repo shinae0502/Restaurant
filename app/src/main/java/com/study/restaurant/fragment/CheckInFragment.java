@@ -1,7 +1,6 @@
 package com.study.restaurant.fragment;
 
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,11 +10,12 @@ import android.view.ViewGroup;
 
 import com.study.restaurant.R;
 import com.study.restaurant.databinding.FragmentCheckInBinding;
-import com.study.restaurant.viewmodel.CheckInViewModel;
+import com.study.restaurant.ui.checkinview.CheckInActivity;
+import com.study.restaurant.ui.checkinview.CheckInViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
- * 부모 엑티비티 {@link com.study.restaurant.activity.CheckInActivity}
+ * 부모 엑티비티 {@link CheckInActivity}
  */
 public class CheckInFragment extends Fragment {
 

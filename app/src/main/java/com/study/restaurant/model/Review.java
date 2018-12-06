@@ -1,6 +1,9 @@
 package com.study.restaurant.model;
 
-public class Review {
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+public class Review extends BaseObservable {
     String prifile_pic;
     String name;
     String review_count;
@@ -63,6 +66,12 @@ public class Review {
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+
+    @Bindable
+    public boolean isHasImg1() {
+        return (img1 == null || img1.length() == 0);
     }
 
     public String getImg1() {

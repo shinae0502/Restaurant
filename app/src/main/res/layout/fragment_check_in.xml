@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.study.restaurant.viewmodel.CheckInViewModel" />
+            type="com.study.restaurant.ui.checkinview.CheckInViewModel" />
 
         <import type="android.view.View" />
     </data>
@@ -76,7 +76,7 @@
                         android:layout_alignParentRight="true"
                         android:clickable="true"
                         android:gravity="center"
-                        android:onClick="@{vm::clickEgmt}"
+                        android:onClick="@{()->vm.clickEgmt()}"
                         android:orientation="vertical"
                         app:selected="@{vm.isPublic}">
 
@@ -113,7 +113,7 @@
                     android:layout_marginTop="10dp"
                     android:clickable="true"
                     android:gravity="center"
-                    android:onClick="@{vm::clickUploadPicture}">
+                    android:onClick="@{()->vm.clickUploadPicture()}">
 
                     <ImageView
                         android:layout_width="20dp"
@@ -231,7 +231,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
                         android:clickable="true"
-                        android:onClick="@{vm::clickDeleteImage}"
+                        android:onClick="@{()->vm.clickDeleteImage()}"
                         android:src="@drawable/btn_egmt_photo_delete" />
 
                 </RelativeLayout>

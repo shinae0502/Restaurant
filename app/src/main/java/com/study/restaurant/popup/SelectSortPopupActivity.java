@@ -5,14 +5,11 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.study.restaurant.R;
-import com.study.restaurant.activity.GlobalApplication;
+import com.study.restaurant.ui.GlobalApplication;
 import com.study.restaurant.databinding.ActivitySelectSortPopupBinding;
 import com.study.restaurant.model.Sort;
 

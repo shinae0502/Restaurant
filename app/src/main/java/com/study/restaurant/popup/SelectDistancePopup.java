@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.study.restaurant.R;
-import com.study.restaurant.activity.GlobalApplication;
+import com.study.restaurant.ui.GlobalApplication;
 import com.study.restaurant.databinding.ActivitySelectDistancePopupBinding;
 import com.study.restaurant.model.Boundary;
 

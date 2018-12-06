@@ -13,7 +13,7 @@ import com.study.restaurant.databinding.ItemBinding;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.util.Logger;
 import com.study.restaurant.util.MyGlide;
-import com.study.restaurant.viewmodel.FindRestaurantViewModel;
+import com.study.restaurant.ui.findrestaurantview.FindRestaurantViewModel;
 
 public class StoreHolder extends RecyclerView.ViewHolder {
     ItemBinding itemBinding;

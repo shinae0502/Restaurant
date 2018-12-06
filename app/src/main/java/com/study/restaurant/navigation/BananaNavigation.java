@@ -1,8 +1,11 @@
 package com.study.restaurant.navigation;
 
+import com.study.restaurant.common.BananaConstants;
 import com.study.restaurant.model.MyImage;
 import com.study.restaurant.model.Store;
-import com.study.restaurant.viewmodel.UploadPictureViewModel;
+import com.study.restaurant.ui.pictureuploadview.PictureUploadActivity;
+import com.study.restaurant.ui.restaurantdetailview.RestaurantDetailActivity;
+import com.study.restaurant.ui.selectpcitureview.SelectPictureActivity;
 
 import java.util.ArrayList;
 
@@ -61,14 +64,13 @@ public class BananaNavigation {
 
         void finish();
 
-        int getCurrentPage();
+        BananaConstants.CheckInPage getCurrentPage();
 
-        void setCurrentPage(int page);
+        void goRegister();
     }
 
     /**
-     * {@link com.study.restaurant.activity.SelectPictureActivity}
-     *
+     * {@link SelectPictureActivity}
      */
     public interface SelectPictureNavigation {
         void goWriteReview();
@@ -83,7 +85,7 @@ public class BananaNavigation {
     }
 
     /**
-     * Activity {@link com.study.restaurant.activity.RestaurantDetailActivity}
+     * Activity {@link RestaurantDetailActivity}
      */
     public interface RestaurantDetailNavigation {
         void goDetailPhoto();
@@ -98,7 +100,7 @@ public class BananaNavigation {
     }
 
     /**
-     * Activity: {@link com.study.restaurant.activity.PictureUploadActivity}
+     * Activity: {@link PictureUploadActivity}
      */
     public interface PictureUploadNavigation {
         void goSelectPicture(ArrayList<MyImage> myImages);

@@ -11,7 +11,9 @@
 
         <variable
             name="vm"
-            type="com.study.restaurant.viewmodel.RestaurantDetailViewModel" />
+            type="com.study.restaurant.ui.restaurantdetailmapview.RestaurantDetailViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
@@ -235,24 +237,48 @@
                     </LinearLayout>
 
                     <!-- 맛깔나는 리뷰 -->
-                    <include
-                        android:id="@+id/layout_review_list"
-                        layout="@layout/layout_review_list" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{vm.storeDetail.hasReview ? View.VISIBLE : View.GONE}">
+
+                        <include
+                            android:id="@+id/layout_review_list"
+                            layout="@layout/layout_review_list" />
+                    </FrameLayout>
 
                     <!-- 관련 top 리스트 -->
-                    <include
-                        android:id="@+id/layout_related_toplist"
-                        layout="@layout/layout_related_toplist" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{vm.storeDetail.hasTopList ? View.VISIBLE : View.GONE}">
+
+                        <include
+                            android:id="@+id/layout_related_toplist"
+                            layout="@layout/layout_related_toplist" />
+                    </FrameLayout>
 
                     <!-- 관련 스토리 -->
-                    <include
-                        android:id="@+id/layout_related_story"
-                        layout="@layout/layout_related_story" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{vm.storeDetail.hasStory ? View.VISIBLE : View.GONE}">
+
+                        <include
+                            android:id="@+id/layout_related_story"
+                            layout="@layout/layout_related_story" />
+                    </FrameLayout>
 
                     <!-- 주변 인기 식당 -->
-                    <include
-                        android:id="@+id/layout_around_restaurant"
-                        layout="@layout/layout_around_restaurant" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{vm.storeDetail.hasStore ? View.VISIBLE : View.GONE}">
+
+                        <include
+                            android:id="@+id/layout_around_restaurant"
+                            layout="@layout/layout_around_restaurant" />
+                    </FrameLayout>
 
                 </LinearLayout>
 

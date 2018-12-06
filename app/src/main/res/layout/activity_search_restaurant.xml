@@ -7,7 +7,7 @@
     android:focusable="false"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".activity.SearchRestaurantActivity">
+    tools:context=".ui.searchrestaurantview.SearchRestaurantActivity">
 
     <!-- 타이틀바 -->
     <include layout="@layout/title_bar_search_restaurant" />

@@ -11,91 +11,92 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_height="wrap_content">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
 
-        <ImageView
-            android:id="@+id/img"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img_intro_bg_2" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/img"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp">
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginRight="3dp"
-                android:src="@drawable/ic_search_toplist_view" />
+                android:id="@+id/img"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                app:glideLoadImage="@{topList.img_url}" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@{topList.view_count}"
-                android:text="399,172"
-                android:textColor="#FFFFFF" />
+                android:layout_alignBottom="@+id/img"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:text="|"
-                android:textColor="#FFFFFF" />
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="3dp"
+                    android:src="@drawable/ic_search_toplist_view" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@{topList.date}"
-                android:text="2018-08-25"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@{topList.view_count}"
+                    android:text="399,172"
+                    android:textColor="#FFFFFF" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/img"
-            android:layout_marginBottom="10dp"
-            android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:text="|"
+                    android:textColor="#FFFFFF" />
 
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@{topList.date}"
+                    android:text="2018-08-25"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="@{topList.title}"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+                android:layout_below="@+id/img"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="3dp"
-                android:text="@{topList.subtitle}" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@{topList.title}"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
 
-        <ImageView
-            android:layout_width="23dp"
-            android:layout_height="40dp"
-            android:layout_marginRight="11dp"
-            android:layout_alignParentRight="true"
-            android:scaleType="fitXY"
-            android:layout_below="@+id/img"
-            android:src="@drawable/selector_ic_bookmark" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@{topList.subtitle}" />
+            </LinearLayout>
 
-    </RelativeLayout>
+            <ImageView
+                android:layout_width="23dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/img"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="11dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/selector_ic_bookmark" />
+
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 </layout>

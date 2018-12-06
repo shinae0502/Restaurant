@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.study.restaurant.viewmodel.CheckInViewModel" />
+            type="com.study.restaurant.ui.checkinview.CheckInViewModel" />
     </data>
 
     <RelativeLayout

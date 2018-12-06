@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#000000"
     android:orientation="vertical"
-    tools:context=".activity.PhotoDetailActivity">
+    tools:context=".ui.picturedetailview.PhotoDetailActivity">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/photoPager"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/title_bar_photo_detail" />
+        <include layout="@layout/title_bar_type_2" />
 
         <RelativeLayout
             android:layout_width="wrap_content"

@@ -37,6 +37,7 @@ public class Dummy {
 
     /**
      * 맛집 상세정보 더미
+     *
      * @return
      */
     public String getRestaurantDetail() {
@@ -113,6 +114,45 @@ public class Dummy {
         try {
             Resources res = context.getResources();
             InputStream in_s = res.openRawResource(R.raw.checkin_dummy);
+            byte[] b = new byte[in_s.available()];
+            in_s.read(b);
+            return new String(b);
+        } catch (Exception e) {
+            Logger.d(e.toString());
+        }
+        return null;
+    }
+
+    public String getAddLike() {
+        try {
+            Resources res = context.getResources();
+            InputStream in_s = res.openRawResource(R.raw.add_like_dummy);
+            byte[] b = new byte[in_s.available()];
+            in_s.read(b);
+            return new String(b);
+        } catch (Exception e) {
+            Logger.d(e.toString());
+        }
+        return null;
+    }
+
+    public String getDeleteLike() {
+        try {
+            Resources res = context.getResources();
+            InputStream in_s = res.openRawResource(R.raw.delete_like_dummy);
+            byte[] b = new byte[in_s.available()];
+            in_s.read(b);
+            return new String(b);
+        } catch (Exception e) {
+            Logger.d(e.toString());
+        }
+        return null;
+    }
+
+    public String getNews() {
+        try {
+            Resources res = context.getResources();
+            InputStream in_s = res.openRawResource(R.raw.news_dummy);
             byte[] b = new byte[in_s.available()];
             in_s.read(b);
             return new String(b);

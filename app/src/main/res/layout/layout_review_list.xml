@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.study.restaurant.viewmodel.RestaurantDetailViewModel" />
+            type="com.study.restaurant.ui.restaurantdetailmapview.RestaurantDetailViewModel" />
     </data>
 
     <LinearLayout
@@ -40,6 +40,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:clickable="true"
+                android:onClick="@{vm::clickReviewBest}"
                 android:orientation="vertical">
 
                 <ImageView
@@ -68,6 +70,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:clickable="true"
+                android:onClick="@{vm::clickReviewGood}"
                 android:orientation="vertical">
 
                 <ImageView
@@ -95,6 +99,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:clickable="true"
+                android:onClick="@{vm::clickReviewBad}"
                 android:orientation="vertical">
 
                 <ImageView
@@ -129,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:onClick="moreReview">
+            android:onClick="@{vm::moreReview}">
 
             <TextView
                 android:layout_width="wrap_content"

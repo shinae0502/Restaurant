@@ -14,11 +14,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.SearchKeywordActivity">
+        tools:context=".ui.searchkeywordview.SearchKeywordActivity">
 
         <include
             android:id="@+id/title_bar_left_back"
-            layout="@layout/title_bar_left_back"
+            layout="@layout/title_bar_type_1"
             bind:title="@{keyword.store_keyword}" />
 
     </RelativeLayout>

@@ -3,7 +3,13 @@ package com.study.restaurant.model;
 import android.databinding.BaseObservable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
 
+import com.study.restaurant.R;
+
+/**
+ * {@link R.layout#item_img}
+ */
 public class Image extends BaseObservable implements Parcelable {
     String pic_id;
     String number;
@@ -81,7 +87,9 @@ public class Image extends BaseObservable implements Parcelable {
     }
 
     public String getUrl() {
-        return url;
+
+        String head = url.contains("http") ? "" : "http://sarang628.iptime.org:83/image_upload/";
+        return head + url;
     }
 
     public void setUrl(String url) {
@@ -94,5 +102,10 @@ public class Image extends BaseObservable implements Parcelable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public void clickImage(View v)
+    {
+        
     }
 }

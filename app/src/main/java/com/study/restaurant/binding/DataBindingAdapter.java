@@ -3,8 +3,8 @@ package com.study.restaurant.binding;
 import android.databinding.BindingAdapter;
 import android.graphics.Paint;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextWatcher;
@@ -16,23 +16,19 @@ import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.study.restaurant.adapter.AroundRestaurantRvAdt;
-import com.study.restaurant.adapter.ReviewRvAdt;
 import com.study.restaurant.adapter.StoreRvAdt;
 import com.study.restaurant.adapter.StoryRvAdt;
 import com.study.restaurant.adapter.TopListRvAdt;
-import com.study.restaurant.common.BananaConstants;
-import com.study.restaurant.model.Review;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.model.Story;
 import com.study.restaurant.model.TopList;
 import com.study.restaurant.util.MyGlide;
-import com.study.restaurant.viewmodel.FindRestaurantViewModel;
+import com.study.restaurant.ui.findrestaurantview.FindRestaurantViewModel;
 
 import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 import static com.study.restaurant.util.GlideOptions.bitmapTransform;
 
 public class DataBindingAdapter {
@@ -140,5 +136,12 @@ public class DataBindingAdapter {
     @BindingAdapter("app:visibility")
     public static void setVisibility(View view, Boolean value) {
         view.setVisibility(value ? View.VISIBLE : View.GONE);
+    }
+
+    @BindingAdapter("app:refreshListener")
+    public static void setRefreshListener(SwipeRefreshLayout swipeRefreshLayout,
+                                          SwipeRefreshLayout.OnRefreshListener refreshListener) {
+        swipeRefreshLayout.setOnRefreshListener(refreshListener);
+
     }
 }
