@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import android.view.View;
 
 import com.study.restaurant.R;
+import com.study.restaurant.ui.picturedetailview.PhotoDetailActivity;
 
 /**
  * {@link R.layout#item_img}
@@ -102,10 +103,5 @@ public class Image extends BaseObservable implements Parcelable {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public void clickImage(View v)
-    {
-        
     }
 }

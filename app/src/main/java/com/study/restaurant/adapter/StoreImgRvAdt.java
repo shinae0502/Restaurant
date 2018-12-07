@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.study.restaurant.R;
 import com.study.restaurant.databinding.ItemImgBinding;
 import com.study.restaurant.model.Image;
+import com.study.restaurant.model.News;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  * {@link R.layout#item_img}
  */
 public class StoreImgRvAdt extends RecyclerView.Adapter {
-    ArrayList<Image> imageArrayList;
+    ArrayList<News> imageArrayList;
 
     @NonNull
     @Override
@@ -25,7 +26,8 @@ public class StoreImgRvAdt extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((StoreImageRvHolder) holder).itemImgBinding.setImage(imageArrayList.get(position));
+        ((StoreImageRvHolder) holder).itemImgBinding.setStorePicture(imageArrayList.get(position).getStorePictures().get(0));
+        ((StoreImageRvHolder) holder).itemImgBinding.setNewsList(imageArrayList);
 
     }
 
@@ -37,7 +39,7 @@ public class StoreImgRvAdt extends RecyclerView.Adapter {
         return count;
     }
 
-    public void setImageArrayList(ArrayList<Image> imageArrayList) {
+    public void setImageArrayList(ArrayList<News> imageArrayList) {
         this.imageArrayList = imageArrayList;
         notifyDataSetChanged();
     }

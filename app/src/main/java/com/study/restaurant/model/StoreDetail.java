@@ -13,20 +13,19 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class StoreDetail extends BaseObservable implements Parcelable {
-    Store restaurant;
-    ArrayList<Image> image;
-    ArrayList<Review> news;
-    ArrayList<News> reviews;
-    ArrayList<TopList> toplist;
-    ArrayList<Story> stories;
-    ArrayList<Store> store;
-    OpenHours open_hours;
-    ArrayList<StoreMenu> menus;
-    ArrayList<StoreKeyword> keywords;
-    String review_total;
-    String review_best;
-    String review_good;
-    String review_bad;
+    private Store restaurant;
+    private ArrayList<News> image;
+    private ArrayList<News> reviews;
+    private ArrayList<TopList> toplist;
+    private ArrayList<Story> stories;
+    private ArrayList<Store> store;
+    private OpenHours open_hours;
+    private ArrayList<StoreMenu> menus;
+    private ArrayList<StoreKeyword> keywords;
+    private String review_total;
+    private String review_best;
+    private String review_good;
+    private String review_bad;
 
 
     public StoreDetail() {
@@ -35,8 +34,8 @@ public class StoreDetail extends BaseObservable implements Parcelable {
 
     protected StoreDetail(Parcel in) {
         restaurant = in.readParcelable(Store.class.getClassLoader());
-        image = in.createTypedArrayList(Image.CREATOR);
         toplist = in.createTypedArrayList(TopList.CREATOR);
+        stories = in.createTypedArrayList(Story.CREATOR);
         store = in.createTypedArrayList(Store.CREATOR);
         open_hours = in.readParcelable(OpenHours.class.getClassLoader());
         menus = in.createTypedArrayList(StoreMenu.CREATOR);
@@ -50,8 +49,8 @@ public class StoreDetail extends BaseObservable implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(restaurant, flags);
-        dest.writeTypedList(image);
         dest.writeTypedList(toplist);
+        dest.writeTypedList(stories);
         dest.writeTypedList(store);
         dest.writeParcelable(open_hours, flags);
         dest.writeTypedList(menus);
@@ -87,20 +86,12 @@ public class StoreDetail extends BaseObservable implements Parcelable {
         this.restaurant = restaurant;
     }
 
-    public ArrayList<Image> getImage() {
+    public ArrayList<News> getImage() {
         return image;
     }
 
-    public void setImage(ArrayList<Image> image) {
+    public void setImage(ArrayList<News> image) {
         this.image = image;
-    }
-
-    public ArrayList<Review> getNews() {
-        return news;
-    }
-
-    public void setNews(ArrayList<Review> news) {
-        this.news = news;
     }
 
     public ArrayList<TopList> getToplist() {
@@ -206,4 +197,11 @@ public class StoreDetail extends BaseObservable implements Parcelable {
         return !(reviews == null || reviews.size() == 0);
     }
 
+    public ArrayList<Story> getStories() {
+        return stories;
+    }
+
+    public void setStories(ArrayList<Story> stories) {
+        this.stories = stories;
+    }
 }

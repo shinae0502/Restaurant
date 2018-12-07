@@ -3,18 +3,57 @@ package com.study.restaurant.model;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.study.restaurant.databinding.ItemStorePictureBinding;
+import com.study.restaurant.ui.picturedetailview.PhotoDetailActivity;
 
-public class StorePicture extends BaseObservable {
+public class StorePicture extends BaseObservable implements Parcelable {
     private String pic_id;
     private String number;
     private String user_id;
     private String store_id;
     private String pic_url;
     private String date;
+
+    protected StorePicture(Parcel in) {
+        pic_id = in.readString();
+        number = in.readString();
+        user_id = in.readString();
+        store_id = in.readString();
+        pic_url = in.readString();
+        date = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(pic_id);
+        dest.writeString(number);
+        dest.writeString(user_id);
+        dest.writeString(store_id);
+        dest.writeString(pic_url);
+        dest.writeString(date);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<StorePicture> CREATOR = new Creator<StorePicture>() {
+        @Override
+        public StorePicture createFromParcel(Parcel in) {
+            return new StorePicture(in);
+        }
+
+        @Override
+        public StorePicture[] newArray(int size) {
+            return new StorePicture[size];
+        }
+    };
 
     public String getPic_id() {
         return pic_id;

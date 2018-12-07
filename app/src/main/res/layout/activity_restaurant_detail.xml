@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -25,7 +26,8 @@
         <!-- 액션바 -->
         <include
             android:id="@+id/layout_detail_restaurant_title_bar"
-            layout="@layout/layout_detail_restaurant_title_bar" />
+            layout="@layout/layout_detail_restaurant_title_bar"
+            bind:store="@{store}" />
 
 
         <android.support.design.widget.CoordinatorLayout
@@ -57,7 +59,9 @@
                     <!-- 메인 사진 -->
                     <include
                         android:id="@+id/layout_detail_restaurant_main"
-                        layout="@layout/layout_detail_restaurant_main" />
+                        layout="@layout/layout_detail_restaurant_main"
+                        bind:store="@{store}"
+                        bind:vm="@{vm}" />
 
                 </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -244,7 +248,8 @@
 
                         <include
                             android:id="@+id/layout_review_list"
-                            layout="@layout/layout_review_list" />
+                            layout="@layout/layout_review_list"
+                            bind:vm="@{vm}" />
                     </FrameLayout>
 
                     <!-- 관련 top 리스트 -->
@@ -255,7 +260,8 @@
 
                         <include
                             android:id="@+id/layout_related_toplist"
-                            layout="@layout/layout_related_toplist" />
+                            layout="@layout/layout_related_toplist"
+                            bind:vm="@{vm}" />
                     </FrameLayout>
 
                     <!-- 관련 스토리 -->
@@ -266,7 +272,8 @@
 
                         <include
                             android:id="@+id/layout_related_story"
-                            layout="@layout/layout_related_story" />
+                            layout="@layout/layout_related_story"
+                            bind:vm="@{vm}" />
                     </FrameLayout>
 
                     <!-- 주변 인기 식당 -->
@@ -277,7 +284,8 @@
 
                         <include
                             android:id="@+id/layout_around_restaurant"
-                            layout="@layout/layout_around_restaurant" />
+                            layout="@layout/layout_around_restaurant"
+                            bind:vm="@{vm}" />
                     </FrameLayout>
 
                 </LinearLayout>
@@ -286,7 +294,8 @@
 
             <include
                 android:id="@+id/layout_detail_restaurant_menu"
-                layout="@layout/layout_detail_restaurant_menu" />
+                layout="@layout/layout_detail_restaurant_menu"
+                bind:vm="@{vm}" />
 
         </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>

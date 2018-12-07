@@ -105,10 +105,6 @@ public class RestaurantDetailViewModel extends ViewModel {
         this.restaurantDetailNavigation = restaurantDetailNavigation;
     }
 
-    public void clickImage(View v) {
-        restaurantDetailNavigation.goDetailPhoto();
-    }
-
     public void clickCheckIn(View v) {
         restaurantDetailNavigation.goCheckIn();
     }

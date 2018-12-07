@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.PhotoFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
+    <data>
+
+        <variable
+            name="storePicture"
+            type="com.study.restaurant.model.StorePicture" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:layout_margin="5dp"
-        android:background="@color/gray"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent"
+        tools:context=".fragment.PhotoFragment">
 
-</RelativeLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:layout_margin="5dp"
+            android:background="@color/gray"
+            android:scaleType="centerCrop"
+            app:glideLoadImage="@{storePicture.pic_url}" />
+
+    </RelativeLayout>
+</layout>

@@ -88,8 +88,6 @@ public class BananaNavigation {
      * Activity {@link RestaurantDetailActivity}
      */
     public interface RestaurantDetailNavigation {
-        void goDetailPhoto();
-
         void goCheckIn();
 
         void goReview();

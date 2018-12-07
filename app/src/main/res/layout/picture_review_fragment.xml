@@ -174,15 +174,15 @@
                     android:clickable="true"
                     android:onClick="@{(v)->vm.clickLike(v, review.news_id)}"
                     android:src="@drawable/selector_btn_photoviewer_like"
-                    app:selected="@{vm.existsHeart_id}" />
+                    app:selected="@{vm.isExistsHeart_id}" />
 
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:clickable="true"
-                    android:onClick="@{()->vm.clickShare(review)}"
                     android:src="@drawable/btn_share_white_android" />
             </LinearLayout>
+            <!--android:onClick="@{()->vm.clickShare(review)}"-->
 
             <ImageView
                 android:layout_width="25dp"
@@ -190,8 +190,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:onClick="@{()->clickMore(review)}"
                 android:src="@drawable/btn_common_card_more" />
+            <!--android:onClick="@{()->clickMore(review)}"-->
 
         </RelativeLayout>
 

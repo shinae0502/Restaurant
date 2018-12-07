@@ -2,16 +2,19 @@ package com.study.restaurant.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.study.restaurant.BR;
 import com.study.restaurant.api.ApiManager;
+import com.study.restaurant.ui.picturedetailview.PhotoDetailActivity;
 
 import java.util.ArrayList;
 
-public class News extends BaseObservable {
+public class News extends BaseObservable implements Parcelable {
     private String news_id;
     private String store_id;
     private String profile_img;
@@ -31,6 +34,74 @@ public class News extends BaseObservable {
     private String favorite_id;
     private String like_id;
     private ArrayList<StorePicture> storePictures;
+    private String name;
+
+
+    protected News(Parcel in) {
+        news_id = in.readString();
+        store_id = in.readString();
+        profile_img = in.readString();
+        user_name = in.readString();
+        user_writing = in.readString();
+        user_follower = in.readString();
+        hash_tag = in.readString();
+        score = in.readString();
+        contents = in.readString();
+        like_count = in.readString();
+        reply_count = in.readString();
+        date = in.readString();
+        user_id = in.readString();
+        tag1 = in.readString();
+        tag2 = in.readString();
+        url = in.readString();
+        favorite_id = in.readString();
+        like_id = in.readString();
+        storePictures = in.createTypedArrayList(StorePicture.CREATOR);
+        name = in.readString();
+        domain = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(news_id);
+        dest.writeString(store_id);
+        dest.writeString(profile_img);
+        dest.writeString(user_name);
+        dest.writeString(user_writing);
+        dest.writeString(user_follower);
+        dest.writeString(hash_tag);
+        dest.writeString(score);
+        dest.writeString(contents);
+        dest.writeString(like_count);
+        dest.writeString(reply_count);
+        dest.writeString(date);
+        dest.writeString(user_id);
+        dest.writeString(tag1);
+        dest.writeString(tag2);
+        dest.writeString(url);
+        dest.writeString(favorite_id);
+        dest.writeString(like_id);
+        dest.writeTypedList(storePictures);
+        dest.writeString(name);
+        dest.writeString(domain);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<News> CREATOR = new Creator<News>() {
+        @Override
+        public News createFromParcel(Parcel in) {
+            return new News(in);
+        }
+
+        @Override
+        public News[] newArray(int size) {
+            return new News[size];
+        }
+    };
 
     public ArrayList<StorePicture> getStorePictures() {
         return storePictures;
@@ -149,46 +220,6 @@ public class News extends BaseObservable {
     @Bindable
     public boolean ishasUrl() {
         return !(url == null && url.length() == 0);
-    }
-
-    public String getImage1() {
-        if (url == null)
-            setUrl("");
-        return (url.split(",").length) > 0 ? domain + url.split(",")[0] : "";
-    }
-
-    public String getImage2() {
-        return (url.split(",").length) > 1 ? domain + url.split(",")[1] : "";
-    }
-
-    public String getImage3() {
-        return (url.split(",").length) > 2 ? domain + url.split(",")[2] : "";
-    }
-
-    public String getImage4() {
-        return (url.split(",").length) > 3 ? domain + url.split(",")[3] : "";
-    }
-
-    public String getImage5() {
-        return (url.split(",").length) > 4 ? domain + url.split(",")[4] : "";
-    }
-
-    public String getImage6() {
-        return (url.split(",").length) > 5 ? domain + url.split(",")[5] : "";
-    }
-
-    public String getImage7() {
-        if (url == null)
-            setUrl("");
-        int length = url.split(",").length;
-        boolean checkSize = length > 6;
-        String[] urlSplit = url.split(",");
-        String result = checkSize ? domain + urlSplit[6] : "";
-        return result;
-    }
-
-    public String getImage8() {
-        return (url.split(",").length) > 7 ? domain + url.split(",")[7] : "";
     }
 
     public String getLike_count() {
@@ -332,5 +363,17 @@ public class News extends BaseObservable {
 
     public void clickComment(View v) {
         Toast.makeText(v.getContext(), "clickComment", Toast.LENGTH_SHORT).show();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void clickImage(View v, ArrayList<News> news) {
+        PhotoDetailActivity.go(v.getContext(), news);
     }
 }

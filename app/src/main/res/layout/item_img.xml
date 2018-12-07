@@ -5,9 +5,16 @@
 
     <data>
 
+        <import type="java.util.ArrayList" />
+        <import type="com.study.restaurant.model.News" />
+
         <variable
-            name="image"
-            type="com.study.restaurant.model.Image" />
+            name="storePicture"
+            type="com.study.restaurant.model.StorePicture" />
+
+        <variable
+            name="newsList"
+            type="ArrayList&lt;News&gt;" />
     </data>
 
     <RelativeLayout
@@ -18,10 +25,11 @@
             android:id="@+id/storeDetailImg"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:onClick="@{(v)->newsList.get(0).clickImage(v, newsList)}"
             android:scaleType="fitXY"
             android:src="@drawable/ic_find_blank_korean"
-            android:onClick="@{image::clickImage}"
-            app:glideLoadImage="@{image.url}" />
+            app:glideLoadImage="@{storePicture.pic_url}"
+             />
 
     </RelativeLayout>
 

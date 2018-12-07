@@ -21,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -48,19 +49,7 @@ import com.study.restaurant.util.Logger;
 import com.study.restaurant.ui.restaurantdetailmapview.RestaurantDetailViewModel;
 
 /**
- * 서버에서 받은 정보를 가지고 표시해야하는 기능들
  * {@link R.layout#activity_restaurant_detail}
- * 맛집 정보 제공 (xml에 구현){@link R.layout#activity_restaurant_detail }
- * 주소표시 {@link R.layout#activity_restaurant_detail }
- * 이미지 리스트 {@link #initUI()}
- * 위치 지도로 표시하기 {@link #onMapReady(GoogleMap)}
- * 편의정보 표시하기 {@link R.layout#layout_restaurant_information}
- * 메뉴 표시하기 {@link R.layout#layout_restaurant_information}
- * 식당 키워드 {@link R.layout#activity_restaurant_detail }
- * TODO:: 베너
- * TODO:: 리뷰리스트
- * TODO:: 관련 TOP리스트 표시
- * TODO:: 주변 인기 식당 리스트 표시
  */
 public class RestaurantDetailActivity extends BananaBaseActivity
         implements BananaNavigation.RestaurantDetailNavigation,
@@ -99,13 +88,8 @@ public class RestaurantDetailActivity extends BananaBaseActivity
 
         vm.setRestaurantDetailNavigation(this);
         vb.setVm(vm);
-        vb.layoutDetailRestaurantMenu.setVm(vm);
-        vb.layoutDetailRestaurantMain.setVm(vm);
-        vb.layoutReviewList.setVm(vm);
         vb.layoutReviewList.reviewRv.setAdapter(vm.getReviewRvAdt());
-        vb.layoutRelatedToplist.setVm(vm);
-        vb.layoutRelatedStory.setVm(vm);
-        vb.layoutAroundRestaurant.setVm(vm);
+        vb.layoutDetailRestaurantMain.storeImgRv.setAdapter(new StoreImgRvAdt());
 
         // Set actionbar
         AppBarLayout appBarLayout = vb.appBar;
@@ -123,8 +107,6 @@ public class RestaurantDetailActivity extends BananaBaseActivity
             }
         });
 
-        vb.layoutDetailRestaurantMain.storeImgRv.setAdapter(new StoreImgRvAdt());
-
         /** 스토어 상세 데이터가 갱신되었을 때 */
         vm.getStoreDetailObservableField().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
@@ -141,10 +123,7 @@ public class RestaurantDetailActivity extends BananaBaseActivity
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                int position = (int) view.getTag();
-                if (position < vb.layoutDetailRestaurantMain.storeImgRv.getAdapter().getItemCount() - 1) {
-                    outRect.right = 10;
-                }
+                outRect.right = 10;
             }
         });
 
@@ -155,16 +134,7 @@ public class RestaurantDetailActivity extends BananaBaseActivity
         ActivityRestaurantDetailBinding vb = (ActivityRestaurantDetailBinding) getViewDataBinding();
         RestaurantDetailViewModel vm = (RestaurantDetailViewModel) getViewModel();
 
-        // data binding
-
-
         vb.setStore(getStore());
-        vb.layoutDetailRestaurantTitleBar.setStore(getStore());
-        vb.layoutDetailRestaurantMain.setStore(getStore());
-
-//        StoreSpec storeSpec = Dummy.getInstance().getRestaurantDetail();
-
-
         ApiManager.getInstance().getStoreDetail(getIntent().getParcelableExtra("store"), new ApiManager.CallbackListener() {
             @Override
             public void callback(String result) {
@@ -204,11 +174,6 @@ public class RestaurantDetailActivity extends BananaBaseActivity
         Intent intent = new Intent(appCompatActivity, RestaurantDetailActivity.class);
         intent.putExtra("store", store);
         appCompatActivity.startActivity(intent);
-    }
-
-    @Override
-    public void goDetailPhoto() {
-        PhotoDetailActivity.go(this);
     }
 
     @Override
