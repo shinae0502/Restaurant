@@ -1,5 +1,6 @@
 package com.study.restaurant.navigation;
 
+import com.study.restaurant.R;
 import com.study.restaurant.common.BananaConstants;
 import com.study.restaurant.model.MyImage;
 import com.study.restaurant.model.Store;
@@ -11,24 +12,52 @@ import java.util.ArrayList;
 
 public class BananaNavigation {
     public interface SplashNavigation {
+        /**
+         * {@link com.study.restaurant.ui.loginview.LoginActivity}
+         * {@link R.layout#activity_login}
+         */
         void goLogin();
 
+        /**
+         * {@link com.study.restaurant.ui.mainview.MainActivity}
+         * {@link R.layout#activity_main}
+         */
         void goMain();
     }
 
     public interface LoginNavigation {
+        /**
+         * {@link com.study.restaurant.ui.mainview.MainActivity}
+         * {@link R.layout#activity_main}
+         */
         void goMain();
     }
 
     public interface MainNavigation {
+        /**
+         * {@link com.study.restaurant.ui.findrestaurantview.FindRestaurantFragment}
+         * {@link R.layout#fragment_find_restaurant}
+         */
         void goFindRestaurant();
 
+        /**
+         * {@link com.study.restaurant.fragment.MangoPickFragment}
+         * {@link R.layout#fragment_mango_pick}
+         */
         void goMangoPick();
 
         void goRegister();
 
+        /**
+         * {@link com.study.restaurant.fragment.NewsFragment}
+         * {@link R.layout#fragment_news}
+         */
         void goNews();
 
+        /**
+         * {@link com.study.restaurant.fragment.MyInformationFragment}
+         * {@link R.layout#fragment_myinformation}
+         */
         void goMyInformation();
 
         void registerShowAnimation();

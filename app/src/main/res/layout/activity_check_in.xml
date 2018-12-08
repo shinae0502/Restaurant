@@ -13,18 +13,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EEEEEE"
+        android:background="@drawable/img_intro_bg_1"
         tools:context=".ui.checkinview.CheckInActivity">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/img_intro_bg_1"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#CC000000"/>
+            android:background="#CC000000" />
 
         <include
             android:id="@+id/title_bar_checkin"

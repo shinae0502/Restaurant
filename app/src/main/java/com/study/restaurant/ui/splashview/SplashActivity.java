@@ -55,12 +55,9 @@ public class SplashActivity extends AppCompatActivity implements BananaNavigatio
                     return;
 
                 if (commonResponse.getResult().equals("-1")) {
-                    BananaLoginManager.getInstance(SplashActivity.this).logout(new LoginProvider.OnResultLogoutListener() {
-                        @Override
-                        public void onResult(int result) {
-                            isConnectCheck = true;
-                            BananaPreference.getInstance(SplashActivity.this).saveUser(new User());
-                        }
+                    BananaLoginManager.getInstance(SplashActivity.this).logout(result1 -> {
+                        isConnectCheck = true;
+                        BananaPreference.getInstance(SplashActivity.this).saveUser(new User());
                     });
                 } else {
                     isConnectCheck = true;

@@ -112,23 +112,23 @@ public class MainActivityViewModel extends BaseObservable {
         }
     }
 
-    public void clickFindRestaurant(View v) {
+    public void clickFindRestaurant() {
         mainActivitytNavigation.goFindRestaurant();
         setMenu1(true);
     }
 
 
-    public void clickMangoPick(View v) {
+    public void clickMangoPick() {
         mainActivitytNavigation.goMangoPick();
         setMenu2(true);
     }
 
-    public void clickMyInformation(View v) {
+    public void clickMyInformation() {
         mainActivitytNavigation.goMyInformation();
         setMenu5(true);
     }
 
-    public void clickNews(View v) {
+    public void clickNews() {
         mainActivitytNavigation.goNews();
         setMenu4(true);
     }
@@ -139,7 +139,7 @@ public class MainActivityViewModel extends BaseObservable {
      *
      * @param v
      */
-    public void clickRegister(View v) {
+    public void clickRegister() {
         showRegisterMenu(!isMenu3());
     }
 

@@ -43,7 +43,7 @@
         android:layout_height="match_parent"
         android:background="#55000000"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="26dp"></View>
+        tools:layout_editor_absoluteY="26dp" />
 
     <RelativeLayout
         android:id="@+id/title"
@@ -63,10 +63,10 @@
         android:id="@+id/subTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:text="맛 집 찾 고 싶 을 때"
         android:textColor="#FFFFFF"
         android:textSize="15sp"

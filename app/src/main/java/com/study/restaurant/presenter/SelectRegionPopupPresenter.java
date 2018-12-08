@@ -16,8 +16,7 @@ public class SelectRegionPopupPresenter implements FunctionImpl.RegionPopup {
 
     SelectRegionPopupView selectRegionPopupView;
 
-    public SelectRegionPopupPresenter(SelectRegionPopupView selectRegionPopupView)
-    {
+    public SelectRegionPopupPresenter(SelectRegionPopupView selectRegionPopupView) {
         this.selectRegionPopupView = selectRegionPopupView;
     }
 
@@ -77,10 +76,6 @@ public class SelectRegionPopupPresenter implements FunctionImpl.RegionPopup {
         });
     }
 
-    public void validateButton() {
-        //selectRegionPopupView.validateButton(getCities().isDirty());
-    }
-
     public void initRegionAncCity(OnRegionAncCityListener onRegionAncCityListener) {
         //도시 불러오기
         requestCity(cityArrayList -> {
@@ -89,14 +84,13 @@ public class SelectRegionPopupPresenter implements FunctionImpl.RegionPopup {
             //지역 불러오기
             requestRegion(regionArrayList -> {
                 mCities.setRegions(regionArrayList);
-                if(onRegionAncCityListener != null)
+                if (onRegionAncCityListener != null)
                     onRegionAncCityListener.onReceiveRegionAndCity(mCities);
             });
         });
     }
 
-    public interface OnRegionAncCityListener
-    {
+    public interface OnRegionAncCityListener {
         void onReceiveRegionAndCity(Cities cities);
     }
 }

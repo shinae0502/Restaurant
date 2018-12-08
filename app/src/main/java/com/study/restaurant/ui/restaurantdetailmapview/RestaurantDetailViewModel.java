@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 
+import com.study.restaurant.ui.incorrectinformation.IncorrectInformationActivity;
 import com.study.restaurant.ui.restaurantdetailview.RestaurantDetailActivity;
 import com.study.restaurant.ui.storereview.StoreReviewActivity;
 import com.study.restaurant.adapter.AroundRestaurantRvAdt;
@@ -146,5 +147,9 @@ public class RestaurantDetailViewModel extends ViewModel {
 
     public void moreReview(View v) {
         StoreReviewActivity.go(v.getContext(), storeDetailObservableField.get());
+    }
+
+    public void clickIncorrectInformation(View v, Store store) {
+        IncorrectInformationActivity.go(v.getContext(), store);
     }
 }

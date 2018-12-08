@@ -177,7 +177,7 @@
                         android:layout_marginTop="10dp"
                         android:background="#EEEEEE"
                         android:clickable="true"
-                        android:onClick="requestModify">
+                        android:onClick="@{(v)->vm.clickIncorrectInformation(v, store)}">
 
                         <RelativeLayout
                             android:layout_width="match_parent"

@@ -37,7 +37,7 @@
                 android:layout_height="45dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{(view)->vm.clickFindRestaurant(view)}"
+                android:onClick="@{()->vm.clickFindRestaurant()}"
                 app:enabled="@{!vm.menuEanbled}"
                 app:selected="@{vm.menu1}">
 
@@ -73,7 +73,7 @@
                 android:layout_height="45dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{vm::clickMangoPick}"
+                android:onClick="@{()->vm.clickMangoPick()}"
                 android:orientation="vertical"
                 app:enabled="@{!vm.menuEanbled}"
                 app:selected="@{vm.menu2}">
@@ -112,7 +112,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:gravity="center"
-                android:onClick="@{(view)->vm.clickRegister(view)}"
+                android:onClick="@{()->vm.clickRegister()}"
                 android:orientation="vertical"
                 app:selected="@{vm.menu3}">
 
@@ -136,7 +136,7 @@
                 android:layout_height="45dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{vm::clickNews}"
+                android:onClick="@{()->vm.clickNews()}"
                 android:orientation="vertical"
                 app:enabled="@{!vm.menuEanbled}"
                 app:selected="@{vm.menu4}">
@@ -173,7 +173,7 @@
                 android:layout_height="45dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{vm::clickMyInformation}"
+                android:onClick="@{()->vm.clickMyInformation()}"
                 android:orientation="vertical"
                 app:enabled="@{!vm.menuEanbled}"
                 app:selected="@{vm.menu5}">
