@@ -6,8 +6,15 @@ import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.study.restaurant.BR;
+import com.study.restaurant.ui.conveniencedetail.ConvenienceDetailActivity;
+import com.study.restaurant.ui.menudetail.MenuDetailActivity;
+import com.study.restaurant.ui.restaurantdetailview.RestaurantDetailActivity;
+import com.study.restaurant.util.Logger;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -203,5 +210,29 @@ public class StoreDetail extends BaseObservable implements Parcelable {
 
     public void setStories(ArrayList<Story> stories) {
         this.stories = stories;
+    }
+
+    /**
+     * {@link R.layout#activity_restaurant_detail}
+     *
+     * @param v
+     */
+    public void moreConvenience(View v) {
+        Logger.v("moreConvenience");
+        ConvenienceDetailActivity.go(v.getContext(), this);
+    }
+
+    public void moreMenu(View v) {
+        MenuDetailActivity.go(v.getContext(), menus, restaurant.getStoreName());
+    }
+
+    public void attachMenu(ViewGroup viewGroup, ViewGroup menuImageLayout) {
+        for (int i = 0; i < getMenus().size(); i++) {
+            if (getMenus().get(i).getStoreMenuType() == StoreMenu.StoreMenuType.TEXT) {
+                viewGroup.addView(getMenus().get(i).getView(viewGroup.getContext()));
+            } else {
+                menuImageLayout.addView(getMenus().get(i).getView(viewGroup.getContext()));
+            }
+        }
     }
 }

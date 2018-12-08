@@ -142,17 +142,7 @@ public class RestaurantDetailActivity extends BananaBaseActivity
                 StoreDetail storeDetail = new Gson().fromJson(result, StoreDetail.class);
                 vm.setStoreDetail(storeDetail);
                 vb.layoutRestaurantInformation.setStoreDetail(storeDetail);
-                for (int i = 0; i < storeDetail.getMenus().size(); i++) {
-                    if (storeDetail.getMenus().get(i).getStoreMenuType() == StoreMenu.StoreMenuType.TEXT) {
-                        vb.layoutRestaurantInformation.menuLayout.addView(
-                                storeDetail.getMenus().get(i).getView(
-                                        RestaurantDetailActivity.this));
-                    } else {
-                        vb.layoutRestaurantInformation.menuImageLayout.addView(
-                                storeDetail.getMenus().get(i).getView(
-                                        RestaurantDetailActivity.this));
-                    }
-                }
+                storeDetail.attachMenu(vb.layoutRestaurantInformation.menuLayout, vb.layoutRestaurantInformation.menuImageLayout);
                 for (int i = 0; i < storeDetail.getKeywords().size(); i++) {
                     vb.keyworkdLayout.addView(storeDetail.getKeywords().get(i).getView(RestaurantDetailActivity.this));
                 }
@@ -341,12 +331,6 @@ public class RestaurantDetailActivity extends BananaBaseActivity
      * TODO:: 전화하기
      */
     public void call(View v) {
-    }
-
-    /**
-     * TODO:: 편의정보 더보기
-     */
-    public void moreConvenience(View v) {
     }
 
     /**

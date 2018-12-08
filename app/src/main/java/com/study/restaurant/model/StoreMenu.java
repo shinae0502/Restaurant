@@ -113,6 +113,7 @@ public class StoreMenu extends BaseObservable implements Parcelable {
             itemMenuBinding.setMenu(this);
             return itemMenuBinding.getRoot();
         } else {
+            /** {@link R.layout#item_menu_image} */
             ItemMenuImageBinding itemMenuImageBinding = ItemMenuImageBinding.inflate(LayoutInflater.from(context));
             itemMenuImageBinding.setMenu(this);
             return itemMenuImageBinding.getRoot();

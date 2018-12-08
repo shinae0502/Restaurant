@@ -236,7 +236,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:clickable="true"
-            android:onClick="moreConvenience">
+            android:onClick="@{storeDetail::moreConvenience}">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -279,8 +279,9 @@
 
             <LinearLayout
                 android:id="@+id/menuImageLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -289,7 +290,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:onClick="moreMenu">
+            android:clickable="true"
+            android:onClick="@{storeDetail::moreMenu}">
 
             <TextView
                 android:layout_width="wrap_content"

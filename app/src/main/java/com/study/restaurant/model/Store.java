@@ -30,12 +30,14 @@ public class Store extends BaseObservable implements Parcelable {
     private String open_hour;
     private String close_hour;
     private String last_order;
-    private String foot_category_id;
+    private String food_category_id;
     private String website;
     private String user_id;
     private String user_name;
     private String profile_pic_url;
     private String price;
+    private String date;
+    private String park;
     /**
      * 내위치
      */
@@ -63,7 +65,7 @@ public class Store extends BaseObservable implements Parcelable {
         open_hour = in.readString();
         close_hour = in.readString();
         last_order = in.readString();
-        foot_category_id = in.readString();
+        food_category_id = in.readString();
         website = in.readString();
         user_id = in.readString();
         user_name = in.readString();
@@ -93,7 +95,7 @@ public class Store extends BaseObservable implements Parcelable {
         dest.writeString(open_hour);
         dest.writeString(close_hour);
         dest.writeString(last_order);
-        dest.writeString(foot_category_id);
+        dest.writeString(food_category_id);
         dest.writeString(website);
         dest.writeString(user_id);
         dest.writeString(user_name);
@@ -179,7 +181,14 @@ public class Store extends BaseObservable implements Parcelable {
 
     @Bindable
     public String getScore() {
-        return score;
+        float myScore = 0;
+
+        try {
+            myScore = Float.valueOf(score);
+        } catch (Exception e) {
+
+        }
+        return String.format("%.1f", myScore);
     }
 
     public void setScore(String score) {
@@ -358,12 +367,50 @@ public class Store extends BaseObservable implements Parcelable {
         this.last_order = last_order;
     }
 
-    public String getFoot_category_id() {
-        return foot_category_id;
+    public String getFood_category_id() {
+        return food_category_id;
     }
 
-    public void setFoot_category_id(String foot_category_id) {
-        this.foot_category_id = foot_category_id;
+    public void setFood_category_id(String food_category_id) {
+        this.food_category_id = food_category_id;
+    }
+
+    @Bindable
+    public String getFoodCategory() {
+        String foodCategory = "미지정";
+
+        try {
+            int position = Integer.valueOf(food_category_id);
+            switch (position) {
+                case 0:
+                    foodCategory = "한식";
+                    break;
+                case 1:
+                    foodCategory = "일식";
+                    break;
+                case 2:
+                    foodCategory = "중식";
+                    break;
+                case 3:
+                    foodCategory = "양식";
+                    break;
+                case 4:
+                    foodCategory = "세계음식";
+                    break;
+                case 5:
+                    foodCategory = "카페";
+                    break;
+                case 6:
+                    foodCategory = "주점";
+                    break;
+            }
+
+        } catch (Exception e) {
+
+        }
+
+        return foodCategory;
+
     }
 
     public String getWebsite() {
@@ -420,5 +467,21 @@ public class Store extends BaseObservable implements Parcelable {
             return "삼만원 이상";
         }
         return "가격정보 없음";
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getPark() {
+        return park;
+    }
+
+    public void setPark(String park) {
+        this.park = park;
     }
 }

@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ui.menudetail.MenuDetailActivity"></activity>
         <!-- 스플레시 화면 -->
         <activity
             android:name=".ui.splashview.SplashActivity"
@@ -26,58 +26,38 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- 로그인 화면 -->
+        </activity> <!-- 로그인 화면 -->
         <activity
             android:name=".ui.loginview.LoginActivity"
-            android:screenOrientation="portrait" />
-
-        <!-- 메인화면 -->
+            android:screenOrientation="portrait" /> <!-- 메인화면 -->
         <activity
             android:name=".ui.mainview.MainActivity"
-            android:screenOrientation="portrait" />
-
-        <!-- 셋팅화면 -->
+            android:screenOrientation="portrait" /> <!-- 셋팅화면 -->
         <activity
             android:name=".ui.settingview.SettingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ActionBar" />
-
-        <!-- 검색화면 -->
+            android:theme="@style/ActionBar" /> <!-- 검색화면 -->
         <activity
             android:name=".ui.searchview.SearchActivity"
-            android:screenOrientation="portrait" />
-
-        <!-- 지역선택 팝업 -->
+            android:screenOrientation="portrait" /> <!-- 지역선택 팝업 -->
         <activity
             android:name=".popup.SelectRegionPopupActivity"
-            android:theme="@style/Theme.AppCompat.Translucent" />
-        <!-- 정렬 팝업 -->
+            android:theme="@style/Theme.AppCompat.Translucent" /> <!-- 정렬 팝업 -->
         <activity
             android:name=".popup.SelectSortPopupActivity"
-            android:theme="@style/Theme.AppCompat.Translucent" />
-        <!-- 반경선택 화면 -->
+            android:theme="@style/Theme.AppCompat.Translucent" /> <!-- 반경선택 화면 -->
         <activity
             android:name=".popup.SelectDistancePopup"
-            android:theme="@style/Theme.AppCompat.Translucent" />
-
-        <!-- 필터화면 -->
+            android:theme="@style/Theme.AppCompat.Translucent" /> <!-- 필터화면 -->
         <activity
             android:name=".popup.SelectFilterPoppupActivity"
-            android:theme="@style/Theme.AppCompat.Translucent" />
-
-        <!-- 레스토랑 상세화면 -->
+            android:theme="@style/Theme.AppCompat.Translucent" /> <!-- 레스토랑 상세화면 -->
         <activity
             android:name=".ui.restaurantdetailview.RestaurantDetailActivity"
-            android:screenOrientation="portrait" />
-
-        <!-- 망고픽 화면 -->
+            android:screenOrientation="portrait" /> <!-- 망고픽 화면 -->
         <activity
             android:name=".ui.MangoPickMainActivity"
-            android:screenOrientation="portrait" />
-
-        <!-- 식당 등록화면 -->
+            android:screenOrientation="portrait" /> <!-- 식당 등록화면 -->
         <activity
             android:name=".ui.registerrestaurantview.RegisterRestaurantActivity"
             android:screenOrientation="portrait"
@@ -109,14 +89,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.storedetailview.StoryDetailActivity"
-            android:screenOrientation="portrait" />
-
-        <!-- google map meta data -->
+            android:screenOrientation="portrait" /> <!-- google map meta data -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
-        <!-- facebook login start -->
+            android:value="@string/google_maps_key" /> <!-- facebook login start -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -136,15 +112,11 @@
 
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
-        </activity>
-        <!-- facebook login end -->
-
-
+        </activity> <!-- facebook login end -->
         <!-- 3 -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="@string/kakao_app_key" />
-        <!-- 4 -->
+            android:value="@string/kakao_app_key" /> <!-- 4 -->
         <activity
             android:name="com.kakao.auth.authorization.authcode.KakaoWebViewActivity"
             android:launchMode="singleTop"
@@ -154,8 +126,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
-        <!-- 네이버 아이디로 로그인 샘플앱 -->
+        </activity> <!-- 네이버 아이디로 로그인 샘플앱 -->
         <activity android:name=".ui.OAuthSampleActivity" />
         <activity android:name=".ui.toplistdetailview.TopListDetailActivity" />
         <activity android:name=".ui.searchrestaurantview.SearchRestaurantActivity" />
@@ -169,7 +140,8 @@
             android:label="@string/title_activity_restaurant_detail_map" />
         <activity android:name=".ui.searchkeywordview.SearchKeywordActivity" />
         <activity android:name=".ui.storereview.StoreReviewActivity" />
-        <activity android:name=".ui.picturereview.PictureReviewActivity"></activity>
+        <activity android:name=".ui.picturereview.PictureReviewActivity" />
+        <activity android:name=".ui.conveniencedetail.ConvenienceDetailActivity" />
     </application>
 
 </manifest>
