@@ -15,6 +15,9 @@ import com.study.restaurant.util.Logger;
 import com.study.restaurant.util.MyGlide;
 import com.study.restaurant.ui.findrestaurantview.FindRestaurantViewModel;
 
+/**
+ * {@link R.layout#item}
+ */
 public class StoreHolder extends RecyclerView.ViewHolder {
     ItemBinding itemBinding;
 

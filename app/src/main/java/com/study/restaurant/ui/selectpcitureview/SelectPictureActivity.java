@@ -34,7 +34,7 @@ import com.study.restaurant.R;
 import com.study.restaurant.ui.GlobalApplication;
 import com.study.restaurant.ui.pictureuploadview.PictureUploadActivity;
 import com.study.restaurant.adapter.SelectPicRvAdt;
-import com.study.restaurant.common.BananaBaseActivity;
+import com.study.restaurant.common.BananaBaseActivity1;
 import com.study.restaurant.common.BananaConstants;
 import com.study.restaurant.databinding.ActivitySelectPictureBinding;
 import com.study.restaurant.model.MyImage;
@@ -51,7 +51,7 @@ import java.util.TreeMap;
  * @{link R.layout#activity_select_picture}
  * @{link com.study.restaurant.ui.selectpcitureview.SelectPictureViewModel}
  */
-public class SelectPictureActivity extends BananaBaseActivity implements BananaNavigation.SelectPictureNavigation {
+public class SelectPictureActivity extends BananaBaseActivity1 implements BananaNavigation.SelectPictureNavigation {
 
     RecyclerView selectPicRv;
     Spinner spFolder;

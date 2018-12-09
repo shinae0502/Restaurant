@@ -35,6 +35,7 @@ import java.util.Date;
  */
 public class Logger {
 
+    public static String TAG = "Logger";
 
     public static void writeFile(String data) {
 
@@ -63,7 +64,7 @@ public class Logger {
             StackTraceElement[] stack = new Throwable().getStackTrace();
             StackTraceElement currentStack = stack[1];
             String log = currentStack.getFileName() + "::" + currentStack.getMethodName() + "(" + currentStack.getLineNumber() + ")" + ": " + str;
-            Log.v(currentStack.getFileName(), log);
+            Log.v(TAG, log);
             writeFile(log);
         }
     }
@@ -79,7 +80,7 @@ public class Logger {
             StackTraceElement[] stack = new Throwable().getStackTrace();
             StackTraceElement currentStack = stack[1];
             String log = currentStack.getFileName() + "::" + currentStack.getMethodName() + "(" + currentStack.getLineNumber() + ")" + ": " + str;
-            Log.d(currentStack.getFileName(), log);
+            Log.v(TAG, log);
             writeFile(log);
         }
     }
@@ -93,7 +94,7 @@ public class Logger {
             StackTraceElement[] stack = new Throwable().getStackTrace();
             StackTraceElement currentStack = stack[1];
             String log = currentStack.getFileName() + "::" + currentStack.getMethodName() + "(" + currentStack.getLineNumber() + ")" + ": " + str;
-            Log.i(currentStack.getFileName(), log);
+            Log.v(TAG, log);
             writeFile(log);
         }
 
@@ -110,7 +111,7 @@ public class Logger {
             StackTraceElement[] stack = new Throwable().getStackTrace();
             StackTraceElement currentStack = stack[1];
             String log = currentStack.getFileName() + "::" + currentStack.getMethodName() + "(" + currentStack.getLineNumber() + ")" + ": " + str;
-            Log.w(currentStack.getFileName(), log);
+            Log.v(TAG, log);
             writeFile(log);
         }
     }
@@ -126,7 +127,7 @@ public class Logger {
             StackTraceElement[] stack = new Throwable().getStackTrace();
             StackTraceElement currentStack = stack[1];
             String log = currentStack.getFileName() + "::" + currentStack.getMethodName() + "(" + currentStack.getLineNumber() + ")" + ": " + str;
-            Log.e(currentStack.getFileName(), log);
+            Log.v(TAG, log);
             writeFile(log);
         }
     }

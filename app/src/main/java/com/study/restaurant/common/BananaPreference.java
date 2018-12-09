@@ -32,7 +32,6 @@ public class BananaPreference {
 
     public User loadUser() {
         String user = sharedPreferences.getString("user", "");
-        Logger.d(user);
         return new Gson().fromJson(user, User.class);
     }
 

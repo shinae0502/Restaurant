@@ -27,7 +27,7 @@
         android:clickable="true"
         android:elevation="0dp"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="@{vm::clickRestaurant}"
+        android:onClick="@{(v)->vm.clickRestaurant(v)}"
         android:padding="1dp"
         android:tag="@{store}">
 

@@ -23,6 +23,8 @@ public class BananaNavigation {
          * {@link R.layout#activity_main}
          */
         void goMain();
+
+        void finish();
     }
 
     public interface LoginNavigation {
@@ -79,6 +81,12 @@ public class BananaNavigation {
 
         void goSearch();
 
+        /**
+         * {@link R.layout#activity_restaurant_detail}
+         * {@link RestaurantDetailActivity}
+         *
+         * @param store
+         */
         void goDeatilRestaurant(Store store);
 
         void rvToTop();

@@ -14,7 +14,7 @@ import android.view.View;
 
 import com.study.restaurant.R;
 import com.study.restaurant.ui.selectpcitureview.SelectPictureActivity;
-import com.study.restaurant.common.BananaBaseActivity;
+import com.study.restaurant.common.BananaBaseActivity1;
 import com.study.restaurant.common.BananaConstants;
 import com.study.restaurant.databinding.ActivityCheckInBinding;
 import com.study.restaurant.fragment.CheckInContentsFragment;
@@ -22,7 +22,7 @@ import com.study.restaurant.fragment.CheckInFragment;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.navigation.BananaNavigation;
 
-public class CheckInActivity extends BananaBaseActivity implements BananaNavigation.CheckInNavigation {
+public class CheckInActivity extends BananaBaseActivity1 implements BananaNavigation.CheckInNavigation {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

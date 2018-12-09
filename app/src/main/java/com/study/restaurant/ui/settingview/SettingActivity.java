@@ -29,12 +29,9 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        BananaLoginManager.getInstance(this).logout(new LoginProvider.OnResultLogoutListener() {
-            @Override
-            public void onResult(int result) {
-                BananaPreference.getInstance(SettingActivity.this).saveUser(new User());
-                SplashActivity.go(SettingActivity.this);
-            }
+        BananaLoginManager.getInstance(this).logout(result -> {
+            BananaPreference.getInstance(SettingActivity.this).saveUser(new User());
+            SplashActivity.go(SettingActivity.this);
         });
     }
 }

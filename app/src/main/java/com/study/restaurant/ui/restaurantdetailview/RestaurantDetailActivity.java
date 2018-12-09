@@ -30,16 +30,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.study.restaurant.R;
-import com.study.restaurant.ui.picturedetailview.PhotoDetailActivity;
 import com.study.restaurant.adapter.ReviewRvAdt;
 import com.study.restaurant.adapter.StoreImgRvAdt;
 import com.study.restaurant.api.ApiManager;
-import com.study.restaurant.common.BananaBaseActivity;
+import com.study.restaurant.common.BananaBaseActivity1;
 import com.study.restaurant.common.BananaConstants;
 import com.study.restaurant.databinding.ActivityRestaurantDetailBinding;
 import com.study.restaurant.model.Store;
 import com.study.restaurant.model.StoreDetail;
-import com.study.restaurant.model.StoreMenu;
 import com.study.restaurant.navigation.BananaNavigation;
 import com.study.restaurant.ui.checkinview.CheckInActivity;
 import com.study.restaurant.ui.restaurantdetailmapview.RestaurantDetailMapActivity;
@@ -51,7 +49,7 @@ import com.study.restaurant.ui.restaurantdetailmapview.RestaurantDetailViewModel
 /**
  * {@link R.layout#activity_restaurant_detail}
  */
-public class RestaurantDetailActivity extends BananaBaseActivity
+public class RestaurantDetailActivity extends BananaBaseActivity1
         implements BananaNavigation.RestaurantDetailNavigation,
         OnMapReadyCallback {
 

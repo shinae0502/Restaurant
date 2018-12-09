@@ -27,8 +27,6 @@ public class PhotoDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityPhotoDetailBinding activityPhotoDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_photo_detail);
         activityPhotoDetailBinding.setReview(getReview().get(0));
-
-
         ViewPager photoPager = findViewById(R.id.photoPager);
         PhotoPageAdater photoPageAdater = new PhotoPageAdater(getSupportFragmentManager());
         photoPageAdater.setReview(getReview());
