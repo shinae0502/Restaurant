@@ -161,4 +161,17 @@ public class Dummy {
         }
         return null;
     }
+
+    public String getReview() {
+        try {
+            Resources res = context.getResources();
+            InputStream in_s = res.openRawResource(R.raw.review_dummy);
+            byte[] b = new byte[in_s.available()];
+            in_s.read(b);
+            return new String(b);
+        } catch (Exception e) {
+            Logger.d(e.toString());
+        }
+        return null;
+    }
 }

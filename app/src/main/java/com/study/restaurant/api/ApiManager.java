@@ -229,6 +229,25 @@ public class ApiManager {
         });
     }
 
+    public void requestReview(final CallbackListener callbackListener) {
+        boolean isDummy = true;
+        if (isDummy) {
+            String result = Dummy.getInstance().getReview();
+            try {
+                CommonResponse commonResponse = new Gson().fromJson(result, CommonResponse.class);
+                if (commonResponse.getResult().equals("-1")) {
+                    callbackListener.failed(commonResponse.getErrCode());
+                    return;
+                }
+            } catch (Exception e) {
+
+            }
+
+            callbackListener.callback(result);
+            return;
+        }
+    }
+
     public interface CallbackListener {
         void callback(String result);
 
