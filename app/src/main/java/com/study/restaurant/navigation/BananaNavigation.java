@@ -33,6 +33,10 @@ public class BananaNavigation {
          * {@link R.layout#activity_main}
          */
         void goMain();
+
+        void showProgress();
+
+        void finish();
     }
 
     public interface MainNavigation {
